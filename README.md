@@ -1,3 +1,3 @@
-The OpenShift `jbossas` cartridge documentation can be found at:
+Framework to query and report against PerfMon4j™ datasources.
 
-https://github.com/openshift/origin-server/tree/master/cartridges/openshift-origin-cartridge-jbossas/README.md
+PerfMon4j™ is a software API designed to diagnose and monitor application performance while the software is under load.
