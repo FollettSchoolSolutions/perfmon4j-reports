@@ -1,5 +1,5 @@
-app.controller('testReportControl', function ($scope, dataSourceService){
-	$scope.message = "title goes here";
+app.controller('homeControl', function ($scope, dataSourceService){
+	$scope.pageTitle = "this is the home page";
 	$scope.databases = {};
 	
 	var databasePromise = dataSourceService.getDatabases();
