@@ -31,7 +31,18 @@
 	      </div>
 	    </md-toolbar>
 		<h2 class="title">{{ pageTitle }}</h2>
-		
+		<table>
+			<tr>
+                <th>name</th>
+                <th>id</th>
+                <th>databaseVersion</th>
+            </tr>
+            <tr ng-repeat="database in databases">
+                <td>{{database.name}}</td>
+                <td>{{database.id}}</td>
+                <td>{{database.databaseVersion}}</td>
+            </tr>
+		</table>
 	
 	</div>
 	</body>
