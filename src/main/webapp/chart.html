@@ -31,7 +31,8 @@
 	      </div>
 	    </md-toolbar>
 		<h2 class="title">{{ pageTitle }}</h2>
-		<table>
+		<!-- 
+		<table >
 			<tr>
                 <th>name</th>
                 <th>id</th>
@@ -43,7 +44,19 @@
                 <td>{{database.databaseVersion}}</td>
             </tr>
 		</table>
-	
+		 -->
+		 
+		<div layout="row" class="chooserRow"> 
+			<span>Choose database:</span>
+			<md-select placeholder="click" ng-model="chosenDatabase" >
+        		<md-option ng-repeat="database in databases" value="{{database.id}}">{{database.id}}</md-option>
+      		</md-select>
+		</div>
+		<div layout="row" class="chooserRow">
+			<span>You have chosen: {{chosenDatabase}}</span>
+		</div>
+		 
+		<dropdown placeholder="Colour..." list="colours" selected="colour" property="name"></dropdown>
 	</div>
 	</body>
 </html>

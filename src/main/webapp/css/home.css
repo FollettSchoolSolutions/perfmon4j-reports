@@ -1,6 +1,21 @@
 .title {
 	margin-left: 32px;
 }
+.chooserRow {
+	padding:24px 15px;
+    display: flex;
+}
+md-select {
+	padding:0;
+	padding-left: 15px;
+    display: flex;
+}
+.md-select-label {
+	min-height: 19px;
+	padding: 0;
+	line-height: 1;
+}
+
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
