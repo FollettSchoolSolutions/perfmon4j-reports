@@ -10,6 +10,9 @@ md-select {
 	padding-left: 15px;
     display: flex;
 }
+md-primary { 
+	color: #5C6171; //TODO
+}
 .md-select-label {
 	min-height: 19px;
 	padding: 0;
