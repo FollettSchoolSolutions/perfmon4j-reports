@@ -1,1 +1,1 @@
-var app = angular.module("perfmonReportsApp", ['ngMaterial']);
+var app = angular.module("perfmonReportsApp", ['ngMaterial','ngMdIcons']);
