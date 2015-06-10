@@ -1,7 +1,6 @@
 package org.perfmon4j.reports.app.data;
 
 public class DataSourceVo {
-	//These are variables
 	private String name;
     private String host;
     
