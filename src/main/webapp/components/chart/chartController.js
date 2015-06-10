@@ -9,7 +9,7 @@ app.controller('chartControl', function ($scope, dataSourceService){
 	databasePromise.then(function(result){
 		$scope.databases = result.data;
 	})
-		
+//test commit	
 //	var systemPromise = systemService.getSystems();
 //	systemPromise.then(function(result){
 //		$scope.systems = result.data;
