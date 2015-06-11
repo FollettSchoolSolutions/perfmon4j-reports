@@ -1,24 +1,16 @@
 <div ng-controller="chartControl">
 	<h2 class="title">{{ pageTitle }}</h2>
-	 
+
 	<div layout="row" class="chooserRow"> 
-		<span>Choose database:</span>
-		<md-select placeholder="click" ng-model="chosenDatabase" >
-       		<md-option ng-repeat="database in databases" value="{{database.id}}">{{database.id}}</md-option>
-     		</md-select>
+		<span>Choose datasource:</span>
+		<select ng-options="datasource as datasource.name for datasource in datasources" ng-model="chosenDatasource" ng-change="selectDatasource(chosenDatasource)"></select>
+	</div>
+
+	<div layout="row" class="chooserRow" > 
+		<span>Choose database:</span> 
+		<select ng-options="database as database.id for database in databases" ng-model="chosenDatabase" ng-change=""></select>
 	</div>
 	<div layout="row" class="chooserRow">
 		<span>You have chosen: {{chosenDatabase}}</span>
 	</div>
-	<!--  
-	<div layout="row" class="chooserRow"> 
-		<span>Choose system:</span>
-		<md-select placeholder="click" ng-model="chosenSystem" >
-       		<md-option ng-repeat="system in systems" value="{{system.id}}">{{system.id}}</md-option>
-     		</md-select>
-	</div>
-	<div layout="row" class="chooserRow">
-		<span>You have chosen: {{chosenSystem}}</span>
-	</div>
-	 -->
 </div>

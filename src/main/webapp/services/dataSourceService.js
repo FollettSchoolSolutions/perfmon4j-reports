@@ -1,13 +1,33 @@
 app.factory('dataSourceService', function($http){
+
+	var urlPath = "/perfmon4j/rest/datasource";
+
 	var factory = {};
-	
-	factory.getDatabases = function(){
-		var url = "http://172.16.16.64/perfmon4j/rest/datasource/databases";
-		
-		return $http.get(url).then(function(result){
+
+	factory.getDataSources = function() {
+		return $http.get("rest/datasources").then(function(result) {
 			return result;
-		})
+		});
 	}
-	
+
+	factory.getDatabases = function(datasource) {
+		console.log("then: " + datasource.host);
+		var url = "http://" + datasource.host + urlPath + "/databases";
+
+		return $http.get(url).then(function(result) {
+			return result;
+		});
+	}
+
+	factory.getSystems = function(datasource, database, timeStart, timeEnd) {
+		var url = "http://" + datasource.host + urlPath + "/databases/"
+				+ database.id + "/systems?timeStart=" + timeStart + "&timeEnd="
+				+ timeEnd;
+
+		return $http.get(url).then(function(result) {
+			return result;
+		});
+	}
+
 	return factory;
 });
