@@ -19,8 +19,6 @@ app.controller('chartControl', function ($scope, dataSourceService){
 //		$scope.systems = result.data;
 //	})
 	$scope.showChart = function() {
-		//var data = $scope.generateCompositeSeries();
-		
 		var stuffPromise = dataSourceService.getStuff();
 		stuffPromise.then(function(result){
 			var reportMetadata = {
