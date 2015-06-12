@@ -6,6 +6,8 @@ app.controller('chartControl', function ($scope, dataSourceService){
 	$scope.databases = [];
 	$scope.systems = [];
 	$scope.chosenSystem = "";
+	$scope.timeStart = "now-8H";
+	$scope.timeEnd = "now";
 	
 	var datasourcePromise = dataSourceService.getDataSources();
 	datasourcePromise.then(function(result){
@@ -33,10 +35,12 @@ app.controller('chartControl', function ($scope, dataSourceService){
 		})
 	}
 	
-	$scope.loadSystems = function(chosenDatasource){
-		var databasePromise = dataSourceService.getDatabases(chosenDatasource);
+	$scope.loadSystems = function(chosenDatasource, chosenDatasource, timeStart, timeEnd){
+		var databasePromise = dataSourceService.getSystems($scope.chosenDatasource, $scope.chosenDatabase, $scope.timeStart, $scope.timeEnd);
 		databasePromise.then(function(result){
-			$scope.databases = result.data;
+			$scope.systems = result.data.sort(function(a,b){
+				return (parseInt(a.id.substring(a.id.lastIndexOf(".") + 1)) - parseInt(b.id.substring(b.id.lastIndexOf(".") + 1)));
+			});
 		})
 	}
 //	var systemPromise = systemService.getSystems();

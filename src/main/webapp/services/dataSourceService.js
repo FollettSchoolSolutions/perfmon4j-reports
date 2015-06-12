@@ -23,6 +23,7 @@ app.factory('dataSourceService', function($http){
 		var url = "http://" + datasource.host + urlPath + "/databases/"
 				+ database.id + "/systems?timeStart=" + timeStart + "&timeEnd="
 				+ timeEnd;
+		console.log("Systems call: " + url)
 
 		return $http.get(url).then(function(result) {
 			return result;

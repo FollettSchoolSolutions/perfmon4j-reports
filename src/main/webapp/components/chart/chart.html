@@ -13,4 +13,15 @@
 	<div layout="row" class="chooserRow">
 		<span>You have chosen: {{chosenDatabase}}</span>
 	</div>
+	<div layout="row" class="chooserRow" >
+		<span>Date/Time</span>
+	</div>
+	<div layout="row" class="chooserRow" >
+		<label for="startTime">From</label><input name="startTime" type="text" ng-model="timeStart" />
+		<label for="endTime">To</label><input type="text" name="endTime" ng-model="timeEnd" />
+	</div>
+	<div>
+		<span>Choose system:</span> 
+		<select ng-options="system as system.id for system in systems" ng-model="chosenSystem" ng-click="loadSystems(chosenDatasource, chosenDatabase, timeStart, timeEnd)"></select>
+	</div>
 </div>
