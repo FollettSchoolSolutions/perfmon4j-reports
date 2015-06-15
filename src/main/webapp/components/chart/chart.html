@@ -1,5 +1,66 @@
 <div ng-controller="chartControl">
+	
 	<h2 class="title">{{ pageTitle }}</h2>
+	
+	<div ng-controller="sideNavControl" layout="column" style="height:500px;">
+	  <section layout="row" flex>
+	    <md-sidenav id="sidenav" class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+	      <md-toolbar class="md-theme-indigo">
+	        <h4 class="md-toolbar-tools">Chart Infomation</h4>
+	      </md-toolbar>
+	      <md-content layout-padding ng-controller="LeftCtrl">
+	      	<p>Chart Name</p>
+	      	<input class="input" type="text" name="chartName" value="Chart"/>
+	      	<p>Data Source</p>
+	      	<select ng-options="datasource as datasource.name for datasource in datasources" ng-model="chosenDatasource" ng-change="selectDatasource(chosenDatasource)"></select>
+	      	<p>Database</p>
+	      	<select ng-options="database as database.id for database in databases" ng-model="chosenDatabase" ng-change=""></select>
+	      	<p>Date / Time</p>
+	      	<div class="from">
+	      	<p>From</p>
+	      	<input class="input" type="text" name="fromDate" value="From"/>
+	      	</div>
+	      	<div class="to">
+	      	<p>To</p>
+	      	<input class="input" type="text" name="toDate" value="To"/>
+	      	</div>
+	      	<p></p>
+	      	<div class="form">
+		      	<form class="insideForm">
+		      		<h4>Series</h4>
+		      		<p> Name</p>
+		      		<input type="text" name="seriesName" value="Relative"/>
+		      		<p>Data Systems</p>
+		      		<select></select>
+		      		<p>Data Category</p>
+		      		<select></select>
+		      		<p>Data Category Field</p>
+		      		<select></select>
+		      		<p>Aggregation Type</p>
+		      		<select></select>
+		      	</form>
+		  	</div>
+		  	<md-button class="md-raised md-primary" id="renderChart">
+	           Render Chart
+	        </md-button>
+	        <md-button ng-click="close()" class="md-raised md-primary" id="closeSidenav">
+	         <ng-md-icon icon="arrow_back" size="32"></ng-md-icon>
+	        </md-button>
+	      </md-content>
+	    </md-sidenav>
+	    <md-content flex layout-padding>
+	      <div layout="column" layout-fill layout-align="top center">
+	        <div>
+	          <md-button ng-click="toggleLeft()"
+	            class="md-primary">
+	            Toggle left
+	          </md-button>
+	        </div>
+      </div>
+      <div flex></div>
+    </md-content>
+  </section>
+</div>
 
 	<div layout="row" class="chooserRow"> 
 		<span>Choose datasource:</span>
