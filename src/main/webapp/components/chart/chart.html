@@ -36,7 +36,7 @@
 			<select ng-options="field as field.name for field in fields" ng-model="chosenField" ng-change="loadAggregations()"></select>
 		</div>
 		<div layout="row" class="chooserRow">
-			<span>Choose category field:</span>
+			<span>Choose aggregation method:</span>
 			<select ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="chosenAggregationMethod" ></select>
 		</div>
 		<md-button ng-click="showChart()" class="md-raised md-primary">Show Chart</md-button>

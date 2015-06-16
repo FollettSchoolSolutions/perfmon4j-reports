@@ -21,10 +21,10 @@ app.controller('chartControl', function ($scope, dataSourceService){
 		$scope.datasources = result.data;
 		
 		if ($scope.datasources.length > 0) {
-			$scope.selectDatasource($scope.datasources[0]);
+			$scope.chosenDatasource = $scope.datasources[0];
+			$scope.loadDatabases();
 		}
 	})
-
 
 	$scope.showChart = function() {
 		var urlPromise = dataSourceService.getURL($scope.chosenDatasource, $scope.chosenDatabase, 
@@ -46,24 +46,25 @@ app.controller('chartControl', function ($scope, dataSourceService){
 		})
 	};
 
+		
 
-	
-	$scope.selectDatasource = function(datasource) {
-		$scope.chosenDatasource = datasource;
-		
-		var databasePromise = dataSourceService.getDatabases(datasource);
-		databasePromise.then(function(result){
-			$scope.databases = result.data;
-		})
-		
-	};
-	
 	$scope.loadDatabases = function(){
 		var databasePromise = dataSourceService.getDatabases($scope.chosenDatasource);
 		databasePromise.then(function(result){
 			$scope.databases = result.data;
 		})
-	};
+
+
+
+		
+		clearSystem();
+		clearCategory();
+		clearField();
+		clearAggregationMethod();
+		
+		
+	}
+
 	
 	$scope.loadSystems = function(){
 		var databasePromise = dataSourceService.getSystems($scope.chosenDatasource, $scope.chosenDatabase, $scope.timeStart, $scope.timeEnd);
@@ -72,7 +73,14 @@ app.controller('chartControl', function ($scope, dataSourceService){
 				return (parseInt(a.id.substring(a.id.lastIndexOf(".") + 1)) - parseInt(b.id.substring(b.id.lastIndexOf(".") + 1)));
 			});
 		})
-	};
+
+	
+		
+		clearCategory();
+		clearField();
+		clearAggregationMethod();
+	}
+
 	
 	$scope.loadCategories = function(){
 		var databasePromise = dataSourceService.getCategories($scope.chosenDatasource, $scope.chosenDatabase, $scope.chosenSystem, $scope.timeStart, $scope.timeEnd);
@@ -86,9 +94,12 @@ app.controller('chartControl', function ($scope, dataSourceService){
 					return 1;
 				}
 			})
-		
 		})
-	};
+		
+		clearField();
+		clearAggregationMethods();
+		
+	}
 	
 	$scope.loadFields = function(){
 		var databasePromise = dataSourceService.getFields($scope.chosenDatasource, $scope.chosenDatabase, $scope.chosenCategory);
@@ -96,15 +107,36 @@ app.controller('chartControl', function ($scope, dataSourceService){
 			console.log(result.data[0].fields);
 			$scope.fields = result.data[0].fields;
 		})
+		clearAggregationMethod();
 	};
 	
 	$scope.loadAggregations = function(){
 		$scope.chosenAggregationMethod = $scope.chosenField.defaultAggregationMethod;
 		$scope.aggregationMethods = $scope.chosenField.aggregationMethods;
-	};
-//	var systemPromise = systemService.getSystems();
-//	systemPromise.then(function(result){
-//		$scope.systems = result.data;
-//	})
+
+
+	}
+	
+	function clearSystem(){
+		$scope.chosenSystem = null; 
+		$scope.systems = null;
+	}
+	
+	function clearCategory(){
+		$scope.chosenCategory = null;
+		$scope.categories = null;
+	}
+	
+	function clearField(){
+		$scope.chosenField = null;
+		$scope.fields = null;
+	}
+	
+	function clearAggregationMethod(){
+		$scope.chosenAggregationMethod = null; 
+		$scope.aggregationMethods = null;
+	}
+	
+
 });
 
