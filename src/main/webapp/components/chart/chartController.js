@@ -21,25 +21,23 @@ app.controller('chartControl', function ($scope, dataSourceService){
 		$scope.datasources = result.data;
 		
 		if ($scope.datasources.length > 0) {
-			$scope.selectDatasource($scope.datasources[0]);
+			$scope.chosenDatasource = $scope.datasources[0];
+			$scope.loadDatabases();
 		}
 	})
-	
-	$scope.selectDatasource = function(datasource) {
-		$scope.chosenDatasource = datasource;
 		
-		var databasePromise = dataSourceService.getDatabases(datasource);
-		databasePromise.then(function(result){
-			$scope.databases = result.data;
-		})
-		
-	}
-	
 	$scope.loadDatabases = function(){
 		var databasePromise = dataSourceService.getDatabases($scope.chosenDatasource);
 		databasePromise.then(function(result){
 			$scope.databases = result.data;
 		})
+		
+		clearSystem();
+		clearCategory();
+		clearField();
+		clearAggregationMethod();
+		
+		
 	}
 	
 	$scope.loadSystems = function(){
@@ -49,6 +47,10 @@ app.controller('chartControl', function ($scope, dataSourceService){
 				return (parseInt(a.id.substring(a.id.lastIndexOf(".") + 1)) - parseInt(b.id.substring(b.id.lastIndexOf(".") + 1)));
 			});
 		})
+		
+		clearCategory();
+		clearField();
+		clearAggregationMethod();
 	}
 	
 	$scope.loadCategories = function(){
@@ -63,8 +65,8 @@ app.controller('chartControl', function ($scope, dataSourceService){
 					return 1;
 				}
 			})
-		
 		})
+		
 	}
 	
 	$scope.loadFields = function(){
@@ -79,10 +81,27 @@ app.controller('chartControl', function ($scope, dataSourceService){
 		$scope.chosenAggregationMethod = $scope.chosenField.defaultAggregationMethod;
 		$scope.aggregationMethods = $scope.chosenField.aggregationMethods;
 	}
-//	var systemPromise = systemService.getSystems();
-//	systemPromise.then(function(result){
-//		$scope.systems = result.data;
-//	})
+	
+	function clearSystem(){
+		$scope.chosenSystem = null; 
+		$scope.systems = null;
+	}
+	
+	function clearCategory(){
+		$scope.chosenCategory = null;
+		$scope.categories = null;
+	}
+	
+	function clearField(){
+		$scope.chosenField = null;
+		$scope.fields = null;
+	}
+	
+	function clearAggregationMethod(){
+		$scope.chosenAggregationMethod = null; 
+		$scope.aggregationMethods = null;
+	}
+	
 });
 
 
