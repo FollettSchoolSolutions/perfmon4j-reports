@@ -29,6 +29,27 @@ app.factory('dataSourceService', function($http){
 			return result;
 		});
 	}
+	
+	factory.getCategories = function(datasource, database, system, timeStart, timeEnd){
+		var url = "http://" + datasource.host + urlPath + "/databases/"
+		+ database.id + "/categories?systemID=" + system.id + "&timeStart=" + timeStart + "&timeEnd="
+		+ timeEnd;	
+		console.log("Systems call: " + url)
+		
+		return $http.get(url).then(function(result) {
+			return result;
+		});
+	}
+	
+	factory.getFields = function(datasource, database, category){
+		var url = "http://" + datasource.host + urlPath + "/databases/"
+		+ database.id + "/categories/templates/" + category.templateName;
+		console.log("Systems call: " + url)
+		
+		return $http.get(url).success(function(result){
+			return result;
+		})
+	}
 
 	return factory;
 });
