@@ -2,7 +2,7 @@
 	<h2 class="title">{{ pageTitle }}</h2>
 		<div layout="row">
 			<span>Chart Name: </span>
-			<input type="text" value="" name="chartName"/>
+			<input type="text" value="" name="chartName" ng-model="chartName"/>
 		</div>
 		<div layout="row" class="chooserRow"> 
 			<span>Choose datasource:</span>
@@ -39,6 +39,7 @@
 			<span>Choose aggregation method:</span>
 			<select ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="chosenAggregationMethod" ></select>
 		</div>
-		<md-button ng-click="showChart()" class="md-raised md-primary">Show Chart</md-button>
+		<md-button ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render Chart</md-button>
+		<h2 id="chartName" ng-show="showName"> {{chartName}} </h2>
 	 	<div id="chart"></div>
 </div>

@@ -7,6 +7,7 @@ app.controller('chartControl', function ($scope, dataSourceService){
 	$scope.systems = [];
 	$scope.fields = [];
 	$scope.categories = [];
+	$scope.chartName = "";
 	$scope.aggregationMethods = [];
 	$scope.chosenSystem = "";
 	$scope.chosenCategory = "";
@@ -15,6 +16,8 @@ app.controller('chartControl', function ($scope, dataSourceService){
 	$scope.seriesName = "";
 	$scope.timeStart = "now-8H";
 	$scope.timeEnd = "now";
+	$scope.isDisabled = true;
+	$scope.showName = false;
 	
 	var datasourcePromise = dataSourceService.getDataSources();
 	datasourcePromise.then(function(result){
@@ -43,6 +46,7 @@ app.controller('chartControl', function ($scope, dataSourceService){
 			   }		
 			};
 			$scope.chart = c3.generate(reportMetadata);
+			$scope.showName = true;
 		})
 	};
 
@@ -115,6 +119,18 @@ app.controller('chartControl', function ($scope, dataSourceService){
 		$scope.aggregationMethods = $scope.chosenField.aggregationMethods;
 
 
+	}
+	
+	$scope.renderDisabled = function(){
+		return (isEmptyOrNull($scope.chosenDatasource) || isEmptyOrNull($scope.chosenDatabase) 
+				|| isEmptyOrNull($scope.chosenSystem) || isEmptyOrNull($scope.chosenCategory) 
+				|| isEmptyOrNull($scope.chosenField) || isEmptyOrNull($scope.seriesName) 
+				|| isEmptyOrNull($scope.chartName) || isEmptyOrNull($scope.timeStart)
+				|| isEmptyOrNull($scope.timeEnd))
+	}
+	
+	function isEmptyOrNull(value) {
+		return (!value || 0 === value.length);
 	}
 	
 	function clearSystem(){
