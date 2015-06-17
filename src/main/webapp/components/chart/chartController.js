@@ -24,7 +24,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		$scope.datasources = result.data;
 		
 		if ($scope.datasources.length > 0) {
-			chartService.chosenDatasource = $scope.datasources[0];
+			$scope.chosenDatasource = chartService.chosenDatasource = $scope.datasources[0];
 			$scope.loadDatabases();
 		}
 	})		
@@ -96,7 +96,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.loadAggregations = function(){
 		console.log("Chosen Database is: " + $scope.chosenField);
 		chartService.chosenField = $scope.chosenField;
-		chartService.chosenAggregationMethod = chartService.chosenField.defaultAggregationMethod;
+		$scope.chosenAggregationMethod = chartService.chosenAggregationMethod = chartService.chosenField.defaultAggregationMethod;
 		$scope.aggregationMethods = $scope.chosenField.aggregationMethods;
 	}
 	
@@ -115,6 +115,33 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.saveSeriesName = function() {
 		chartService.seriesName = $scope.seriesName;
 	}
+	
+	$scope.showChart = function() {
+		$scope.chartName = chartService.chartName;
+		var urlPromise = dataSourceService.getURL(chartService.chosenDatasource, chartService.chosenDatabase, 
+				chartService.timeStart, chartService.timeEnd, chartService.chosenSystem, chartService.chosenField, chartService.chosenCategory, 
+				chartService.chosenAggregationMethod, chartService.seriesName);
+		urlPromise.then(function(result){
+			var reportMetadata = {
+//				size: {
+//					height: 240,
+//					width: 480
+//				},
+				data: result.data,
+				axis: {
+			       x: {
+			           type: 'timeseries',
+			           tick: {
+			               format: '%Y-%m-%dT%H:%M'
+			           }
+			       }
+			   }		
+			};
+			$scope.chart = c3.generate(reportMetadata);
+			$scope.showName = true;
+			chartService.isShowable = true;
+		})
+	};
 	
 	function isEmptyOrNull(value) {
 		return (!value || 0 === value.length);

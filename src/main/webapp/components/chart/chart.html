@@ -1,5 +1,7 @@
+<script src="c3/c3.min.css"></script>
+
 <h2 class="title">{{ pageTitle }}</h2>
-		<div ng-controller="sideNavControl" layout="column" style="height:500px;">
+		<div ng-controller="sideNavControl" layout="column" style="height:750px;">
 	  	<section layout="row" flex>
 	    <md-sidenav id="sidenav" class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
 	      	<md-toolbar class="md-theme-indigo">
@@ -7,40 +9,51 @@
 	      	</md-toolbar>
 	      	<md-content layout-padding ng-controller="LeftCtrl">
 				<div ng-controller="chartControl">
-				<span>Chart Name</span>
-				<input type="text" ng-model="chartName" value="" name="chartName" ng-blur=saveChartName()/>
-				<span>Choose datasource:</span>
-				<select ng-options="datasource as datasource.name for datasource in datasources" ng-model="chosenDatasource" ng-change="loadDatabases()"></select> 
-				<span>Choose database:</span> 
-				<select ng-options="database as database.id for database in databases" ng-model="chosenDatabase" ng-change="loadSystems()"></select>
+				<span>Chart Name: <span class="required">*</span></span>
+				<br/>
+				<input type="text" ng-model="chartName" value="" name="chartName" ng-blur="saveChartName()"/>
+				<br/>
+				<br/>
+				<span>Choose datasource: <span class="required">*</span></span>
+				<br/>
+				<select class="datasourceSelector" ng-options="datasource as datasource.name for datasource in datasources" ng-model="chosenDatasource" ng-change="loadDatabases()"></select> 
+				<br/>
+				<br/>
+				<span>Choose database: <span class="required">*</span></span> 
+				<br/>
+				<select class="databaseSelector" ng-options="database as database.id for database in databases" ng-model="chosenDatabase" ng-change="loadSystems()"></select>
 	      		<p>Date / Time</p>
-	      		<div class="from">
-	      			<label for="startTime">From:</label>
-	      			<input name="startTime" type="text" ng-model="timeStart" ng-blur="loadSystems()"/>
-	      		</div>
-	      		<div class="to">
-	      			<label for="endTime">To:</label>
-	      			<input type="text" name="endTime" ng-model="timeEnd" ng-blur="loadSystems()"/>
-	      		</div>
+	      		<label for="startTime">From: <span class="required">*</span></label>
+	      		<input name="startTime" type="text" ng-model="timeStart" ng-blur="loadSystems()"/>
+	      		<br/>
+	      		<label for="endTime">To: <span class="required">*</span></label>
+	      		<input class="to" type="text" name="endTime" ng-model="timeEnd" ng-blur="loadSystems()"/>
 	      		<p></p>
 	      		<div class="form">
 		      		<form class="insideForm">
 		      			<h4>Series</h4>
-		      			<span>Series Name:</span>
+		      			<span>Series Name: <span class="required">*</span></span>
+		      			<br/>
 						<input type="text" ng-model="seriesName" value="" name="seriesName" ng-blur="saveSeriesName()"/>
-		      			<span>Choose system:</span> 
-						<select ng-options="system as system.id for system in systems" ng-model="chosenSystem" ng-change="loadCategories()" required></select>
-						<span>Choose category:</span> 
-						<select ng-options="category as category.name for category in categories" ng-model="chosenCategory" ng-change="loadFields()"></select>
-						<span>Choose category field:</span>
-						<select ng-options="field as field.name for field in fields" ng-model="chosenField" ng-change="loadAggregations()"></select>
+						<br/>
+		      			<span>Choose system: <span class="required">*</span></span> 
+						<br/>
+						<select class="chartSelect" ng-options="system as system.id for system in systems" ng-model="chosenSystem" ng-change="loadCategories()" required></select>
+						<br/>
+						<span>Choose category: <span class="required">*</span></span> 
+						<br/>
+						<select class="chartSelect" ng-options="category as category.name for category in categories" ng-model="chosenCategory" ng-change="loadFields()"></select>
+						<br/>
+						<span>Choose category field: <span class="required">*</span></span>
+						<br/>
+						<select class="chartSelect" ng-options="field as field.name for field in fields" ng-model="chosenField" ng-change="loadAggregations()"></select>
+						<br/>
 						<span>Choose aggregation method:</span>
-						<select ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="chosenAggregationMethod" ></select>
+						<br/>
+						<select class="chartSelect" ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="chosenAggregationMethod" ></select>
 		      		</form>
 		  		</div>
-		  		<div ng-controller="chartRenderControl">
 		  			<md-button ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render Chart</md-button>
-		  		</div>
 	        	<md-button ng-click="close()" class="md-raised md-primary" id="closeSidenav">
 	        		<ng-md-icon icon="arrow_back" size="32"></ng-md-icon>
 	        	</md-button>
@@ -58,8 +71,12 @@
       		</div>
       		<div flex></div>
       		<div ng-controller="chartRenderControl">
-				<h2 id="chartName" ng-show="showName == true"> {{chartName}} </h2>
-				<div id="chart"></div>
+      			<div ng-show="isShowable()">
+	      			<p></p>
+	      			<p></p>
+					<h2 id="chartName"> {{name()}} </h2>
+					<div id="chart"></div>
+      			</div>
 			</div>
     	</md-content>
   	</section>
