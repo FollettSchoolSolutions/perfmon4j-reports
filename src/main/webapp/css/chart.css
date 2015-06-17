@@ -1,0 +1,38 @@
+#sidenav {
+	font-size: 12px;
+}
+
+.input {
+	width: 100px;
+}
+
+.form {
+	clear: both;
+	border-style: solid;
+	border-width: 1px; 
+	width: 200px;
+	padding-top: -10px;
+	margin-left: 35px;
+}
+
+.insideForm {
+	margin-left: 5px;
+}
+
+.from {
+	float: left;
+	width: 100px;
+	margin-bottom: 10px;
+}
+
+.to {
+	margin-left: 10px;
+	float: left;
+	width: 100px;
+}
+
+#renderChart {
+	width: 250px;
+	height: 15px;
+	margin-left: 15px;
+}
