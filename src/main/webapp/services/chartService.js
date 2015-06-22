@@ -10,11 +10,12 @@ app.factory('chartService', function(){
 	var chosenField = "";
 	var chosenAggregationMethod = "";
 	var seriesName = "";
-	var timeStart = "now-8H";
-	var timeEnd = "now";
+	var timeStart = "";
+	var timeEnd = "";
 	var isDisabled = true;
 	var showName = false;
 	var isShowable = false;
+	var isToggled = true;
 
 	var factory = {};
 

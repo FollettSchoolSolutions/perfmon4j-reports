@@ -48,7 +48,17 @@
 }
 
 #renderChart {
-	width: 250px;
-	height: 15px;
-	margin-left: 15px;
+	width: 120px;
+}
+
+#close {
+	width: 120px;
+}
+
+#clear {
+	width: 120px;
+}
+
+#save {
+	width: 120px;
 }

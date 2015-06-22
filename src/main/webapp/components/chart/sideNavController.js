@@ -1,5 +1,13 @@
-app.controller('sideNavControl', function ($scope, $timeout, $mdSidenav, $mdUtil) {
+app.controller('sideNavControl', function ($scope, $timeout, $mdSidenav, $mdUtil, chartService) {
     $scope.toggleLeft = buildToggler('left');
+    $scope.isToggled = function() {
+    	return chartService.isToggled;
+    }
+    
+    $scope.toggleOpen = function() {
+    	chartService.isToggled = true;
+    }
+    
     function buildToggler(navID) {
       var debounceFn =  $mdUtil.debounce(function(){
             $mdSidenav(navID)

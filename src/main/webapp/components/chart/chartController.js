@@ -120,6 +120,14 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		chartService.seriesName = $scope.seriesName;
 	}
 	
+	$scope.saveStartTime = function() {
+		chartService.startTime = $scope.startTime;
+	}
+	
+	$scope.saveEndTime = function() {
+		chartService.endTime = $scope.endTime;
+	}
+	
 	$scope.showChart = function() {
 		$scope.chartName = chartService.chartName;
 		var urlPromise = dataSourceService.getURL($scope.chosenDatasource, $scope.chosenDatabase, 
@@ -146,6 +154,19 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			chartService.isShowable = true;
 		})
 	};
+	
+	$scope.toggleClose = function() {
+		chartService.isToggled = false;
+	}
+	
+	$scope.clearAllFields = function() {
+		$scope.chosenDatasource = $scope.datasources[0];
+		$scope.loadDatabases();
+		clearChartName();
+		clearSeriesName();
+		clearTimeStart();
+		clearTimeEnd();
+	}
 	
 	function isEmptyOrNull(value) {
 		return (!value || 0 === value.length);
@@ -179,6 +200,26 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		$scope.chosenAggregationMethod = null; 
 		$scope.aggregationMethods = [];
 		chartService.chosenAggregationMethod = null;
+	}
+	
+	function clearChartName(){
+		$scope.chartName = "";
+		chartService.chartName = "";
+	}
+	
+	function clearSeriesName(){
+		$scope.seriesName = "";
+		chartService.seriesName = "";
+	}
+	
+	function clearTimeStart(){
+		$scope.timeStart = "now-8H";
+		chartService.timeStart = "";
+	}
+	
+	function clearTimeEnd(){
+		$scope.timeEnd = "now";
+		chartService.timeEnd = "";
 	}
 	
 
