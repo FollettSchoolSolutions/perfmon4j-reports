@@ -1,15 +1,10 @@
 app.factory('chartService', function(){
 	
 	var pageTitle = "build a chart";
-	var datasources = [];
-	var chosenDatasource = null;
-	var chosenDatabase = null;
-	var databases = [];
-	var systems = [];
-	var fields = [];
-	var categories = [];
+	
+	var chosenDatasource = "";
+	var chosenDatabase = "";
 	var chartName = "";
-	var aggregationMethods = [];
 	var chosenSystem = "";
 	var chosenCategory = "";
 	var chosenField = "";

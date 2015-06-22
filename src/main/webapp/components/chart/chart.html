@@ -1,9 +1,9 @@
 <script src="c3/c3.min.css"></script>
 
 <h2 class="title">{{ pageTitle }}</h2>
-		<div ng-controller="sideNavControl" layout="column" style="height:750px;">
-	  	<section layout="row" flex>
-	    <md-sidenav id="sidenav" class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+		<div flex layout="row">
+		<div ng-controller="sideNavControl" style="height:750px;" >
+	    <md-sidenav id="sidenav" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" flex>
 	      	<md-toolbar class="md-theme-indigo">
 	        	<h4 class="md-toolbar-tools">Chart Infomation</h4>
 	      	</md-toolbar>
@@ -21,7 +21,7 @@
 				<br/>
 				<span>Choose database: <span class="required">*</span></span> 
 				<br/>
-				<select class="databaseSelector" ng-options="database as database.id for database in databases" ng-model="chosenDatabase" ng-change="loadSystems()"></select>
+				<select class="databaseSelector" ng-options="database as database.id for database in databases" ng-model="chosenDatabase" ng-change="loadSystems()"></select><img src="images/dataLoading.gif" ng-show="isLoading(chosenDatasource, databases)">
 	      		<p>Date / Time</p>
 	      		<label for="startTime">From: <span class="required">*</span></label>
 	      		<input name="startTime" type="text" ng-model="timeStart" ng-blur="loadSystems()"/>
@@ -38,47 +38,41 @@
 						<br/>
 		      			<span>Choose system: <span class="required">*</span></span> 
 						<br/>
-						<select class="chartSelect" ng-options="system as system.id for system in systems" ng-model="chosenSystem" ng-change="loadCategories()" required></select>
+						<select class="chartSelect" ng-options="system as system.id for system in systems" ng-model="chosenSystem" ng-change="loadCategories()" required></select> <img src="images/dataLoading.gif" ng-show="isLoading(chosenDatabase, systems)">
 						<br/>
 						<span>Choose category: <span class="required">*</span></span> 
 						<br/>
-						<select class="chartSelect" ng-options="category as category.name for category in categories" ng-model="chosenCategory" ng-change="loadFields()"></select>
+						<select class="chartSelect" ng-options="category as category.name for category in categories" ng-model="chosenCategory" ng-change="loadFields()"></select><img src="images/dataLoading.gif" ng-show="isLoading(chosenSystem, categories)">
 						<br/>
 						<span>Choose category field: <span class="required">*</span></span>
 						<br/>
-						<select class="chartSelect" ng-options="field as field.name for field in fields" ng-model="chosenField" ng-change="loadAggregations()"></select>
+						<select class="chartSelect" ng-options="field as field.name for field in fields" ng-model="chosenField" ng-change="loadAggregations()"></select><img src="images/dataLoading.gif" ng-show="isLoading(chosenCategory, fields)">
 						<br/>
 						<span>Choose aggregation method:</span>
 						<br/>
-						<select class="chartSelect" ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="chosenAggregationMethod" ></select>
+						<select class="chartSelect" ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="chosenAggregationMethod" ></select><img src="images/dataLoading.gif" ng-show="isLoading(chosenField, aggregationMethods)">
 		      		</form>
 		  		</div>
 		  			<md-button ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render Chart</md-button>
-	        	<md-button ng-click="close()" class="md-raised md-primary" id="closeSidenav">
-	        		<ng-md-icon icon="arrow_back" size="32"></ng-md-icon>
+	        	<md-button ng-click="close()" class="md-raised" id="closeSidenav">
+	        		Close
 	        	</md-button>
 	        		</div>
 	      	</md-content>
 	    </md-sidenav>
-	    <md-content flex layout-padding>
-	      	<div layout="column" layout-fmd-contentill layout-align="top center">
-	        	<div>
-	          		<md-button ng-click="toggleLeft()"
-	            		class="md-primary">
-	            		Toggle left
-	          		</md-button>
-	        	</div>
-      		</div>
-      		<div flex></div>
-      		<div ng-controller="chartRenderControl">
-      			<div ng-show="isShowable()">
-	      			<p></p>
-	      			<p></p>
-					<h2 id="chartName"> {{name()}} </h2>
-					<div id="chart"></div>
-      			</div>
-			</div>
-    	</md-content>
-  	</section>
+ 		<md-button ng-click="toggleLeft()" class="md-raised">Open Chart Config</md-button>
 </div>
+	    <md-content>
+      		
+	      		<div ng-controller="chartRenderControl">
+	      			<div ng-show="isShowable()">
+		      			<p></p>
+		      			<p></p>
+						<h2 id="chartName"> {{name()}} </h2>
+						<div id="chart"></div>
+	      			</div>
+				</div>
+			
+    	</md-content>
 
+</div>

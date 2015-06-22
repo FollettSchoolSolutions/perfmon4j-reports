@@ -30,7 +30,11 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	})		
 
 	$scope.loadDatabases = function(){
-		console.log("Chosen datasource is: " + $scope.chosenDatasource.host);
+		clearDatabase();
+		clearSystem();
+		clearCategory();
+		clearField();
+		clearAggregationMethod();		
 		chartService.chosenDatasource = $scope.chosenDatasource;
 		chartService.timeStart = $scope.timeStart;
 		chartService.timeEnd = $scope.timeEnd;
@@ -38,34 +42,32 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		databasePromise.then(function(result){
 			$scope.databases = result.data;
 		})
-		clearSystem();
-		clearCategory();
-		clearField();
-		clearAggregationMethod();		
 	}
 
 	
 	$scope.loadSystems = function(){
-		console.log("Chosen Database is: " + $scope.chosenDatabase.id);
+		clearSystem();
+		clearCategory();
+		clearField();
+		clearAggregationMethod();
 		chartService.chosenDatabase = $scope.chosenDatabase;
-		var databasePromise = dataSourceService.getSystems(chartService.chosenDatasource, chartService.chosenDatabase, chartService.timeStart, 
-				chartService.timeEnd);
+		var databasePromise = dataSourceService.getSystems($scope.chosenDatasource, $scope.chosenDatabase, $scope.timeStart, 
+				$scope.timeEnd);
 		databasePromise.then(function(result){
 			$scope.systems = result.data.sort(function(a,b){
 				return (parseInt(a.id.substring(a.id.lastIndexOf(".") + 1)) - parseInt(b.id.substring(b.id.lastIndexOf(".") + 1)));
 			});
 		})
-		clearCategory();
-		clearField();
-		clearAggregationMethod();
 	}
 
 	
 	$scope.loadCategories = function(){
-		console.log("Chosen Database is: " + $scope.chosenSystem.id);
+		clearCategory();
+		clearField();
+		clearAggregationMethod();
 		chartService.chosenSystem = $scope.chosenSystem;
-		var databasePromise = dataSourceService.getCategories(chartService.chosenDatasource, chartService.chosenDatabase, 
-				chartService.chosenSystem, chartService.timeStart, chartService.timeEnd);
+		var databasePromise = dataSourceService.getCategories($scope.chosenDatasource, $scope.chosenDatabase, 
+				$scope.chosenSystem, $scope.timeStart, $scope.timeEnd);
 		databasePromise.then(function(result){
 			$scope.categories = result.data.sort(function(a,b){
 				if( a.name < b.name){
@@ -77,26 +79,23 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 				}
 			})
 		})
-		clearField();
-		clearAggregationMethod();
 	}
 	
 	$scope.loadFields = function(){
-		console.log("Chosen Database is: " + $scope.chosenCategory);
+		clearField();
+		clearAggregationMethod();
 		chartService.chosenCategory = $scope.chosenCategory;
-		var databasePromise = dataSourceService.getFields(chartService.chosenDatasource, chartService.chosenDatabase, 
-				chartService.chosenCategory);
+		var databasePromise = dataSourceService.getFields($scope.chosenDatasource, $scope.chosenDatabase, 
+				$scope.chosenCategory);
 		databasePromise.then(function(result){
-			console.log(result.data[0].fields);
 			$scope.fields = result.data[0].fields;
 		})
-		clearAggregationMethod();
 	};
 	
 	$scope.loadAggregations = function(){
-		console.log("Chosen Database is: " + $scope.chosenField);
+		clearAggregationMethod();
 		chartService.chosenField = $scope.chosenField;
-		$scope.chosenAggregationMethod = chartService.chosenAggregationMethod = chartService.chosenField.defaultAggregationMethod;
+		$scope.chosenAggregationMethod = $scope.chosenAggregationMethod = $scope.chosenField.defaultAggregationMethod;
 		$scope.aggregationMethods = $scope.chosenField.aggregationMethods;
 	}
 	
@@ -108,6 +107,11 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 				|| isEmptyOrNull($scope.timeEnd))
 	}
 	
+	$scope.isLoading = function(chosenOne, options){
+		return !isEmptyOrNull(chosenOne) && isEmptyOrNull(options);
+	}
+	
+	
 	$scope.saveChartName = function() {
 		chartService.chartName = $scope.chartName;
 	}
@@ -118,9 +122,9 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	
 	$scope.showChart = function() {
 		$scope.chartName = chartService.chartName;
-		var urlPromise = dataSourceService.getURL(chartService.chosenDatasource, chartService.chosenDatabase, 
-				chartService.timeStart, chartService.timeEnd, chartService.chosenSystem, chartService.chosenField, chartService.chosenCategory, 
-				chartService.chosenAggregationMethod, chartService.seriesName);
+		var urlPromise = dataSourceService.getURL($scope.chosenDatasource, $scope.chosenDatabase, 
+				$scope.timeStart, $scope.timeEnd, $scope.chosenSystem, $scope.chosenField, $scope.chosenCategory, 
+				$scope.chosenAggregationMethod, $scope.seriesName);
 		urlPromise.then(function(result){
 			var reportMetadata = {
 //				size: {
@@ -147,32 +151,34 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		return (!value || 0 === value.length);
 	}
 	
+	function clearDatabase(){
+		$scope.chosenDatabase = null;
+		$scope.databases = [];
+		chartService.chosenDatabase = null;
+	}
+	
 	function clearSystem(){
 		$scope.chosenSystem = null; 
-		$scope.systems = null;
+		$scope.systems = [];
 		chartService.chosenSystem = null;
-		chartService.systems = null;
 	}
 	
 	function clearCategory(){
 		$scope.chosenCategory = null;
-		$scope.categories = null;
+		$scope.categories = [];
 		chartService.chosenCategory = null;
-		chartService.categories = null;
 	}
 	
 	function clearField(){
 		$scope.chosenField = null;
-		$scope.fields = null;
+		$scope.fields = [];
 		chartService.chosenField = null;
-		chartService.fields = null;
 	}
 	
 	function clearAggregationMethod(){
 		$scope.chosenAggregationMethod = null; 
-		$scope.aggregationMethods = null;
+		$scope.aggregationMethods = [];
 		chartService.chosenAggregationMethod = null;
-		chartService.aggregationMethods = null;
 	}
 	
 
