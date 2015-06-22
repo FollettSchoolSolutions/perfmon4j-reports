@@ -18,6 +18,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.timeEnd = "now";
 	$scope.isDisabled = true;
 	$scope.showName = false;
+	$scope.chartId = 0;
 	
 	var datasourcePromise = dataSourceService.getDataSources();
 	datasourcePromise.then(function(result){
@@ -149,9 +150,10 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			       }
 			   }		
 			};
-			$scope.chart = c3.generate(reportMetadata);
+			
 			$scope.showName = true;
 			chartService.isShowable = true;
+			$scope.chart = c3.generate(reportMetadata);
 		})
 	};
 	
@@ -204,7 +206,6 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	
 	function clearChartName(){
 		$scope.chartName = "";
-		chartService.chartName = "";
 	}
 	
 	function clearSeriesName(){

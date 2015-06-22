@@ -1,13 +1,12 @@
 <script src="c3/c3.min.css"></script>
 <h2 class="title">{{ pageTitle }}</h2>
-		<div flex layout="row">
-		<div ng-controller="sideNavControl" style="height:750px;" >
-	    <md-sidenav id="sidenav" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="isToggled()" flex>
-	      	<md-toolbar class="md-theme-indigo">
+	<section ng-controller="sideNavControl" style="height:750px;"  layout="row" flex>
+	    <md-sidenav id="sidenav" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="isToggled()">
+	      	<md-toolbar class="md-theme-indigo md-accent">
 	        	<h4 class="md-toolbar-tools">Chart Infomation</h4>
 	      	</md-toolbar>
 	      	<md-content layout-padding ng-controller="LeftCtrl">
-				<div ng-controller="chartControl">
+				<div ng-controller="chartControl">				
 				<span>Chart Name: <span class="required">*</span></span>
 				<br/>
 				<input type="text" ng-model="chartName" value="" name="chartName" ng-blur="saveChartName()"/>
@@ -70,20 +69,16 @@
 	        	</md-button>
 	        		</div>
 	      	</md-content>
-	    </md-sidenav>
- 		<md-button ng-show="!isToggled()" ng-click="toggleLeft();toggleOpen()" class="md-raised">Open Chart Config</md-button>
-</div>
-	    <md-content>
-      		
-	      		<div ng-controller="chartRenderControl">
-	      			<div ng-show="isShowable()">
-		      			<p></p>
-		      			<p></p>
-						<h2 id="chartName"> {{name()}} </h2>
-						<div id="chart"></div>
-	      			</div>
-				</div>
-			
-    	</md-content>
-
-</div>
+	    </md-sidenav>	    
+			    <md-content class="md-accent md-hue-1 chart-view">
+			 		<md-button ng-show="!isToggled()" ng-click="toggleLeft();toggleOpen()" class="md-raised">Open Chart Config</md-button>
+		      		
+ 			      		<div ng-controller="chartRenderControl">
+ 			      			<div ng-show="isShowable()" style="width: 100%; height: 100%;">
+								<h2 id="chartName"> {{name()}} </h2>
+									<div id="chart" style="width: 100%; height: 100%"></div>
+ 			      			</div>
+ 						</div>
+					
+		    	</md-content>
+	</section>

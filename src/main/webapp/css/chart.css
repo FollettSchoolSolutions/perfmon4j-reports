@@ -41,6 +41,10 @@
 	width: 85%;
 }
 
+.chart {
+	margin-left: 20px;
+}
+
 .required {
 	font-size: 9px;
 	font-weight: bold;
@@ -61,4 +65,9 @@
 
 #save {
 	width: 120px;
+}
+
+.chart-view {
+	width: 100%;]
+	min-height: 400px;
 }
