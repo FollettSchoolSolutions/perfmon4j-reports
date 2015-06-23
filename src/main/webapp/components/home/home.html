@@ -1,6 +1,31 @@
 <div ng-controller="homeControl">
-	{{pageTitle}}
+	<!-- {{pageTitle}} -->
+	<div layout="row">
+	<div class="chartMenu" layout="column">
+ 		<md-toolbar>
+    		<div class="md-toolbar-tools">
+      			<h3>
+        			<span>My Charts</span>
+      			</h3>
+    		</div>
+  		</md-toolbar>
+  		<md-content>
+			<md-button id="createButton" class="md-raised md-primary" ng-click="showChart()"> Create </md-button>
+  		</md-content>
+	</div>
 	
-	<md-button class="md-raised" ng-click="showChart()"> Go to Chart </md-button>
+	<div class="dashboardMenu" layout="column">
+ 		<md-toolbar>
+    		<div class="md-toolbar-tools">
+      			<h3>
+        			<span>My Dashboards</span>
+      			</h3>
+    		</div>
+  		</md-toolbar>
+  		<md-content>
+			<md-button id="createButton" class="md-raised md-primary" ng-disabled="true"> Create </md-button>
+  		</md-content>
+	</div>
+	</div>
 	
 </div>
