@@ -67,6 +67,15 @@
 	width: 120px;
 }
 
+#chartName {
+	text-align: center;
+}
+
+#chart {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .chooseDatasource {
 	width: 60%;
 	margin-right: 45px;
