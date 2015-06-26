@@ -12,6 +12,7 @@ app.factory('chartService', function(){
 	var seriesName = "";
 	var timeStart = "";
 	var timeEnd = "";
+	var systems = [];
 	var isDisabled = true;
 	var showName = false;
 	var isShowable = false;

@@ -2,7 +2,7 @@
 <h2 class="title">{{ pageTitle }}</h2>
 	<section ng-controller="sideNavControl" style="height:750px;"  layout="row" flex>
 	    <md-sidenav id="sidenav" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="isToggled()">
-	      	<md-toolbar class="md-theme-indigo md-accent">
+	      	<md-toolbar class="md-theme-indigo">
 	        	<h4 class="md-toolbar-tools">Chart Infomation</h4>
 	      	</md-toolbar>
 	      	<md-content layout-padding ng-controller="LeftCtrl">
@@ -29,84 +29,11 @@
 	      		<label for="endTime">To: <span class="required">*</span></label>
 	      		<input class="to" type="text" name="endTime" ng-model="timeEnd" ng-blur="loadSystems();saveEndTime()"/>
 	      		<p></p>
-	      		<div>
-	      			<md-content class="md-padding">
-	      				<md-tabs md-dynamic-height md-border-bottom>
-	      					<md-tab label="Original">
-	      						<md-content class="md-padding">
-	      							<div class="form">
-							      		<form class="insideForm">
-							      			<h4>Series</h4>
-							      			<span>Series Name: <span class="required">*</span></span>
-							      			<br/>
-											<input type="text" ng-model="seriesName" value="" name="seriesName" ng-blur="saveSeriesName()"/>
-											<br/>
-							      			<span>Choose system: <span class="required">*</span></span> 
-											<br/>
-											<select class="chartSelect" ng-options="system as system.id for system in systems" ng-model="chosenSystem" ng-change="loadCategories()" required>
-												<option value="">Select a system</option>
-											</select> <img src="images/dataLoading.gif" ng-show="isLoading(chosenDatabase, systems)">
-											<br/>
-											<span>Choose category: <span class="required">*</span></span> 
-											<br/>
-											<select class="chartSelect" ng-options="category as category.name for category in categories" ng-model="chosenCategory" ng-change="loadFields()">
-												<option value="">Select a category</option>
-											</select><img src="images/dataLoading.gif" ng-show="isLoading(chosenSystem, categories)">
-											<br/>
-											<span>Choose category field: <span class="required">*</span></span>
-											<br/>
-											<select class="chartSelect" ng-options="field as field.name for field in fields" ng-model="chosenField" ng-change="loadAggregations()">
-												<option value="">Select a category field</option>
-											</select><img src="images/dataLoading.gif" ng-show="isLoading(chosenCategory, fields)">
-											<br/>
-											<span>Choose aggregation method:</span>
-											<br/>
-											<select class="chartSelect" ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="chosenAggregationMethod" >
-												<option value="">Select an aggregation method</option>
-											</select><img src="images/dataLoading.gif" ng-show="isLoading(chosenField, aggregationMethods)">
-							      		</form>
-							  		</div>
-							  	</md-content>
-							  </md-tab>
-							  <md-tab label="Add" ng-disabled="true">
-							  	<md-content class="md-padding">
-							  				<div class="form">
-							      		<form class="insideForm">
-							      			<h4>Series</h4>
-							      			<span>Series Name: <span class="required">*</span></span>
-							      			<br/>
-											<input type="text" ng-model="seriesName" value="" name="seriesName" ng-blur="saveSeriesName()"/>
-											<br/>
-							      			<span>Choose system: <span class="required">*</span></span> 
-											<br/>
-											<select class="chartSelect" ng-options="system as system.id for system in systems" ng-model="chosenSystem" ng-change="loadCategories()" required>
-												<option value="">Select a system</option>
-											</select> <img src="images/dataLoading.gif" ng-show="isLoading(chosenDatabase, systems)">
-											<br/>
-											<span>Choose category: <span class="required">*</span></span> 
-											<br/>
-											<select class="chartSelect" ng-options="category as category.name for category in categories" ng-model="chosenCategory" ng-change="loadFields()">
-												<option value="">Select a category</option>
-											</select><img src="images/dataLoading.gif" ng-show="isLoading(chosenSystem, categories)">
-											<br/>
-											<span>Choose category field: <span class="required">*</span></span>
-											<br/>
-											<select class="chartSelect" ng-options="field as field.name for field in fields" ng-model="chosenField" ng-change="loadAggregations()">
-												<option value="">Select a category field</option>
-											</select><img src="images/dataLoading.gif" ng-show="isLoading(chosenCategory, fields)">
-											<br/>
-											<span>Choose aggregation method:</span>
-											<br/>
-											<select class="chartSelect" ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="chosenAggregationMethod" >
-												<option value="">Select an aggregation method</option>
-											</select><img src="images/dataLoading.gif" ng-show="isLoading(chosenField, aggregationMethods)">
-							      		</form>
-							  		</div>
-							  	</md-content>
-							  </md-tab>
-						  </md-tabs>
-					  </md-content>
-				  </div>
+					<div class="form" ng-repeat="item in series">
+						<chart-series series="item"></chart-series>
+			  		</div>
+			  		<md-button class="md-raised md-primary" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button>
+
 		  			<md-button id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render Chart</md-button>
 	        	<md-button id="save" ng-disabled="true" class="md-raised md-primary">Save</md-button>
 	        	<md-button id="clear" ng-click="clearAllFields()" class="md-raised">Clear</md-button>

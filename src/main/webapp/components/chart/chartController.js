@@ -19,6 +19,8 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.isDisabled = true;
 	$scope.showName = false;
 	$scope.chartId = 0;
+	$scope.addToggled = false;
+	$scope.series = [new Series()];
 	
 	var datasourcePromise = dataSourceService.getDataSources();
 	datasourcePromise.then(function(result){
@@ -43,7 +45,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		databasePromise.then(function(result){
 			$scope.databases = result.data;
 		})
-	}
+	};
 
 	
 	$scope.loadSystems = function(){
@@ -58,8 +60,11 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			$scope.systems = result.data.sort(function(a,b){
 				return (parseInt(a.id.substring(a.id.lastIndexOf(".") + 1)) - parseInt(b.id.substring(b.id.lastIndexOf(".") + 1)));
 			});
+			chartService.systems = result.data.sort(function(a,b){
+				return (parseInt(a.id.substring(a.id.lastIndexOf(".") + 1)) - parseInt(b.id.substring(b.id.lastIndexOf(".") + 1)));
+			});
 		})
-	}
+	};
 
 	
 	$scope.loadCategories = function(){
@@ -80,7 +85,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 				}
 			})
 		})
-	}
+	};
 	
 	$scope.loadFields = function(){
 		clearField();
@@ -106,7 +111,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 				|| isEmptyOrNull($scope.chosenField) || isEmptyOrNull($scope.seriesName) 
 				|| isEmptyOrNull($scope.chartName) || isEmptyOrNull($scope.timeStart)
 				|| isEmptyOrNull($scope.timeEnd))
-	}
+	};
 	
 	$scope.isLoading = function(chosenOne, options){
 		return !isEmptyOrNull(chosenOne) && isEmptyOrNull(options);
@@ -170,6 +175,10 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		clearTimeEnd();
 	}
 	
+	$scope.addSeries = function() {
+		$scope.series.push(new Series($scope.seriesName, $scope.chosenSystem, $scope.chosenCategory, $scope.chosenField, $scope.chosenAggregationMethod));
+	}
+	
 	function isEmptyOrNull(value) {
 		return (!value || 0 === value.length);
 	}
@@ -179,7 +188,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		$scope.databases = [];
 		chartService.chosenDatabase = null;
 	}
-	
+
 	function clearSystem(){
 		$scope.chosenSystem = null; 
 		$scope.systems = [];
