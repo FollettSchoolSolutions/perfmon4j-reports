@@ -98,6 +98,12 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		}
 	}
 	
+	$scope.clear = function() {
+		clearSeriesName();
+		$scope.chosenSystem = "";
+		clearCategory();
+	}
+	
 	function isEmptyOrNull(value) {
 		return (!value || 0 === value.length);
 	}
