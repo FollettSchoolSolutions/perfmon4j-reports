@@ -1,0 +1,25 @@
+.header {
+	background-color: #606363;
+	width: 100%;
+}
+
+.icon {
+	width: 5%;
+}
+
+.headerText {
+	color: #FFFFFF;
+	width: 95%;
+	margin-top: 1px;
+	margin-bottom: 2px;
+}
+
+.delete {
+	float: right;
+}  
+
+.clear {
+	color: #0000FF;
+	width: 10%;
+	float: right;
+}
