@@ -55,7 +55,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		chartService.timeStart = $scope.timeStart;
 		chartService.timeEnd = $scope.timeEnd;
 		if (!angular.isDefined($scope.chosenDatabase.series) || $scope.chosenDatabase.series.length == 0) {
-			$scope.chosenDatabase.series = [{}, {}];
+			$scope.chosenDatabase.series = [{}];
 		}
 	};
 
@@ -207,6 +207,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	
 	$scope.addSeries = function() {
 		$scope.series.push(new Series(chartService.seriesName, chartService.chosenSystem, chartService.chosenCategory, chartService.chosenField, chartService.chosenAggregationMethod));
+		$scope.chosenDatabase.series.push({});
 	}
 	
 	function listSeriesAliases() {
