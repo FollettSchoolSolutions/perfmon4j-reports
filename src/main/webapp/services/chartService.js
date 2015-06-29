@@ -17,6 +17,7 @@ app.factory('chartService', function(){
 	var showName = false;
 	var isShowable = false;
 	var isToggled = true;
+	var active = true;
 
 	var factory = {};
 	

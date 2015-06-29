@@ -17,7 +17,7 @@
 		<option value="">Select a system</option>
 	</select> <img src="images/dataLoading.gif" ng-show="isLoading(chosenDatabase, systems)">
 	<br/>
-	<span>Choose category: <span class="required">*</span></span> 
+	<span>Choose leftcategory: <span class="required">*</span></span> 
 	<br/>
 	<select class="chartSelect" ng-options="category as category.name for category in categories" ng-model="chosenCategory" ng-change="loadFields()">
 		<option value="">Select a category</option>
@@ -34,9 +34,7 @@
 	<select class="chartSelect" ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="chosenAggregationMethod" ng-change="saveAggregation()">
 		<option value="">Select an aggregation method</option>
 	</select><img src="images/dataLoading.gif" ng-show="isLoading(chosenField, aggregationMethods)">
-	<div class="clear">
-		<h5 ng-click="clear()">Clear</h5>
-	</div>
+	<h5 class="clear" ng-click="clear()">Clear</h5>
 	</div>
 </form>
 <br/>

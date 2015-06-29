@@ -23,6 +23,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.series = [];
 	$scope.seriesUrl = "";
 	$scope.seriesAliases = "";
+	var active = chartService.active;
 	
 	var datasourcePromise = dataSourceService.getDataSources();
 	datasourcePromise.then(function(result){
@@ -158,6 +159,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	}
 	
 	$scope.showChart = function() {
+		$scope.series.push(new Series(chartService.seriesName, chartService.chosenSystem, chartService.chosenCategory, chartService.chosenField, chartService.chosenAggregationMethod));
 		$scope.chartName = chartService.chartName;
 		$scope.seriesUrl = $scope.cleanSeriesUrl();
 		listSeriesAliases();
@@ -207,7 +209,8 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	
 	$scope.addSeries = function() {
 		$scope.series.push(new Series(chartService.seriesName, chartService.chosenSystem, chartService.chosenCategory, chartService.chosenField, chartService.chosenAggregationMethod));
-		$scope.chosenDatabase.series.push({});
+		$scope.active = !$scope.active;
+		$scope.chosenDatabase.series.push({})
 	}
 	
 	function listSeriesAliases() {
