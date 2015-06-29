@@ -19,6 +19,8 @@ app.factory('chartService', function(){
 	var isToggled = true;
 
 	var factory = {};
+	
+	
 
 	return factory;
 });
