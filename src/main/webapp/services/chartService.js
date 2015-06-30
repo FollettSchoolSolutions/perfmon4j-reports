@@ -9,6 +9,7 @@ app.factory('chartService', function(){
 	var chosenCategory = "";
 	var chosenField = "";
 	var chosenAggregationMethod = "";
+	var chosenSeries = new Series();
 	var seriesName = "";
 	var timeStart = "";
 	var timeEnd = "";
