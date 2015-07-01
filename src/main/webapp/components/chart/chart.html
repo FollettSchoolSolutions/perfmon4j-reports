@@ -19,7 +19,7 @@
 				<br/>
 				<span>Choose database: <span class="required">*</span></span> 
 				<br/>
-				<select class="databaseSelector" ng-options="database as database.name for database in databases" ng-model="chosenDatabase" ng-change="loadSystems()">
+				<select class="databaseSelector" ng-options="database as database.name for database in databases" ng-model="chosenDatabase" ng-change="initSeries();loadSystems()">
 					<option value="">Select a database</option>
 				</select><img src="images/dataLoading.gif" ng-show="isLoading(chosenDatasource, databases)">
 	      		<p>Date / Time</p>

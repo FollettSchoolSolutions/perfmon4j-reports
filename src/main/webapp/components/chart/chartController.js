@@ -125,10 +125,6 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	}
 	
 	$scope.showChart = function() {
-//		var addedSeries = new Series(chartService.seriesName, chartService.chosenSystem, chartService.chosenCategory, chartService.chosenField, chartService.chosenAggregationMethod);
-//		if (!inArray(addedSeries)) {
-//			$scope.series.push(addedSeries);
-//		}
 		$scope.chartName = chartService.chartName;
 		$scope.seriesUrl = $scope.cleanSeriesUrl();
 		listSeriesAliases();
@@ -188,6 +184,11 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		}
 		var newSeries = {active: true};
 		$scope.series.push(newSeries);
+	}
+	
+	$scope.initSeries = function() {
+		clearSeries();
+		$scope.series = [{active: true}];
 	}
 	
 	function inArray(item) {
