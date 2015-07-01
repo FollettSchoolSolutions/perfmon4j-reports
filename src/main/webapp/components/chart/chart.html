@@ -14,12 +14,12 @@
 				<br/>
 				<span>Choose datasource: <span class="required">*</span></span>
 				<br/>
-				<select class="datasourceSelector" ng-options="datasource as datasource.name for datasource in datasources" ng-model="chosenDatasource" ng-change="loadDatabases()"></select> 
+				<select class="datasourceSelector" ng-options="datasource as datasource.name for datasource in datasources" ng-model="chosenDatasource" ng-change="loadDatabases()" ng-disabled="disableTopOptions()"></select> 
 				<br/>
 				<br/>
 				<span>Choose database: <span class="required">*</span></span> 
 				<br/>
-				<select class="databaseSelector" ng-options="database as database.name for database in databases" ng-model="chosenDatabase" ng-change="initSeries();loadSystems()">
+				<select class="databaseSelector" ng-options="database as database.name for database in databases" ng-model="chosenDatabase" ng-change="initSeries();loadSystems()" ng-disabled="disableTopOptions()">
 					<option value="">Select a database</option>
 				</select><img src="images/dataLoading.gif" ng-show="isLoading(chosenDatasource, databases)">
 	      		<p>Date / Time</p>

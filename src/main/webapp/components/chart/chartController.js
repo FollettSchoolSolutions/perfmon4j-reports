@@ -191,6 +191,13 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		$scope.series = [{active: true}];
 	}
 	
+	$scope.disableTopOptions = function() {
+		if ($scope.series.length > 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	function inArray(item) {
 		for (var i = 0; i < $scope.series.length; i++) {
 			if (item.name == $scope.series[i].name &&
