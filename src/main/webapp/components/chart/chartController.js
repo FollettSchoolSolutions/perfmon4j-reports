@@ -98,6 +98,10 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		chartService.endTime = $scope.endTime;
 	}
 	
+	$scope.toggleClose = function() {
+		chartService.isToggled = false;
+	}
+	
 	$scope.cleanSeriesUrl = function() {
 		var cleanUrl="";
 		var systems= "";
