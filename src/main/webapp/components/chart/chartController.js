@@ -200,7 +200,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	}
 	
 	$scope.disableTopOptions = function() {
-		if ($scope.series.length > 0) {
+		if ($scope.series.length > 1) {
 			return true;
 		}
 		return false;
