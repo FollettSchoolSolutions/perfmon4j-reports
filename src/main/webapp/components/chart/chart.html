@@ -30,7 +30,7 @@
 	      		<input class="to" type="text" name="endTime" ng-model="timeEnd" ng-blur="loadSystems();saveEndTime()"/>
 	      		<p></p>
 					<div class="form" ng-repeat="item in series" >
-						<chart-series series="item" ng-click="setActiveSeries($index)"></chart-series>
+						<chart-series all-series="series" series="item" ng-click="setActiveSeries($index)"></chart-series>
 			  		</div>
 			  		<span style="font-size:11px; color:#FF0000" ng-show="invalidSeriesNames()">Cannot have matching series names.</span>
 			  		<md-button class="md-raised md-primary" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button>

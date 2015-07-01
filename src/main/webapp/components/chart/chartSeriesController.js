@@ -112,6 +112,14 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		clearAggregationMethod();
 	}
 	
+	$scope.canDelete = function() {
+		if ((!angular.isDefined($scope.allSeries)) || $scope.allSeries.length == 1) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	function isEmptyOrNull(value) {
 		return (!value || 0 === value.length);
 	}
