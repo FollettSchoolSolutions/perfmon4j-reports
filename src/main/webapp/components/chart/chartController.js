@@ -56,7 +56,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		chartService.chosenDatabase = $scope.chosenDatabase;
 		chartService.timeStart = $scope.timeStart;
 		chartService.timeEnd = $scope.timeEnd;
-		if (!angular.isDefined($scope.series) || $scope.series.length == 0) {
+		if ((!angular.isDefined($scope.series) || $scope.series.length == 0) && $scope.chosenDatabase != null) {
 			$scope.setActiveSeries(0);
 		}
 	};
@@ -196,7 +196,9 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	
 	$scope.initSeries = function() {
 		clearSeries();
-		$scope.series = [{active: true}];
+		if ($scope.chosenDatabase != null) {
+			$scope.series = [{active: true}];
+		} 
 	}
 	
 	$scope.disableTopOptions = function() {
