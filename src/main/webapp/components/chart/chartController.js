@@ -70,6 +70,10 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			}
 		}
 		
+		if ($scope.invalidSeriesNames()) {
+			return true;
+		}
+		
 		return (isEmptyOrNull($scope.chosenDatasource) || isEmptyOrNull($scope.chosenDatabase) 
 				|| isEmptyOrNull(activeSeries.system) || isEmptyOrNull(activeSeries.category) 
 				|| isEmptyOrNull(activeSeries.field) || isEmptyOrNull(activeSeries.name) 
@@ -194,6 +198,17 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.disableTopOptions = function() {
 		if ($scope.series.length > 0) {
 			return true;
+		}
+		return false;
+	}
+	
+	$scope.invalidSeriesNames = function() {
+		for (var i = 0; i < $scope.series.length; i++) {
+			for (var j = i + 1; j < $scope.series.length; j++) {
+				if ($scope.series[i].name === $scope.series[j].name) {
+					return true;
+				}
+			}
 		}
 		return false;
 	}
