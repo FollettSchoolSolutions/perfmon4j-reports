@@ -84,18 +84,6 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		chartService.chosenAggregationMethod = $scope.chosenAggregationMethod;
 	}
 	
-	$scope.toggleActive = function() {
-		$scope.active = !$scope.active;
-		if ($scope.active) {
-			$scope.chosenSeries.name = $scope.seriesName;
-			$scope.chosenSeries.system = $scope.chosenSystem;
-			$scope.chosenSeries.category = $scope.chosenCategory;
-			$scope.chosenSeries.field = $scope.chosenField;
-			$scope.chosenSeries.aggregationMethod = $scope.chosenAggregationMethod;
-			chartService.chosenSeries = $scope.chosenSeries;
-		}
-	}
-	
 	$scope.seriesHeader = function() {
 		if (isEmptyOrNull($scope.series.name)) {
 			return "Series";
@@ -125,6 +113,21 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 			return /^[^_#&]+$/.test($scope.series.name);
 		}
 		return true;
+	}
+	
+	$scope.deleteSeries = function () {
+		var index = $scope.allSeries.indexOf($scope.series);
+		var lastOne = false;
+		if (index == $scope.allSeries.length -1){
+			lastOne = true;
+		}
+		$scope.allSeries.splice(index, 1);
+		if (lastOne){
+			$scope.allSeries[$scope.allSeries.length-1].active = true;
+		}
+		else{
+			$scope.allSeries[index].active = true;
+		}
 	}
 	
 	function isEmptyOrNull(value) {
@@ -158,5 +161,4 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 	function clearSeriesName(){
 		$scope.series.name = "";
 	}
-	
 });
