@@ -1,0 +1,28 @@
+.header {
+	background-color: #606363;
+	width: 100%;
+}
+
+/* .form {
+	border: 1px solid #606363;
+} */
+
+.icon {
+	width: 5%;
+}
+
+.headerText {
+	color: #FFFFFF;
+	width: 95%;
+	margin-top: 1px;
+	margin-bottom: 2px;
+}
+
+.delete {
+	float: right;
+}  
+
+.clear {
+	color: #0000FF;
+	float: right;
+}

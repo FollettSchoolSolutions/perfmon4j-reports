@@ -41,15 +41,15 @@ app.factory('dataSourceService', function($http){
 		});
 	}
 	
-	factory.getURL = function(chosenDatasource, chosenDatabase, timeStart, timeEnd, chosenSystem, chosenField, chosenCategory, chosenAggregationMethod, seriesName){
+	factory.getURL = function(chosenDatasource, chosenDatabase, timeStart, timeEnd, seriesUrl, aliases){
 		var url = "";
 		if (timeStart != "" && timeEnd != "") {
 			url = "http://" + chosenDatasource.host + "/perfmon4j/rest/datasource/databases/" + chosenDatabase.id 
-			+ "/observations.c3?seriesDefinition=" + chosenSystem.id + "~" + chosenCategory.name + "~" + chosenField.name 
-			+ "&seriesAlias=" + seriesName + "&timeStart=" + timeStart + "&timeEnd=" + timeEnd;
+			+ "/observations.c3?seriesDefinition=" + seriesUrl + "&seriesAlias=" + aliases + "&timeStart=" + timeStart 
+			+ "&timeEnd=" + timeEnd;
 		} else {
-			url = "http://" + chosenDatasource.host + "/perfmon4j/rest/datasource/databases/" + chosenDatabase.id 
-			+ "/observations.c3?seriesDefinition=" + chosenSystem.id + "~" + chosenCategory.name + "~" + chosenField.name + "&seriesAlias=" + seriesName;
+			url = "http://" + chosenDatasource.host + "/perfmon4j/rest/datasource/databases/" + seriesUrl 
+			+ "&seriesAlias=" + aliases;
 		}
 		return $http.get(url).then(function(result){
 			return result;
