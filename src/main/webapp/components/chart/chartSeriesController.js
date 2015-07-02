@@ -120,6 +120,13 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		}
 	}
 	
+	$scope.validateSeriesName = function() {
+		if (!isEmptyOrNull($scope.series.name)) {
+			return /^[^_#&]+$/.test($scope.series.name);
+		}
+		return true;
+	}
+	
 	function isEmptyOrNull(value) {
 		return (!value || 0 === value.length);
 	}

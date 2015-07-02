@@ -12,7 +12,10 @@
 		<br/>
 		<input type="text" ng-model="series.name" value="" name="seriesName"/>
 		<br/>
-   			<span>Choose system: <span class="required">*</span></span> 
+		<span style="color:red;font-size:11px" ng-show="!validateSeriesName()">
+			Invalid series name. Can't include _, #, or &.
+		</span>
+   		<span>Choose system: <span class="required">*</span></span> 
 		<br/>
 		<select class="chartSelect" ng-options="system as system.id for system in systems" ng-model="series.system" ng-change="loadCategories()" required>
 			<option value="">Select a system</option>

@@ -74,17 +74,20 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			return true;
 		}
 		
+		if (!$scope.validateSeriesName()) {
+			return true;
+		}
+		
 		return (isEmptyOrNull($scope.chosenDatasource) || isEmptyOrNull($scope.chosenDatabase) 
 				|| isEmptyOrNull(activeSeries.system) || isEmptyOrNull(activeSeries.category) 
 				|| isEmptyOrNull(activeSeries.field) || isEmptyOrNull(activeSeries.name) 
 				|| isEmptyOrNull($scope.chartName) || isEmptyOrNull($scope.timeStart)
 				|| isEmptyOrNull($scope.timeEnd))
-	};
+	}
 	
 	$scope.isLoading = function(chosenOne, options){
 		return !isEmptyOrNull(chosenOne) && isEmptyOrNull(options);
 	}
-	
 	
 	$scope.saveChartName = function() {
 		chartService.chartName = $scope.chartName;
@@ -133,7 +136,6 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	}
 	
 	$scope.showChart = function() {
-		$scope.chartName = chartService.chartName;
 		$scope.seriesUrl = $scope.cleanSeriesUrl();
 		listSeriesAliases();
 		var urlPromise = dataSourceService.getURL(chartService.chosenDatasource, chartService.chosenDatabase, 
@@ -217,6 +219,18 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			}
 		}
 		return false;
+	}
+	
+	$scope.validateSeriesName = function() {
+		for (var i = 0; i < $scope.series.length; i++) {
+			if (!isEmptyOrNull($scope.series[i].name) ) {
+				var result = /^[^_#&]+$/.test($scope.series[i].name);
+				if (!result) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	
 	function inArray(item) {

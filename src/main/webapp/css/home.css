@@ -39,6 +39,13 @@ th, td {
 	float: left;
 }
 
+.datasourceMenu {
+	border: 1px solid black;
+	width: 40%;
+	margin-top: 20px;
+	margin-left: 52%;
+}
+
 #createButton {
 	float: right;
 }
