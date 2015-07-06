@@ -51,8 +51,8 @@
 			    <md-content class="md-accl;,ent md-hue-1 chart-view">
 			 		<md-button ng-show="!isToggled()" ng-click="toggleLeft();toggleOpen()" class="md-raised">Open Chart Config</md-button>
 		      		
- 			      		<div ng-controller="chartRenderControl" style="height:100%">
- 			      			<div ng-show="isShowable()" style="width: 100%; height: 100%;">
+ 			      		<div ng-controller="chartRenderControl"> 
+ 			      			<div ng-show="isShowable()" style="width: 100%;">
 								<h2 id="chartName"> {{name()}} </h2>
 									<div id="chart" style="width: 100%; height: 100%"></div>
  			      			</div>
