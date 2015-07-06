@@ -17,7 +17,7 @@
 		</span>
    		<span>Choose system: <span class="required">*</span></span> 
 		<br/>
-		<select class="chartSelect" ng-options="system as system.id for system in systems" ng-model="series.system" ng-change="loadCategories()" required>
+		<select class="chartSelect" ng-options="system as system.name for system in systems" ng-model="series.system" ng-change="loadCategories()" required>
 			<option value="">Select a system</option>
 		</select> <img src="images/dataLoading.gif" ng-show="isLoading(chosenDatabase, systems)">
 		<br/>
