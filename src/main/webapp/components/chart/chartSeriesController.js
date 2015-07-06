@@ -117,16 +117,20 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 	
 	$scope.deleteSeries = function () {
 		var index = $scope.allSeries.indexOf($scope.series);
-		var lastOne = false;
-		if (index == $scope.allSeries.length -1){
-			lastOne = true;
-		}
-		$scope.allSeries.splice(index, 1);
-		if (lastOne){
-			$scope.allSeries[$scope.allSeries.length-1].active = true;
-		}
-		else{
-			$scope.allSeries[index].active = true;
+		if ($scope.allSeries[index].active) {
+			var lastOne = false;
+			if (index == $scope.allSeries.length -1){
+				lastOne = true;
+			}
+			$scope.allSeries.splice(index, 1);
+			if (lastOne){
+				$scope.allSeries[$scope.allSeries.length-1].active = true;
+			}
+			else{
+				$scope.allSeries[index].active = true;
+			}
+		} else {
+			$scope.allSeries.splice(index, 1);
 		}
 	}
 	
