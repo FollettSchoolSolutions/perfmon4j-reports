@@ -3,6 +3,6 @@ app.directive('chartSeries', function() {
 		restrict: 'E',
 		controller: 'chartSeriesControl',
 		scope: {allSeries:'=', series:'=', active:'='},
-		templateUrl: '/reports/components/chart/chartSeries.html'
+		templateUrl: 'components/chart/chartSeries.html'
 	}
 })
