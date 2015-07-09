@@ -1,6 +1,7 @@
 .header {
 	background-color: #606363;
 	width: 100%;
+	margin-bottom: 5px;
 }
 
 /* .form {
@@ -25,4 +26,17 @@
 .clear {
 	color: #0000FF;
 	float: right;
+}
+
+.seriesForm {
+	border: 1px solid;
+}
+
+#seriesInput {
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+
+.heading {
+	margin-left: 5px;
 }

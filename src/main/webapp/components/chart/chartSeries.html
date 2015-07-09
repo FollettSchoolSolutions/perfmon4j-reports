@@ -1,4 +1,4 @@
-<!-- <div class="form"> -->
+<div class="seriesForm"> 
 <form class="insideForm" ng-controller="chartSeriesControl">
 	<div  class="header" layout="row">
 		<h4 class="headerText">
@@ -8,38 +8,38 @@
 	</div>
 
 	<div ng-show="series.active">
-		<span>Series Name: <span class="required">*</span></span>
+		<span class="heading">Series Name <span class="required">*</span></span>
 		<br/>
-		<input type="text" ng-model="series.name" value="" name="seriesName"/>
+		<input id="seriesInput" type="text" ng-model="series.name" value="" name="seriesName"/>
 		<br/>
 		<span style="color:red;font-size:11px" ng-show="!validateSeriesName()">
 			Invalid series name. Can't include _, #, or &.
 		</span>
-   		<span>Choose system: <span class="required">*</span></span> 
+   		<span class="heading">Data Systems <span class="required">*</span></span> 
 		<br/>
-		<select class="chartSelect" ng-options="system as system.name for system in systems" ng-model="series.system" ng-change="loadCategories()" required>
+		<select id="seriesInput" class="chartSelect" ng-options="system as system.name for system in systems" ng-model="series.system" ng-change="loadCategories()" required>
 			<option value="">Select a system</option>
 		</select> <img src="images/dataLoading.gif" ng-show="isLoading(chosenDatabase, systems)">
 		<br/>
-		<span>Choose category: <span class="required">*</span></span> 
+		<span class="heading">Data Category <span class="required">*</span></span> 
 		<br/>
-		<select class="chartSelect" ng-options="category as category.name for category in categories" ng-model="series.category" ng-change="loadFields()">
+		<select id="seriesInput" class="chartSelect" ng-options="category as category.name for category in categories" ng-model="series.category" ng-change="loadFields()">
 			<option value="">Select a category</option>
 		</select><img src="images/dataLoading.gif" ng-show="isLoading(series.system, categories)">
 		<br/>
-		<span>Choose category field: <span class="required">*</span></span>
+		<span class="heading">Data Category Field <span class="required">*</span></span>
 		<br/>
-		<select class="chartSelect" ng-options="field as field.name for field in fields" ng-model="series.field" ng-change="loadAggregations()">
+		<select id="seriesInput" class="chartSelect" ng-options="field as field.name for field in fields" ng-model="series.field" ng-change="loadAggregations()">
 			<option value="">Select a category field</option>
 		</select><img src="images/dataLoading.gif" ng-show="isLoading(series.category, fields)">
 		<br/>
-		<span>Choose aggregation method:</span>
+		<span class="heading">Aggregation Type </span>
 		<br/>
-		<select class="chartSelect" ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="series.aggregationMethod" ng-change="saveAggregation()">
+		<select id="seriesInput" class="chartSelect" ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="series.aggregationMethod" ng-change="saveAggregation()">
 			<option value="">Select an aggregation method</option>
 		</select><img src="images/dataLoading.gif" ng-show="isLoading(series.field, aggregationMethods)">
 		<h5 class="clear" ng-click="clear()">Clear</h5>
 	</div>
 </form>
-<!-- </div> -->
+</div>
 <br/>

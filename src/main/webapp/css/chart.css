@@ -76,6 +76,20 @@
 	margin-right: auto;
 }
 
+#sidenavHeader {
+	background: #606363;
+	height: 24px;
+	width: 90%;
+	margin-top: 15px;
+	margin-left: 5%;
+	padding-left: 10px; 
+	padding-top: 5px;
+}
+
+.headerText {
+	font-color: #FFFFFF;
+}
+
 .chooseDatasource {
 	width: 60%;
 	margin-right: 45px;
@@ -89,4 +103,12 @@
 .chart-view {
 	width: 100%;]
 	min-height: 400px;
+}
+
+select {
+	border: 0;
+	border-radius: 5px;
+	background: transparent;
+	height: 32px;
+	border: 1px solid grey;
 }
