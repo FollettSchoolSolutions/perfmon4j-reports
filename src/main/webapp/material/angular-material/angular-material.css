@@ -3028,13 +3028,13 @@ md-bottom-sheet {
   display: inline-block;
   padding: 0 6px;
   margin: 6px 8px;
-  line-height: 36px;
-  min-height: 36px;
+/*   line-height: 36px; */
+/*   min-height: 36px; */
   background: transparent;
   white-space: nowrap;
   min-width: 88px;
   text-align: center;
-  text-transform: uppercase;
+/*   text-transform: uppercase; */
   font-weight: 500;
   font-size: 14px;
   font-style: inherit;

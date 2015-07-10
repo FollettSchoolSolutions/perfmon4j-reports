@@ -8,38 +8,48 @@
 	</div>
 
 	<div ng-show="series.active">
+		<br/>
 		<span class="heading">Series Name <span class="required">*</span></span>
 		<br/>
-		<input id="seriesInput" type="text" ng-model="series.name" value="" name="seriesName"/>
+		<input class="seriesText" type="text" placeholder="Name of series" ng-model="series.name" value="" name="seriesName"/>
 		<br/>
 		<span style="color:red;font-size:11px" ng-show="!validateSeriesName()">
 			Invalid series name. Can't include _, #, or &.
 		</span>
    		<span class="heading">Data Systems <span class="required">*</span></span> 
 		<br/>
-		<select id="seriesInput" class="chartSelect" ng-options="system as system.name for system in systems" ng-model="series.system" ng-change="loadCategories()" required>
-			<option value="">Select a system</option>
-		</select> <img src="images/dataLoading.gif" ng-show="isLoading(chosenDatabase, systems)">
+		<div layout="row" class="chooseSeriesField">
+			<select id="seriesInput" class="chartSelect" ng-options="system as system.name for system in systems" ng-model="series.system" ng-change="loadCategories()" required>
+				<option value="">Select a system</option>
+			</select> <img class="loadImage" src="images/dataLoading.gif" ng-show="isLoading(chosenDatabase, systems)">
+		</div>
 		<br/>
 		<span class="heading">Data Category <span class="required">*</span></span> 
 		<br/>
-		<select id="seriesInput" class="chartSelect" ng-options="category as category.name for category in categories" ng-model="series.category" ng-change="loadFields()">
-			<option value="">Select a category</option>
-		</select><img src="images/dataLoading.gif" ng-show="isLoading(series.system, categories)">
+		<div layout="row" class="chooseSeriesField">
+			<select id="seriesInput" class="chartSelect" ng-options="category as category.name for category in categories" ng-model="series.category" ng-change="loadFields()">
+				<option value="">Select a category</option>
+			</select><img class="loadImage" src="images/dataLoading.gif" ng-show="isLoading(series.system, categories)">
+		</div>
 		<br/>
 		<span class="heading">Data Category Field <span class="required">*</span></span>
 		<br/>
-		<select id="seriesInput" class="chartSelect" ng-options="field as field.name for field in fields" ng-model="series.field" ng-change="loadAggregations()">
-			<option value="">Select a category field</option>
-		</select><img src="images/dataLoading.gif" ng-show="isLoading(series.category, fields)">
+		<div layout="row" class="chooseSeriesField">
+			<select id="seriesInput" class="chartSelect" ng-options="field as field.name for field in fields" ng-model="series.field" ng-change="loadAggregations()">
+				<option value="">Select a field</option>
+			</select><img class="loadImage" src="images/dataLoading.gif" ng-show="isLoading(series.category, fields)">
+		</div>
 		<br/>
 		<span class="heading">Aggregation Type </span>
 		<br/>
-		<select id="seriesInput" class="chartSelect" ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="series.aggregationMethod" ng-change="saveAggregation()">
-			<option value="">Select an aggregation method</option>
-		</select><img src="images/dataLoading.gif" ng-show="isLoading(series.field, aggregationMethods)">
-		<h5 class="clear" ng-click="clear()">Clear</h5>
+		<div layout="row" class="chooseSeriesField">
+			<select id="seriesInput" class="chartSelect" ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="series.aggregationMethod" ng-change="saveAggregation()">
+				<option value="">Select a type</option>
+			</select><img class="loadImage" src="images/dataLoading.gif" ng-show="isLoading(series.field, aggregationMethods)">
+		</div>
+		<div layout="row" class="bottomRow">
+			<h4 class="clear" ng-click="clear()">Clear</h5>
+		</div>
 	</div>
 </form>
 </div>
-<br/>
