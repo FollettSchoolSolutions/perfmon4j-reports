@@ -9,6 +9,13 @@
       			</h3>
     		</div>
   		</md-toolbar>
+  		<div>
+			<table style="width: 100%">
+				<tr ng-repeat="chart in charts"> 
+					<td> {{ chart.chartName }}  </td>
+				</tr>
+			</table>
+		</div>
   		<md-content>
 			<md-button id="createButton" class="md-raised md-primary" ng-click="showChart();openSideNav()"> Create </md-button>
   		</md-content>
