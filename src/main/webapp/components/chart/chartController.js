@@ -71,6 +71,10 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			return true;
 		}
 		
+		if ($scope.incompleteSeriesExists()){
+			return true;
+		}
+		
 		if (!$scope.validateSeriesName()) {
 			return true;
 		}
@@ -230,6 +234,18 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 				if ($scope.chart.series[i].name === $scope.chart.series[j].name) {
 					return true;
 				}
+			}
+		}
+		return false;
+	}
+	
+	$scope.incompleteSeriesExists = function(){
+		for(var i=0; i<$scope.chart.series.length; i++){
+			var currSeries = $scope.chart.series[i];
+			var incomplete = (isEmptyOrNull(currSeries.system) || isEmptyOrNull(currSeries.category) 
+					|| isEmptyOrNull(currSeries.field) || isEmptyOrNull(currSeries.name));
+			if(incomplete == true){
+				return true;
 			}
 		}
 		return false;
