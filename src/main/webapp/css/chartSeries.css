@@ -30,23 +30,23 @@
 }
 
 .seriesText {
-	height: 28px;
+	height: 24px;
 	width: 225px;
 	margin-left: 10px;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 }
 
 .seriesForm {
 	margin-left: 20px;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 	border: 1px solid;
 	width: 245px;
 }
 
 #seriesInput {
 	width: 100%;
-	margin-bottom: 5px;
-	height: 28px;
+	margin-bottom: 2px;
+	height: 20px;
 }
 
 .heading {
