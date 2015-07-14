@@ -145,6 +145,13 @@
 	min-height: 400px;
 }
 
+.centered {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-25%, -50%);
+}
+
 select {
 	border: 0;
 	border-radius: 3px;
