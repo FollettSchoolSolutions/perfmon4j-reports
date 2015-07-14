@@ -23,6 +23,55 @@
 }  
 
 .clear {
+	font-weight: normal;
 	color: #0000FF;
-	float: right;
+	margin-left: 205px;
+	margin-top: 9px;
 }
+
+.seriesText {
+	height: 24px;
+	width: 225px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.seriesForm {
+	margin-left: 20px;
+	margin-bottom: 10px;
+	border: 1px solid;
+	width: 245px;
+}
+
+#seriesInput {
+	width: 100%;
+	margin-bottom: 2px;
+	height: 20px;
+}
+
+.heading {
+	margin-left: 10px;
+}
+
+.bottomRow {
+	background-color: #bfbfbf;
+	height: 30px;
+	width: 100%;
+	margin-top: 15px;
+}
+
+.chooseSeriesField {
+	margin-left: 10px;
+	width: 225px;
+}
+
+.loadImage {
+	height: 20px;
+}
+
+
+
+
+
+
+

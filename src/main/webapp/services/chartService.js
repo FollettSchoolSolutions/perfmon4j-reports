@@ -17,6 +17,7 @@ app.factory('chartService', function($http){
 	var isDisabled = true;
 	var showName = false;
 	var isShowable = false;
+	var isChartLoading = false;
 	var isToggled = true;
 	var active = true;	
 	var systems = [];
@@ -24,6 +25,7 @@ app.factory('chartService', function($http){
 	var fields = [];
 	var aggregationMethods = [];
 	var factory = {};
+	var successfullySaved = null;
 	
 	factory.saveChart = function(chart) {
 		var chartObj = angular.copy(chart);

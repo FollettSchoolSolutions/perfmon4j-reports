@@ -54,4 +54,5 @@ tr:nth-child(odd) {
 
 #createButton {
 	float: right;
+	height: 28px;
 }

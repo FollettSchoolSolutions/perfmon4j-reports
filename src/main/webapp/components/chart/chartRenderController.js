@@ -9,4 +9,11 @@ app.controller('chartRenderControl', function ($scope, chartService, dataSourceS
 		return chartService.chartName;
 	}
 	
+	$scope.isChartLoading = function() {
+		return chartService.isChartLoading;
+	};
+	
+	$scope.isSuccessfullySaved = function(){
+		return chartService.successfullySaved;
+	};
 })

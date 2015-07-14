@@ -6,6 +6,8 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.fields = [];
 	$scope.categories = [];
 	$scope.aggregationMethods = [];
+	$scope.isLoadingchart = false;
+
 	
 	$scope.chart = {
 			chosenDatasource : null,
@@ -138,16 +140,15 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	}
 	
 	$scope.showChart = function() {
+		chartService.successfullySaved = null;
+		chartService.isShowable = false;
+		chartService.isChartLoading = true;
 		$scope.seriesUrl = $scope.cleanSeriesUrl();
 		listSeriesAliases();
 		var urlPromise = dataSourceService.getURL(chartService.chosenDatasource, chartService.chosenDatabase, 
 				chartService.timeStart, chartService.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
 		urlPromise.then(function(result){
 			var reportMetadata = {
-//				size: {
-//					height: 240,
-//					width: 480
-//				},
 				data: result.data,
 				axis: {
 			       x: {
@@ -160,25 +161,34 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			};
 			
 			$scope.showName = true;
-			chartService.isShowable = true;
 			c3.generate(reportMetadata);
+			chartService.isChartLoading = false;
+			chartService.isShowable = true;
 		})
 	};
 	
 	$scope.saveChart = function(){
+		chartService.successfullySaved = null;
+		chartService.isChartLoading = true;
 		var saveChartPromise = chartService.saveChart($scope.chart);
 		saveChartPromise.then(function(result){
 			var savedChart = result.data;
 			if (savedChart == null || savedChart.id < 1) {
 				console.error("Chart not saved successfully!");
+				chartService.successfullySaved = false;
 			} else {
-				console.log("Chart saved successfullly.")
+				console.log("Chart saved successfullly.");
+				chartService.successfullySaved = true;
 			}
+			chartService.isChartLoading = false;
 		})
+		
 	};
 	
 
 	$scope.clearAllFields = function() {
+		chartService.isShowable = false;
+		chartService.successfullySaved = null;
 		$scope.chart.chosenDatasource = $scope.datasources[0];
 		$scope.loadDatabases();
 		clearChartName();
@@ -205,6 +215,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	}
 	
 	$scope.addSeries = function() {
+		chartService.successfullySaved = null;
 		for (var i = 0; i < $scope.chart.series.length; i++){
 			$scope.chart.series[i].active = false;
 		}

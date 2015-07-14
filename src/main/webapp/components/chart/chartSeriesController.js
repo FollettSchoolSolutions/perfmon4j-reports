@@ -22,10 +22,10 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 	var databasePromise = dataSourceService.getSystems($scope.chosenDatasource, $scope.chosenDatabase, chartService.timeStart, 
 			chartService.timeEnd);
 	databasePromise.then(function(result){
-		$scope.systems = result.data.sort(function(a,b){
-			return (parseInt(a.id.substring(a.id.lastIndexOf(".") + 1)) - parseInt(b.id.substring(b.id.lastIndexOf(".") + 1)));
-		});
-		chartService.systems = $scope.systems;
+
+	$scope.systems = result.data;
+
+
 	})
 		
 	$scope.loadCategories = function(){
