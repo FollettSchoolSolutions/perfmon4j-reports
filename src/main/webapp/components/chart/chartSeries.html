@@ -49,6 +49,8 @@
 					<option value="">Select a type</option>
 				</select><img class="loadImage" src="images/dataLoading.gif" ng-show="isLoading(series.field, aggregationMethods)">
 			</div>
+			<br/>
+			<input id="checkbox" type="checkbox" ng-model="series.secondaryAxis"/> Use Secondary Axis
 			<div layout="row" class="bottomRow">
 				<h4 class="clear" ng-click="clear()">Clear</h5>
 			</div>

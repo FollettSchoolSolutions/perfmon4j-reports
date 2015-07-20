@@ -49,6 +49,10 @@
 	height: 20px;
 }
 
+#checkbox {
+	margin-left: 10px;
+}
+
 .heading {
 	margin-left: 10px;
 }
