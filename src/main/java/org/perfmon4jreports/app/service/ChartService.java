@@ -1,4 +1,4 @@
-package org.perfmon4j.reports.app.service;
+package org.perfmon4jreports.app.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.perfmon4j.reports.app.data.ChartVo;
-import org.perfmon4j.reports.app.data.SeriesVo;
-import org.perfmon4j.reports.app.entity.Chart;
-import org.perfmon4j.reports.app.entity.Series;
+import org.perfmon4jreports.app.data.ChartVo;
+import org.perfmon4jreports.app.data.SeriesVo;
+import org.perfmon4jreports.app.entity.Chart;
+import org.perfmon4jreports.app.entity.Series;
 
 @Stateless
 @Path("/charts")

@@ -1,4 +1,4 @@
-package org.perfmon4j.reports.app.data;
+package org.perfmon4jreports.app.data;
 
 public class DataSourceVo {
 	private String name;

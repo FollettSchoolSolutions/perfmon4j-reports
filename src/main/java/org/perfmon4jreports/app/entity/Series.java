@@ -1,4 +1,4 @@
-package org.perfmon4j.reports.app.entity;
+package org.perfmon4jreports.app.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.perfmon4j.reports.app.data.SeriesVo;
+import org.perfmon4jreports.app.data.SeriesVo;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 @Entity
