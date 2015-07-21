@@ -21,7 +21,7 @@
 	   		<span class="heading">Data Systems <span class="required">*</span></span> 
 			<br/>
 			<div layout="row" class="chooseSeriesField">
-				<select id="seriesInput" class="chartSelect" ng-options="system as system.name for system in systems" ng-model="series.system" ng-change="loadCategories()" required>
+				<select multiple id="multiSelect" class="chartSelect" ng-options="system as system.name for system in systems" ng-model="series.systems" ng-change="loadCategories()" required>
 					<option value="">Select a system</option>
 				</select> <img class="loadImage" src="images/dataLoading.gif" ng-show="isLoading(chosenDatabase, systems)">
 			</div>
@@ -31,7 +31,7 @@
 			<div layout="row" class="chooseSeriesField">
 				<select id="seriesInput" class="chartSelect" ng-options="category as category.name for category in categories" ng-model="series.category" ng-change="loadFields()">
 					<option value="">Select a category</option>
-				</select><img class="loadImage" src="images/dataLoading.gif" ng-show="isLoading(series.system, categories)">
+				</select><img class="loadImage" src="images/dataLoading.gif" ng-show="isLoading(series.systems, categories)">
 			</div>
 			<br/>
 			<span class="heading">Data Category Field <span class="required">*</span></span>
