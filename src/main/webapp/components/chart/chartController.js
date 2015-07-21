@@ -7,13 +7,14 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.categories = [];
 	$scope.aggregationMethods = [];
 	$scope.isLoadingchart = false;
-
+	var date = new Date();
+	
 	
 	$scope.chart = {
 			chosenDatasource : null,
 			chosenDatabase : null,
-			chartName : "",
-			timeStart : "now-8H",
+			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes(),
+			timeStart : "now-4H",
 			timeEnd : "now",
 			series : []
 	};
@@ -38,8 +39,10 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	})		
 
 	$scope.loadDatabases = function(){
+		var date = new Date();
+		console.log('Date = ' + date );
 		clearDatabase();
-		clearAggregationMethod();		
+		clearAggregationMethod();
 		chartService.chosenDatasource = $scope.chart.chosenDatasource;
 		chartService.timeStart = $scope.chart.timeStart;
 		chartService.timeEnd = $scope.chart.timeEnd;
@@ -219,7 +222,12 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		for (var i = 0; i < $scope.chart.series.length; i++){
 			$scope.chart.series[i].active = false;
 		}
-		var newSeries = {active: true};
+		var newSeriesName = 'Series ' + ($scope.chart.series.length + 1);
+		var lastSeriesIndex = $scope.chart.series.length -1;
+		var previousSystem = $scope.chart.series[lastSeriesIndex].system;
+		var previousCategory = $scope.chart.series[lastSeriesIndex].category;
+		var newSeries = {active: true, name: newSeriesName, system: previousSystem, category: previousCategory};
+		
 		$scope.chart.series.push(newSeries);
 	}
 	
@@ -227,7 +235,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		clearSeries();
 
 		if ($scope.chart.chosenDatabase != null) {
-			$scope.chart.series = [{active: true}];
+			$scope.chart.series = [{active: true, name: 'Series 1'}];
 		} 
 	}
 	
@@ -338,7 +346,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	}
 	
 	function clearTimeStart(){
-		$scope.chart.timeStart = "now-8H";
+		$scope.chart.timeStart = "now-4H";
 		chartService.timeStart = "";
 	}
 	

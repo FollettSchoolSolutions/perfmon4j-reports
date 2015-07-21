@@ -1,7 +1,7 @@
-package org.perfmon4j.reports.app.data;
+package org.perfmon4jreports.app.data;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.perfmon4j.reports.app.entity.Series;
+import org.perfmon4jreports.app.entity.Series;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class SeriesVo {
