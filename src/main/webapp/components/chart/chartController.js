@@ -156,10 +156,21 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			           tick: {
 			               format: '%Y-%m-%dT%H:%M'
 			           }
-			       }
+			       },
+				   y2: {
+					   show: false
+				   }
 			   }		
 			};
-			
+			result.data.axes = {};
+			for (var i = 0; i < $scope.chart.series.length; i++) {
+				if ($scope.chart.series[i].secondaryAxis) {
+					result.data.axes[$scope.chart.series[i].name] = 'y2';
+					reportMetadata.axis.y2.show = true;
+				} else {
+					result.data.axes[$scope.chart.series[i].name] = 'y';
+				}
+			}
 			$scope.showName = true;
 			c3.generate(reportMetadata);
 			chartService.isChartLoading = false;
