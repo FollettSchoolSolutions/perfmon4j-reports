@@ -2,6 +2,8 @@ app.factory('chartService', function($http){
 	
 	var pageTitle = "build a chart";
 	
+	var viewOnly = false;
+	
 	var chosenDatasource = "";
 	var chosenDatabase = "";
 	var chartName = "";
@@ -46,6 +48,11 @@ app.factory('chartService', function($http){
 	
 	factory.getCharts = function(){
 		return $http.get("rest/charts").then(function(result) {
+			return result;
+		});
+	}
+	factory.getChart = function(id){
+		return $http.get("rest/charts/" + id).then(function(result) {
 			return result;
 		});
 	}

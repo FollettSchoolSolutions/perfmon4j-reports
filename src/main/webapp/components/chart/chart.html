@@ -4,7 +4,7 @@
       		<h4 class="headerText">Chart Information</h4>
       	</div>
       	<md-content layout-padding ng-controller="LeftCtrl">
-			<div ng-controller="chartControl">				
+			<div>				
 				<span class="inputHeading">Chart Name <span class="required">*</span></span>
 				<input class="chartNameBox" type="text" ng-model="chart.chartName" placeholder="Name of chart" value="" name="chartName" ng-blur="saveChartName()"/>
 				<div layout="row" class="datasourceRow">
@@ -40,7 +40,7 @@
       	</md-content>
     </md-sidenav>	    
 	    <md-content class="md-accl;,ent md-hue-1 chart-view">
-	 		<md-button ng-show="!isToggled()" ng-click="toggleLeft();toggleOpen()" id="openConfig" class="md-raised">Open Chart Config</md-button>
+	 		<md-button ng-show="!showToggleButton()" ng-click="toggleLeft();toggleOpen()" id="openConfig" class="md-raised">Open Chart Config</md-button>
       		<div ng-controller="chartRenderControl"> 
       		<img src="images/dataLoading_large.gif" ng-show="isChartLoading()" class="centered">
       			<div ng-show="isShowable()" style="width: 100%;">

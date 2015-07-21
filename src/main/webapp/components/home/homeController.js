@@ -1,4 +1,4 @@
-app.controller('homeControl', function ($scope, $rootScope, dataSourceService, chartService){
+app.controller('homeControl', function ($scope, $location, dataSourceService, chartService){
 	$scope.pageTitle = "This is the home page";
 	$scope.charts = [];
 	
@@ -8,7 +8,7 @@ app.controller('homeControl', function ($scope, $rootScope, dataSourceService, c
 	})
 	
 	$scope.showChart = function() {
-		$rootScope.toggleView("chart");
+		$location.path("/chart");
 	}
 	
 	$scope.openSideNav = function() {

@@ -1,4 +1,4 @@
-app.controller('chartControl', function ($scope, chartService, dataSourceService){
+app.controller('chartControl', function ($scope, $routeParams, chartService, dataSourceService){
 	$scope.pageTitle = "build a chart";
 	$scope.datasources = [];
 	$scope.databases = [];
@@ -8,7 +8,6 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.aggregationMethods = [];
 	$scope.isLoadingchart = false;
 
-	
 	$scope.chart = {
 			chosenDatasource : null,
 			chosenDatabase : null,
@@ -18,7 +17,6 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			series : []
 	};
 	
-	$scope.isDisabled = true;
 	$scope.showName = false;
 	$scope.chartId = 0;
 	$scope.addToggled = false;
@@ -26,6 +24,19 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.seriesAliases = "";
 	$scope.activeSeries = 0;
 	var active = chartService.active;
+	
+	if (typeof $routeParams.id != 'undefined'){
+		chartService.isToggled = false;
+		chartService.viewOnly = true;
+		var chartPromise = chartService.getChart($routeParams.id);
+		chartPromise.then(function(result){
+			$scope.chart = result.data;
+			$scope.showChart();
+		})	
+	} else {
+		chartService.viewOnly = false;
+	}
+	console.log("chartController " + chartService.viewOnly);
 	
 	var datasourcePromise = dataSourceService.getDataSources();
 	datasourcePromise.then(function(result){
@@ -124,13 +135,18 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 				}
 				agg = $scope.chart.series[i].aggregationMethod + "~";
 				cleanUrl += agg; 
-				//for (j=0; j< $scope.chart.series.system.length; j++){
+				
+				if(chartService.viewOnly == false){
 					systems += $scope.chart.series[i].system.id + "~";
-				//}
-				category = $scope.chart.series[i].category.name;
-				field = $scope.chart.series[i].field.name;
+					category = $scope.chart.series[i].category.name;
+					field = $scope.chart.series[i].field.name;
+				} else {
+					systems += $scope.chart.series[i].system + "~";
+					category = $scope.chart.series[i].category;
+					field = $scope.chart.series[i].field;
+				}
+				
 				cleanUrl += systems + category + "~" + field;
-				systems = "";
 			}
 		
 		console.log(cleanUrl);
@@ -145,8 +161,8 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		chartService.isChartLoading = true;
 		$scope.seriesUrl = $scope.cleanSeriesUrl();
 		listSeriesAliases();
-		var urlPromise = dataSourceService.getURL(chartService.chosenDatasource, chartService.chosenDatabase, 
-				chartService.timeStart, chartService.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
+		var urlPromise = dataSourceService.getURL(chartService.viewOnly, $scope.chart.chosenDatasource, $scope.chart.chosenDatabase, 
+				$scope.chart.timeStart, $scope.chart.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
 		urlPromise.then(function(result){
 			var reportMetadata = {
 				data: result.data,
