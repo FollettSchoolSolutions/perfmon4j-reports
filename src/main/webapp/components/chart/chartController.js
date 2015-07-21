@@ -146,7 +146,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		$scope.seriesUrl = $scope.cleanSeriesUrl();
 		listSeriesAliases();
 		var urlPromise = dataSourceService.getURL(chartService.chosenDatasource, chartService.chosenDatabase, 
-				chartService.timeStart, chartService.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
+				$scope.chart.timeStart, $scope.chart.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
 		var timeRange = findTimeRange();
 		var relative = isRelativeTimeRange();
 		var formatString = "";
@@ -286,7 +286,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		var timeRange;
 		if ($scope.chart.timeStart.indexOf("now") > -1 && $scope.chart.timeEnd.indexOf("now") > -1) {
 			if ($scope.chart.timeEnd != "now" && $scope.chart.timeStart != "now") {
-				timeRange = ($scope.chart.timeStart.match(/\d/g) - $scope.chart.timeEnd.match(/\d/g)).join("");
+				timeRange = ($scope.chart.timeStart.match(/\d/g).join("") - $scope.chart.timeEnd.match(/\d/g).join(""));
 				return timeRange;
 			} else if ($scope.chart.timeEnd == "now") {
 				timeRange = $scope.chart.timeStart.match(/\d/g).join("");
