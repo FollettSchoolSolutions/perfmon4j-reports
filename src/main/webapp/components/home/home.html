@@ -12,7 +12,7 @@
   		<div>
 			<table style="width: 100%">
 				<tr ng-repeat="chart in charts"> 
-					<td> {{ chart.chartName }}  </td>
+					<td> <a href="#/chart/{{chart.id}}">{{ chart.chartName }}</a></td>
 				</tr>
 			</table>
 		</div>
