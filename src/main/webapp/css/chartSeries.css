@@ -49,6 +49,12 @@
 	height: 20px;
 }
 
+#multiSelect {
+	height: 200px;
+	width: 100%;
+	margin-bottom: 2px;
+}
+
 .heading {
 	margin-left: 10px;
 }
