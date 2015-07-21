@@ -147,14 +147,6 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		listSeriesAliases();
 		var urlPromise = dataSourceService.getURL(chartService.chosenDatasource, chartService.chosenDatabase, 
 				chartService.timeStart, chartService.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
-		var timeRange = findTimeRange();
-		var relative = isRelativeTimeRange();
-		var formatString = "";
-		if (timeRange > 24 || !relative) {
-			formatString = "%Y-%m-%dT%H:%M";
-		} else {
-			formatString = "%H:%M";
-		}
 		urlPromise.then(function(result){
 			var reportMetadata = {
 				data: result.data,
@@ -162,7 +154,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			       x: {
 			           type: 'timeseries',
 			           tick: {
-			               format: formatString
+			               format: '%Y-%m-%dT%H:%M'
 			           }
 			       }
 			   }		
@@ -207,7 +199,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	
 	$scope.showSeries = function(index) {
 		return $scope.activeSeries == index;	
-	}scope.series
+	}
 	
 	$scope.setActiveSeries = function(index) {
 
@@ -280,24 +272,6 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			}
 		}
 		return true;
-	}
-	
-	function findTimeRange() {
-		if ($scope.timeStart.includes("now") && $scope.timeEnd.includes("now")) {
-			if (timeEnd == "now") {
-				return timeStart.match(/\d/g);
-			}
-		} else {
-			return 25;
-		}
-	}
-	
-	function isRelativeTimeRange() {
-		if ($scope.timeStart.includes("now") || $scope.timeEnd.includes("now")) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 	
 	function inArray(item) {
