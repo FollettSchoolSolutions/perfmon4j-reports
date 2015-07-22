@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
@@ -73,4 +74,17 @@ public class ChartService {
 	// Update
 
 	// Delete
+	@DELETE
+	@Path("/{id}")
+	public boolean deleteChart(@PathParam("id") long id) {
+		Chart chart = em.find(Chart.class, new Long(id));
+		if (chart == null) {
+			return false;
+		}
+		else {
+			em.remove(chart);
+		}
+	return true;
+		
+	}
 }

@@ -12,7 +12,7 @@
   		<div>
 			<table style="width: 100%">
 				<tr ng-repeat="chart in charts"> 
-					<td> {{ chart.chartName }}  </td>
+					<td> {{ chart.chartName }} <ng-md-icon class="delete" icon="delete" size="20" style="fill:greay" ng-click="deleteChart(chart.id)"></ng-md-icon>  </td>
 				</tr>
 			</table>
 		</div>

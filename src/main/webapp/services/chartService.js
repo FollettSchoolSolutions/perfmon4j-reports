@@ -56,6 +56,21 @@ app.factory('chartService', function($http){
 			return result;
 		});
 	}
+	
+	factory.getChart = function(id){
+        return $http.get("rest/charts/" + id).then(function(result) {
+                return result;
+        });
+	}
+
+	
+	factory.deleteChart = function(id){
+        return $http.delete("rest/charts/" + id).then(function(result) {
+                return result;
+        });
+	}
+	
+	
 
 	return factory;
 });
