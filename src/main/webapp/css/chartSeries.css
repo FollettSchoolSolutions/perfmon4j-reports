@@ -49,6 +49,11 @@
 	height: 20px;
 }
 
+
+#checkbox {
+	margin-left: 10px;
+}
+
 #multiSelect {
 	height: 200px;
 	width: 100%;
