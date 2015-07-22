@@ -1,4 +1,4 @@
-package org.perfmon4j.reports.app.entity;
+package org.perfmon4jreports.app.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.perfmon4j.reports.app.data.SeriesVo;
+import org.perfmon4jreports.app.data.SeriesVo;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 @Entity
@@ -31,7 +31,7 @@ public class Series {
 	private String name;
 	
 	@Column(nullable = false)
-	private String system;
+	private String systems;
 	
 	@Column(nullable = false)
 	private String category;
@@ -47,7 +47,7 @@ public class Series {
 	
 	public Series(SeriesVo svo){
 		this.name = svo.getName();
-		this.system = svo.getSystem();
+		this.systems = svo.getSystems();
 		this.category = svo.getCategory();
 		this.field = svo.getField();
 		this.aggregationMethod = svo.getAggregationMethod();
@@ -73,12 +73,12 @@ public class Series {
 		this.name = name;
 	}
 
-	public String getSystem() {
-		return system;
+	public String getSystems() {
+		return systems;
 	}
 
-	public void setSystem(String system) {
-		this.system = system;
+	public void setSystems(String systems) {
+		this.systems = systems;
 	}
 
 	public String getCategory() {

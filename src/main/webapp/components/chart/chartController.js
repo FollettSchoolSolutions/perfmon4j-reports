@@ -7,13 +7,14 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.categories = [];
 	$scope.aggregationMethods = [];
 	$scope.isLoadingchart = false;
-
+	var date = new Date();
+	
 	
 	$scope.chart = {
 			chosenDatasource : null,
 			chosenDatabase : null,
-			chartName : "",
-			timeStart : "now-8H",
+			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes(),
+			timeStart : "now-4H",
 			timeEnd : "now",
 			series : []
 	};
@@ -38,8 +39,10 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	})		
 
 	$scope.loadDatabases = function(){
+		var date = new Date();
+		console.log('Date = ' + date );
 		clearDatabase();
-		clearAggregationMethod();		
+		clearAggregationMethod();
 		chartService.chosenDatasource = $scope.chart.chosenDatasource;
 		chartService.timeStart = $scope.chart.timeStart;
 		chartService.timeEnd = $scope.chart.timeEnd;
@@ -82,7 +85,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		}
 		
 		return (isEmptyOrNull($scope.chart.chosenDatasource) || isEmptyOrNull($scope.chart.chosenDatabase) 
-				|| isEmptyOrNull(activeSeries.system) || isEmptyOrNull(activeSeries.category) 
+				|| isEmptyOrNull(activeSeries.systems) || isEmptyOrNull(activeSeries.category) 
 				|| isEmptyOrNull(activeSeries.field) || isEmptyOrNull(activeSeries.name) 
 				|| isEmptyOrNull($scope.chart.chartName) || isEmptyOrNull($scope.chart.timeStart)
 				|| isEmptyOrNull($scope.chart.timeEnd))
@@ -124,9 +127,9 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 				}
 				agg = $scope.chart.series[i].aggregationMethod + "~";
 				cleanUrl += agg; 
-				//for (j=0; j< $scope.chart.series.system.length; j++){
-					systems += $scope.chart.series[i].system.id + "~";
-				//}
+				for (j=0; j< $scope.chart.series[i].systems.length; j++){
+					systems += $scope.chart.series[i].systems[j].id + "~";
+				}
 				category = $scope.chart.series[i].category.name;
 				field = $scope.chart.series[i].field.name;
 				cleanUrl += systems + category + "~" + field;
@@ -146,7 +149,10 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		$scope.seriesUrl = $scope.cleanSeriesUrl();
 		listSeriesAliases();
 		var urlPromise = dataSourceService.getURL(chartService.chosenDatasource, chartService.chosenDatabase, 
-				chartService.timeStart, chartService.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
+				$scope.chart.timeStart, $scope.chart.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
+		
+		var relative = isRelativeTimeRange();
+
 		urlPromise.then(function(result){
 			var reportMetadata = {
 				data: result.data,
@@ -160,7 +166,10 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 				   y2: {
 					   show: false
 				   }
-			   }		
+			   },
+			   subchart: {
+			    	show: false
+			    }
 			};
 			result.data.axes = {};
 			for (var i = 0; i < $scope.chart.series.length; i++) {
@@ -170,6 +179,19 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 				} else {
 					result.data.axes[$scope.chart.series[i].name] = 'y';
 				}
+			}  
+			   
+			if (result.data.columns[0].length > 120) {
+				reportMetadata.subchart.show = true;
+			} else {
+				reportMetadata.subchart.show = false;
+			}
+			
+			if (result.data.columns[0].length > 1440 || !relative) {
+				reportMetadata.axis.x.tick.format = '%Y-%m-%dT%H:%M';
+			} else {
+				reportMetadata.axis.x.tick.format = '%H:%M';
+
 			}
 			$scope.showName = true;
 			c3.generate(reportMetadata);
@@ -230,7 +252,13 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		for (var i = 0; i < $scope.chart.series.length; i++){
 			$scope.chart.series[i].active = false;
 		}
-		var newSeries = {active: true, secondaryAxis: false};
+
+		var newSeriesName = 'Series ' + ($scope.chart.series.length + 1);
+		var lastSeriesIndex = $scope.chart.series.length -1;
+		var previousSystem = $scope.chart.series[lastSeriesIndex].system;
+		var previousCategory = $scope.chart.series[lastSeriesIndex].category;
+		var newSeries = {active: true, name: newSeriesName, system: previousSystem, category: previousCategory, secondaryAxis: false};
+
 		$scope.chart.series.push(newSeries);
 	}
 	
@@ -238,7 +266,9 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		clearSeries();
 
 		if ($scope.chart.chosenDatabase != null) {
-			$scope.chart.series = [{active: true, secondaryAxis: false}];
+
+			$scope.chart.series = [{active: true, name: 'Series 1', secondaryAxis: false}];
+
 		} 
 	}
 	
@@ -264,7 +294,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.incompleteSeriesExists = function(){
 		for(var i=0; i<$scope.chart.series.length; i++){
 			var currSeries = $scope.chart.series[i];
-			var incomplete = (isEmptyOrNull(currSeries.system) || isEmptyOrNull(currSeries.category) 
+			var incomplete = (isEmptyOrNull(currSeries.systems) || isEmptyOrNull(currSeries.category) 
 					|| isEmptyOrNull(currSeries.field) || isEmptyOrNull(currSeries.name));
 			if(incomplete == true){
 				return true;
@@ -285,11 +315,19 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		return true;
 	}
 	
+	function isRelativeTimeRange() {
+		if ($scope.chart.timeStart.indexOf("now") > -1 || $scope.chart.timeEnd.indexOf("now") > -1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	function inArray(item) {
 
 		for (var i = 0; i < $scope.chart.series.length; i++) {
 			if (item.name == $scope.chart.series[i].name &&
-				item.system == $scope.chart.series[i].system &&
+				item.systems == $scope.chart.series[i].systems &&
 				item.category == $scope.chart.series[i].category &&
 				item.field == $scope.chart.series[i].field &&
 				item.aggregationMethod == $scope.chart.series[i].aggregationMethod) {
@@ -319,10 +357,10 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		chartService.chosenDatabase = null;
 	}
 
-	function clearSystem(){
-		$scope.chosenSystem = null; 
+	function clearSystems(){
+		$scope.chosenSystems = null; 
 		$scope.systems = [];
-		chartService.chosenSystem = null;
+		chartService.chosenSystems = null;
 	}
 	
 	function clearCategory(){
@@ -349,7 +387,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	}
 	
 	function clearTimeStart(){
-		$scope.chart.timeStart = "now-8H";
+		$scope.chart.timeStart = "now-4H";
 		chartService.timeStart = "";
 	}
 	

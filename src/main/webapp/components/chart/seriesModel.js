@@ -1,6 +1,6 @@
-function Series(name, system, category, field, aggregationMethod) {
+function Series(name, systems, category, field, aggregationMethod) {
 	this.name = name;
-	this.system = system;
+	this.systems = systems;
 	this.category = category;
 	this.field = field;
 	this.aggregationMethod = aggregationMethod;

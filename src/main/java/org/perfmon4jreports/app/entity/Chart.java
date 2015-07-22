@@ -1,4 +1,4 @@
-package org.perfmon4j.reports.app.entity;
+package org.perfmon4jreports.app.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.perfmon4j.reports.app.data.ChartVo;
-import org.perfmon4j.reports.app.data.SeriesVo;
+import org.perfmon4jreports.app.data.ChartVo;
+import org.perfmon4jreports.app.data.SeriesVo;
 
 @NamedQueries({
 	@NamedQuery(name=Chart.QUERY_FIND_ALL, query="SELECT c FROM Chart c")

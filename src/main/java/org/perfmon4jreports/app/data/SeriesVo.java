@@ -1,13 +1,13 @@
-package org.perfmon4j.reports.app.data;
+package org.perfmon4jreports.app.data;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.perfmon4j.reports.app.entity.Series;
+import org.perfmon4jreports.app.entity.Series;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class SeriesVo {
 	
 	private String name;
-	private String system;
+	private String systems;
 	private String category;
 	private String field;
 	private String aggregationMethod;
@@ -19,7 +19,7 @@ public class SeriesVo {
 	
 	public SeriesVo(Series s){
 		this.name = s.getName();
-		this.system = s.getSystem();
+		this.systems = s.getSystems();
 		this.category = s.getCategory();
 		this.field = s.getField();
 		this.aggregationMethod = s.getAggregationMethod();
@@ -33,12 +33,12 @@ public class SeriesVo {
 		this.name = name;
 	}
 
-	public String getSystem() {
-		return system;
+	public String getSystems() {
+		return systems;
 	}
 
-	public void setSystem(String system) {
-		this.system = system;
+	public void setSystems(String systems) {
+		this.systems = systems;
 	}
 
 	public String getCategory() {
