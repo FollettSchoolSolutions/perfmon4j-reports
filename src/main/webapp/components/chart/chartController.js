@@ -163,8 +163,18 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			               format: '%Y-%m-%dT%H:%M'
 			           }
 			       },
+			       y: {
+			    	   min: 0,
+			    	   padding: {
+			    		   bottom: 0
+			    	   }
+			       },
 				   y2: {
-					   show: false
+					   show: false,
+					   min: 0,
+					   padding: {
+						   bottom: 0
+					   }
 				   }
 			   },
 			   subchart: {
