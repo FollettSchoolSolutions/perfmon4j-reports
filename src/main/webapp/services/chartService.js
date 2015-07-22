@@ -2,6 +2,8 @@ app.factory('chartService', function($http){
 	
 	var pageTitle = "build a chart";
 	
+	var viewOnly = false;
+	
 	var chosenDatasource = "";
 	var chosenDatabase = "";
 	var chartName = "";
@@ -56,6 +58,7 @@ app.factory('chartService', function($http){
 			return result;
 		});
 	}
+
 	
 	factory.getChart = function(id){
         return $http.get("rest/charts/" + id).then(function(result) {
@@ -71,6 +74,7 @@ app.factory('chartService', function($http){
 	}
 	
 	
+
 
 	return factory;
 });

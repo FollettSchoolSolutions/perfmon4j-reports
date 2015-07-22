@@ -1,4 +1,4 @@
-<div ng-controller="homeControl">
+<div>
 	<!-- {{pageTitle}} -->
 	<div layout="row">
 	<div class="chartMenu" layout="column">
@@ -12,7 +12,9 @@
   		<div>
 			<table style="width: 100%">
 				<tr ng-repeat="chart in charts"> 
-					<td> {{ chart.chartName }} <ng-md-icon class="delete" icon="delete" size="20" style="fill:greay" ng-click="deleteChart(chart.id)"></ng-md-icon>  </td>
+
+					<td> <a href="#/chart/{{chart.id}}">{{ chart.chartName }}</a><ng-md-icon class="delete" icon="delete" size="20" style="fill:greay" ng-click="deleteChart(chart.id)"></ng-md-icon></td>
+
 				</tr>
 			</table>
 		</div>

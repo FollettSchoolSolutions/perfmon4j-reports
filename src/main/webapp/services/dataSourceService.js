@@ -38,14 +38,19 @@ app.factory('dataSourceService', function($http){
 		});
 	}
 	
-	factory.getURL = function(chosenDatasource, chosenDatabase, timeStart, timeEnd, seriesUrl, aliases){
+	factory.getURL = function(viewOnly, chosenDatasource, chosenDatabase, timeStart, timeEnd, seriesUrl, aliases){
+		if(viewOnly == false){
+			chosenDatasource = chosenDatasource.host;
+			chosenDatabase = chosenDatabase.id;
+		}
+		
 		var url = "";
 		if (timeStart != "" && timeEnd != "") {
-			url = "http://" + chosenDatasource.host + "/perfmon4j/rest/datasource/databases/" + chosenDatabase.id 
+			url = "http://" + chosenDatasource + "/perfmon4j/rest/datasource/databases/" + chosenDatabase
 			+ "/observations.c3?seriesDefinition=" + seriesUrl + "&seriesAlias=" + aliases + "&timeStart=" + timeStart 
 			+ "&timeEnd=" + timeEnd;
 		} else {
-			url = "http://" + chosenDatasource.host + "/perfmon4j/rest/datasource/databases/" + seriesUrl 
+			url = "http://" + chosenDatasource + "/perfmon4j/rest/datasource/databases/" + seriesUrl 
 			+ "&seriesAlias=" + aliases;
 		}
 		return $http.get(url).then(function(result){
