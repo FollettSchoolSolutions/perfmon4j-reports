@@ -150,14 +150,9 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		listSeriesAliases();
 		var urlPromise = dataSourceService.getURL(chartService.chosenDatasource, chartService.chosenDatabase, 
 				$scope.chart.timeStart, $scope.chart.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
-		var timeRange = findTimeRange();
+		
 		var relative = isRelativeTimeRange();
-		var formatString = "";
-		if (timeRange > 24 || !relative) {
-			formatString = "%Y-%m-%dT%H:%M";
-		} else {
-			formatString = "%H:%M";
-		}
+
 		urlPromise.then(function(result){
 			var reportMetadata = {
 				data: result.data,
@@ -165,12 +160,25 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			       x: {
 			           type: 'timeseries',
 			           tick: {
-			               format: formatString
+			               format: '%Y-%m-%dT%H:%M'
 			           }
 			       }
-			   }		
+			    },
+			    subchart: {
+			    	show: false
+			    }
 			};
+			if (result.data.columns[0].length > 120) {
+				reportMetadata.subchart.show = true;
+			} else {
+				reportMetadata.subchart.show = false;
+			}
 			
+			if (result.data.columns[0].length > 1440 || !relative) {
+				reportMetadata.axis.x.tick.format = '%Y-%m-%dT%H:%M';
+			} else {
+				reportMetadata.axis.x.tick.format = '%H:%M';
+			}
 			$scope.showName = true;
 			c3.generate(reportMetadata);
 			chartService.isChartLoading = false;
@@ -288,23 +296,6 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			}
 		}
 		return true;
-	}
-	
-	function findTimeRange() {
-		var timeRange;
-		if ($scope.chart.timeStart.indexOf("now") > -1 && $scope.chart.timeEnd.indexOf("now") > -1) {
-			if ($scope.chart.timeEnd != "now" && $scope.chart.timeStart != "now") {
-				timeRange = ($scope.chart.timeStart.match(/\d/g).join("") - $scope.chart.timeEnd.match(/\d/g).join(""));
-				return timeRange;
-			} else if ($scope.chart.timeEnd == "now") {
-				timeRange = $scope.chart.timeStart.match(/\d/g).join("");
-				return timeRange;
-			} else {
-				return 25;
-			}
-		} else {
-			return 25;
-		}
 	}
 	
 	function isRelativeTimeRange() {
