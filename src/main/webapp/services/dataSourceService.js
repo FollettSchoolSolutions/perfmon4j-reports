@@ -30,7 +30,7 @@ app.factory('dataSourceService', function($http){
 	
 	factory.getCategories = function(datasource, database, system, timeStart, timeEnd){
 		var url = "http://" + datasource.host + urlPath + "/databases/"
-		+ database.id + "/categories?systemID=" + system.id + "&timeStart=" + timeStart + "&timeEnd="
+		+ database.id + "/categories?systemID=" + system + "&timeStart=" + timeStart + "&timeEnd="
 		+ timeEnd;	
 		
 		return $http.get(url).then(function(result) {

@@ -33,8 +33,9 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		clearField();
 		clearAggregationMethod();
 		chartService.chosenSystems = $scope.series.systems;
+		var systemString = createSystemString();
 		var databasePromise = dataSourceService.getCategories($scope.chosenDatasource, $scope.chosenDatabase, 
-				$scope.series.systems[0], $scope.timeStart, $scope.timeEnd);
+				systemString, $scope.timeStart, $scope.timeEnd);
 		databasePromise.then(function(result){
 			$scope.categories = result.data.sort(function(a,b){
 				if( a.name < b.name){
@@ -154,6 +155,17 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		} else {
 			$scope.allSeries.splice(index, 1);
 		}
+	}
+	
+	function createSystemString() {
+		var systemString = "";
+		for (var i = 0; i < $scope.series.systems.length; i++) {
+			if (i != 0) {
+				systemString += "~";
+			}
+			systemString += $scope.series.systems[i].id;
+		}
+		return systemString;
 	}
 	
 	function isEmptyOrNull(value) {
