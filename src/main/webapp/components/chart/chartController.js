@@ -33,12 +33,12 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 		var chartPromise = chartService.getChart($routeParams.id);
 		chartPromise.then(function(result){
 			$scope.chart = result.data;
+			$scope.saveChartName();
 			$scope.showChart();
 		})	
 	} else {
 		chartService.viewOnly = false;
 	}
-	console.log("chartController " + chartService.viewOnly);
 	
 	var datasourcePromise = dataSourceService.getDataSources();
 	datasourcePromise.then(function(result){
@@ -147,8 +147,9 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 					category = $scope.chart.series[i].category.name;
 					field = $scope.chart.series[i].field.name;
 				} else {
-					for (j=0; j< $scope.chart.series[i].systems.length; j++){
-						systems += $scope.chart.series[i].systems[j] + "~";
+					var systemsArr = $scope.chart.series[i].systems.split(",");
+					for (j=0; j< systemsArr.length; j++){
+						systems += systemsArr[j] + "~";
 					}
 					category = $scope.chart.series[i].category;
 					field = $scope.chart.series[i].field;

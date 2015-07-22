@@ -20,10 +20,9 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		deletePromise.then(function(result){
 			var successful = result.data;
 			if (!successful){
-				alert("The deletion was not successful! :( " + "The id of this shameful chart is = " + id);
-				
-				}
-			
+				alert("Deleting chart with id: " + id + " was NOT successful.");
+			}
+			$location.path("/");
 		})
 	}
 });
