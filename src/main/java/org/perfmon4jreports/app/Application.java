@@ -1,4 +1,5 @@
-package org.perfmon4j.reports.app;
+
+package org.perfmon4jreports.app;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

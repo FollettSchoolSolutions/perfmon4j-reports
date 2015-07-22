@@ -1,4 +1,4 @@
-package org.perfmon4j.reports.app.service;
+package org.perfmon4jreports.app.service;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.perfmon4j.reports.app.data.DataSourceVo;
+import org.perfmon4jreports.app.data.DataSourceVo;
 
 @Path("/datasources")
 public class DataSourceService {

@@ -34,7 +34,14 @@ app.factory('chartService', function($http){
 		for (var i=0; i< chartObj.series.length; i++){
 			chartObj.series[i].category = chartObj.series[i].category.name; 
 			chartObj.series[i].field = chartObj.series[i].field.name; 
-			chartObj.series[i].system = chartObj.series[i].system.id;
+			var systemsString = "";
+			for (var j=0; j< chartObj.series[i].systems.length; j++) {
+				if (j != 0) {
+					systemsString += ", ";
+				}
+				systemsString += chartObj.series[i].systems[j].id;
+			}
+			chartObj.series[i].systems = systemsString;
 		}
 		chartObj.chosenDatasource = chartObj.chosenDatasource.host;
 		chartObj.chosenDatabase = chartObj.chosenDatabase.id;
@@ -51,11 +58,23 @@ app.factory('chartService', function($http){
 			return result;
 		});
 	}
+
+	
 	factory.getChart = function(id){
-		return $http.get("rest/charts/" + id).then(function(result) {
-			return result;
-		});
+        return $http.get("rest/charts/" + id).then(function(result) {
+                return result;
+        });
 	}
+
+	
+	factory.deleteChart = function(id){
+        return $http.delete("rest/charts/" + id).then(function(result) {
+                return result;
+        });
+	}
+	
+	
+
 
 	return factory;
 });
