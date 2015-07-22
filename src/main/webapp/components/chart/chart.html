@@ -47,14 +47,14 @@
 					<h2 id="chartName"> {{name()}} </h2>
 					<div id="chart" style="width: 100%; height: 100%"></div>
 					<br/>
-					<div ng-show="isSuccessfullySaved() != null && isSuccessfullySaved()">
-						<h4 style= "text-align:center; color:green">Successfully saved the chart.</h4>
-					</div>
-					<div ng-show="isSuccessfullySaved() != null && (!isSuccessfullySaved())" >
-						<h4 style= "text-align:center; color:red">Failed to save the chart.</h4>
-					</div>
 					
       			</div>
+				<div ng-show="isSuccessfullySaved() != null && isSuccessfullySaved()">
+					<h4 style= "text-align:center; color:green">Successfully saved the chart.</h4>
+				</div>
+				<div ng-show="isSuccessfullySaved() != null && (!isSuccessfullySaved())" >
+					<h4 style= "text-align:center; color:red">Failed to save the chart.</h4>
+				</div>
 			</div>
     	</md-content>
 </section>
