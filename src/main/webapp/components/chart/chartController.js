@@ -103,6 +103,14 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 				|| isEmptyOrNull($scope.chart.timeEnd))
 	}
 	
+	$scope.saveDisabled = function() {
+		if(!chartService.successfullySaved){
+			return $scope.renderDisabled();
+		} else {
+			return true;
+		}
+	}
+	
 	$scope.isLoading = function(chosenOne, options){
 		return !isEmptyOrNull(chosenOne) && isEmptyOrNull(options);
 	}
@@ -156,6 +164,7 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 				}
 				
 				cleanUrl += systems + category + "~" + field;
+				systems = "";
 			}
 		
 		console.log(cleanUrl);
@@ -288,9 +297,7 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 
 		var newSeriesName = 'Series ' + ($scope.chart.series.length + 1);
 		var lastSeriesIndex = $scope.chart.series.length -1;
-		var previousSystem = $scope.chart.series[lastSeriesIndex].system;
-		var previousCategory = $scope.chart.series[lastSeriesIndex].category;
-		var newSeries = {active: true, name: newSeriesName, system: previousSystem, category: previousCategory, secondaryAxis: false};
+		var newSeries = {active: true, name: newSeriesName, secondaryAxis: false};
 
 		$scope.chart.series.push(newSeries);
 	}
