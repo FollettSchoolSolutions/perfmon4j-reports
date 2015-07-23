@@ -11,6 +11,7 @@ public class SeriesVo {
 	private String category;
 	private String field;
 	private String aggregationMethod;
+	private boolean secondaryAxis; 
 	
 	private boolean active; // to make resteasy happy since we're giving it an extra field
 	
@@ -23,6 +24,7 @@ public class SeriesVo {
 		this.category = s.getCategory();
 		this.field = s.getField();
 		this.aggregationMethod = s.getAggregationMethod();
+		this.secondaryAxis = s.isSecondaryAxis();
 	}
 
 	public String getName() {
@@ -71,6 +73,14 @@ public class SeriesVo {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public boolean isSecondaryAxis() {
+		return secondaryAxis;
+	}
+
+	public void setSecondaryAxis(boolean secondaryAxis) {
+		this.secondaryAxis = secondaryAxis;
 	}
 
 }

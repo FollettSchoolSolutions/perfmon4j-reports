@@ -37,7 +37,7 @@ app.factory('chartService', function($http){
 			var systemsString = "";
 			for (var j=0; j< chartObj.series[i].systems.length; j++) {
 				if (j != 0) {
-					systemsString += ", ";
+					systemsString += ",";
 				}
 				systemsString += chartObj.series[i].systems[j].id;
 			}
@@ -68,7 +68,7 @@ app.factory('chartService', function($http){
 
 	
 	factory.deleteChart = function(id){
-        return $http.delete("rest/charts/" + id).then(function(result) {
+        return $http['delete']("rest/charts/" + id).then(function(result) {
                 return result;
         });
 	}

@@ -1,12 +1,10 @@
 app.controller('sideNavControl', function ($scope, $timeout, $mdSidenav, $mdUtil, chartService) {
     $scope.toggleLeft = buildToggler('left');
     $scope.isToggled = function() {
-    	console.log("isToggled " + chartService.viewOnly);
     	return chartService.isToggled;
     }
     
     $scope.showToggleButton = function() {
-    	console.log("showToggleButton " + chartService.viewOnly);
     	if(chartService.viewOnly == true){
     		return true;
     	} else {

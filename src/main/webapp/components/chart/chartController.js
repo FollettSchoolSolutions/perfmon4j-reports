@@ -33,12 +33,12 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 		var chartPromise = chartService.getChart($routeParams.id);
 		chartPromise.then(function(result){
 			$scope.chart = result.data;
+			$scope.saveChartName();
 			$scope.showChart();
 		})	
 	} else {
 		chartService.viewOnly = false;
 	}
-	console.log("chartController " + chartService.viewOnly);
 	
 	var datasourcePromise = dataSourceService.getDataSources();
 	datasourcePromise.then(function(result){
@@ -103,6 +103,14 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 				|| isEmptyOrNull($scope.chart.timeEnd))
 	}
 	
+	$scope.saveDisabled = function() {
+		if(!chartService.successfullySaved){
+			return $scope.renderDisabled();
+		} else {
+			return true;
+		}
+	}
+	
 	$scope.isLoading = function(chosenOne, options){
 		return !isEmptyOrNull(chosenOne) && isEmptyOrNull(options);
 	}
@@ -147,14 +155,16 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 					category = $scope.chart.series[i].category.name;
 					field = $scope.chart.series[i].field.name;
 				} else {
-					for (j=0; j< $scope.chart.series[i].systems.length; j++){
-						systems += $scope.chart.series[i].systems[j] + "~";
+					var systemsArr = $scope.chart.series[i].systems.split(",");
+					for (j=0; j< systemsArr.length; j++){
+						systems += systemsArr[j] + "~";
 					}
 					category = $scope.chart.series[i].category;
 					field = $scope.chart.series[i].field;
 				}
 				
 				cleanUrl += systems + category + "~" + field;
+				systems = "";
 			}
 		
 		console.log(cleanUrl);
@@ -287,9 +297,7 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 
 		var newSeriesName = 'Series ' + ($scope.chart.series.length + 1);
 		var lastSeriesIndex = $scope.chart.series.length -1;
-		var previousSystem = $scope.chart.series[lastSeriesIndex].system;
-		var previousCategory = $scope.chart.series[lastSeriesIndex].category;
-		var newSeries = {active: true, name: newSeriesName, system: previousSystem, category: previousCategory, secondaryAxis: false};
+		var newSeries = {active: true, name: newSeriesName, secondaryAxis: false};
 
 		$scope.chart.series.push(newSeries);
 	}

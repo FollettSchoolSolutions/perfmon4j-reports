@@ -31,7 +31,7 @@
 			  		<md-button id="addSeries" class="md-raised md-primary" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button>
 			  	</div>
 		  		<md-button id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render</md-button>
-	        	<md-button id="save" ng-disabled="renderDisabled()" class="md-raised md-primary" ng-click="saveChart()">Save</md-button>
+	        	<md-button id="save" ng-disabled="saveDisabled()" class="md-raised md-primary" ng-click="saveChart()">Save</md-button>
 	        	<md-button id="clear" ng-click="clearAllFields()" class="md-raised">Clear</md-button>
 	        	<md-button id="close" ng-click="close();toggleClose()" class="md-raised" id="closeSidenav">
 	        		Close
@@ -47,14 +47,14 @@
 					<h2 id="chartName"> {{name()}} </h2>
 					<div id="chart" style="width: 100%; height: 100%"></div>
 					<br/>
-					<div ng-show="isSuccessfullySaved() != null && isSuccessfullySaved()">
-						<h4 style= "text-align:center; color:green">Successfully saved the chart.</h4>
-					</div>
-					<div ng-show="isSuccessfullySaved() != null && (!isSuccessfullySaved())" >
-						<h4 style= "text-align:center; color:red">Failed to save the chart.</h4>
-					</div>
 					
       			</div>
+				<div ng-show="isSuccessfullySaved() != null && isSuccessfullySaved()">
+					<h4 style= "text-align:center; color:green">Successfully saved the chart.</h4>
+				</div>
+				<div ng-show="isSuccessfullySaved() != null && (!isSuccessfullySaved())" >
+					<h4 style= "text-align:center; color:red">Failed to save the chart.</h4>
+				</div>
 			</div>
     	</md-content>
 </section>
