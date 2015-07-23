@@ -73,6 +73,18 @@ app.factory('chartService', function($http){
         });
 	}
 	
+	factory.copyChart = function(id){
+		var date = new Date();
+		//(date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes();
+		return $http.get("rest/charts/" + id).then(function(result) {
+            var copy = angular.copy(result);
+            copy.data.chartName = copy.data.chartName + " COPY at " + (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes();
+            copy.data.id = null;
+            return $http.post('rest/charts', copy.data).then(function(result) {
+    			return result;
+    		});
+		});
+	}
 	
 
 
