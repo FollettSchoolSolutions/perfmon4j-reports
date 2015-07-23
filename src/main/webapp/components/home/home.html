@@ -13,8 +13,10 @@
 			<table style="width: 100%">
 				<tr ng-repeat="chart in charts"> 
 
-					<td> <a href="#/chart/{{chart.id}}">{{ chart.chartName }}</a><ng-md-icon class="delete" icon="delete" size="20" style="fill:#616161" ng-click="deleteChart(chart.id)"></ng-md-icon></td>
-
+					<td> <a href="#/chart/{{chart.id}}">{{ chart.chartName }}</a>
+					<ng-md-icon title="Delete" class="chartOptionIcon" icon="delete" size="20" style="fill:#616161" ng-click="deleteChart(chart.id)"></ng-md-icon>
+					<ng-md-icon title="Copy" class="chartOptionIcon" icon="content_copy" size="20" style="fill:#616161" ng-click="copyChart(chart.id)"></ng-md-icon>
+					</td>
 				</tr>
 			</table>
 		</div>

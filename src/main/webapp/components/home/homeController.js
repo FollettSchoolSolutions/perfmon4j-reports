@@ -25,4 +25,15 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 			$location.path("/");
 		})
 	}
+	
+	$scope.copyChart = function(id){
+		var copyPromise = chartService.copyChart(id);
+		copyPromise.then(function(result){
+			var successful = result.data;
+			if(!successful){
+				alert("Copying chart with id: " + id + " was NOT successful.");
+			}
+			$location.path("/");
+		})
+	}
 });
