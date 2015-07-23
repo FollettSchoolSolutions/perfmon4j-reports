@@ -19,12 +19,20 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 	clearField();
 	clearAggregationMethod();
 	
+	
 	if(chartService.viewOnly == false){
+		setTimeout(function(){
+			if (isEmptyOrNull($scope.systems)){
+				window.alert("Cannot connect to database");
+			}
+		
+		}, 5000);	
 		var databasePromise = dataSourceService.getSystems($scope.chosenDatasource, $scope.chosenDatabase, chartService.timeStart, 
 				chartService.timeEnd);
 		databasePromise.then(function(result){
 			$scope.systems = result.data;
 		})
+		
 	}
 		
 	$scope.loadCategories = function(){

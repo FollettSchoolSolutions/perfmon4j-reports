@@ -4,7 +4,12 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	
 	var chartFetchPromise = chartService.getCharts();
 	chartFetchPromise.then(function(result){
+		if (result.status != 200) {
+			throw new Error("Failed to load charts");
+		}
 		$scope.charts = result.data;
+	}).catch(function onError(err) {
+		window.alert("Failed to load charts");
 	})
 	
 	$scope.showChart = function() {
