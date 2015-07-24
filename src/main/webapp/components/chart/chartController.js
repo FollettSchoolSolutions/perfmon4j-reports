@@ -13,7 +13,7 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 	$scope.chart = {
 			chosenDatasource : null,
 			chosenDatabase : null,
-			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes(),
+			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDate() +"T"+ date.getHours() +":"+ date.getMinutes(),
 			timeStart : "now-4H",
 			timeEnd : "now",
 			series : []
