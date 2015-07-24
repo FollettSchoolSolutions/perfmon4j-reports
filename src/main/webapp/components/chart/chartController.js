@@ -13,7 +13,7 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 	$scope.chart = {
 			chosenDatasource : null,
 			chosenDatabase : null,
-			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes(),
+			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDate() +"T"+ date.getHours() +":"+ date.getMinutes(),
 			timeStart : "now-4H",
 			timeEnd : "now",
 			series : []
@@ -174,6 +174,12 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 	}
 	
 	$scope.showChart = function() {
+		setTimeout(function(){
+			if (chartService.isChartLoading===true){
+				window.alert("The chart failed to render.  Connection to database may have been lost.");
+			}
+		
+		}, 60000);
 		chartService.successfullySaved = null;
 		chartService.isShowable = false;
 		chartService.isChartLoading = true;
@@ -182,7 +188,7 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 
 		var urlPromise = dataSourceService.getURL(chartService.viewOnly, $scope.chart.chosenDatasource, $scope.chart.chosenDatabase, 
 				$scope.chart.timeStart, $scope.chart.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
-
+		
 		var relative = isRelativeTimeRange();
 
 		urlPromise.then(function(result){
@@ -238,6 +244,7 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 			$scope.showName = true;
 			c3.generate(reportMetadata);
 			chartService.isChartLoading = false;
+			
 			chartService.isShowable = true;
 		})
 	};
@@ -246,7 +253,11 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 		chartService.successfullySaved = null;
 		chartService.isChartLoading = true;
 		var saveChartPromise = chartService.saveChart($scope.chart);
+		
 		saveChartPromise.then(function(result){
+			if (result.status != 200) {
+				throw new Error("Failed to save chart");
+			}
 			var savedChart = result.data;
 			if (savedChart == null || savedChart.id < 1) {
 				console.error("Chart not saved successfully!");
@@ -256,7 +267,11 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 				chartService.successfullySaved = true;
 			}
 			chartService.isChartLoading = false;
+		}).catch(function onError(err) {
+			window.alert("Failed to save chart");
+			chartService.isChartLoading = false;
 		})
+	
 		
 	};
 	

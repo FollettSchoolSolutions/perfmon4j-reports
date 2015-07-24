@@ -22,17 +22,17 @@ app.factory('dataSourceService', function($http){
 		var url = "http://" + datasource.host + urlPath + "/databases/"
 				+ database.id + "/systems?timeStart=" + timeStart + "&timeEnd="
 				+ timeEnd;
-
+		
 		return $http.get(url).then(function(result) {
 			return result;
 		});
+		
 	}
 	
 	factory.getCategories = function(datasource, database, system, timeStart, timeEnd){
 		var url = "http://" + datasource.host + urlPath + "/databases/"
 		+ database.id + "/categories?systemID=" + system + "&timeStart=" + timeStart + "&timeEnd="
 		+ timeEnd;	
-		
 		return $http.get(url).then(function(result) {
 			return result;
 		});
@@ -61,7 +61,6 @@ app.factory('dataSourceService', function($http){
 	factory.getFields = function(datasource, database, category){
 		var url = "http://" + datasource.host + urlPath + "/databases/"
 		+ database.id + "/categories/templates/" + category.templateName;
-		
 		return $http.get(url).success(function(result){
 			return result;
 		})
