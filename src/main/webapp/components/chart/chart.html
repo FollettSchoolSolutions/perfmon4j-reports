@@ -1,62 +1,60 @@
-	<section ng-controller="sideNavControl" style="height:750px;"  layout="row" flex>
-	    <md-sidenav id="sidenav" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="isToggled()">
-	      	<md-toolbar class="md-theme-indigo">
-	        	<h4 class="md-toolbar-tools">Chart Infomation</h4>
-	      	</md-toolbar>
-	      	<md-content layout-padding ng-controller="LeftCtrl">
-				<div ng-controller="chartControl">				
-				<span>Chart Name: <span class="required">*</span></span>
-				<br/>
-				<input type="text" ng-model="chartName" value="" name="chartName" ng-blur="saveChartName()"/>
-				<br/>
-				<br/>
-				<div layout="row">
-				<div class="chooseDatasource">
-				<span>Choose datasource: <span class="required">*</span></span>
-				<br/>
-				<select class="datasourceSelector" ng-options="datasource as datasource.name for datasource in datasources" ng-model="chosenDatasource" ng-change="loadDatabases()" ng-disabled="disableTopOptions()"></select> 
-				<br/>
-				<br/>
+<section ng-controller="sideNavControl" style="height:750px;"  layout="row" flex>
+    <md-sidenav id="sidenav" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="isToggled()">
+      	<div class="md-theme-indigo" id="sidenavHeader">
+      		<h4 class="headerText">Chart Information</h4>
+      	</div>
+      	<md-content layout-padding ng-controller="LeftCtrl">
+			<div>				
+				<span class="inputHeading">Chart Name <span class="required">*</span></span>
+				<input class="chartNameBox" type="text" ng-model="chart.chartName" placeholder="Name of chart" value="" name="chartName" ng-blur="saveChartName()"/>
+				<div layout="row" class="datasourceRow">
+					<div class="chooseDatasource">
+						<span class="inputHeading">Data Source <span class="required">*</span></span>
+						<select class="datasourceSelector" ng-options="datasource as datasource.name for datasource in datasources" ng-model="chart.chosenDatasource" ng-change="loadDatabases()" ng-disabled="disableTopOptions()"></select> 
+					</div>
 				</div>
-				<div class="addDatasource"> 
-				<md-button class="md-raised md-primary" ng-disabled="true">Add</md-button>
-				</div>
-				</div>
-				<span>Choose database: <span class="required">*</span></span> 
+				<span class="inputHeading">Database <span class="required">*</span></span> 
 				<br/>
-				<select class="databaseSelector" ng-options="database as database.name for database in databases" ng-model="chosenDatabase" ng-change="initSeries();loadSystems()" ng-disabled="disableTopOptions()">
+				<select class="databaseSelector" ng-options="database as database.name for database in databases" ng-model="chart.chosenDatabase" ng-change="initSeries();loadSystems()" ng-disabled="disableTopOptions()">
 					<option value="">Select a database</option>
 				</select><img src="images/dataLoading.gif" ng-show="isLoading(chosenDatasource, databases)">
-	      		<p>Date / Time</p>
-	      		<label for="startTime">From: <span class="required">*</span></label>
-	      		<input name="startTime" type="text"  ng-model="timeStart" ng-blur="loadSystems();saveStartTime()"/>
-	      		<br/>
-	      		<label for="endTime">To: <span class="required">*</span></label>
-	      		<input class="to" type="text" name="endTime" ng-model="timeEnd" ng-blur="saveEndTime()"/>
-	      		<p></p>
-					<div class="form" ng-repeat="item in series" >
-						<chart-series all-series="series" series="item" ng-click="setActiveSeries($index)"></chart-series>
-			  		</div>
-			  		<span style="font-size:11px; color:#FF0000" ng-show="invalidSeriesNames()">Cannot have matching series names.</span>
-			  		<md-button class="md-raised md-primary" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button>
-		  			<md-button id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render Chart</md-button>
-	        	<md-button id="save" ng-disabled="true" class="md-raised md-primary">Save</md-button>
+	      		<p class="inputHeading">Date / Time</p>
+	      		<label for="startTime" class="inputHeading">From: <span class="required">*</span></label>
+	      		<input id="timeBox" name="startTime" type="text"  ng-model="chart.timeStart" ng-blur="loadSystems();saveStartTime()"/>
+	      		<label for="endTime" class="inputHeading">To: <span class="required">*</span></label>
+	      		<input id="timeBox" class="to" type="text" name="endTime" ng-model="chart.timeEnd" ng-blur="saveEndTime()"/>
+				<div class="form" ng-repeat="item in chart.series" >
+					<chart-series all-series="chart.series" series="item" ng-click="setActiveSeries($index)"></chart-series>
+			  	</div>
+			  	<span style="font-size:11px; color:#FF0000" ng-show="invalidSeriesNames()">Cannot have matching series names.</span>
+			  	<div class="addSeriesRow" layout="row">
+			  		<md-button id="addSeries" class="md-raised md-primary" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button>
+			  	</div>
+		  		<md-button id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render</md-button>
+	        	<md-button id="save" ng-disabled="saveDisabled()" class="md-raised md-primary" ng-click="saveChart()">Save</md-button>
 	        	<md-button id="clear" ng-click="clearAllFields()" class="md-raised">Clear</md-button>
 	        	<md-button id="close" ng-click="close();toggleClose()" class="md-raised" id="closeSidenav">
 	        		Close
 	        	</md-button>
-	        		</div>
-	      	</md-content>
-	    </md-sidenav>	    
-			    <md-content class="md-accl;,ent md-hue-1 chart-view">
-			 		<md-button ng-show="!isToggled()" ng-click="toggleLeft();toggleOpen()" class="md-raised">Open Chart Config</md-button>
-		      		
- 			      		<div ng-controller="chartRenderControl"> 
- 			      			<div ng-show="isShowable()" style="width: 100%;">
-								<h2 id="chartName"> {{name()}} </h2>
-									<div id="chart" style="width: 100%; height: 100%"></div>
- 			      			</div>
- 						</div>
+        	</div>
+      	</md-content>
+    </md-sidenav>	    
+	    <md-content class="md-accl;,ent md-hue-1 chart-view">
+	 		<md-button ng-show="!showToggleButton()" ng-click="toggleLeft();toggleOpen()" id="openConfig" class="md-raised">Open Chart Config</md-button>
+      		<div ng-controller="chartRenderControl"> 
+      		<img src="images/dataLoading_large.gif" ng-show="isChartLoading()" class="centered">
+      			<div ng-show="isShowable()" style="width: 100%;">
+					<h2 id="chartName"> {{name()}} </h2>
+					<div id="chart" style="width: 100%; height: 100%"></div>
+					<br/>
 					
-		    	</md-content>
-	</section>
+      			</div>
+				<div ng-show="isSuccessfullySaved() != null && isSuccessfullySaved()">
+					<h4 style= "text-align:center; color:green">Successfully saved the chart.</h4>
+				</div>
+				<div ng-show="isSuccessfullySaved() != null && (!isSuccessfullySaved())" >
+					<h4 style= "text-align:center; color:red">Failed to save the chart.</h4>
+				</div>
+			</div>
+    	</md-content>
+</section>

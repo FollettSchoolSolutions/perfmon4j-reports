@@ -4,34 +4,45 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 	$scope.timeStart = chartService.timeStart;
 	$scope.timeEnd = chartService.timeEnd;
 	$scope.seriesName = "";
-	$scope.chosenSystem = "";
+	$scope.chosenSystems = [];
 	$scope.chosenCategory = "";
 	$scope.chosenField = "";
 	$scope.chosenAggregationMethod = "";
 	$scope.chosenSeries = new Series();
-	$scope.systems = [];
 	$scope.active = true;
-	
-	clearSystem();
+	$scope.systems = [];
+	$scope.categories = [];
+	$scope.fields = [];
+	$scope.aggregationMethods = [];
+	clearSystems();
 	clearCategory();
 	clearField();
 	clearAggregationMethod();
 	
-	var databasePromise = dataSourceService.getSystems($scope.chosenDatasource, $scope.chosenDatabase, chartService.timeStart, 
-			chartService.timeEnd);
-	databasePromise.then(function(result){
-		$scope.systems = result.data.sort(function(a,b){
-			return (parseInt(a.id.substring(a.id.lastIndexOf(".") + 1)) - parseInt(b.id.substring(b.id.lastIndexOf(".") + 1)));
-		});
-	})
+	
+	if(chartService.viewOnly == false){
+		setTimeout(function(){
+			if (isEmptyOrNull($scope.systems)){
+				window.alert("Cannot connect to database");
+			}
+		
+		}, 5000);	
+		var databasePromise = dataSourceService.getSystems($scope.chosenDatasource, $scope.chosenDatabase, chartService.timeStart, 
+				chartService.timeEnd);
+		databasePromise.then(function(result){
+			$scope.systems = result.data;
+		})
+		
+	}
 		
 	$scope.loadCategories = function(){
 		clearCategory();
 		clearField();
 		clearAggregationMethod();
-		chartService.chosenSystem = $scope.series.system;
+		chartService.chosenSystems = $scope.series.systems;
+		var systemString = createSystemString();
 		var databasePromise = dataSourceService.getCategories($scope.chosenDatasource, $scope.chosenDatabase, 
-				$scope.series.system, $scope.timeStart, $scope.timeEnd);
+				systemString, $scope.timeStart, $scope.timeEnd);
 		databasePromise.then(function(result){
 			$scope.categories = result.data.sort(function(a,b){
 				if( a.name < b.name){
@@ -42,6 +53,8 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 					return 1;
 				}
 			})
+
+			chartService.categories = $scope.categories;
 		})
 	};
 	
@@ -53,6 +66,7 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 				$scope.series.category);
 		databasePromise.then(function(result){
 			$scope.fields = result.data[0].fields;
+			chartService.fields = $scope.fields;
 		})
 	};
 	
@@ -61,12 +75,14 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		chartService.chosenField = $scope.series.field;
 		$scope.chosenAggregationMethod = $scope.series.aggregationMethod = $scope.series.field.defaultAggregationMethod;
 		$scope.aggregationMethods = $scope.series.field.aggregationMethods;
+
+		chartService.aggregationMethods = $scope.aggregationMethods;
 		chartService.chosenAggregationMethod = $scope.chosenAggregationMethod;
 	}
 	
 	$scope.renderDisabled = function(){
 		return (isEmptyOrNull($scope.chosenDatasource) || isEmptyOrNull($scope.chosenDatabase) 
-				|| isEmptyOrNull($scope.chosenSystem) || isEmptyOrNull($scope.chosenCategory) 
+				|| isEmptyOrNull($scope.chosenSystems) || isEmptyOrNull($scope.chosenCategory) 
 				|| isEmptyOrNull($scope.chosenField) || isEmptyOrNull($scope.seriesName) 
 				|| isEmptyOrNull($scope.chartName) || isEmptyOrNull($scope.timeStart)
 				|| isEmptyOrNull($scope.timeEnd))
@@ -84,6 +100,19 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		chartService.chosenAggregationMethod = $scope.chosenAggregationMethod;
 	}
 	
+
+	$scope.toggleActive = function() {
+		$scope.active = !$scope.active;
+		if ($scope.active) {
+			$scope.chosenSeries.name = $scope.seriesName;
+			$scope.chosenSeries.systems = $scope.chosenSystems;
+			$scope.chosenSeries.category = $scope.chosenCategory;
+			$scope.chosenSeries.field = $scope.chosenField;
+			$scope.chosenSeries.aggregationMethod = $scope.chosenAggregationMethod;
+			chartService.chosenSeries = $scope.chosenSeries;
+		}
+	}
+
 	$scope.seriesHeader = function() {
 		if (isEmptyOrNull($scope.series.name)) {
 			return "Series";
@@ -115,6 +144,7 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		return true;
 	}
 	
+
 	$scope.deleteSeries = function () {
 		var index = $scope.allSeries.indexOf($scope.series);
 		if ($scope.allSeries[index].active) {
@@ -134,12 +164,23 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		}
 	}
 	
+	function createSystemString() {
+		var systemString = "";
+		for (var i = 0; i < $scope.series.systems.length; i++) {
+			if (i != 0) {
+				systemString += "~";
+			}
+			systemString += $scope.series.systems[i].id;
+		}
+		return systemString;
+	}
+	
 	function isEmptyOrNull(value) {
 		return (!value || 0 === value.length);
 	}
 	
-	function clearSystem(){
-		$scope.series.system = null; 
+	function clearSystems(){
+		$scope.series.systems = []; 
 		$scope.systems = [];
 	}
 	
@@ -165,4 +206,5 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 	function clearSeriesName(){
 		$scope.series.name = "";
 	}
+
 });

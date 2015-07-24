@@ -2,8 +2,25 @@
 	font-size: 12px;
 }
 
+#addSeries {
+	margin-left: 20px;
+	width: 245px;
+	height: 28px;
+}
+
 .input {
 	width: 100px;
+}
+
+.chartNameBox {
+	margin-left: 20px;
+	margin-bottom: 10px;
+	height: 28px;
+	width: 245px;
+}
+
+.datasourceRow {
+	margin-bottom: 10px;
 }
 
 /* .form {
@@ -27,14 +44,21 @@
 
 .to {
 	margin-left: 17px;
+	margin-bottom: 8px;
 } 
 
+#timeBox {
+	height: 28px;
+}
+
 .datasourceSelector {
-	width: 105%;
+	width: 245px;
+	margin-left: 20px;
 }
 
 .databaseSelector {
-	width: 50%;
+	width: 245px;
+	margin-left: 20px;
 }
 
 .chartSelect {
@@ -52,19 +76,31 @@
 }
 
 #renderChart {
-	width: 120px;
+	margin-left: 20px;
+	width: 110px;
+	height: 28px;
+	margin-right: 13px;
 }
 
 #close {
-	width: 120px;
+	width: 110px;
+	height: 28px;
 }
 
 #clear {
-	width: 120px;
+	margin-left: 20px;
+	width: 110px;
+	height: 28px;
+	margin-right: 13px; 
 }
 
 #save {
-	width: 120px;
+	width: 110px;
+	height: 28px;
+}
+
+#openConfig {
+	height: 28px;
 }
 
 #chartName {
@@ -74,6 +110,24 @@
 #chart {
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#sidenavHeader {
+	background: #606363;
+	height: 24px;
+	width: 90%;
+	margin-top: 15px;
+	margin-left: 5%;
+	padding-left: 10px; 
+	padding-top: 5px;
+}
+
+.inputHeading {
+	margin-left: 20px;
+}
+
+.headerText {
+	font-color: #FFFFFF;
 }
 
 .chooseDatasource {
@@ -87,6 +141,21 @@
 }
 
 .chart-view {
-	width: 100%;]
+	width: 100%;
 	min-height: 400px;
+}
+
+.centered {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-25%, -50%);
+}
+
+select {
+	border: 0;
+	border-radius: 3px;
+	background: transparent;
+	height: 28px;
+	border: 1px solid #bfbfbf;
 }

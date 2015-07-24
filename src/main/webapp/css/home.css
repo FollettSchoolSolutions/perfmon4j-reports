@@ -17,11 +17,17 @@ md-select {
 }
 
 table, th, td {
-    border: 1px solid black;
     border-collapse: collapse;
 }
 th, td {
     padding: 5px;
+}
+
+tr:nth-child(even) {
+	background: #E8E8E8
+}
+tr:nth-child(odd) {
+	background: #FFFFFF
 }
 
 .chartMenu {
@@ -47,5 +53,10 @@ th, td {
 }
 
 #createButton {
+	float: right;
+	height: 28px;
+}
+
+.chartOptionIcon {
 	float: right;
 }
