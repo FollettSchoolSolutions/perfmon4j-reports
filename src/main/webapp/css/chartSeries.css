@@ -1,21 +1,17 @@
 .header {
 	background-color: #606363;
+	height: 40px;
 	width: 100%;
-}
-
-/* .form {
-	border: 1px solid #606363;
-} */
-
-.icon {
-	width: 5%;
 }
 
 .headerText {
 	color: #FFFFFF;
 	width: 95%;
-	margin-top: 1px;
-	margin-bottom: 2px;
+	vertical-align: middle;
+}
+
+.seriesName {
+	vertical-align: 10px;
 }
 
 .delete {
@@ -29,39 +25,32 @@
 	margin-top: 9px;
 }
 
-.seriesText {
-	height: 24px;
-	width: 225px;
-	margin-left: 10px;
-	margin-bottom: 10px;
-}
-
 .seriesForm {
 	margin-left: 20px;
-	margin-bottom: 10px;
+	margin-bottom: 35px;
 	border: 1px solid;
 	width: 245px;
 }
-
-#seriesInput {
-	width: 100%;
-	margin-bottom: 2px;
-	height: 20px;
-}
-
 
 #checkbox {
 	margin-left: 10px;
 }
 
-#multiSelect {
-	height: 200px;
-	width: 100%;
-	margin-bottom: 2px;
-}
-
 .heading {
 	margin-left: 10px;
+}
+
+.seriesInput {
+	margin-left: 10px;
+	width: 225px;
+	margin-bottom: 15px;
+}
+
+.systemSelect {
+	margin-left: 10px;
+	height: 200px;
+	width: 225px;
+	margin-bottom: 15px;
 }
 
 .bottomRow {
@@ -70,19 +59,3 @@
 	width: 100%;
 	margin-top: 15px;
 }
-
-.chooseSeriesField {
-	margin-left: 10px;
-	width: 225px;
-}
-
-.loadImage {
-	height: 20px;
-}
-
-
-
-
-
-
-

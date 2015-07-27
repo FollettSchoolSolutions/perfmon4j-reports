@@ -56,3 +56,7 @@ tr:nth-child(odd) {
 	float: right;
 	height: 28px;
 }
+
+html, body {
+	font-size: 100%;
+}

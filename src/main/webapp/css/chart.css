@@ -1,76 +1,22 @@
 #sidenav {
-	font-size: 12px;
+	font-size: .9rem;
 }
 
 #addSeries {
 	margin-left: 20px;
 	width: 245px;
-	height: 28px;
 }
 
 .input {
 	width: 100px;
 }
 
-.chartNameBox {
-	margin-left: 20px;
-	margin-bottom: 10px;
-	height: 28px;
-	width: 245px;
-}
-
-.datasourceRow {
-	margin-bottom: 10px;
-}
-
-/* .form {
-	clear: both;
-	border-style: solid;
-	border-width: 1px; 
-	width: 275px;
-	padding-top: -5px;
-	margin-left: 5px;
-} */
-
-/* .insideForm {
-	margin-left: 5px;
-} */
-
-/* .from {
-	float: left;
-	width: 100px;
-	margin-bottom: 10px;
-} */
-
-.to {
-	margin-left: 17px;
-	margin-bottom: 8px;
-} 
-
-#timeBox {
-	height: 28px;
-}
-
-.datasourceSelector {
-	width: 245px;
-	margin-left: 20px;
-}
-
-.databaseSelector {
-	width: 245px;
-	margin-left: 20px;
-}
-
 .chartSelect {
 	width: 85%;
 }
 
-.chart {
-	margin-left: 20px;
-}
-
 .required {
-	font-size: 9px;
+	font-size: .7rem;
 	font-weight: bold;
 	color: #FF0000;
 }
@@ -78,56 +24,40 @@
 #renderChart {
 	margin-left: 20px;
 	width: 110px;
-	height: 28px;
 	margin-right: 13px;
 }
 
 #close {
 	width: 110px;
-	height: 28px;
 }
 
 #clear {
 	margin-left: 20px;
 	width: 110px;
-	height: 28px;
 	margin-right: 13px; 
 }
 
 #save {
 	width: 110px;
-	height: 28px;
-}
-
-#openConfig {
-	height: 28px;
 }
 
 #chartName {
 	text-align: center;
 }
 
-#chart {
-	margin-left: auto;
-	margin-right: auto;
-}
-
 #sidenavHeader {
 	background: #606363;
-	height: 24px;
+	height: 40px;
 	width: 90%;
-	margin-top: 15px;
 	margin-left: 5%;
-	padding-left: 10px; 
-	padding-top: 5px;
-}
-
-.inputHeading {
-	margin-left: 20px;
+	margin-top: 15px;
+	padding-left: 10px;
+	padding-top: 5px; 
 }
 
 .headerText {
 	font-color: #FFFFFF;
+	font-size: 1.2rem;
 }
 
 .chooseDatasource {
@@ -135,14 +65,9 @@
 	margin-right: 45px;
 }
 
-.addDatasource {
-	width: 45%;
-	float: left;
-}
-
 .chart-view {
 	width: 100%;
-	min-height: 400px;
+	height: 100%;
 }
 
 .centered {
@@ -152,10 +77,28 @@
 	transform: translate(-25%, -50%);
 }
 
+.md-button {
+	min-height: 35px;
+}
+
+.inputHeading {
+	margin-left: 20px;
+}
+
 select {
+	margin-left: 20px;
 	border: 0;
 	border-radius: 3px;
 	background: transparent;
-	height: 28px;
+	height: 35px;
 	border: 1px solid #bfbfbf;
+}
+
+input {
+	height: 35px;
+	margin-left: 20px;
+}
+
+.c3 svg {
+	overflow: auto;
 }
