@@ -159,3 +159,7 @@ select {
 	height: 28px;
 	border: 1px solid #bfbfbf;
 }
+
+.md-button {
+	text-transform: none;
+}
