@@ -14,6 +14,7 @@ app.controller('sideNavControl', function ($scope, $timeout, $mdSidenav, $mdUtil
     
     $scope.toggleOpen = function() {
     	chartService.isToggled = true;
+    	chart.resize();
     }
     
     function buildToggler(navID) {

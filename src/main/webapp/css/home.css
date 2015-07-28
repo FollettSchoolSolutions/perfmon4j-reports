@@ -57,6 +57,10 @@ tr:nth-child(odd) {
 	height: 28px;
 }
 
+html, body {
+	font-size: 100%;
+}
+
 .chartOptionIcon {
 	float: right;
 }
