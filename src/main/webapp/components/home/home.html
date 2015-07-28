@@ -4,18 +4,24 @@
 	<div class="chartMenu" layout="column">
  		<md-toolbar>
     		<div class="md-toolbar-tools">
-      			<h3>
+      			<h2>
         			<span>My Charts</span>
-      			</h3>
+      			</h2>
     		</div>
   		</md-toolbar>
   		<div>
 			<table style="width: 100%">
 				<tr ng-repeat="chart in charts"> 
-
-					<td> <a href="#/chart/{{chart.id}}">{{ chart.chartName }}</a>
-					<ng-md-icon title="Delete" class="chartOptionIcon" icon="delete" size="20" style="fill:#616161" ng-click="deleteChart(chart.id)"></ng-md-icon>
-					<ng-md-icon title="Copy" class="chartOptionIcon" icon="content_copy" size="20" style="fill:#616161" ng-click="copyChart(chart.id)"></ng-md-icon>
+					<td> 
+						<div class="right">
+							<a class="chartrowIconAnchor">
+								<ng-md-icon title="Copy" icon="content_copy" size="25" style="fill:#616161" ng-click="copyChart(chart.id)"></ng-md-icon>
+							</a>
+							<a class="chartrowIconAnchor">
+								<ng-md-icon title="Delete" icon="delete" size="25" style="fill:#616161" ng-click="deleteChart(chart.id)"></ng-md-icon>
+							</a>
+						</div>
+						<a class="chartrowLinkAnchor" href="#/chart/{{chart.id}}">{{ chart.chartName }}</a>
 					</td>
 				</tr>
 			</table>
@@ -28,9 +34,9 @@
 	<div class="dashboardMenu" layout="column">
  		<md-toolbar>
     		<div class="md-toolbar-tools">
-      			<h3>
+      			<h2>
         			<span>My Dashboards</span>
-      			</h3>
+      			</h2>
     		</div>
   		</md-toolbar>
   		<md-content>

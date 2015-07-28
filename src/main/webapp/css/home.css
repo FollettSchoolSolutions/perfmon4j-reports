@@ -1,3 +1,14 @@
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: normal;
+}
+
+.clearfix:after {
+	clear: both;
+}   
+
 .title {
 	margin-left: 32px;
 }
@@ -22,14 +33,23 @@ table, th, td {
 th, td {
     padding: 5px;
 }
-
 tr:nth-child(even) {
 	background: #E8E8E8
 }
 tr:nth-child(odd) {
 	background: #FFFFFF
 }
-
+.chartrowIconAnchor {
+	display: inline-block;
+	padding: 5px 5px 2px;
+}
+.chartrowLinkAnchor {
+	line-height: 32px;
+	padding: 0px 11px 0px;
+}
+.right {
+	float: right;
+}
 .chartMenu {
 	border: 1px solid black;
 	width: 40%;
@@ -54,9 +74,5 @@ tr:nth-child(odd) {
 
 #createButton {
 	float: right;
-	height: 28px;
-}
-
-.chartOptionIcon {
-	float: right;
+	height: 35px;
 }

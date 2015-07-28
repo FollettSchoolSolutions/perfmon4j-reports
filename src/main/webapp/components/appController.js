@@ -9,4 +9,12 @@ app.controller('appControl', function ($scope, $location, $rootScope, dataSource
 	$scope.goHome = function() {
 		$location.path("/home");
 	}
+	$scope.showHomeButton = function() {
+		var url = $location.url();
+		if(url.indexOf("home") < 0){
+			return false;
+		} else {
+			return true;
+		}
+	}
 });
