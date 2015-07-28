@@ -4,7 +4,7 @@
       		<span class="headerText">Chart Information</span>
       	</div>
       	<md-content layout-padding ng-controller="LeftCtrl">
-			<div ng-controller="chartControl">				
+			<div>				
 				<span class="inputHeading">Chart Name <span class="required">*</span></span>
 				<input type="text" ng-model="chart.chartName" placeholder="Name of chart" value="" name="chartName" ng-blur="saveChartName()"/>
 				<div layout="row" class="datasourceRow">
@@ -31,7 +31,7 @@
 			  		<md-button id="addSeries" class="md-raised md-primary" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button>
 			  	</div>
 		  		<md-button id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render</md-button>
-	        	<md-button id="save" ng-disabled="renderDisabled()" class="md-raised md-primary" ng-click="saveChart()">Save</md-button>
+	        	<md-button id="save" ng-disabled="saveDisabled()" class="md-raised md-primary" ng-click="saveChart()">Save</md-button>
 	        	<md-button id="clear" ng-click="clearAllFields()" class="md-raised">Clear</md-button>
 	        	<md-button id="close" ng-click="close();toggleClose()" class="md-raised" id="closeSidenav">
 	        		Close
@@ -40,7 +40,7 @@
       	</md-content>
     </md-sidenav>	    
 	    <md-content class="md-accl;,ent md-hue-1 chart-view">
-	 		<md-button ng-show="!isToggled()" ng-click="toggleLeft();toggleOpen()" id="openConfig" class="md-raised">Open Chart Config</md-button>
+	 		<md-button ng-show="!showToggleButton()" ng-click="toggleLeft();toggleOpen()" id="openConfig" class="md-raised">Open Chart Config</md-button>
       		<div ng-controller="chartRenderControl"> 
       		<img src="images/loadingSaving.gif" ng-show="isChartLoading()" class="centered">
       			<div ng-show="isShowable()" style="width: 100%;">
@@ -53,7 +53,6 @@
 					<br/>
 					<span id="chartName"> {{name()}} </span>
 					<div id="chart" style="width: 100%; height: 100%; max-height: 700px"></div>
-      			</div>
 			</div>
     	</md-content>
 </section>

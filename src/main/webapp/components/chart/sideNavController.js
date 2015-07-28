@@ -4,6 +4,14 @@ app.controller('sideNavControl', function ($scope, $timeout, $mdSidenav, $mdUtil
     	return chartService.isToggled;
     }
     
+    $scope.showToggleButton = function() {
+    	if(chartService.viewOnly == true){
+    		return true;
+    	} else {
+    		return $scope.isToggled();
+    	}
+    }
+    
     $scope.toggleOpen = function() {
     	chartService.isToggled = true;
     	chart.resize();

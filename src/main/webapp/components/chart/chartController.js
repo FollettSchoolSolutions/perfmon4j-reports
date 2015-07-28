@@ -1,4 +1,4 @@
-app.controller('chartControl', function ($scope, chartService, dataSourceService){
+app.controller('chartControl', function ($scope, $routeParams, chartService, dataSourceService){
 	$scope.pageTitle = "build a chart";
 	$scope.datasources = [];
 	$scope.databases = [];
@@ -7,19 +7,18 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.categories = [];
 	$scope.aggregationMethods = [];
 	$scope.isLoadingchart = false;
+
 	var date = new Date();
-	
-	
+
 	$scope.chart = {
 			chosenDatasource : null,
 			chosenDatabase : null,
-			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes(),
+			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDate() +"T"+ date.getHours() +":"+ date.getMinutes(),
 			timeStart : "now-4H",
 			timeEnd : "now",
 			series : []
 	};
 	
-	$scope.isDisabled = true;
 	$scope.showName = false;
 	$scope.chartId = 0;
 	$scope.addToggled = false;
@@ -27,6 +26,19 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	$scope.seriesAliases = "";
 	$scope.activeSeries = 0;
 	var active = chartService.active;
+	
+	if (typeof $routeParams.id != 'undefined'){
+		chartService.isToggled = false;
+		chartService.viewOnly = true;
+		var chartPromise = chartService.getChart($routeParams.id);
+		chartPromise.then(function(result){
+			$scope.chart = result.data;
+			$scope.saveChartName();
+			$scope.showChart();
+		})	
+	} else {
+		chartService.viewOnly = false;
+	}
 	
 	var datasourcePromise = dataSourceService.getDataSources();
 	datasourcePromise.then(function(result){
@@ -91,6 +103,14 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 				|| isEmptyOrNull($scope.chart.timeEnd))
 	}
 	
+	$scope.saveDisabled = function() {
+		if(!chartService.successfullySaved){
+			return $scope.renderDisabled();
+		} else {
+			return true;
+		}
+	}
+	
 	$scope.isLoading = function(chosenOne, options){
 		return !isEmptyOrNull(chosenOne) && isEmptyOrNull(options);
 	}
@@ -128,11 +148,22 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 				}
 				agg = $scope.chart.series[i].aggregationMethod + "~";
 				cleanUrl += agg; 
-				for (j=0; j< $scope.chart.series[i].systems.length; j++){
-					systems += $scope.chart.series[i].systems[j].id + "~";
+				
+				if(chartService.viewOnly == false){
+					for (j=0; j< $scope.chart.series[i].systems.length; j++){
+						systems += $scope.chart.series[i].systems[j].id + "~";
+					}
+					category = $scope.chart.series[i].category.name;
+					field = $scope.chart.series[i].field.name;
+				} else {
+					var systemsArr = $scope.chart.series[i].systems.split(",");
+					for (j=0; j< systemsArr.length; j++){
+						systems += systemsArr[j] + "~";
+					}
+					category = $scope.chart.series[i].category;
+					field = $scope.chart.series[i].field;
 				}
-				category = $scope.chart.series[i].category.name;
-				field = $scope.chart.series[i].field.name;
+				
 				cleanUrl += systems + category + "~" + field;
 				systems = "";
 			}
@@ -144,12 +175,19 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 	}
 	
 	$scope.showChart = function() {
+		setTimeout(function(){
+			if (chartService.isChartLoading===true){
+				window.alert("The chart failed to render.  Connection to database may have been lost.");
+			}
+		
+		}, 60000);
 		chartService.successfullySaved = null;
 		chartService.isShowable = false;
 		chartService.isChartLoading = true;
 		$scope.seriesUrl = $scope.cleanSeriesUrl();
 		listSeriesAliases();
-		var urlPromise = dataSourceService.getURL(chartService.chosenDatasource, chartService.chosenDatabase, 
+
+		var urlPromise = dataSourceService.getURL(chartService.viewOnly, $scope.chart.chosenDatasource, $scope.chart.chosenDatabase, 
 				$scope.chart.timeStart, $scope.chart.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
 		
 		var relative = isRelativeTimeRange();
@@ -171,8 +209,18 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			               format: '%Y-%m-%dT%H:%M'
 			           }
 			       },
+			       y: {
+			    	   min: 0,
+			    	   padding: {
+			    		   bottom: 0
+			    	   }
+			       },
 				   y2: {
-					   show: false
+					   show: false,
+					   min: 0,
+					   padding: {
+						   bottom: 0
+					   }
 				   }
 			   },
 			   subchart: {
@@ -204,6 +252,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 			$scope.showName = true;
 			c3.generate(reportMetadata);
 			chartService.isChartLoading = false;
+			
 			chartService.isShowable = true;
 		})
 	};
@@ -212,7 +261,11 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 		chartService.successfullySaved = null;
 		chartService.isChartLoading = true;
 		var saveChartPromise = chartService.saveChart($scope.chart);
+		
 		saveChartPromise.then(function(result){
+			if (result.status != 200) {
+				throw new Error("Failed to save chart");
+			}
 			var savedChart = result.data;
 			if (savedChart == null || savedChart.id < 1) {
 				console.error("Chart not saved successfully!");
@@ -222,7 +275,11 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 				chartService.successfullySaved = true;
 			}
 			chartService.isChartLoading = false;
+		}).catch(function onError(err) {
+			window.alert("Failed to save chart");
+			chartService.isChartLoading = false;
 		})
+	
 		
 	};
 	
@@ -263,9 +320,7 @@ app.controller('chartControl', function ($scope, chartService, dataSourceService
 
 		var newSeriesName = 'Series ' + ($scope.chart.series.length + 1);
 		var lastSeriesIndex = $scope.chart.series.length -1;
-		var previousSystem = $scope.chart.series[lastSeriesIndex].system;
-		var previousCategory = $scope.chart.series[lastSeriesIndex].category;
-		var newSeries = {active: true, name: newSeriesName, system: previousSystem, category: previousCategory, secondaryAxis: false};
+		var newSeries = {active: true, name: newSeriesName, secondaryAxis: false};
 
 		$scope.chart.series.push(newSeries);
 	}

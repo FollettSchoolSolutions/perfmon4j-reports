@@ -2,6 +2,8 @@ app.factory('chartService', function($http){
 	
 	var pageTitle = "build a chart";
 	
+	var viewOnly = false;
+	
 	var chosenDatasource = "";
 	var chosenDatabase = "";
 	var chartName = "";
@@ -35,7 +37,7 @@ app.factory('chartService', function($http){
 			var systemsString = "";
 			for (var j=0; j< chartObj.series[i].systems.length; j++) {
 				if (j != 0) {
-					systemsString += ", ";
+					systemsString += ",";
 				}
 				systemsString += chartObj.series[i].systems[j].id;
 			}
@@ -56,6 +58,35 @@ app.factory('chartService', function($http){
 			return result;
 		});
 	}
+
+	
+	factory.getChart = function(id){
+        return $http.get("rest/charts/" + id).then(function(result) {
+                return result;
+        });
+	}
+
+	
+	factory.deleteChart = function(id){
+        return $http['delete']("rest/charts/" + id).then(function(result) {
+                return result;
+        });
+	}
+	
+	factory.copyChart = function(id){
+		var date = new Date();
+		//(date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes();
+		return $http.get("rest/charts/" + id).then(function(result) {
+            var copy = angular.copy(result);
+            copy.data.chartName = copy.data.chartName + " COPY at " + (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes();
+            copy.data.id = null;
+            return $http.post('rest/charts', copy.data).then(function(result) {
+    			return result;
+    		});
+		});
+	}
+	
+
 
 	return factory;
 });

@@ -111,9 +111,9 @@ public class Series {
 
 	public boolean isSecondaryAxis() {
 		return secondaryAxis;
-	}	
-	
+	}
+
 	public void setSecondaryAxis(boolean secondaryAxis) {
 		this.secondaryAxis = secondaryAxis;
-	}
+	}	
 }

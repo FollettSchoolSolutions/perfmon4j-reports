@@ -60,3 +60,7 @@ tr:nth-child(odd) {
 html, body {
 	font-size: 100%;
 }
+
+.chartOptionIcon {
+	float: right;
+}
