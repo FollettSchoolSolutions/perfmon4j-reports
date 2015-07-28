@@ -11,10 +11,33 @@ app.controller('sideNavControl', function ($scope, $timeout, $mdSidenav, $mdUtil
     		return $scope.isToggled();
     	}
     }
+    $scope.sideNavToggle= function(){
+    	if(chartService.isToggled == true){
+    	chartService.sideNavButtonName="CLOSE";
+    	return chartService.sideNavButtonName;
+    }
+    	else 
+    	{
+        	chartService.sideNavButtonName="OPEN";
+        	return chartService.sideNavButtonName;
+    	}
+    	}
     
     $scope.toggleOpen = function() {
     	chartService.isToggled = true;
-    	chart.resize();
+    }
+    
+    $scope.toggleClose = function() {
+    	chartService.isToggled = false;
+    }
+    
+    $scope.toggleSideNav = function() {
+    	chartService.isToggled = !chartService.isToggled;
+    	if (!chartService.isToggled) {
+    		$mdSidenav('left').close();
+    	} else {
+    		$mdSidenav('left').open();
+    	}
     }
     
     function buildToggler(navID) {

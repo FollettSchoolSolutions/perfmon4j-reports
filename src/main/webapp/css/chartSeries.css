@@ -14,11 +14,15 @@
 	vertical-align: 10px;
 }
 
-.delete-icon {
+.delete-icon-light {
 	float: right;
-	margin-top: 2px; 
+	margin-top: 4px; 
 	margin-right: -5px;
 	fill: white;
+	padding-top: 2px;
+	padding-left: 2px;
+	padding-bottom: 2px;
+	padding-right: 2px;
 }  
 
 .clear {
@@ -93,10 +97,12 @@
 
 .arrow-icon:hover {
 	cursor: pointer;
+	fill: #E0E0E0;
 }
 
-.delete-icon:hover {
+.delete-icon-light:hover {
 	cursor: pointer;
+	fill: #E0E0E0;
 }
 
 a:hover {

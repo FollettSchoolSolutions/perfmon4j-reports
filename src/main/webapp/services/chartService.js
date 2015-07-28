@@ -1,4 +1,5 @@
 app.factory('chartService', function($http){
+	var sideNavButtonName = "Test";
 	
 	var pageTitle = "build a chart";
 	

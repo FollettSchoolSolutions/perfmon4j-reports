@@ -30,19 +30,16 @@
 			  	</div>
 			  	<span style="font-size:11px; color:#FF0000" ng-show="invalidSeriesNames()">Cannot have matching series names.</span>
 			  	<div class="addSeriesRow" layout="row">
-			  		<md-button title="Add Series" id="addSeries" class="md-raised md-primary" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button>
+			  		<a title="Add Series"><md-button title="Add Series" id="addSeries" class="md-raised md-primary" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button></a>
 			  	</div>
-		  		<md-button title="Render" id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render</md-button>
-	        	<md-button title="Save" id="save" ng-disabled="saveDisabled()" class="md-raised md-primary" ng-click="saveChart()">Save</md-button>
-	        	<md-button title="Clear" id="clear" ng-click="clearAllFields()" class="md-raised">Clear</md-button>
-	        	<md-button title="Close" id="close" ng-click="close();toggleClose()" class="md-raised" id="closeSidenav">
-	        		Close
-	        	</md-button>
+		  		<a title="Render"><md-button id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render</md-button></a>
+	        	<a title="Save"><md-button title="Save" id="save" ng-disabled="saveDisabled()" class="md-raised md-primary" ng-click="saveChart()">Save</md-button></a>
+	        	<a title="Clear"><md-button title="Clear" id="clear" ng-click="clearAllFields()" class="md-raised">Clear</md-button></a>
         	</div>
       	</md-content>
     </md-sidenav>	    
 	    <md-content class="md-accl; chart-view">
-	 		<md-button ng-show="!showToggleButton()" ng-click="toggleLeft();toggleOpen()" id="openConfig" class="md-raised">Open Chart Config</md-button>
+	 		<a class="tabText" title="Toggle Menu Bar"><div ng-show="true" ng-click="toggleSideNav()" id="openConfig" class="btn">{{sideNavToggle()}}</div></a>
       		<div ng-controller="chartRenderControl"> 
       		<img src="images/loadingSaving.gif" ng-show="isChartLoading()" class="centered">
       			<div ng-show="isShowable()" style="width: 100%;">

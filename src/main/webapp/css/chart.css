@@ -65,14 +65,13 @@
 	margin-right: 13px;
 }
 
-#close {
+#clear {
+	margin-left: 155px;
 	width: 110px;
 }
 
-#clear {
-	margin-left: 20px;
-	width: 110px;
-	margin-right: 13px; 
+.tabText:hover {
+	text-decoration: none;
 }
 
 #save {
@@ -164,4 +163,25 @@ input {
 
 .md-button {
 	text-transform: none;
+}
+
+.btn {
+  color: #ffffff;
+  font-size: 1.1rem;
+  background: #606363;
+  box-shadow: 0px 1px 3px #666666;
+  width: 20px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-decoration: none;
+  word-break: break-all;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.btn:hover {
+  background: #E0E0E0;
+  text-decoration: none;
 }
