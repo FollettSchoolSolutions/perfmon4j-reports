@@ -44,16 +44,15 @@
       		<div ng-controller="chartRenderControl"> 
       		<img src="images/loadingSaving.gif" ng-show="isChartLoading()" class="centered">
       			<div ng-show="isShowable()" style="width: 100%;">
-					<span id="chartName"> {{name()}} </span>
-					<div id="chart" style="width: 100%; height: 100%"></div>
-					<br/>
-					<div ng-show="isSuccessfullySaved() != null && isSuccessfullySaved()">
-						<span style= "text-align:center; color:green">Successfully saved the chart.</span>
+      				<div ng-show="isSuccessfullySaved() != null && isSuccessfullySaved()">
+						<span class="saveConfirmation">Successfully saved the chart.</span>
 					</div>
 					<div ng-show="isSuccessfullySaved() != null && (!isSuccessfullySaved())" >
-						<span style= "text-align:center; color:red">Failed to save the chart.</span>
+						<span class="saveFailure">Failed to save the chart.</span>
 					</div>
-					
+					<br/>
+					<span id="chartName"> {{name()}} </span>
+					<div id="chart" style="width: 100%; height: 100%; max-height: 700px"></div>
       			</div>
 			</div>
     	</md-content>

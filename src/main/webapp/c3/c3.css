@@ -1,4 +1,8 @@
 /*-- Chart --*/
+.c3 {
+	max-height: 750px;
+}
+
 .c3 svg {
   font: 10px sans-serif; }
 

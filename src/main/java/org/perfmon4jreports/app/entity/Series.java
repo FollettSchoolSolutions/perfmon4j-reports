@@ -42,6 +42,9 @@ public class Series {
 	@Column(nullable = false)
 	private String aggregationMethod;
 	
+	@Column(nullable = false)
+	 private boolean secondaryAxis;
+	
 	public Series(){
 	}
 	
@@ -51,6 +54,7 @@ public class Series {
 		this.category = svo.getCategory();
 		this.field = svo.getField();
 		this.aggregationMethod = svo.getAggregationMethod();
+		this.secondaryAxis = svo.isSecondaryAxis();
 	}
 	
 	public Chart getChart() {
@@ -103,5 +107,13 @@ public class Series {
 
 	public void setAggregationMethod(String aggregationMethod) {
 		this.aggregationMethod = aggregationMethod;
+	}
+
+	public boolean isSecondaryAxis() {
+		return secondaryAxis;
 	}	
+	
+	public void setSecondaryAxis(boolean secondaryAxis) {
+		this.secondaryAxis = secondaryAxis;
+	}
 }

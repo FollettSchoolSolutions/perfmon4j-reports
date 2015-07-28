@@ -15,6 +15,20 @@
 	width: 85%;
 }
 
+.saveConfirmation {
+	margin: auto;
+	font-size: 1.2rem;
+	font-weight: bold;
+	color: green;
+}
+
+.saveFailure {
+	text-align: center;
+	font-size: 1.2rem;
+	font-weight: bold;
+	font-color: red;
+}
+
 .required {
 	font-size: .7rem;
 	font-weight: bold;
@@ -92,6 +106,7 @@ select {
 	background: transparent;
 	height: 35px;
 	border: 1px solid #bfbfbf;
+	text-overflow:ellipsis;
 }
 
 input {
@@ -99,6 +114,16 @@ input {
 	margin-left: 20px;
 }
 
-.c3 svg {
+#chart {
+	max-height: 750px;
+}
+
+.c3 {
+	max-height: 750px;
+}
+
+.svg {
 	overflow: auto;
+	width: 100%;
+	height: 100%;
 }
