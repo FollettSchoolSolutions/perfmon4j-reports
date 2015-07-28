@@ -34,10 +34,34 @@ th, td {
     padding: 5px;
 }
 tr:nth-child(even) {
-	background: #E8E8E8
+	background: #E0E0E0
 }
 tr:nth-child(odd) {
 	background: #FFFFFF
+}
+a {
+    color: #616161;
+}
+a:hover, a:active {
+    color: #000000; 
+}
+.home-icon-light {
+	fill: #FFFFFF;
+}
+.home-icon-light:hover {
+	fill: #E0E0E0;
+}
+.duplicate-icon-dark {
+	fill: #616161;
+}
+.duplicate-icon-dark:hover {
+	fill: #000000;
+}
+.delete-icon-dark {
+	fill: #616161;
+}
+.delete-icon-dark:hover {
+	fill: #000000;
 }
 .chartrowIconAnchor {
 	display: inline-block;
@@ -46,6 +70,8 @@ tr:nth-child(odd) {
 .chartrowLinkAnchor {
 	line-height: 32px;
 	padding: 0px 11px 0px;
+	font-weight: bold;
+	text-decoration: none;
 }
 .right {
 	float: right;

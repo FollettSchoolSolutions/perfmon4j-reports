@@ -3,7 +3,7 @@
 	<div layout="row">
 	<div class="chartMenu" layout="column">
  		<md-toolbar>
-    		<div class="md-toolbar-tools">
+    		<div class="md-toolbar-tools" style="min-height: 12px">
       			<h2>
         			<span>My Charts</span>
       			</h2>
@@ -14,11 +14,11 @@
 				<tr ng-repeat="chart in charts"> 
 					<td> 
 						<div class="right">
-							<a class="chartrowIconAnchor">
-								<ng-md-icon title="Copy" icon="content_copy" size="25" style="fill:#616161" ng-click="copyChart(chart.id)"></ng-md-icon>
+							<a title="Duplicate Chart" class="chartrowIconAnchor">
+								<ng-md-icon title="Duplicate Chart" class="duplicate-icon-dark" icon="content_copy" size="25" ng-click="copyChart(chart.id)"></ng-md-icon>
 							</a>
-							<a class="chartrowIconAnchor">
-								<ng-md-icon title="Delete" icon="delete" size="25" style="fill:#616161" ng-click="deleteChart(chart.id)"></ng-md-icon>
+							<a title="Delete Chart" class="chartrowIconAnchor">
+								<ng-md-icon title="Delete Chart" class="delete-icon-dark" icon="delete" size="25" ng-click="deleteChart(chart.id)"></ng-md-icon>
 							</a>
 						</div>
 						<a class="chartrowLinkAnchor" href="#/chart/{{chart.id}}">{{ chart.chartName }}</a>
@@ -27,7 +27,9 @@
 			</table>
 		</div>
   		<md-content>
-			<md-button id="createButton" class="md-raised md-primary" ng-click="showChart();openSideNav()"> Create </md-button>
+  			<a title="Create New Chart">
+				<md-button title="Create New Chart" id="createButton" class="md-raised md-primary" ng-click="showChart();openSideNav()"> Create </md-button>
+			</a>
   		</md-content>
 	</div>
 	
@@ -40,7 +42,9 @@
     		</div>
   		</md-toolbar>
   		<md-content>
-			<md-button id="createButton" class="md-raised md-primary" ng-disabled="true"> Create </md-button>
+  			<a title="Create New Dashboard">
+				<md-button title="Create New Dashboard" id="createButton" class="md-raised md-primary" ng-disabled="true"> Create </md-button>
+			</a>
   		</md-content>
 	</div>
 	</div>
