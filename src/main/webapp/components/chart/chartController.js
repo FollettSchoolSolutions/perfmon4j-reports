@@ -19,6 +19,8 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 			series : []
 	};
 	
+	chartService.chartName = $scope.chart.chartName;
+	
 	$scope.showName = false;
 	$scope.chartId = 0;
 	$scope.addToggled = false;
@@ -198,8 +200,8 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 		urlPromise.then(function(result){
 			var reportMetadata = {
 				size: {
-					height: screenHeight,
-					width: screenWidth
+					//height: screenHeight//,
+					//width: screenWidth
 				},
 				data: result.data,
 				axis: {

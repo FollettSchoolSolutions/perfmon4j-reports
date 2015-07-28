@@ -84,6 +84,13 @@
 	margin-left: 10px;
 }
 
+.errorText {
+	color:red;
+	font-size:.6rem;
+	margin-bottom: 15px;
+	margin-left: 10px;
+}
+
 .arrow-icon:hover {
 	cursor: pointer;
 }

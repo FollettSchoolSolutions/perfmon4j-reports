@@ -7,6 +7,30 @@
 	width: 245px;
 }
 
+.chartInput {
+	width: 250px;
+	margin-bottom: 15px;
+}
+
+.start {
+	width: 40%;
+	margin-right: 15px;
+	margin-bottom: 15px;
+}
+
+.from {
+	width: 120px;	
+}
+
+.end {
+	float: right;
+	margin-bottom: 15px;
+}
+
+.to {
+	width: 120px;
+}
+
 .input {
 	width: 100px;
 }
@@ -16,7 +40,7 @@
 }
 
 .saveConfirmation {
-	margin: auto;
+	text-align: center;
 	font-size: 1.2rem;
 	font-weight: bold;
 	color: green;
@@ -26,7 +50,7 @@
 	text-align: center;
 	font-size: 1.2rem;
 	font-weight: bold;
-	font-color: red;
+	color: red;
 }
 
 .required {
@@ -55,8 +79,10 @@
 	width: 110px;
 }
 
-#chartName {
+.chartName {
 	text-align: center;
+	font-size: 1.2rem;
+	font-weight: bold;
 }
 
 #sidenavHeader {
@@ -106,7 +132,15 @@ select {
 	background: transparent;
 	height: 35px;
 	border: 1px solid #bfbfbf;
-	text-overflow:ellipsis;
+	word-wrap: break-word;
+}
+
+option {
+	padding-bottom: 15px;
+	/*	text-overflow:ellipsis; */
+	word-break: break-all;
+	word-wrap: break-word;
+	max-width: 200px;
 }
 
 input {
