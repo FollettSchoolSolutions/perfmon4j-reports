@@ -1,3 +1,23 @@
+/*
+ *	Copyright 2015 Follett School Solutions, Inc 
+ *
+ *	This file is part of PerfMon4j-reports
+ *
+ * 	Perfmon4j is free software: you can redistribute it and/or modify
+ * 	it under the terms of the GNU Lesser General Public License, version 3,
+ * 	as published by the Free Software Foundation.  This program is distributed
+ * 	WITHOUT ANY WARRANTY OF ANY KIND, WITHOUT AN IMPLIED WARRANTY OF MERCHANTIBILITY,
+ * 	OR FITNESS FOR A PARTICULAR PURPOSE.  You should have received a copy of the GNU Lesser General Public 
+ * 	License, Version 3, along with this program.  If not, you can obtain the LGPL v.s at 
+ * 	http://www.gnu.org/licenses/
+ * 	
+ * 	perfmon4j@fsc.follett.com
+ * 	Follett School Solutions
+ * 	1391 Corporate Drive
+ * 	McHenry, IL 60050
+ * 
+*/
+
 package org.perfmon4jreports.app.sso.github;
 
 import java.io.IOException;
@@ -30,15 +50,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @WebServlet("/callback/sso/github")
-class GitHubSSOCallback extends HttpServlet {
-	private static final Logger logger = LoggerFactory.getLogger(GitHubSSOCallback.class);
-	private static final String SESSION_STATE_KEY = GitHubSSOCallback.class.getName() + "SESSION_STATE_KEY";
+class GitHubSSOServlet extends HttpServlet {
+	private static final Logger logger = LoggerFactory.getLogger(GitHubSSOServlet.class);
+	static final String SESSION_STATE_KEY = GitHubSSOServlet.class.getName() + "SESSION_STATE_KEY";
 	private static final long serialVersionUID = 1L;
 	private static SSOConfig config = new SSOConfig();
 	private final SecureRandom random = new SecureRandom();
 	private AtomicLong requestID = new AtomicLong(System.currentTimeMillis());  // Create a trackingID that is unique, and easy to grep in the log. 
 	
-    public GitHubSSOCallback() {
+    public GitHubSSOServlet() {
         super();
     }
 
@@ -61,47 +81,58 @@ class GitHubSSOCallback extends HttpServlet {
 		}
 	}
 
-	 private <T> T invokeGitHubAPI(String trackingID, String url, Map<String, String> parameters, Class<T> valueType) throws ServletException {
-		 return invokeGitHubAPI(trackingID, url, parameters, valueType, null);
+	 private <T> T invokeGitHubAPI(Client client, String trackingID, String url, Map<String, String> parameters, 
+			 Class<T> valueType) throws ServletException {
+		 return invokeGitHubAPI(client, trackingID, url, parameters, valueType, null);
 	 }
 
-	 private <T> T invokeGitHubAPI(String trackingID, String url, Map<String, String> parameters, Class<T> valueType, GitHubAccessToken accessToken) throws ServletException {
-		 	T result = null;
-		 	UriBuilder uriBuilder = UriBuilder.fromUri(url); 
-		 	
-			if (parameters != null) {
-				for (Map.Entry<String, String> e : parameters.entrySet()) {
-					uriBuilder.queryParam(e.getKey(), e.getValue());
-				}
+	 private <T> T invokeGitHubAPI(Client client, String trackingID, String url, Map<String, String> parameters, Class<T> valueType, 
+			 GitHubAccessToken accessToken) throws ServletException {
+	 	T result = null;
+	 	UriBuilder uriBuilder = UriBuilder.fromUri(url); 
+	 	
+		if (parameters != null) {
+			for (Map.Entry<String, String> e : parameters.entrySet()) {
+				uriBuilder.queryParam(e.getKey(), e.getValue());
 			}
-			url = uriBuilder.build().toString();
-			
-			Client client = ClientBuilder.newClient();
-			Invocation.Builder invocationBuilder = client.target(url)
-				.request(MediaType.APPLICATION_JSON)
-				.header("User-Agent", "reports.perfmon4j.org");
-			
-			if (accessToken != null) {
-				invocationBuilder.header("Authorization", "token " + accessToken.getAccess_token());
-			}
-			Response response = invocationBuilder.get();
-			String entityString = response.readEntity(String.class);
-			String debugString = buildDebugString(trackingID, url, response, entityString);
-			
-			if (response.getStatus() != 200) {
-				throw new ServletException("Error from GitHub API request:\r\n" + debugString);
-			}
-			
-			try {
-				ObjectMapper mapper = new ObjectMapper();
-				result = mapper.readValue(entityString, valueType);
-			} catch (IOException e) {
-				throw new ServletException("Error Mapping object from GitHub request:\r\n" + debugString, e);
-			}
+		}
+		url = uriBuilder.build().toString();
 
-			logger.debug(debugString);
-			
-			return result;
+		InvocationParameters params = new InvocationParameters(url, MediaType.APPLICATION_JSON);
+		params.getHeaders().put("User-Agent", "reports.perfmon4j.org");
+		
+		if (accessToken != null) {
+			params.getHeaders().put("Authorization", "token " + accessToken.getAccess_token());
+		}
+		Response response = doGet(client, params);
+		String entityString = response.readEntity(String.class);
+		String debugString = buildDebugString(trackingID, url, response, entityString);
+		
+		if (response.getStatus() != 200) {
+			throw new ServletException("Error from GitHub API request:\r\n" + debugString);
+		}
+		
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			result = mapper.readValue(entityString, valueType);
+		} catch (IOException e) {
+			throw new ServletException("Error Mapping object from GitHub request:\r\n" + debugString, e);
+		}
+
+		logger.debug(debugString);
+		
+		return result;
+	 }
+	 
+	 Response doGet(Client client, InvocationParameters params) {
+		 Invocation.Builder invocationBuilder = client.target(params.getUrl())
+				 .request(params.getMediaType());
+		 
+		 for (Map.Entry<String, String> entry : params.getHeaders().entrySet()) {
+			 invocationBuilder.header(entry.getKey(), entry.getValue());
+		 }
+		 
+		 return invocationBuilder.get();
 	 }
 	
 	private void handleSingleSignonResponse(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -117,6 +148,7 @@ class GitHubSSOCallback extends HttpServlet {
 				throw new ServletException("State parameter does not match what we sent - Expected(" + expectedState + ") State(" + state + ")");
 			}
 
+			Client client = ClientBuilder.newClient();
 			//  Now use our code to retrieve an API access token.
 			Map<String, String> parameters = new HashMap<String, String>();
 			parameters.put("client_id", config.getGitHubClientID());
@@ -124,14 +156,14 @@ class GitHubSSOCallback extends HttpServlet {
 			parameters.put("code", code);
 			parameters.put("state",state);
 			parameters.put("redirect_uri", config.getRootClientPath() + "/callback/sso/github");
-			GitHubAccessToken token = invokeGitHubAPI(trackingID, config.getGitHubOauthAPIPath() + "/access_token", parameters, GitHubAccessToken.class);
+			GitHubAccessToken token = invokeGitHubAPI(client, trackingID, config.getGitHubOauthAPIPath() + "/access_token", parameters, GitHubAccessToken.class);
 			
 			// Now use our access token to retrieve the logged in GitHub user.
-			GitHubUser currentUser = invokeGitHubAPI(trackingID, config.getGitHubAPIPath() + "/user", null, GitHubUser.class, token);
+			GitHubUser currentUser = invokeGitHubAPI(client, trackingID, config.getGitHubAPIPath() + "/user", null, GitHubUser.class, token);
 			
 			// Now attempt to retrieve the primary email address for the GitHub user.
 			String emailAddress = null;
-			GitHubUserEmail emails[] = invokeGitHubAPI(trackingID, config.getGitHubAPIPath() + "/user/emails", null, GitHubUserEmail[].class, token);
+			GitHubUserEmail emails[] = invokeGitHubAPI(client, trackingID, config.getGitHubAPIPath() + "/user/emails", null, GitHubUserEmail[].class, token);
 			GitHubUserEmail primaryEmail = GitHubUserEmail.getPrimary(emails);
 			if (primaryEmail != null) {
 				emailAddress = primaryEmail.getEmail();
@@ -139,7 +171,7 @@ class GitHubSSOCallback extends HttpServlet {
 			
 			// Now attempt to retrieve the Organization (Groups) this user belongs to.
 			List<Group> groups = new ArrayList<>();
-			GitHubOrganization orgs[] = invokeGitHubAPI(trackingID, config.getGitHubAPIPath() + "/user/orgs", null, GitHubOrganization[].class, token);
+			GitHubOrganization orgs[] = invokeGitHubAPI(client, trackingID, config.getGitHubAPIPath() + "/user/orgs", null, GitHubOrganization[].class, token);
 			for (GitHubOrganization org : orgs) {
 				groups.add(new Group(SSODomain.GITHUB, org.getLogin(), org.getId()));
 			}
@@ -206,5 +238,29 @@ class GitHubSSOCallback extends HttpServlet {
 			+ "Headers: " + response.getHeaders() + "\r\n"
 			+ "Entity: " + entityString;
 		return message;
+	}
+	
+	
+	static class InvocationParameters {
+		private final String url;
+		private final String mediaType;
+		private final Map<String, String> headers = new HashMap<String, String>();
+		
+		InvocationParameters(String url, String mediaType) {
+			this.url = url;
+			this.mediaType = mediaType;
+		}
+
+		public String getUrl() {
+			return url;
+		}
+
+		public String getMediaType() {
+			return mediaType;
+		}
+
+		public Map<String, String> getHeaders() {
+			return headers;
+		}
 	}
 }

@@ -1,5 +1,4 @@
 <%@page import="org.perfmon4jreports.app.sso.SSOConfig"%>
-<%@page import="org.perfmon4jreports.app.sso.github.GitHubSSOCallback"%>
 <%@page import="org.perfmon4jreports.app.sso.Group"%>
 <%@page import="org.perfmon4jreports.app.sso.Principal"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
