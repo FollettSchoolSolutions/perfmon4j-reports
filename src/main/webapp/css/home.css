@@ -102,3 +102,13 @@ a:hover, a:active {
 	float: right;
 	height: 35px;
 }
+
+#chartMenu {
+	min-height: 35px;
+	height: 35px;
+}
+
+#dashboardMenu {
+	min-height: 35px;
+	height: 35px;
+}
