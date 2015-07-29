@@ -164,6 +164,19 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		}
 	}
 	
+	$scope.checkIndex = function() {
+		var index = $scope.allSeries.indexOf($scope.series);
+		if (index == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	$scope.toggleSecondaryAxis = function() {
+		$scope.series.secondaryAxis = !$scope.series.secondaryAxis;
+	}
+	
 	function createSystemString() {
 		var systemString = "";
 		for (var i = 0; i < $scope.series.systems.length; i++) {

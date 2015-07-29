@@ -112,3 +112,8 @@ a:hover, a:active {
 	min-height: 35px;
 	height: 35px;
 }
+
+html, body {
+	font-size: 100%;
+}
+

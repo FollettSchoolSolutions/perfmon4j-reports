@@ -19,6 +19,8 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 			series : []
 	};
 	
+	chartService.chartName = $scope.chart.chartName;
+	
 	$scope.showName = false;
 	$scope.chartId = 0;
 	$scope.addToggled = false;
@@ -130,6 +132,7 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 	
 	$scope.toggleClose = function() {
 		chartService.isToggled = false;
+		c3.resize();
 	}
 	
 	$scope.cleanSeriesUrl = function() {
@@ -190,9 +193,16 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 				$scope.chart.timeStart, $scope.chart.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
 		
 		var relative = isRelativeTimeRange();
+		
+		var screenHeight = window.innerHeight - (64 + 28);
+		var screenWidth = window.innerWidth - 304;
 
 		urlPromise.then(function(result){
 			var reportMetadata = {
+				size: {
+					//height: screenHeight//,
+					//width: screenWidth
+				},
 				data: result.data,
 				axis: {
 			       x: {

@@ -11,7 +11,7 @@ public class SeriesVo {
 	private String category;
 	private String field;
 	private String aggregationMethod;
-	private boolean secondaryAxis; 
+	private boolean secondaryAxis;
 	
 	private boolean active; // to make resteasy happy since we're giving it an extra field
 	
