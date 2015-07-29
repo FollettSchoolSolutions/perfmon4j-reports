@@ -1,5 +1,7 @@
 app.controller('chartControl', function ($scope, $routeParams, chartService, dataSourceService){
 	$scope.pageTitle = "build a chart";
+	$scope.saveOrUpdateChartLabel = "Save";
+	$scope.disableSave = true;
 	$scope.datasources = [];
 	$scope.databases = [];
 	$scope.systems = [];
@@ -16,7 +18,8 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDate() +"T"+ date.getHours() +":"+ date.getMinutes(),
 			timeStart : "now-4H",
 			timeEnd : "now",
-			series : []
+			series : [],
+			id : 0
 	};
 	
 	chartService.chartName = $scope.chart.chartName;
@@ -102,15 +105,7 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 				|| isEmptyOrNull(activeSeries.systems) || isEmptyOrNull(activeSeries.category) 
 				|| isEmptyOrNull(activeSeries.field) || isEmptyOrNull(activeSeries.name) 
 				|| isEmptyOrNull($scope.chart.chartName) || isEmptyOrNull($scope.chart.timeStart)
-				|| isEmptyOrNull($scope.chart.timeEnd))
-	}
-	
-	$scope.saveDisabled = function() {
-		if(!chartService.successfullySaved){
-			return $scope.renderDisabled();
-		} else {
-			return true;
-		}
+				|| isEmptyOrNull($scope.chart.timeEnd));
 	}
 	
 	$scope.isLoading = function(chosenOne, options){
@@ -257,12 +252,13 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 			
 			chartService.isShowable = true;
 		})
+		$scope.disableSave = false;
 	};
 	
-	$scope.saveChart = function(){
+	$scope.saveOrUpdateChart = function(){
 		chartService.successfullySaved = null;
 		chartService.isChartLoading = true;
-		var saveChartPromise = chartService.saveChart($scope.chart);
+		var saveChartPromise = chartService.saveOrUpdateChart($scope.chart);
 		
 		saveChartPromise.then(function(result){
 			if (result.status != 200) {
@@ -275,6 +271,12 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 			} else {
 				console.log("Chart saved successfullly.");
 				chartService.successfullySaved = true;
+				
+				// Initial save
+				if($scope.chart.id == 0){
+					$scope.chart.id = savedChart.id;
+					$scope.saveOrUpdateChartLabel = "Update";
+				}
 			}
 			chartService.isChartLoading = false;
 		}).catch(function onError(err) {
@@ -285,6 +287,18 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 		
 	};
 	
+	$scope.saveDisabled = function () {
+		if($scope.disableSave == false && renderDisabled() == true){
+			$scope.disableSave = true;
+			return true;
+		} else {
+			return $scope.disableSave;
+		}
+	}
+	
+	$scope.updateSaveOrUpdateChartLabel = function() {
+		$scope.saveOrUpdateChartLabel =  (($scope.chart.id == 0) ? "Save" : "Update");
+	}
 
 	$scope.clearAllFields = function() {
 		chartService.isShowable = false;

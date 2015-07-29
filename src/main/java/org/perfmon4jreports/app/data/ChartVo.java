@@ -9,7 +9,7 @@ import org.perfmon4jreports.app.entity.Series;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ChartVo {
-	private long Id;	
+	private long id;
 	private String chartName;
 	private String chosenDatasource;
 	private String chosenDatabase;
@@ -22,11 +22,11 @@ public class ChartVo {
 	}
 	
 	public long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(long id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getChartName() {

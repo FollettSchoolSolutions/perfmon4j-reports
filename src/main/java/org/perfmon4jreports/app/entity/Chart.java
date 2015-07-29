@@ -79,6 +79,16 @@ public class Chart {
 		return vo;
 	}
 	
+	public void updateChart (Chart updatedChart){
+		this.chartName = updatedChart.getChartName();
+		this.chosenDatasource = updatedChart.getChosenDatasource();
+		this.chosenDatabase = updatedChart.getChosenDatabase();
+		this.timeStart = updatedChart.getTimeStart();
+		this.timeEnd = updatedChart.getTimeEnd();
+		this.series = updatedChart.getSeries();
+		
+	}
+	
 	public List<Series> getSeries() {
 		return series;
 	}

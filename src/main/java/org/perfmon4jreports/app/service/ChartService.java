@@ -27,23 +27,27 @@ public class ChartService {
 	@PersistenceContext
 	private EntityManager em;
 
-	// Create
+	// Save or Update
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ChartVo saveChart(ChartVo chartVo) {
+	public ChartVo saveOrUpdateChart(ChartVo chartVo) {
+		Chart updatedChart = null;
 		Chart chartEntity = new Chart(chartVo);
+		
+		// Update
+		if(chartVo.getId() != 0){
+			updatedChart = new Chart(chartVo);
+			chartEntity = em.find(Chart.class, new Long(chartVo.getId()));
+			chartEntity.updateChart(updatedChart);
+		}
+		
+		// Save down
 		em.persist(chartEntity);
-		
-//		for (SeriesVo seriesVo : chartVo.getSeries()) {
-//			Series seriesEntity = new Series(seriesVo);
-//			em.persist(seriesVo);
-//		}
-		
 		return chartEntity.toVo();
 	}
-
+	
 	// Retrieve
 	@GET
 	@Path("/{id}")
@@ -70,8 +74,6 @@ public class ChartService {
 		}
 		return retList;
 	}
-
-	// Update
 
 	// Delete
 	@DELETE
