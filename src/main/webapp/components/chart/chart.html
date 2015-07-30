@@ -25,6 +25,7 @@
 		      			<input class="to" type="text" name="endTime" id="endTime" ng-model="chart.timeEnd" ng-blur="saveEndTime()"/>
 		      		</div>
 	      		</div>
+	      		<a title="Advanced Options"><md-button title="Advanced Options" id="advanced" class="md-raised md-primary" ng-click="showAdvanced($event)">Advanced Options</md-button></a>
 				<div class="form" ng-repeat="item in chart.series" >
 					<chart-series all-series="chart.series" series="item" ng-click="setActiveSeries($index)"></chart-series>
 			  	</div>

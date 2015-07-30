@@ -1,4 +1,4 @@
-app.controller('chartControl', function ($scope, $routeParams, chartService, dataSourceService){
+app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartService, dataSourceService){
 	$scope.pageTitle = "build a chart";
 	$scope.datasources = [];
 	$scope.databases = [];
@@ -17,6 +17,8 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDate() +"T"+ date.getHours() +":"+ date.getMinutes(),
 			timeStart : "now-4H",
 			timeEnd : "now",
+			primaryAxisName : "",
+			secondaryAxisName : "",
 			series : []
 	};
 	
@@ -220,6 +222,9 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 			   },
 			   subchart: {
 			    	show: false
+			    },
+			    zoom: {
+			    	rescale: true
 			    }
 			};
 			result.data.axes = {};
@@ -227,10 +232,17 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 				if ($scope.chart.series[i].secondaryAxis) {
 					result.data.axes[$scope.chart.series[i].name] = 'y2';
 					reportMetadata.axis.y2.show = true;
+					if (!isEmptyOrNull($scope.chart.secondaryAxisName)) {
+						reportMetadata.axis.y2.label = $scope.chart.secondaryAxisName;
+					}
 				} else {
 					result.data.axes[$scope.chart.series[i].name] = 'y';
 				}
 			}  
+			
+			if (!isEmptyOrNull($scope.chart.primaryAxisName)) {
+				reportMetadata.axis.y.label = $scope.chart.primaryAxisName;
+			}
 			   
 			if (result.data.columns[0].length > 120) {
 				reportMetadata.subchart.show = true;
@@ -370,6 +382,19 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 		return true;
 	}
 	
+	$scope.showAdvanced = function(ev) {
+	    $mdDialog.show({
+	      controller: DialogController,
+	      templateUrl: 'components/chart/advancedOptionsDialog.html',
+	      parent: angular.element(document.body),
+	      targetEvent: ev,
+	    })
+	    .then(function() {
+	    	$scope.chart.primaryAxisName = chartService.primaryAxisName;
+	    	$scope.chart.secondaryAxisName = chartService.secondaryAxisName;
+	    });
+	  }
+	
 	function isRelativeTimeRange() {
 		if ($scope.chart.timeStart.indexOf("now") > -1 || $scope.chart.timeEnd.indexOf("now") > -1) {
 			return true;
@@ -456,4 +481,22 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 	}
 
 });
+
+function DialogController($scope, $mdDialog, chartService) {
+	  $scope.secondaryAxisName = chartService.secondaryAxisName;
+	  $scope.primaryAxisName = chartService.primaryAxisName;
+
+	  
+	  $scope.savePrimaryName = function() {
+		  chartService.primaryAxisName = $scope.primaryAxisName;
+	  }
+	  
+	  $scope.saveSecondaryName = function() {
+		  chartService.secondaryAxisName = $scope.secondaryAxisName;
+	  }
+	  
+	  $scope.cancel = function() {
+	    $mdDialog.cancel();
+	  };
+	}
 
