@@ -51,6 +51,12 @@ public class Chart {
 	@Column(nullable = false)
 	private String timeEnd;
 	
+	@Column(nullable = true)
+	private String primaryAxisName;
+	
+	@Column(nullable = true)
+	private String secondaryAxisName;
+	
 	@OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name = "CHART_ID")
 	private List<Series> series;
@@ -64,6 +70,8 @@ public class Chart {
 		this.chosenDatabase = vo.getChosenDatabase();
 		this.timeStart = vo.getTimeStart();
 		this.timeEnd = vo.getTimeEnd();
+		this.primaryAxisName = vo.getPrimaryAxisName();
+		this.secondaryAxisName = vo.getSecondaryAxisName();
 		setSeriesFromVo(vo.getSeries());
 	}
 	
@@ -75,6 +83,8 @@ public class Chart {
 		vo.setChosenDatabase(chosenDatabase);
 		vo.setTimeStart(timeStart);
 		vo.setTimeEnd(timeEnd);
+		vo.setPrimaryAxisName(primaryAxisName);
+		vo.setSecondaryAxisName(secondaryAxisName);
 		vo.setSeriesFromEntity(series);
 		return vo;
 	}
@@ -133,6 +143,22 @@ public class Chart {
 
 	public void setTimeEnd(String timeEnd) {
 		this.timeEnd = timeEnd;
+	}
+	
+	public String getPrimaryAxisName() {
+		return primaryAxisName;
+	}
+	
+	public void setPrimaryAxisName(String primaryAxisName) {
+		this.primaryAxisName = primaryAxisName;
+	}
+	
+	public String getSecondaryAxisName() {
+		return secondaryAxisName;
+	}
+	
+	public void setSecondaryAxisName(String secondaryAxisName) {
+		this.secondaryAxisName = secondaryAxisName;
 	}
 
 	public long getId() {

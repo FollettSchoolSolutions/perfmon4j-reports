@@ -389,7 +389,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	      parent: angular.element(document.body),
 	      targetEvent: ev,
 	    })
-	    .then(function() {
+	    .then(function(answer) {
 	    	$scope.chart.primaryAxisName = chartService.primaryAxisName;
 	    	$scope.chart.secondaryAxisName = chartService.secondaryAxisName;
 	    });
@@ -495,8 +495,8 @@ function DialogController($scope, $mdDialog, chartService) {
 		  chartService.secondaryAxisName = $scope.secondaryAxisName;
 	  }
 	  
-	  $scope.cancel = function() {
-	    $mdDialog.cancel();
+	  $scope.answer = function(answer) {
+	    $mdDialog.hide(answer);
 	  };
 	}
 
