@@ -23,7 +23,7 @@
 			<div layout="row">
 				<select multiple class="systemSelect" id="systems" ng-options="system as system.name for system in systems" ng-model="series.systems" ng-change="loadCategories()" required>
 					<option value="">Select a system</option>
-				</select> <img class="loading" src="images/smallLoadingSaving.gif" ng-show="isLoading(chosenDatabase, systems)">
+				</select> <img class="loading" src="images/smallLoadingSaving.gif" ng-show="isLoading(chosenDatabase, systems)">			
 			</div>
 			<label class="systemsExplanationLabel">Multiple systems can be selected</label>
 			<br/>
