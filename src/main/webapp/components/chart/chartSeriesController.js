@@ -30,9 +30,6 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		var databasePromise = dataSourceService.getSystems($scope.chosenDatasource, $scope.chosenDatabase, chartService.timeStart, 
 				chartService.timeEnd);
 		databasePromise.then(function(result){
-			for (var i = 0; i < result.data.length; i++) {
-				result.data[i].name = result.data[i].name;
-			}
 			$scope.systems = result.data;
 			
 		})

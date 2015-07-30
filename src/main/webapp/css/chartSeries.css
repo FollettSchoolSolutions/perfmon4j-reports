@@ -11,7 +11,7 @@
 }
 
 .seriesName {
-	vertical-align: 10px;
+	vertical-align: 8px;
 }
 
 .delete-icon-light {
@@ -79,8 +79,8 @@
 
 .secondaryAxis {
 	margin-left: -9px;
-	margin-top: -10px;
-	margin-bottom: 15px;
+	margin-top: -5px;
+	margin-bottom: 9px;
 }
 
 .systemsExplanationLabel {

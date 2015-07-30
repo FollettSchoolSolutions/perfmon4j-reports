@@ -15,7 +15,7 @@
 .start {
 	width: 40%;
 	margin-right: 15px;
-	margin-bottom: 15px;
+	margin-bottom: 35px;
 }
 
 .from {
@@ -24,7 +24,7 @@
 
 .end {
 	float: right;
-	margin-bottom: 15px;
+	margin-bottom: 35px;
 }
 
 .to {
@@ -37,6 +37,12 @@
 
 .chartSelect {
 	width: 85%;
+}
+
+.seriesNameError {
+	font-size:.7rem; 
+	color:#FF0000;
+	margin-left: 20px;
 }
 
 .saveConfirmation {
@@ -91,7 +97,8 @@
 	margin-left: 5%;
 	margin-top: 15px;
 	padding-left: 10px;
-	padding-top: 5px; 
+	padding-top: 9px; 
+	margin-bottom: 35px;
 }
 
 .headerText {
