@@ -1,7 +1,6 @@
 app.controller('chartControl', function ($scope, $routeParams, chartService, dataSourceService){
 	$scope.pageTitle = "build a chart";
 	$scope.saveOrUpdateChartLabel = "Save";
-	$scope.disableSave = true;
 	$scope.datasources = [];
 	$scope.databases = [];
 	$scope.systems = [];
@@ -252,7 +251,6 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 			
 			chartService.isShowable = true;
 		})
-		$scope.disableSave = false;
 	};
 	
 	$scope.saveOrUpdateChart = function(){
@@ -288,11 +286,14 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 	};
 	
 	$scope.saveDisabled = function () {
-		if($scope.disableSave == false && renderDisabled() == true){
-			$scope.disableSave = true;
-			return true;
+		if(chartService.isShowable == true){
+			if($scope.renderDisabled() == true){
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			return $scope.disableSave;
+			return true;
 		}
 	}
 	
