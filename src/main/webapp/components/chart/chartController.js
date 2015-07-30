@@ -252,6 +252,7 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 
 			}
 			$scope.showName = true;
+			//chartService.chartjson = reportMetadata;
 			c3.generate(reportMetadata);
 			chartService.isChartLoading = false;
 			
