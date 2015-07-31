@@ -32,7 +32,7 @@ app.factory('chartService', function($http){
 	var factory = {};
 	var successfullySaved = null;
 	
-	factory.saveChart = function(chart) {
+	factory.saveOrUpdateChart = function(chart) {
 		var chartObj = angular.copy(chart);
 		for (var i=0; i< chartObj.series.length; i++){
 			chartObj.series[i].category = chartObj.series[i].category.name; 
@@ -55,6 +55,7 @@ app.factory('chartService', function($http){
 			return result;
 		});
 	}
+	
 	
 	factory.getCharts = function(){
 		return $http.get("rest/charts").then(function(result) {

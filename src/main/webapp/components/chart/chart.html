@@ -33,9 +33,12 @@
 			  	<div class="addSeriesRow" layout="row">
 			  		<a title="Add Series"><md-button title="Add Series" id="addSeries" class="md-raised md-primary" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button></a>
 			  	</div>
-		  		<a title="Render"><md-button id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render</md-button></a>
-	        	<a title="Save"><md-button title="Save" id="save" ng-disabled="saveDisabled()" class="md-raised md-primary" ng-click="saveChart()">Save</md-button></a>
+
+		  		<a title="Render"><md-button title="Render" id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render</md-button></a>
+	        	<a title="Save"><md-button title="Save or Update" id="save" ng-disabled="saveDisabled()" class="md-raised md-primary" ng-click="saveOrUpdateChart()"> {{ saveOrUpdateChartLabel }} </md-button></a>
 	        	<a title="Clear"><md-button title="Clear" id="clear" ng-click="clearAllFields()" class="md-raised">Clear</md-button></a>
+	        	
+
         	</div>
       	</md-content>
     </md-sidenav>	    
