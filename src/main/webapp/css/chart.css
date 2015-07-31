@@ -15,7 +15,7 @@
 .start {
 	width: 40%;
 	margin-right: 15px;
-	margin-bottom: 35px;
+	margin-bottom: 10px;
 }
 
 .from {
@@ -24,7 +24,7 @@
 
 .end {
 	float: right;
-	margin-bottom: 35px;
+	margin-bottom: 10px;
 }
 
 .to {
@@ -74,6 +74,12 @@
 #clear {
 	margin-left: 155px;
 	width: 110px;
+}
+
+#advanced {
+	margin-left: 20px;
+	width: 245px;
+	margin-bottom: 35px;
 }
 
 .tabText:hover {

@@ -16,6 +16,8 @@ app.factory('chartService', function($http){
 	var seriesName = "";
 	var timeStart = "";
 	var timeEnd = "";
+	var primaryAxisName = "";
+	var secondaryAxisName = "";
 	var systems = [];
 	var isDisabled = true;
 	var showName = false;
