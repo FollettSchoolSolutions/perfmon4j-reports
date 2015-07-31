@@ -25,27 +25,28 @@
 		      			<input class="to" type="text" name="endTime" id="endTime" ng-model="chart.timeEnd" ng-blur="saveEndTime()"/>
 		      		</div>
 	      		</div>
+	      		<a title="Advanced Options"><md-button title="Advanced Options" id="advanced" class="md-raised md-primary" ng-click="showAdvanced($event)">Advanced Options</md-button></a>
 				<div class="form" ng-repeat="item in chart.series" >
 					<chart-series all-series="chart.series" series="item" ng-click="setActiveSeries($index)"></chart-series>
 			  	</div>
-			  	<span style="font-size:11px; color:#FF0000" ng-show="invalidSeriesNames()">Cannot have matching series names.</span>
+			  	<span class="seriesNameError" ng-show="invalidSeriesNames()">Cannot have matching series names.</span>
 			  	<div class="addSeriesRow" layout="row">
-			  		<md-button title="Add Series" id="addSeries" class="md-raised md-primary" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button>
+			  		<a title="Add Series"><md-button title="Add Series" id="addSeries" class="md-raised md-primary" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button></a>
 			  	</div>
-		  		<md-button title="Render" id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render</md-button>
-	        	<md-button title="Save or Update" id="save" ng-disabled="saveDisabled()" class="md-raised md-primary" ng-click="saveOrUpdateChart()"> {{ saveOrUpdateChartLabel }} </md-button>
-	        	<md-button title="Clear" id="clear" ng-click="clearAllFields()" class="md-raised">Clear</md-button>
-	        	<md-button title="Close" id="close" ng-click="close();toggleClose()" class="md-raised" id="closeSidenav">
-	        		Close
-	        	</md-button>
+
+		  		<a title="Render"><md-button title="Render" id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render</md-button></a>
+	        	<a title="Save"><md-button title="Save or Update" id="save" ng-disabled="saveDisabled()" class="md-raised md-primary" ng-click="saveOrUpdateChart()"> {{ saveOrUpdateChartLabel }} </md-button></a>
+	        	<a title="Clear"><md-button title="Clear" id="clear" ng-click="clearAllFields()" class="md-raised">Clear</md-button></a>
+	        	
+
         	</div>
       	</md-content>
     </md-sidenav>	    
 	    <md-content class="md-accl; chart-view">
-	 		<md-button ng-show="!showToggleButton()" ng-click="toggleLeft();toggleOpen()" id="openConfig" class="md-raised">Open Chart Config</md-button>
+	 		<div layout="row"><a class="tabText" title="Toggle Menu Bar"><div z-index="2" ng-show="true" ng-click="toggleSideNav()" id="openConfig" class="btn">{{sideNavToggle()}}</div></a>
       		<div ng-controller="chartRenderControl"> 
       		<img src="images/loadingSaving.gif" ng-show="isChartLoading()" class="centered">
-      			<div ng-show="isShowable()" style="width: 100%;">
+      			<div z-index="1" ng-show="isShowable()" style="width: 100%;">
       				<div ng-show="isSuccessfullySaved() != null && isSuccessfullySaved()">
 						<p class="saveConfirmation">Successfully saved the chart.</p>
 					</div>
@@ -54,7 +55,9 @@
 					</div>
 					<br/>
 					<p class="chartName"> {{name()}} </p>
-					<div id="chart" style="width: 100%; height: 100%;"></div>
+					<div id="chart" style="margin-left: 50px; width: 100%; height: 100%;"></div>
+			</div>
+			</div>
 			</div>
     	</md-content>
 </section>

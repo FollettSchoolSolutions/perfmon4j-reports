@@ -15,6 +15,8 @@ public class ChartVo {
 	private String chosenDatabase;
 	private String timeStart;
 	private String timeEnd;
+	private String primaryAxisName;
+	private String secondaryAxisName;
 	
 	private List<SeriesVo> series;
 	
@@ -84,6 +86,22 @@ public class ChartVo {
 			list.add(svo);
 		}
 		this.series = list;
+	}
+
+	public String getPrimaryAxisName() {
+		return primaryAxisName;
+	}
+
+	public void setPrimaryAxisName(String primaryAxisName) {
+		this.primaryAxisName = primaryAxisName;
+	}
+
+	public String getSecondaryAxisName() {
+		return secondaryAxisName;
+	}
+
+	public void setSecondaryAxisName(String secondaryAxisName) {
+		this.secondaryAxisName = secondaryAxisName;
 	}
 	
 	

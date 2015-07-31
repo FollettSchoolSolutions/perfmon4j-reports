@@ -31,6 +31,7 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 				chartService.timeEnd);
 		databasePromise.then(function(result){
 			$scope.systems = result.data;
+			
 		})
 		
 	}

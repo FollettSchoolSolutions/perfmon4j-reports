@@ -1,4 +1,5 @@
 app.factory('chartService', function($http){
+	var sideNavButtonName = "Test";
 	
 	var pageTitle = "build a chart";
 	
@@ -15,6 +16,8 @@ app.factory('chartService', function($http){
 	var seriesName = "";
 	var timeStart = "";
 	var timeEnd = "";
+	var primaryAxisName = "";
+	var secondaryAxisName = "";
 	var systems = [];
 	var isDisabled = true;
 	var showName = false;

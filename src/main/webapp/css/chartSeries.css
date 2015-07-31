@@ -11,14 +11,18 @@
 }
 
 .seriesName {
-	vertical-align: 10px;
+	vertical-align: 8px;
 }
 
-.delete-icon {
+.delete-icon-light {
 	float: right;
-	margin-top: 2px; 
+	margin-top: 4px; 
 	margin-right: -5px;
 	fill: white;
+	padding-top: 2px;
+	padding-left: 2px;
+	padding-bottom: 2px;
+	padding-right: 2px;
 }  
 
 .clear {
@@ -52,7 +56,7 @@
 .systemSelect {
 	margin-left: 10px;
 	height: 200px;
-	width: 225px;
+ 	width: 225px; 
 }
 
 .bottomRow {
@@ -75,8 +79,8 @@
 
 .secondaryAxis {
 	margin-left: -9px;
-	margin-top: -10px;
-	margin-bottom: 15px;
+	margin-top: -5px;
+	margin-bottom: 9px;
 }
 
 .systemsExplanationLabel {
@@ -93,10 +97,12 @@
 
 .arrow-icon:hover {
 	cursor: pointer;
+	fill: #E0E0E0;
 }
 
-.delete-icon:hover {
+.delete-icon-light:hover {
 	cursor: pointer;
+	fill: #E0E0E0;
 }
 
 a:hover {
