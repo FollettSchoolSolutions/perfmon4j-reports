@@ -28,7 +28,7 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 				alert("Deleting chart with id: " + id + " was NOT successful.");
 			}
 			$location.path("/");
-		})
+		});
 	}
 	
 	$scope.copyChart = function(id){
@@ -39,6 +39,6 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 				alert("Copying chart with id: " + id + " was NOT successful.");
 			}
 			$location.path("/");
-		})
+		});
 	}
 });

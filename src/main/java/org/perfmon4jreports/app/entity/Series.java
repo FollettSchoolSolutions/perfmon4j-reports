@@ -43,7 +43,7 @@ public class Series {
 	private String aggregationMethod;
 	
 	@Column(nullable = false)
-	private boolean secondaryAxis;
+	 private boolean secondaryAxis;
 	
 	public Series(){
 	}

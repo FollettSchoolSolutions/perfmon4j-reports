@@ -9,12 +9,14 @@ import org.perfmon4jreports.app.entity.Series;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ChartVo {
-	private long Id;	
+	private long id;
 	private String chartName;
 	private String chosenDatasource;
 	private String chosenDatabase;
 	private String timeStart;
 	private String timeEnd;
+	private String primaryAxisName;
+	private String secondaryAxisName;
 	
 	private List<SeriesVo> series;
 	
@@ -22,11 +24,11 @@ public class ChartVo {
 	}
 	
 	public long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(long id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getChartName() {
@@ -84,6 +86,22 @@ public class ChartVo {
 			list.add(svo);
 		}
 		this.series = list;
+	}
+
+	public String getPrimaryAxisName() {
+		return primaryAxisName;
+	}
+
+	public void setPrimaryAxisName(String primaryAxisName) {
+		this.primaryAxisName = primaryAxisName;
+	}
+
+	public String getSecondaryAxisName() {
+		return secondaryAxisName;
+	}
+
+	public void setSecondaryAxisName(String secondaryAxisName) {
+		this.secondaryAxisName = secondaryAxisName;
 	}
 	
 	

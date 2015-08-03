@@ -1,5 +1,6 @@
-app.controller('chartControl', function ($scope, $routeParams, chartService, dataSourceService){
+app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartService, dataSourceService){
 	$scope.pageTitle = "build a chart";
+	$scope.saveOrUpdateChartLabel = "Save";
 	$scope.datasources = [];
 	$scope.databases = [];
 	$scope.systems = [];
@@ -7,6 +8,7 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 	$scope.categories = [];
 	$scope.aggregationMethods = [];
 	$scope.isLoadingchart = false;
+	var seriesCounter = 0;
 
 	var date = new Date();
 
@@ -16,8 +18,14 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDate() +"T"+ date.getHours() +":"+ date.getMinutes(),
 			timeStart : "now-4H",
 			timeEnd : "now",
+			id : 0,
+			primaryAxisName : "",
+			secondaryAxisName : "",
 			series : []
+
 	};
+	
+	chartService.chartName = $scope.chart.chartName;
 	
 	$scope.showName = false;
 	$scope.chartId = 0;
@@ -100,15 +108,7 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 				|| isEmptyOrNull(activeSeries.systems) || isEmptyOrNull(activeSeries.category) 
 				|| isEmptyOrNull(activeSeries.field) || isEmptyOrNull(activeSeries.name) 
 				|| isEmptyOrNull($scope.chart.chartName) || isEmptyOrNull($scope.chart.timeStart)
-				|| isEmptyOrNull($scope.chart.timeEnd))
-	}
-	
-	$scope.saveDisabled = function() {
-		if(!chartService.successfullySaved){
-			return $scope.renderDisabled();
-		} else {
-			return true;
-		}
+				|| isEmptyOrNull($scope.chart.timeEnd));
 	}
 	
 	$scope.isLoading = function(chosenOne, options){
@@ -130,6 +130,7 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 	
 	$scope.toggleClose = function() {
 		chartService.isToggled = false;
+		c3.resize();
 	}
 	
 	$scope.cleanSeriesUrl = function() {
@@ -190,7 +191,6 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 				$scope.chart.timeStart, $scope.chart.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
 		
 		var relative = isRelativeTimeRange();
-
 		urlPromise.then(function(result){
 			var reportMetadata = {
 				data: result.data,
@@ -217,6 +217,9 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 			   },
 			   subchart: {
 			    	show: false
+			    },
+			    zoom: {
+			    	rescale: true
 			    }
 			};
 			result.data.axes = {};
@@ -224,10 +227,17 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 				if ($scope.chart.series[i].secondaryAxis) {
 					result.data.axes[$scope.chart.series[i].name] = 'y2';
 					reportMetadata.axis.y2.show = true;
+					if (!isEmptyOrNull($scope.chart.secondaryAxisName)) {
+						reportMetadata.axis.y2.label = $scope.chart.secondaryAxisName;
+					}
 				} else {
 					result.data.axes[$scope.chart.series[i].name] = 'y';
 				}
 			}  
+			
+			if (!isEmptyOrNull($scope.chart.primaryAxisName)) {
+				reportMetadata.axis.y.label = $scope.chart.primaryAxisName;
+			}
 			   
 			if (result.data.columns[0].length > 120) {
 				reportMetadata.subchart.show = true;
@@ -244,15 +254,14 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 			$scope.showName = true;
 			c3.generate(reportMetadata);
 			chartService.isChartLoading = false;
-			
 			chartService.isShowable = true;
 		})
 	};
 	
-	$scope.saveChart = function(){
+	$scope.saveOrUpdateChart = function(){
 		chartService.successfullySaved = null;
 		chartService.isChartLoading = true;
-		var saveChartPromise = chartService.saveChart($scope.chart);
+		var saveChartPromise = chartService.saveOrUpdateChart($scope.chart);
 		
 		saveChartPromise.then(function(result){
 			if (result.status != 200) {
@@ -265,6 +274,12 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 			} else {
 				console.log("Chart saved successfullly.");
 				chartService.successfullySaved = true;
+				
+				// Initial save
+				if($scope.chart.id == 0){
+					$scope.chart.id = savedChart.id;
+					$scope.saveOrUpdateChartLabel = "Update";
+				}
 			}
 			chartService.isChartLoading = false;
 		}).catch(function onError(err) {
@@ -275,6 +290,21 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 		
 	};
 	
+	$scope.saveDisabled = function () {
+		if(chartService.isShowable == true){
+			if($scope.renderDisabled() == true){
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
+		}
+	}
+	
+	$scope.updateSaveOrUpdateChartLabel = function() {
+		$scope.saveOrUpdateChartLabel =  (($scope.chart.id == 0) ? "Save" : "Update");
+	}
 
 	$scope.clearAllFields = function() {
 		chartService.isShowable = false;
@@ -305,15 +335,14 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 	}
 	
 	$scope.addSeries = function() {
+		seriesCounter = seriesCounter + 1;
 		chartService.successfullySaved = null;
 		for (var i = 0; i < $scope.chart.series.length; i++){
 			$scope.chart.series[i].active = false;
 		}
 
-		var newSeriesName = 'Series ' + ($scope.chart.series.length + 1);
-		var lastSeriesIndex = $scope.chart.series.length -1;
+		var newSeriesName = 'Series ' + (seriesCounter);
 		var newSeries = {active: true, name: newSeriesName, secondaryAxis: false};
-
 		$scope.chart.series.push(newSeries);
 	}
 	
@@ -321,9 +350,8 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 		clearSeries();
 
 		if ($scope.chart.chosenDatabase != null) {
-
 			$scope.chart.series = [{active: true, name: 'Series 1', secondaryAxis: false}];
-
+			seriesCounter++;
 		} 
 	}
 	
@@ -369,6 +397,19 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 		}
 		return true;
 	}
+	
+	$scope.showAdvanced = function(ev) {
+	    $mdDialog.show({
+	      controller: DialogController,
+	      templateUrl: 'components/chart/advancedOptionsDialog.html',
+	      parent: angular.element(document.body),
+	      targetEvent: ev,
+	    })
+	    .then(function(answer) {
+	    	$scope.chart.primaryAxisName = chartService.primaryAxisName;
+	    	$scope.chart.secondaryAxisName = chartService.secondaryAxisName;
+	    });
+	  }
 	
 	function isRelativeTimeRange() {
 		if ($scope.chart.timeStart.indexOf("now") > -1 || $scope.chart.timeEnd.indexOf("now") > -1) {
@@ -456,4 +497,22 @@ app.controller('chartControl', function ($scope, $routeParams, chartService, dat
 	}
 
 });
+
+function DialogController($scope, $mdDialog, chartService) {
+	  $scope.secondaryAxisName = chartService.secondaryAxisName;
+	  $scope.primaryAxisName = chartService.primaryAxisName;
+
+	  
+	  $scope.savePrimaryName = function() {
+		  chartService.primaryAxisName = $scope.primaryAxisName;
+	  }
+	  
+	  $scope.saveSecondaryName = function() {
+		  chartService.secondaryAxisName = $scope.secondaryAxisName;
+	  }
+	  
+	  $scope.answer = function(answer) {
+	    $mdDialog.hide(answer);
+	  };
+	}
 
