@@ -73,15 +73,9 @@ a:hover, a:active {
 	font-weight: bold;
 	text-decoration: none;
 }
+
 .right {
 	float: right;
-}
-.chartMenu {
-	border: 1px solid black;
-	width: 40%;
-	margin-left: 7%;
-	margin-top: 20px;
-	margin-right: 5%;
 }
 
 .dashboardMenu {
@@ -89,6 +83,15 @@ a:hover, a:active {
 	width: 40%;
 	margin-top: 20px;
 	float: left;
+}
+
+.chartMenu {
+	border: 1px solid black;
+	float: left;
+	width: 40%;
+	margin-left: 7%;
+	margin-top: 20px;
+	margin-right: 5%;
 }
 
 .datasourceMenu {
