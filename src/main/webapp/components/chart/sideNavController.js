@@ -6,9 +6,9 @@ app.controller('sideNavControl', function ($scope, $timeout, $mdSidenav, $mdUtil
     
     $scope.showToggleButton = function() {
     	if(chartService.viewOnly == true){
-    		return true;
+    		return false;
     	} else {
-    		return $scope.isToggled();
+    		return true;
     	}
     }
     $scope.sideNavToggle= function(){

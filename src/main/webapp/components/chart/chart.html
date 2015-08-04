@@ -43,7 +43,7 @@
       	</md-content>
     </md-sidenav>	    
 	    <md-content class="md-accl; chart-view">
-	 		<div layout="row"><a class="tabText" title="Toggle Menu Bar"><div z-index="2" ng-show="true" ng-click="toggleSideNav()" id="openConfig" class="btn">{{sideNavToggle()}}</div></a>
+	 		<div layout="row"><a class="tabText" title="Toggle Menu Bar"><div z-index="2" ng-show="showToggleButton()" ng-click="toggleSideNav()" id="openConfig" class="btn">{{sideNavToggle()}}</div></a>
       		<div ng-controller="chartRenderControl"> 
       		<img src="images/loadingSaving.gif" ng-show="isChartLoading()" class="centered">
       			<div z-index="1" ng-show="isShowable()" style="width: 100%;">
