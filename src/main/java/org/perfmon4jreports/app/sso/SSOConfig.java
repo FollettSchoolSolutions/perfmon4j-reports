@@ -28,12 +28,14 @@ public class SSOConfig {
 	private static final String GITHUB_CLIENT_SECRET_KEY = "SSOConfig_GitHubClientSecret"; 
 	private static final String GITHUB_OAUTH_API_PATH_KEY = "SSOConfig_GitHubOauthAPIPathKey"; 
 	private static final String GITHUB_API_PATH_KEY = "SSOConfig_GitHubAPIPathKey"; 
+	private static final String GITHUB_EASY_SSL_MODE = "SSOConfig_GitHubEasySSLModeKey"; 
 	
 	private String rootClientPath;
 	private String gitHubClientID;
 	private String gitHubClientSecret;
 	private String gitHubOauthAPIPath;
 	private String gitHubAPIPath;
+	private boolean gitHubEasySSLMode = false; 
 	
 	public static final String LOGIN_RETURN_PATH = "../../login.jsp"; 
 	public static final String LOGIN_ERROR_QUERY_PARAM = "loginError";
@@ -44,6 +46,7 @@ public class SSOConfig {
 		gitHubClientSecret = getProperty(GITHUB_CLIENT_SECRET_KEY);
 		gitHubOauthAPIPath = getProperty(GITHUB_OAUTH_API_PATH_KEY, "https://github.com/login/oauth");
 		gitHubAPIPath = getProperty(GITHUB_API_PATH_KEY, "https://api.github.com");
+		gitHubEasySSLMode = Boolean.valueOf(getProperty(GITHUB_EASY_SSL_MODE, "false")).booleanValue();
 	}
 	
 	static private String getProperty(String key) {
@@ -99,5 +102,13 @@ public class SSOConfig {
 
 	public void setGitHubAPIPath(String gitHubAPIPath) {
 		this.gitHubAPIPath = gitHubAPIPath;
+	}
+
+	public boolean isGitHubEasySSLMode() {
+		return gitHubEasySSLMode;
+	}
+
+	public void setGitHubEasySSLMode(boolean gitHubEasySSLMode) {
+		this.gitHubEasySSLMode = gitHubEasySSLMode;
 	}
 }

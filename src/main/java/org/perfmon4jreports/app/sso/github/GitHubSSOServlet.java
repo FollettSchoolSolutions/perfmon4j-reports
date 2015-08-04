@@ -22,12 +22,17 @@ package org.perfmon4jreports.app.sso.github;
 
 import java.io.IOException;
 import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -56,7 +61,24 @@ class GitHubSSOServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static SSOConfig config = new SSOConfig();
 	private final SecureRandom random = new SecureRandom();
-	private AtomicLong requestID = new AtomicLong(System.currentTimeMillis());  // Create a trackingID that is unique, and easy to grep in the log. 
+	private AtomicLong requestID = new AtomicLong(System.currentTimeMillis());  // Create a trackingID that is unique, and easy to grep in the log.
+	private static TrustManager[] easySSLModeTrust = new TrustManager[] {new X509TrustManager() {
+		
+		@Override
+		public X509Certificate[] getAcceptedIssuers() {
+			return null;
+		}
+		
+		@Override
+		public void checkServerTrusted(X509Certificate[] chain, String authType)
+				throws CertificateException {
+		}
+		
+		@Override
+		public void checkClientTrusted(X509Certificate[] chain, String authType)
+				throws CertificateException {
+		}
+	}};
 	
     public GitHubSSOServlet() {
         super();
@@ -147,8 +169,17 @@ class GitHubSSOServlet extends HttpServlet {
 			if (!state.equals(expectedState)) {
 				throw new ServletException("State parameter does not match what we sent - Expected(" + expectedState + ") State(" + state + ")");
 			}
+			
+			ClientBuilder builder = ClientBuilder.newBuilder();
+			if (config.isGitHubEasySSLMode()) {
+				logger.debug("Connecting to GitHub in SSL Easy mode");
+				SSLContext sslContext = SSLContext.getInstance("TLS");
+				sslContext.init(null, easySSLModeTrust, new SecureRandom());
+				builder.sslContext(sslContext);
+			}
 
-			Client client = ClientBuilder.newClient();
+			Client client = builder.build();
+			
 			//  Now use our code to retrieve an API access token.
 			Map<String, String> parameters = new HashMap<String, String>();
 			parameters.put("client_id", config.getGitHubClientID());
@@ -263,4 +294,7 @@ class GitHubSSOServlet extends HttpServlet {
 			return headers;
 		}
 	}
+	
+	
+	
 }
