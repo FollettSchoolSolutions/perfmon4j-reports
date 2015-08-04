@@ -182,4 +182,5 @@ input {
 .btn:hover {
   background: #E0E0E0;
   text-decoration: none;
+  cursor:pointer;
 }
