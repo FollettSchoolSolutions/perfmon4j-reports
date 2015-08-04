@@ -1,7 +1,6 @@
 <div>
 	<!-- {{pageTitle}} -->
-	<div layout="row">
-	<div class="chartMenu" layout="column">
+	<div class="chartMenu">
  		<md-toolbar id="chartMenu">
     		<div class="md-toolbar-tools" style="min-height: 12px">
       			<h2>
@@ -9,7 +8,7 @@
       			</h2>
     		</div>
   		</md-toolbar>
-  		<div>
+  		<div class="innerChartMenu">
 			<table style="width: 100%">
 				<tr ng-repeat="chart in charts"> 
 					<td> 
@@ -33,7 +32,7 @@
   		</md-content>
 	</div>
 	
-	<div class="dashboardMenu" layout="column">
+	<div class="dashboardMenu">
  		<md-toolbar id="dashboardMenu">
     		<div class="md-toolbar-tools">
       			<h2>
@@ -41,11 +40,10 @@
       			</h2>
     		</div>
   		</md-toolbar>
-  		<md-content>
+  		<div>
   			<a title="Create New Dashboard">
 				<md-button title="Create New Dashboard" id="createButton" class="md-raised md-primary" ng-disabled="true"> Create </md-button>
 			</a>
-  		</md-content>
-	</div>
+  		</div>
 	</div>
 </div>

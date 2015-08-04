@@ -161,6 +161,11 @@ input {
 	text-transform: none;
 }
 
+.chartDiv {
+	margin-left: 25px;
+	width: 100%;
+}
+
 .btn {
   position: fixed;
   margin-top: 10px;
@@ -172,7 +177,7 @@ input {
   padding-top: 30px;
   padding-bottom: 30px;
   padding-left: 10px;
-  padding-right: 10px;
+  padding-right: 25px;
   text-decoration: none;
   word-break: break-all;
   border-top-right-radius: 20px;
@@ -182,4 +187,5 @@ input {
 .btn:hover {
   background: #E0E0E0;
   text-decoration: none;
+  cursor:pointer;
 }
