@@ -31,6 +31,7 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 				chartService.timeEnd);
 		databasePromise.then(function(result){
 			$scope.systems = result.data;
+			
 		})
 		
 	}
@@ -162,6 +163,19 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		} else {
 			$scope.allSeries.splice(index, 1);
 		}
+	}
+	
+	$scope.checkIndex = function() {
+		var index = $scope.allSeries.indexOf($scope.series);
+		if (index == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	$scope.toggleSecondaryAxis = function() {
+		$scope.series.secondaryAxis = !$scope.series.secondaryAxis;
 	}
 	
 	function createSystemString() {

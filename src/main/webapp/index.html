@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/chart.css">
   <link rel="stylesheet" href="css/chartSeries.css">
+  <link rel="stylesheet" href="css/advancedOptionsDialog.css">
   
   <title>Perfmon4J Reports</title>
   <script src="js/angular.min.js"></script>
@@ -45,14 +46,14 @@
 	<div ng-controller="appControl">
 		<md-toolbar class="md-primary">
 	      <div layout="row" layout-align="space-between center" class="md-toolbar-tools">
-	        <div>
+	        <h1>
 		        <img src="images/perfmon4jFULL.png" alt="perfmon4j reports logo" style="height: 56px">
-	        </div>
+	        </h1>
 	       <!--   <div><ng-md-icon icon="home" size="48"></ng-md-icon><br>home</div> -->
-	        <div>
-	        	<md-button ng-click="goHome();clearChartName()">
-	        		<ng-md-icon icon="home" style="fill: #FFFFFF" size="32"></ng-md-icon>
-	        	</md-button>
+	        <div ng-hide="showHomeButton()">
+		        <a title="Homepage">
+		        	<ng-md-icon title="Homepage" class="home-icon-light" icon="home" size="35" ng-click="goHome();clearChartName()"></ng-md-icon>
+		        </a>
 	        </div>
 	         
 	      </div>
