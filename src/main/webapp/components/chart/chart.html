@@ -48,7 +48,7 @@
       		<img src="images/loadingSaving.gif" ng-show="isChartLoading()" class="centered">
       			<div z-index="1" ng-show="isShowable()" style="width: 100%;">
       				<div ng-show="isSuccessfullySaved() != null && isSuccessfullySaved()">
-						<p class="saveConfirmation">Successfully saved the chart.</p>
+						<p class="saveConfirmation"> {{ getSaveConfirmationLabel() }} </p>
 					</div>
 					<div ng-show="isSuccessfullySaved() != null && (!isSuccessfullySaved())" >
 						<p class="saveFailure">Failed to save the chart.</p>

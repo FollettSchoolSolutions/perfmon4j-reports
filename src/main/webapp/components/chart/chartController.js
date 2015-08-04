@@ -1,6 +1,7 @@
 app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartService, dataSourceService){
 	$scope.pageTitle = "build a chart";
 	$scope.saveOrUpdateChartLabel = "Save";
+	$scope.saveConfirmationLabel = "saved";
 	$scope.datasources = [];
 	$scope.databases = [];
 	$scope.systems = [];
@@ -279,6 +280,9 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 				if($scope.chart.id == 0){
 					$scope.chart.id = savedChart.id;
 					$scope.saveOrUpdateChartLabel = "Update";
+					$scope.saveConfirmationLabel = "saved";
+				} else {
+					$scope.saveConfirmationLabel = "updated";
 				}
 			}
 			chartService.isChartLoading = false;
@@ -302,8 +306,8 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 		}
 	}
 	
-	$scope.updateSaveOrUpdateChartLabel = function() {
-		$scope.saveOrUpdateChartLabel =  (($scope.chart.id == 0) ? "Save" : "Update");
+	$scope.getSaveConfirmationLabel = function() {
+		return  "Successfully " + $scope.saveConfirmationLabel + " the chart.";
 	}
 
 	$scope.clearAllFields = function() {
