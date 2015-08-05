@@ -83,6 +83,8 @@ a:hover, a:active {
 	width: 40%;
 	margin-top: 20px;
 	float: left;
+	margin-left: 7%;
+	min-width: 650px;
 }
 
 .chartMenu {
@@ -91,8 +93,8 @@ a:hover, a:active {
 	width: 40%;
 	margin-left: 7%;
 	margin-top: 20px;
-	margin-right: 5%;
 	margin-bottom: 30px;
+	min-width: 650px; 
 }
 
 .innerChartMenu {
