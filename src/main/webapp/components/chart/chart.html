@@ -43,19 +43,19 @@
       	</md-content>
     </md-sidenav>	    
 	    <md-content class="md-accl; chart-view">
-	 		<div layout="row"><a class="tabText" title="Toggle Menu Bar"><div z-index="2" ng-show="true" ng-click="toggleSideNav()" id="openConfig" class="btn">{{sideNavToggle()}}</div></a>
-      		<div ng-controller="chartRenderControl"> 
+	 		<div layout="row"><a class="tabText" title="Toggle Menu Bar"><div layout="column" ng-show="showToggleButton()" ng-click="toggleSideNav()" id="openConfig" class="btn">{{sideNavToggle()}}</div></a>
+      		<div layout="column" ng-controller="chartRenderControl" class="chartDiv"> 
       		<img src="images/loadingSaving.gif" ng-show="isChartLoading()" class="centered">
-      			<div z-index="1" ng-show="isShowable()" style="width: 100%;">
+      			<div ng-show="isShowable()">
       				<div ng-show="isSuccessfullySaved() != null && isSuccessfullySaved()">
-						<p class="saveConfirmation">Successfully saved the chart.</p>
+						<p class="saveConfirmation"> {{ getSaveConfirmationLabel() }} </p>
 					</div>
 					<div ng-show="isSuccessfullySaved() != null && (!isSuccessfullySaved())" >
 						<p class="saveFailure">Failed to save the chart.</p>
 					</div>
 					<br/>
 					<p class="chartName"> {{name()}} </p>
-					<div id="chart" style="margin-left: 50px; width: 100%; height: 100%;"></div>
+					<div id="chart"></div>
 			</div>
 			</div>
 			</div>
