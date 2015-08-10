@@ -1,4 +1,5 @@
-app.controller('appControl', function ($scope, $location, $rootScope, dataSourceService, chartService){
+app.controller('appControl', function ($scope, $location, $rootScope, $window, dataSourceService, chartService ){
+	$scope.loginLabel="Login to Github";
 	
 	$rootScope.clearChartName = function() {
 		chartService.chartName = "";
@@ -9,6 +10,7 @@ app.controller('appControl', function ($scope, $location, $rootScope, dataSource
 	$scope.goHome = function() {
 		$location.path("/home");
 	}
+	
 	$scope.showHomeButton = function() {
 		var url = $location.url();
 		if(url.indexOf("home") < 0){
@@ -16,5 +18,10 @@ app.controller('appControl', function ($scope, $location, $rootScope, dataSource
 		} else {
 			return true;
 		}
+	}
+	$scope.LoginWithGithub = function()
+	{
+		$window.location='callback/sso/github?launch=true';
+		$scope.islogin = true;
 	}
 });
