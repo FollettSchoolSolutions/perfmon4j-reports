@@ -49,7 +49,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	$scope.activeSeries = 0;
 	var active = chartService.active;
 	
-	if (typeof $routeParams.id != 'undefined'){
+	if (typeof $routeParams.id != 'undefined' && typeof $routeParams.mode == 'undefined'){
 		chartService.isToggled = false;
 		chartService.viewOnly = true;
 		var chartPromise = chartService.getChart($routeParams.id);
@@ -60,6 +60,9 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 		})	
 	} else {
 		chartService.viewOnly = false;
+		if($routeParams.mode == 'edit'){
+			alert("EDIT MODE");
+		}
 	}
 	
 	var datasourcePromise = dataSourceService.getDataSources();
