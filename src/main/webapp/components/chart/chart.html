@@ -8,10 +8,10 @@
 				<label class="inputHeading" for="chartName">Chart Name <span class="required">*</span></label>
 				<input class="chartInput" type="text" ng-model="chart.chartName" placeholder="Name of chart" value="" id="chartName" name="chartName" ng-blur="saveChartName()"/>
 				<label class="inputHeading" for="datasource">Data Source <span class="required">*</span></label>
-				<select class="chartInput" ng-options="datasource as datasource.name for datasource in datasources" id="datasource" ng-model="chart.chosenDatasource" ng-change="loadDatabases()" ng-disabled="disableTopOptions()"></select>
+				<select class="chartInput" ng-options="datasource as datasource.name for datasource in datasources" id="datasource" ng-model="chart.chosenDatasource" ng-disabled="disableTopOptions()"></select>
 				<label class="inputHeading" for="database">Database <span class="required">*</span></label> 
 				<br/>
-				<select class="chartInput" id="database" ng-options="database as database.name for database in databases" ng-model="chart.chosenDatabase" ng-change="initSeries();loadSystems()" ng-disabled="disableTopOptions()">
+				<select class="chartInput" id="database" ng-options="database as database.name for database in databases" ng-model="chart.chosenDatabase" ng-disabled="disableTopOptions()">
 					<option value="">Select a database</option>
 				</select><img src="images/smallLoadingSaving.gif" ng-show="isLoading(chosenDatasource, databases)">
 	      		<!-- <p class="inputHeading">Date / Time</p> -->

@@ -71,6 +71,38 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 			$scope.loadDatabases();
 		}
 	})		
+	
+	// watchers
+	$scope.$watch('chart.chosenDatasource', function(newValue, oldValue) {
+		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+			if((newValue.host != oldValue.host)){
+				if($scope.chart.series.length == 1){
+					$scope.chart.series.pop();
+				}
+				$scope.loadDatabases();
+			}
+		} else {
+			if($scope.chart.series.length == 1){
+				$scope.chart.series.pop();
+			}
+		}
+	});
+	
+	$scope.$watch('chart.chosenDatabase', function(newValue, oldValue) {
+		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+			if((newValue.id != oldValue.id)){
+				$scope.loadSystems();
+				$scope.initSeries();
+			}
+		} else {
+			$scope.loadSystems();
+			$scope.initSeries();
+		}
+	});
+	
+	function isNullOrUndefined(obj){
+		return (obj == null || typeof obj == 'undefined');
+	}
 
 	$scope.loadDatabases = function(){
 		var date = new Date();
@@ -85,7 +117,6 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 			$scope.databases = result.data;
 		})
 	};
-
 	
 	$scope.loadSystems = function(){
 		chartService.chosenDatabase = $scope.chart.chosenDatabase;
