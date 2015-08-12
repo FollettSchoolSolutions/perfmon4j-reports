@@ -34,22 +34,6 @@ app.factory('chartService', function($http){
 	
 	factory.saveOrUpdateChart = function(chart) {
 		var chartObj = angular.copy(chart);
-		for (var i=0; i< chartObj.series.length; i++){
-			chartObj.series[i].category = chartObj.series[i].category.name; 
-			chartObj.series[i].field = chartObj.series[i].field.name; 
-			var systemsString = "";
-			for (var j=0; j< chartObj.series[i].systems.length; j++) {
-				if (j != 0) {
-					systemsString += ",";
-				}
-				systemsString += chartObj.series[i].systems[j].id;
-			}
-			chartObj.series[i].systems = systemsString;
-		}
-		chartObj.chosenDatasource = chartObj.chosenDatasource.host;
-		chartObj.chosenDatabase = chartObj.chosenDatabase.id;
-		
-		
 		
 		return $http.post('rest/charts', chartObj).then(function(result) {
 			return result;

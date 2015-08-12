@@ -12,6 +12,19 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	var seriesCounter = 0;
 
 	var date = new Date();
+	
+	$scope.chartPersistObj = {
+			chosenDatasource : null,
+			chosenDatabase : null,
+			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDate() +"T"+ date.getHours() +":"+ date.getMinutes(),
+			timeStart : "now-4H",
+			timeEnd : "now",
+			id : 0,
+			primaryAxisName : "",
+			secondaryAxisName : "",
+			series : []
+
+	};
 
 	$scope.chart = {
 			chosenDatasource : null,
@@ -58,6 +71,38 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 			$scope.loadDatabases();
 		}
 	})		
+	
+	// watchers
+	$scope.$watch('chart.chosenDatasource', function(newValue, oldValue) {
+		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+			if((newValue.host != oldValue.host)){
+				if($scope.chart.series.length == 1){
+					$scope.chart.series.pop();
+				}
+				$scope.loadDatabases();
+			}
+		} else {
+			if($scope.chart.series.length == 1){
+				$scope.chart.series.pop();
+			}
+		}
+	});
+	
+	$scope.$watch('chart.chosenDatabase', function(newValue, oldValue) {
+		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+			if((newValue.id != oldValue.id)){
+				$scope.loadSystems();
+				$scope.initSeries();
+			}
+		} else {
+			$scope.loadSystems();
+			$scope.initSeries();
+		}
+	});
+	
+	function isNullOrUndefined(obj){
+		return (obj == null || typeof obj == 'undefined');
+	}
 
 	$scope.loadDatabases = function(){
 		var date = new Date();
@@ -72,7 +117,6 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 			$scope.databases = result.data;
 		})
 	};
-
 	
 	$scope.loadSystems = function(){
 		chartService.chosenDatabase = $scope.chart.chosenDatabase;
@@ -262,7 +306,41 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	$scope.saveOrUpdateChart = function(){
 		chartService.successfullySaved = null;
 		chartService.isChartLoading = true;
-		var saveChartPromise = chartService.saveOrUpdateChart($scope.chart);
+		
+		// init persist obj to all string fields instead of objs
+		$scope.chartPersistObj.chosenDatasource = $scope.chart.chosenDatasource.host;
+		$scope.chartPersistObj.chosenDatabase = $scope.chart.chosenDatabase.id;
+		$scope.chartPersistObj.chartName = $scope.chart.chartName;
+		$scope.chartPersistObj.timeStart = $scope.chart.timeStart;
+		$scope.chartPersistObj.timeEnd = $scope.chart.timeEnd;
+		$scope.chartPersistObj.id = $scope.chart.id;
+		$scope.chartPersistObj.primaryAxisName = $scope.chart.primaryAxisName;
+		$scope.chartPersistObj.secondaryAxisName = $scope.chart.secondaryAxisName;
+		for(var i=0; i < $scope.chart.series.length; i++){
+			var seriesObj = {
+				name : "",
+				systems : [],
+				category : "",
+				field : "",
+				aggregationMethod : ""
+			};
+			seriesObj.name = $scope.chart.series[i].name;
+			var systemsString = "";
+			for(var j=0; j < $scope.chart.series[i].systems.length; j++) {
+				if (j != 0) {
+					systemsString += ",";
+				}
+				systemsString += $scope.chart.series[i].systems[j].id;
+			}
+			seriesObj.systems = systemsString;
+			seriesObj.category = $scope.chart.series[i].category.name;
+			seriesObj.field = $scope.chart.series[i].field.name;
+			seriesObj.aggregationMethod = $scope.chart.series[i].aggregationMethod;
+			$scope.chartPersistObj.series.push(seriesObj);
+		}
+		
+		
+		var saveChartPromise = chartService.saveOrUpdateChart($scope.chartPersistObj);
 		
 		saveChartPromise.then(function(result){
 			if (result.status != 200) {

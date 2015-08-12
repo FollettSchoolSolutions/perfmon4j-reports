@@ -21,7 +21,7 @@
 			<div layout="row" class="seriesRow">
 		   		<label class="heading">Data Systems <span class="required">*</span> 
 					<br/>
-					<select multiple class="systemSelect" id="systems" ng-options="system as system.name for system in systems" ng-model="series.systems" ng-change="loadCategories()" required>
+					<select multiple class="systemSelect" id="systems" ng-options="system as system.name for system in systems" ng-model="series.systems" required>
 						<option value="">Select a system</option>
 					</select> 
 				</label>		
@@ -33,7 +33,7 @@
 			<div layout="row" class="seriesRow">
 				<label class="heading">Data Category <span class="required">*</span>
 					<br/>
-					<select class="seriesMenu" id="category" ng-options="category as category.name for category in categories" ng-model="series.category" ng-change="loadFields()">
+					<select class="seriesMenu" id="category" ng-options="category as category.name for category in categories" ng-model="series.category">
 						<option value="">Select a category</option>
 					</select>
 				</label>
@@ -43,7 +43,7 @@
 			<div layout="row" class="seriesRow">
 				<label class="heading">Data Category Field <span class="required">*</span>
 					<br/>
-					<select class="seriesMenu" id="field" ng-options="field as field.name for field in fields" ng-model="series.field" ng-change="loadAggregations()">
+					<select class="seriesMenu" id="field" ng-options="field as field.name for field in fields" ng-model="series.field">
 						<option value="">Select a field</option>
 					</select>
 				</label>
@@ -53,7 +53,7 @@
 			<div layout="row" class="seriesRow">
 				<label class="heading">Aggregation Type
 					<br/>
-					<select class="seriesMenu" id="aggregationType" ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="series.aggregationMethod" ng-change="saveAggregation()">
+					<select class="seriesMenu" id="aggregationType" ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="series.aggregationMethod">
 						<option value="">Select a type</option>
 					</select>
 				</label>
