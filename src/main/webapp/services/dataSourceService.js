@@ -38,12 +38,7 @@ app.factory('dataSourceService', function($http){
 		});
 	}
 	
-	factory.getURL = function(viewOnly, chosenDatasource, chosenDatabase, timeStart, timeEnd, seriesUrl, aliases){
-		if(viewOnly == false){
-			chosenDatasource = chosenDatasource.host;
-			chosenDatabase = chosenDatabase.id;
-		}
-		
+	factory.getURL = function(chosenDatasource, chosenDatabase, timeStart, timeEnd, seriesUrl, aliases){
 		var url = "";
 		if (timeStart != "" && timeEnd != "") {
 			url = "http://" + chosenDatasource + "/perfmon4j/rest/datasource/databases/" + chosenDatabase

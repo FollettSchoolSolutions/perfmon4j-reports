@@ -11,15 +11,13 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.perfmon4jreports.app.data.ChartVo;
-import org.perfmon4jreports.app.data.SeriesVo;
 import org.perfmon4jreports.app.entity.Chart;
-import org.perfmon4jreports.app.entity.Series;
 
 @Stateless
 @Path("/charts")
@@ -28,58 +26,57 @@ public class ChartService {
 	private EntityManager em;
 
 	// Save or Update
-	@POST
-	@Path("/")
+	@PUT
+	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ChartVo saveOrUpdateChart(ChartVo chartVo) {
-		Chart updatedChart = null;
-		Chart chartEntity = new Chart(chartVo);
-		
-		// Update
-		if(chartVo.getId() != 0){
-			updatedChart = new Chart(chartVo);
-			chartEntity = em.find(Chart.class, new Long(chartVo.getId()));
-			chartEntity.updateChart(updatedChart);
+	public void saveOrUpdateChart(@PathParam("id") String id, String data) {	
+		Chart chart = em.find(Chart.class, id);
+		if(chart == null){
+			chart = new Chart(id, data);
+		} else {
+			chart.setData(data);
 		}
-		
-		// Save down
-		em.persist(chartEntity);
-		return chartEntity.toVo();
+		em.persist(chart);
 	}
+	
 	
 	// Retrieve
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ChartVo getChart(@PathParam("id") long id) {
-		Chart chart = em.find(Chart.class, new Long(id));
+	public String getChart(@PathParam("id") String id) {
+		Chart chart = em.find(Chart.class, id);
 		if (chart == null) {
 			// This is a not found situation
 			throw new NotFoundException("Chart " + id + " not found.");
 		}
-		return chart.toVo();
+		return chart.getData();
 	}
 
 	// Retrieve
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ChartVo> getCharts() {
+	public String getCharts() {
+		@SuppressWarnings("unchecked")
 		List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL).getResultList();
-		List<ChartVo> retList = new ArrayList<>();
-		for(Chart c : list){
-			ChartVo cvo = c.toVo();
-			retList.add(cvo);
+		StringBuilder retList = new StringBuilder("[");
+		for (int i = 0; i < list.size(); i++) {
+			if (i > 0) {
+				retList.append(",");
+			}
+			retList.append(list.get(i).getData());
 		}
-		return retList;
+		retList.append("]");
+		return retList.toString();
 	}
 
 	// Delete
 	@DELETE
 	@Path("/{id}")
-	public boolean deleteChart(@PathParam("id") long id) {
-		Chart chart = em.find(Chart.class, new Long(id));
+	public boolean deleteChart(@PathParam("id") String id) {
+		Chart chart = em.find(Chart.class, id);
 		if (chart == null) {
 			return false;
 		}

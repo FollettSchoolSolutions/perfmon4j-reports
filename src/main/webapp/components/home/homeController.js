@@ -7,6 +7,7 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		if (result.status != 200) {
 			throw new Error("Failed to load charts");
 		}
+		
 		$scope.charts = result.data;
 	}).catch(function onError(err) {
 		window.alert("Failed to load charts");
@@ -34,8 +35,7 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	$scope.copyChart = function(id){
 		var copyPromise = chartService.copyChart(id);
 		copyPromise.then(function(result){
-			var successful = result.data;
-			if(!successful){
+			if(result.status != 204){
 				alert("Copying chart with id: " + id + " was NOT successful.");
 			}
 			$location.path("/");
