@@ -1,6 +1,6 @@
-app.controller('appControl', function ($scope, $location, $rootScope, $window, dataSourceService, chartService ){
+app.controller('appControl', function ($scope, $location, $rootScope, $window, dataSourceService, chartService){
 	$scope.loginLabel="Login to Github";
-	
+	$scope.name="test";
 	$rootScope.clearChartName = function() {
 		chartService.chartName = "";
 		chartService.isShowable = false; //we need to do this so that subsequent chart renders following the first do not show the chart name before rendering.
@@ -19,9 +19,15 @@ app.controller('appControl', function ($scope, $location, $rootScope, $window, d
 			return true;
 		}
 	}
-	$scope.LoginWithGithub = function()
+	$scope.LoginWithGitHub = function()
 	{
-		$window.location='callback/sso/github?launch=true';
+		//GitHubSSOServlet.GitHubSSOServlet();
+		$window.location='callback/sso?launch=true';
+		
+		//$location.path('authentication?launch=true')
 		$scope.islogin = true;
+		
+		
 	}
+	
 });

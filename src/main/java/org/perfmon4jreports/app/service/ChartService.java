@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -20,6 +21,8 @@ import org.perfmon4jreports.app.data.ChartVo;
 import org.perfmon4jreports.app.data.SeriesVo;
 import org.perfmon4jreports.app.entity.Chart;
 import org.perfmon4jreports.app.entity.Series;
+import org.perfmon4jreports.app.sso.github.Users;
+//check login status
 
 @Stateless
 @Path("/charts")
@@ -65,7 +68,10 @@ public class ChartService {
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ChartVo> getCharts() {
+	public List<ChartVo> getCharts(HttpServletRequest req) {
+	
+		//int id = SSOLogin.getUserID(req);
+		//List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL).setParameter("userID", id).getResultList();
 		List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL).getResultList();
 		List<ChartVo> retList = new ArrayList<>();
 		for(Chart c : list){

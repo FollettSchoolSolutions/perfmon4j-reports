@@ -35,7 +35,8 @@
   <script src="components/chart/chartSeriesDirective.js"></script>
   <script src="components/chart/chartSeriesController.js"></script>
   <script src="components/chart/seriesModel.js"></script>
-  
+  <script src="components/home/SSOLogin.js"></script>
+  <script src="services/userService.js"></script>
   <!-- Data Sources -->
   <script src="services/dataSourceService.js"></script>
   <script src="services/chartService.js"></script>
@@ -58,7 +59,8 @@
 	         
 	      </div>
 	    </md-toolbar>
-	    <button ng-click="LoginWithGithub()">{{loginLabel}}</button>
+	    <button ng-click="LoginWithGitHub()">{{loginLabel}}</button>
+	    
 	    <md-content ng-view></md-content>	
 	    
 	    <!--  

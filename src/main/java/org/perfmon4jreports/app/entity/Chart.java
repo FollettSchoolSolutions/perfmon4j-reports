@@ -7,10 +7,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -19,9 +21,10 @@ import javax.persistence.SequenceGenerator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.perfmon4jreports.app.data.ChartVo;
 import org.perfmon4jreports.app.data.SeriesVo;
+import org.perfmon4jreports.app.sso.github.Users;
 
 @NamedQueries({
-	@NamedQuery(name=Chart.QUERY_FIND_ALL, query="SELECT c FROM Chart c")
+	@NamedQuery(name=Chart.QUERY_FIND_ALL, query="SELECT c FROM Chart c where c.globalID LIKE :globalID")
 })
 
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -61,17 +64,21 @@ public class Chart {
 	@JoinColumn(name = "CHART_ID")
 	private List<Series> series;
 	
+	@Column(nullable = false, unique= true, name = "globalID")
+	private String globalID;
+	
 	public Chart(){
 	}
 	
 	public Chart(ChartVo vo) {
 		this.chartName = vo.getChartName();
-		this.chosenDatasource = vo.getChosenDatasource();
+		this.chosenDatasource = vo.getChosenDatasource(); 
 		this.chosenDatabase = vo.getChosenDatabase();
 		this.timeStart = vo.getTimeStart();
 		this.timeEnd = vo.getTimeEnd();
 		this.primaryAxisName = vo.getPrimaryAxisName();
 		this.secondaryAxisName = vo.getSecondaryAxisName();
+		this.globalID = vo.getglobalID();
 		setSeriesFromVo(vo.getSeries());
 	}
 	
@@ -86,6 +93,7 @@ public class Chart {
 		vo.setPrimaryAxisName(primaryAxisName);
 		vo.setSecondaryAxisName(secondaryAxisName);
 		vo.setSeriesFromEntity(series);
+		vo.setglobalID(globalID);
 		return vo;
 	}
 	

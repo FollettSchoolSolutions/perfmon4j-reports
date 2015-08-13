@@ -6,6 +6,7 @@ import java.util.List;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.perfmon4jreports.app.entity.Chart;
 import org.perfmon4jreports.app.entity.Series;
+import org.perfmon4jreports.app.sso.github.Users;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ChartVo {
@@ -17,7 +18,8 @@ public class ChartVo {
 	private String timeEnd;
 	private String primaryAxisName;
 	private String secondaryAxisName;
-	
+	private String globalID;
+
 	private List<SeriesVo> series;
 	
 	public ChartVo(){
@@ -102,6 +104,14 @@ public class ChartVo {
 
 	public void setSecondaryAxisName(String secondaryAxisName) {
 		this.secondaryAxisName = secondaryAxisName;
+	}
+	
+	public String getglobalID() {
+		return globalID;
+	}
+
+	public void setglobalID(String globalID) {
+		this.globalID = globalID;
 	}
 	
 	

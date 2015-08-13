@@ -47,19 +47,22 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.perfmon4jreports.app.service.UsersService;
 import org.perfmon4jreports.app.sso.Group;
 import org.perfmon4jreports.app.sso.Principal;
 import org.perfmon4jreports.app.sso.SSOConfig;
+import org.perfmon4jreports.app.sso.github.Users;
 import org.perfmon4jreports.app.sso.SSODomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-@WebServlet("/callback/sso/github")
+					//authentication
+@WebServlet(value="callback/sso")
 class GitHubSSOServlet extends HttpServlet {
 	private static final Logger logger = LoggerFactory.getLogger(GitHubSSOServlet.class);
 	static final String SESSION_STATE_KEY = GitHubSSOServlet.class.getName() + "SESSION_STATE_KEY";
 	private static final long serialVersionUID = 1L;
 	private static SSOConfig config = new SSOConfig();
+	private static UsersService users = new UsersService();
 	private final SecureRandom random = new SecureRandom();
 	private AtomicLong requestID = new AtomicLong(System.currentTimeMillis());  // Create a trackingID that is unique, and easy to grep in the log.
 	private static TrustManager[] easySSLModeTrust = new TrustManager[] {new X509TrustManager() {
@@ -89,9 +92,9 @@ class GitHubSSOServlet extends HttpServlet {
 			UriBuilder uriBuilder = UriBuilder.fromUri(config.getGitHubOauthAPIPath() + "/authorize")
 				.queryParam("client_id", config.getGitHubClientID())
 				.queryParam("state", generateAndSetSessionState(request))
-				.queryParam("redirect_uri", config.getRootClientPath() + "/callback/sso/github")
+				.queryParam("redirect_uri", config.getRootClientPath() + "/callback/sso")
 				.queryParam("scope", "user:email,read:org");
-
+				///reports/authentication
 			String url =  uriBuilder.build().toString();
 			logger.info("Sending Redirect to GitHub: " + url);
 			response.sendRedirect(url);
@@ -186,7 +189,7 @@ class GitHubSSOServlet extends HttpServlet {
 			parameters.put("client_secret", config.getGitHubClientSecret());
 			parameters.put("code", code);
 			parameters.put("state",state);
-			parameters.put("redirect_uri", config.getRootClientPath() + "/callback/sso/github");
+			parameters.put("redirect_uri", config.getRootClientPath() + "/callback/sso");
 			GitHubAccessToken token = invokeGitHubAPI(client, trackingID, config.getGitHubOauthAPIPath() + "/access_token", parameters, GitHubAccessToken.class);
 			
 			// Now use our access token to retrieve the logged in GitHub user.
@@ -212,6 +215,8 @@ class GitHubSSOServlet extends HttpServlet {
 			Principal.addPrincipal(request.getSession(true), principal);
 			// Finally return the user to the login page.
 			response.sendRedirect(SSOConfig.LOGIN_RETURN_PATH);
+			//Send info to Login
+			users.Login(request);
 		} catch (Exception ex) {
 			// If something failed, return a generic error message to the user
 			// Since this message contains the tracking ID the detailed exception will be visible in the log.
