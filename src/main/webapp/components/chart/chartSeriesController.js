@@ -37,7 +37,7 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 	}
 	
 	$scope.$watchCollection('series.systems', function(newArr, oldArr) {
-		if(!isNullOrUndefined(newValue)){
+		if(!isNullOrUndefined(newArr)){
 			$scope.loadCategories();
 		}
 	});
@@ -47,7 +47,7 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 			if((newValue.name != oldValue.name)){
 				$scope.loadFields();
 			}
-		} else {
+		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
 			$scope.loadFields();
 		}
 	});
@@ -57,7 +57,7 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 			if((newValue.name != oldValue.name)){
 				$scope.loadAggregations();
 			}
-		} else {
+		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
 			$scope.loadAggregations();
 		}
 	});
@@ -67,7 +67,7 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 			if((newValue != oldValue)){
 				$scope.saveAggregation();
 			}
-		} else {
+		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
 			$scope.saveAggregation();
 		}
 	});
@@ -103,8 +103,7 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		clearField();
 		clearAggregationMethod();
 		chartService.chosenCategory = $scope.series.category;
-		var databasePromise = dataSourceService.getFields($scope.chosenDatasource, $scope.chosenDatabase, 
-				$scope.series.category);
+		var databasePromise = dataSourceService.getFields($scope.chosenDatasource, $scope.chosenDatabase, $scope.series.category);
 		databasePromise.then(function(result){
 			$scope.fields = result.data[0].fields;
 			chartService.fields = $scope.fields;
