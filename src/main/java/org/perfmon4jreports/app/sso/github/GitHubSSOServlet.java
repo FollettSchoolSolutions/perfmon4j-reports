@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.ejb.EJB;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -62,7 +63,10 @@ class GitHubSSOServlet extends HttpServlet {
 	static final String SESSION_STATE_KEY = GitHubSSOServlet.class.getName() + "SESSION_STATE_KEY";
 	private static final long serialVersionUID = 1L;
 	private static SSOConfig config = new SSOConfig();
-	private static UsersService users = new UsersService();
+	
+	@EJB
+	private UsersService users;
+	
 	private final SecureRandom random = new SecureRandom();
 	private AtomicLong requestID = new AtomicLong(System.currentTimeMillis());  // Create a trackingID that is unique, and easy to grep in the log.
 	private static TrustManager[] easySSLModeTrust = new TrustManager[] {new X509TrustManager() {

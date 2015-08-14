@@ -41,6 +41,7 @@ import org.perfmon4jreports.app.entity.Series;
 @NamedQueries({
 	@NamedQuery(name=Users.QUERY_FIND_ALL, query="Select l from Users l"),
 	@NamedQuery(name=Users.QUERY_FIND_USER, query ="Select l from Users l WHERE l.globalID like :globalID")
+	//@NamedQuery(name=Users.QUERY_INSERT_USER, query="INSERT INTO Users (Name, userName, domain, gobalID, email) VALUES( :name, :userName, :domain, :globalID, :email")
 })
 
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -49,11 +50,11 @@ public class Users {
 	
 	public static final String QUERY_FIND_ALL = "Users.findAll";
 	public static final String QUERY_FIND_USER = "Users.findUser";
+	public static final String QUERY_INSERT_USER = "Users.addUser";
 	
-	@Id
-    @SequenceGenerator(name = "userIDGenerator", initialValue = 1, allocationSize = 100)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userIDGenerator")
-	@Column(unique = true, nullable = false, name = "userID")
+	 @Id
+	 @GeneratedValue(strategy = GenerationType.AUTO)
+	 @Column(nullable=false, unique=true)
 	private long userID;
 
 	@Column(nullable = true, name = "Name")
@@ -64,9 +65,9 @@ public class Users {
 	private String userName;
 	
 	@Column(nullable = false, name = "domain")
-	private SSODomain domain;
+	private String domain;
 	
-	@Column(nullable = false, unique=true, name = "globalID")
+	@Column(nullable = false, unique=true, name = "globalID", length=255)
 	private String globalID;
 	
 	@Column(nullable = false, name ="email")
@@ -104,11 +105,11 @@ public void setUserName(String userName) {
 	this.userName = userName;
 }
 
-public SSODomain getDomain() {
+public String getDomain() {
 	return domain;
 }
 
-public void setDomain(SSODomain domain) {
+public void setDomain(String domain) {
 	this.domain = domain;
 }
 
