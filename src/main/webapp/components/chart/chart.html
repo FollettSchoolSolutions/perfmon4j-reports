@@ -18,11 +18,11 @@
 	      		<div layout="row">
 		      		<div class="start">
 		      			<label for="startTime" class="inputHeading">From: <span class="required">*</span></label>
-		      			<input class="from" name="startTime" type="text" id="startTime" ng-model="chart.timeStart" ng-blur="loadSystems();saveStartTime()"/>
+		      			<input class="from" name="startTime" type="text" id="startTime" ng-model="chart.timeStart"/>
 		      		</div>
 		      		<div class="end">
 		      			<label for="endTime" class="inputHeading">To: <span class="required">*</span></label>
-		      			<input class="to" type="text" name="endTime" id="endTime" ng-model="chart.timeEnd" ng-blur="saveEndTime()"/>
+		      			<input class="to" type="text" name="endTime" id="endTime" ng-model="chart.timeEnd"/>
 		      		</div>
 	      		</div>
 	      		<a title="Advanced Options"><md-button title="Advanced Options" id="advanced" class="md-raised md-primary" ng-click="showAdvanced($event)">Advanced Options</md-button></a>

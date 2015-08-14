@@ -1,14 +1,8 @@
-app.controller('chartSeriesControl', function ($scope, chartService, dataSourceService){
+app.controller('chartSeriesControl', function ($scope, $routeParams, chartService, dataSourceService){
 	$scope.chosenDatabase = chartService.chosenDatabase;
 	$scope.chosenDatasource = chartService.chosenDatasource;
 	$scope.timeStart = chartService.timeStart;
 	$scope.timeEnd = chartService.timeEnd;
-	$scope.seriesName = "";
-	$scope.chosenSystems = [];
-	$scope.chosenCategory = "";
-	$scope.chosenField = "";
-	$scope.chosenAggregationMethod = "";
-	$scope.chosenSeries = new Series();
 	$scope.active = true;
 	$scope.systems = [];
 	$scope.categories = [];
@@ -33,6 +27,10 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 			$scope.systems = result.data;
 			
 		})
+		if($routeParams.mode == 'edit'){
+			$scope.systems = $scope.series.systems;
+			
+		}
 		
 	}
 	
@@ -113,46 +111,20 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 	$scope.loadAggregations = function(){
 		clearAggregationMethod();
 		chartService.chosenField = $scope.series.field;
-		$scope.chosenAggregationMethod = $scope.series.aggregationMethod = $scope.series.field.defaultAggregationMethod;
+		chartService.chosenAggregationMethod = $scope.series.aggregationMethod = $scope.series.field.defaultAggregationMethod;
 		$scope.aggregationMethods = $scope.series.field.aggregationMethods;
 
 		chartService.aggregationMethods = $scope.aggregationMethods;
-		chartService.chosenAggregationMethod = $scope.chosenAggregationMethod;
 	}
-	
-	$scope.renderDisabled = function(){
-		return (isEmptyOrNull($scope.chosenDatasource) || isEmptyOrNull($scope.chosenDatabase) 
-				|| isEmptyOrNull($scope.chosenSystems) || isEmptyOrNull($scope.chosenCategory) 
-				|| isEmptyOrNull($scope.chosenField) || isEmptyOrNull($scope.seriesName) 
-				|| isEmptyOrNull($scope.chartName) || isEmptyOrNull($scope.timeStart)
-				|| isEmptyOrNull($scope.timeEnd))
-	};
 	
 	$scope.isLoading = function(chosenOne, options){
 		return !isEmptyOrNull(chosenOne) && isEmptyOrNull(options);
 	}
 	
-	$scope.saveSeriesName = function() {
-		chartService.seriesName = $scope.seriesName;
-	}
-	
 	$scope.saveAggregation = function() {
-		chartService.chosenAggregationMethod = $scope.chosenAggregationMethod;
+		chartService.chosenAggregationMethod = $scope.series.aggregationMethod;
 	}
 	
-
-	$scope.toggleActive = function() {
-		$scope.active = !$scope.active;
-		if ($scope.active) {
-			$scope.chosenSeries.name = $scope.seriesName;
-			$scope.chosenSeries.systems = $scope.chosenSystems;
-			$scope.chosenSeries.category = $scope.chosenCategory;
-			$scope.chosenSeries.field = $scope.chosenField;
-			$scope.chosenSeries.aggregationMethod = $scope.chosenAggregationMethod;
-			chartService.chosenSeries = $scope.chosenSeries;
-		}
-	}
-
 	$scope.seriesHeader = function() {
 		if (isEmptyOrNull($scope.series.name)) {
 			return "Series";

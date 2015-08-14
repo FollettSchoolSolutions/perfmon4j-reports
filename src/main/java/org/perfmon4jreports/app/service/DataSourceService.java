@@ -24,7 +24,7 @@ public class DataSourceService {
 
 		return Arrays.asList(new DataSourceVo[] { new DataSourceVo(
 				"Test on MDAPP", "172.16.16.64"), new DataSourceVo(
-				"Another MDAPP", "172.16.16.64")});
+				"Another MDAPP", "pfm4j.net")});
 	}
 	
 	@POST
