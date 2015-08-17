@@ -144,7 +144,6 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	
 	$scope.loadDatabases = function(){
 		var date = new Date();
-		console.log('Date = ' + date );
 		clearDatabase();
 		clearAggregationMethod();
 		chartService.timeStart = $scope.chart.timeStart;
