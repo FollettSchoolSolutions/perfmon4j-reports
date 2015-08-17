@@ -23,7 +23,7 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 	if(chartService.viewOnly == false){
 		setTimeout(function(){
 			if (isEmptyOrNull($scope.systems)){
-				window.alert("Cannot connect to database");
+				window.alert("Cannot connect to database / systems are null");
 			}
 		
 		}, 5000);	
@@ -34,6 +34,46 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 			
 		})
 		
+	}
+	
+	$scope.$watchCollection('series.systems', function(newArr, oldArr) {
+		if(!isNullOrUndefined(newArr)){
+			$scope.loadCategories();
+		}
+	});
+	
+	$scope.$watch('series.category', function(newValue, oldValue) {
+		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+			if((newValue.name != oldValue.name)){
+				$scope.loadFields();
+			}
+		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+			$scope.loadFields();
+		}
+	});
+	
+	$scope.$watch('series.field', function(newValue, oldValue) {
+		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+			if((newValue.name != oldValue.name)){
+				$scope.loadAggregations();
+			}
+		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+			$scope.loadAggregations();
+		}
+	});
+	
+	$scope.$watch('series.aggregationMethod', function(newValue, oldValue) {
+		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+			if((newValue != oldValue)){
+				$scope.saveAggregation();
+			}
+		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+			$scope.saveAggregation();
+		}
+	});
+	
+	function isNullOrUndefined(obj){
+		return (obj == null || typeof obj == 'undefined');
 	}
 		
 	$scope.loadCategories = function(){
@@ -63,8 +103,7 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 		clearField();
 		clearAggregationMethod();
 		chartService.chosenCategory = $scope.series.category;
-		var databasePromise = dataSourceService.getFields($scope.chosenDatasource, $scope.chosenDatabase, 
-				$scope.series.category);
+		var databasePromise = dataSourceService.getFields($scope.chosenDatasource, $scope.chosenDatabase, $scope.series.category);
 		databasePromise.then(function(result){
 			$scope.fields = result.data[0].fields;
 			chartService.fields = $scope.fields;

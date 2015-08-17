@@ -1,4 +1,6 @@
 app.factory('chartService', function($http){
+	var VERSION_1 = 1;
+	
 	var sideNavButtonName = "Test";
 	
 	var pageTitle = "build a chart";
@@ -33,27 +35,23 @@ app.factory('chartService', function($http){
 	var successfullySaved = null;
 	
 	factory.saveOrUpdateChart = function(chart) {
-		var chartObj = angular.copy(chart);
-		for (var i=0; i< chartObj.series.length; i++){
-			chartObj.series[i].category = chartObj.series[i].category.name; 
-			chartObj.series[i].field = chartObj.series[i].field.name; 
-			var systemsString = "";
-			for (var j=0; j< chartObj.series[i].systems.length; j++) {
-				if (j != 0) {
-					systemsString += ",";
-				}
-				systemsString += chartObj.series[i].systems[j].id;
-			}
-			chartObj.series[i].systems = systemsString;
+		if(chart.id == "0"){
+			chart.id = factory.makeid();
 		}
-		chartObj.chosenDatasource = chartObj.chosenDatasource.host;
-		chartObj.chosenDatabase = chartObj.chosenDatabase.id;
-		
-		
-		
-		return $http.post('rest/charts', chartObj).then(function(result) {
+		return $http.put("rest/charts/" + chart.id, chart).then(function(result) {
 			return result;
 		});
+	}
+	
+	// stolen from http://stackoverflow.com/a/1349426
+	factory.makeid = function(){
+	    var id = "";
+	    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	    for( var i=0; i < 6; i++ )
+	        id += possible.charAt(Math.floor(Math.random() * possible.length));
+
+	    return id;
 	}
 	
 	
@@ -81,15 +79,15 @@ app.factory('chartService', function($http){
 		var date = new Date();
 		//(date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes();
 		return $http.get("rest/charts/" + id).then(function(result) {
-            var copy = angular.copy(result);
+            var copy = angular.copy(result.data);
             var regex = /\sCOPY\[\d+\]/;
             
-            copy.data.chartName = copy.data.chartName.replace(regex, "");
+            copy.chartName = copy.chartName.replace(regex, "");
             
-            copy.data.chartName = copy.data.chartName + " COPY[" + date.getTime() + "]";
-//            copy.data.chartName = copy.data.chartName + " COPY at " + (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes();
-            copy.data.id = null;
-            return $http.post('rest/charts', copy.data).then(function(result) {
+            copy.chartName = copy.chartName + " COPY[" + date.getTime() + "]";
+//            copy.chartName = copy.chartName + " COPY at " + (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes();
+            copy.id = factory.makeid();
+            return $http.put("rest/charts/" + copy.id, copy).then(function(result) {
     			return result;
     		});
 		});

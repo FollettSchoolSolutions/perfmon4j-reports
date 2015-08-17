@@ -34,9 +34,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.perfmon4jreports.app.data.ChartVo;
-import org.perfmon4jreports.app.data.SeriesVo;
-import org.perfmon4jreports.app.entity.Series;
 
 @NamedQueries({
 	@NamedQuery(name=Users.QUERY_FIND_ALL, query="Select l from Users l"),

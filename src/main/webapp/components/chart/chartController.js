@@ -12,14 +12,14 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	var seriesCounter = 0;
 
 	var date = new Date();
-
+	
 	$scope.chart = {
 			chosenDatasource : null,
 			chosenDatabase : null,
 			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDate() +"T"+ date.getHours() +":"+ date.getMinutes(),
 			timeStart : "now-4H",
 			timeEnd : "now",
-			id : 0,
+			id : "0",
 			primaryAxisName : "",
 			secondaryAxisName : "",
 			series : []
@@ -29,7 +29,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	chartService.chartName = $scope.chart.chartName;
 	
 	$scope.showName = false;
-	$scope.chartId = 0;
+	$scope.chartId = "0";
 	$scope.addToggled = false;
 	$scope.seriesUrl = "";
 	$scope.seriesAliases = "";
@@ -58,6 +58,38 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 			$scope.loadDatabases();
 		}
 	})		
+	
+	// watchers
+	$scope.$watch('chart.chosenDatasource', function(newValue, oldValue) {
+		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+			if((newValue.host != oldValue.host)){
+				if($scope.chart.series.length == 1){
+					$scope.chart.series.pop();
+				}
+				$scope.loadDatabases();
+			}
+		} else {
+			if($scope.chart.series.length == 1){
+				$scope.chart.series.pop();
+			}
+		}
+	});
+	
+	$scope.$watch('chart.chosenDatabase', function(newValue, oldValue) {
+		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+			if((newValue.id != oldValue.id)){
+				$scope.loadSystems();
+				$scope.initSeries();
+			}
+		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+			$scope.loadSystems();
+			$scope.initSeries();
+		}
+	});
+	
+	function isNullOrUndefined(obj){
+		return (obj == null || typeof obj == 'undefined');
+	}
 
 	$scope.loadDatabases = function(){
 		var date = new Date();
@@ -72,7 +104,6 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 			$scope.databases = result.data;
 		})
 	};
-
 	
 	$scope.loadSystems = function(){
 		chartService.chosenDatabase = $scope.chart.chosenDatabase;
@@ -143,27 +174,17 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 		
 		for (var i=0; i<$scope.chart.series.length; i++)
 			{
-				$scope.chart.series[i];
 				if (i!= 0){
 					cleanUrl += "_";
 				}
 				agg = $scope.chart.series[i].aggregationMethod + "~";
 				cleanUrl += agg; 
 				
-				if(chartService.viewOnly == false){
-					for (j=0; j< $scope.chart.series[i].systems.length; j++){
-						systems += $scope.chart.series[i].systems[j].id + "~";
-					}
-					category = $scope.chart.series[i].category.name;
-					field = $scope.chart.series[i].field.name;
-				} else {
-					var systemsArr = $scope.chart.series[i].systems.split(",");
-					for (j=0; j< systemsArr.length; j++){
-						systems += systemsArr[j] + "~";
-					}
-					category = $scope.chart.series[i].category;
-					field = $scope.chart.series[i].field;
+				for (j=0; j< $scope.chart.series[i].systems.length; j++){
+					systems += $scope.chart.series[i].systems[j].id + "~";
 				}
+				category = $scope.chart.series[i].category.name;
+				field = $scope.chart.series[i].field.name;
 				
 				cleanUrl += systems + category + "~" + field;
 				systems = "";
@@ -188,7 +209,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 		$scope.seriesUrl = $scope.cleanSeriesUrl();
 		listSeriesAliases();
 
-		var urlPromise = dataSourceService.getURL(chartService.viewOnly, $scope.chart.chosenDatasource, $scope.chart.chosenDatabase, 
+		var urlPromise = dataSourceService.getURL($scope.chart.chosenDatasource.host, $scope.chart.chosenDatabase.id, 
 				$scope.chart.timeStart, $scope.chart.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
 		
 		var relative = isRelativeTimeRange();
@@ -262,25 +283,21 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	$scope.saveOrUpdateChart = function(){
 		chartService.successfullySaved = null;
 		chartService.isChartLoading = true;
+		
 		var saveChartPromise = chartService.saveOrUpdateChart($scope.chart);
 		
 		saveChartPromise.then(function(result){
-			if (result.status != 200) {
+			if (result.status != 204) {
 				throw new Error("Failed to save chart");
-			}
-			var savedChart = result.data;
-			if (savedChart == null || savedChart.id < 1) {
-				console.error("Chart not saved successfully!");
-				chartService.successfullySaved = false;
 			} else {
 				console.log("Chart saved successfullly.");
 				chartService.successfullySaved = true;
 				
 				// Initial save
-				if($scope.chart.id == 0){
-					$scope.chart.id = savedChart.id;
+				if($scope.chartId == "0"){
 					$scope.saveOrUpdateChartLabel = "Update";
 					$scope.saveConfirmationLabel = "saved";
+					$scope.chartId = angular.copy($scope.chart.id);
 				} else {
 					$scope.saveConfirmationLabel = "updated";
 				}
