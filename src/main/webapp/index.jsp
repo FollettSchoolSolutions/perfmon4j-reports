@@ -1,3 +1,6 @@
+<%@page import="org.perfmon4jreports.app.sso.Principal"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en" ng-app="perfmonReportsApp">
 <head>
@@ -37,7 +40,7 @@
   <script src="components/chart/seriesModel.js"></script>
   <script src="components/home/SSOLogin.js"></script>
   <script src="services/userService.js"></script>
-  <script src="components/home/home.html"></script>
+  <script src="components/home/home.jsp"></script>
   <!-- Data Sources -->
   <script src="services/dataSourceService.js"></script>
   <script src="services/chartService.js"></script>
@@ -57,7 +60,8 @@
 		        </a>
 	        </div>
 	         
-	    <button ng-click="LoginWithGitHub()">{{loginLabel}}</button>
+	    <button ng-click="LoginWithGitHub()" ng-hide="loggedIn(<%=Principal.logged%>)">Login with GitHub</button>
+	    <button ng-click="logout()" ng-show="loggedIn(<%=Principal.logged%>)">Logout</button>
 	      </div>
 	    </md-toolbar>
 	    

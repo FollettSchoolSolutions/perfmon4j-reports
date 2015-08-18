@@ -30,7 +30,7 @@ public class Principal {
 	private final String globalID;
 	private final String emailAddress;
 	private final Group[] groups;
-	private static boolean logged =false;
+	public static boolean logged =false;
 	
 	public Principal(SSODomain domain, String userName, String name, String localID, String emailAddress, Group[] groups) {
 		this.domain = domain;
@@ -69,6 +69,7 @@ public class Principal {
 	public boolean getLogged(){
 		return logged;
 	}
+
 	
 
 	public static void addPrincipal(PrincipalContext principalContext, Principal principal) {

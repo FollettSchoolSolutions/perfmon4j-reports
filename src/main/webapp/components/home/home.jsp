@@ -1,5 +1,9 @@
-<div>
-	<div class="chartMenu">
+<%@page import="org.perfmon4jreports.app.sso.Principal"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<div ng-show=loggedIn(<%=Principal.logged%>)>
+    <div>
+		<div class="chartMenu">
 	
  		<md-toolbar id="chartMenu">
     		<div class="md-toolbar-tools" style="min-height: 12px">
@@ -44,6 +48,7 @@
   			<a title="Create New Dashboard">
 				<md-button title="Create New Dashboard" id="createButton" class="md-raised md-primary" ng-disabled="true"> Create </md-button>
 			</a>
-  		</div>
+  			</div>
+		</div>
 	</div>
 </div>

@@ -86,5 +86,10 @@ public void Login(HttpServletRequest req){
 		}
 		}
 		}
+
+	public void Logout() {
+		principalContext.getPrincipal().removePrincipal();
+	
 	}
+}
 

@@ -108,10 +108,17 @@ class GitHubSSOServlet extends HttpServlet {
 		} else if (request.getParameter("code") != null && request.getParameter("state") != null){
 			// Looks like a gitHubResponse...
 			handleSingleSignonResponse(request, response);
-		} else {
+		} else if(request.getParameter("logout") != null){ 
+			users.Logout();
+			response.sendRedirect("/reports");
+		}else {
 			throw new ServletException("Unknown request - expected parameters do not exist");
 		}
 	}
+	
+//	protected void doDelete(HttpServletRequest request, HttpServletResponse response) {
+//		users.Logout();
+//	}
 
 	 private <T> T invokeGitHubAPI(Client client, String trackingID, String url, Map<String, String> parameters, 
 			 Class<T> valueType) throws ServletException {
