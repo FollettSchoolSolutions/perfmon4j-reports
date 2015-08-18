@@ -25,7 +25,7 @@ import org.perfmon4jreports.app.sso.github.Users;
 
 
 @NamedQueries({
-	@NamedQuery(name=Chart.QUERY_FIND_ALL, query="SELECT c FROM Chart c where c.globalID LIKE :globalID")
+	@NamedQuery(name=Chart.QUERY_FIND_ALL, query="SELECT c FROM Chart c where c.globalID LIKE :globalID OR c.globalID IS NULL")
 })
 
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -34,14 +34,14 @@ public class Chart {
 	
 	public static final String QUERY_FIND_ALL = "Chart.findAll";
 	
-	@Id
-    @SequenceGenerator(name = "chartIDGenerator", initialValue = 1, allocationSize = 100)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chartIDGenerator")
+   // @SequenceGenerator(name = "chartIDGenerator", initialValue = 1, allocationSize = 100)
+   // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chartIDGenerator")
     @Column(unique = true, nullable = false, name = "CHART_ID")
+    @Id
 	private String id;
 	
 	
-	@Column(nullable = false, unique= true, name = "globalID")
+	@Column(nullable = true, unique= false, name = "globalID")
 	private String globalID;
 	
 	
@@ -53,9 +53,10 @@ public class Chart {
 	public Chart() {
 	}
 	
-	public Chart(String id, String data) {
+	public Chart(String id, String data, String globalID) {
 		setId(id);
 		setData(data);
+		setGlobalID(globalID);
 	}
 	
 	public void updateChart(Chart c){

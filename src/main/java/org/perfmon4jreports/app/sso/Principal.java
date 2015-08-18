@@ -30,6 +30,7 @@ public class Principal {
 	private final String globalID;
 	private final String emailAddress;
 	private final Group[] groups;
+	private static boolean logged =false;
 	
 	public Principal(SSODomain domain, String userName, String name, String localID, String emailAddress, Group[] groups) {
 		this.domain = domain;
@@ -38,6 +39,7 @@ public class Principal {
 		this.globalID = domain.buildGlobalID(localID);
 		this.emailAddress = emailAddress;
 		this.groups = groups == null ? new Group[]{} : groups;
+		this.logged = true;
 	}
 
 	public String getEmailAddress() {
@@ -63,25 +65,21 @@ public class Principal {
 	public String getName() {
 		return name;
 	}
+	
+	public boolean getLogged(){
+		return logged;
+	}
+	
 
-	public static void addPrincipal(HttpSession session, Principal principal) {
-		if (session == null) {
-			throw new RuntimeException("Session cannot be null");
-		}
-		session.setAttribute(PRINCIPAL_SESSION_KEY, principal);
+	public static void addPrincipal(PrincipalContext principalContext, Principal principal) {
+		principalContext.setPrincipal(principal);
 	}
 
-	public static Principal getPrincipal(HttpSession session) {
-		if (session != null) {
-			return (Principal)session.getAttribute(PRINCIPAL_SESSION_KEY);
-		} else {
-			return null;
-		}
+	public static Principal getPrincipal(PrincipalContext principalContext) {
+		return principalContext.getPrincipal();
 	}
 
-	public static void removePrincipal(HttpSession session) {
-		if (session != null) {
-			session.removeAttribute(PRINCIPAL_SESSION_KEY);
-		}
+	public static void removePrincipal() {
+		 logged = false;
 	}
 }

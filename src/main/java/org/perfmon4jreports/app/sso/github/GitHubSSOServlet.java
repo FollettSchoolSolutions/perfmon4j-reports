@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -51,6 +52,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.perfmon4jreports.app.service.UsersService;
 import org.perfmon4jreports.app.sso.Group;
 import org.perfmon4jreports.app.sso.Principal;
+import org.perfmon4jreports.app.sso.PrincipalContext;
 import org.perfmon4jreports.app.sso.SSOConfig;
 import org.perfmon4jreports.app.sso.github.Users;
 import org.perfmon4jreports.app.sso.SSODomain;
@@ -63,7 +65,8 @@ class GitHubSSOServlet extends HttpServlet {
 	static final String SESSION_STATE_KEY = GitHubSSOServlet.class.getName() + "SESSION_STATE_KEY";
 	private static final long serialVersionUID = 1L;
 	private static SSOConfig config = new SSOConfig();
-	
+	@Inject
+	private PrincipalContext principalContext;
 	@EJB
 	private UsersService users;
 	
@@ -216,7 +219,7 @@ class GitHubSSOServlet extends HttpServlet {
 
 			// Since we have succeeded we can now attach our Principal to the HttpSession and forward back to the RETURN PATH 
 			Principal principal = new Principal(SSODomain.GITHUB, currentUser.getLogin(), currentUser.getName(), currentUser.getId(), emailAddress, groups.toArray(new Group[]{}));
-			Principal.addPrincipal(request.getSession(true), principal);
+			Principal.addPrincipal(principalContext, principal);
 			// Finally return the user to the login page.
 			response.sendRedirect(SSOConfig.LOGIN_RETURN_PATH);
 			//Send info to Login
@@ -224,7 +227,7 @@ class GitHubSSOServlet extends HttpServlet {
 		} catch (Exception ex) {
 			// If something failed, return a generic error message to the user
 			// Since this message contains the tracking ID the detailed exception will be visible in the log.
-			Principal.removePrincipal(request.getSession());
+			Principal.removePrincipal();
 			String message = "Error procesing login request: " + trackingID;
 			logger.error(message, ex);
 

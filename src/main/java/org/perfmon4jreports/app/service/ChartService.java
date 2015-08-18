@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,6 +22,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.perfmon4jreports.app.entity.Chart;
+import org.perfmon4jreports.app.sso.Principal;
+import org.perfmon4jreports.app.sso.PrincipalContext;
 import org.perfmon4jreports.app.sso.github.Users;
 //check login status
 
@@ -27,16 +32,21 @@ import org.perfmon4jreports.app.sso.github.Users;
 public class ChartService {
 	@PersistenceContext
 	private EntityManager em;
-
+	@Inject
+	private PrincipalContext principalContext;
+	
 	// Save or Update
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public void saveOrUpdateChart(@PathParam("id") String id, String data) {	
+	
+		System.out.println("GlobalID while Saving Chart: " + principalContext.getPrincipal().getGlobalID());
+		
 		Chart chart = em.find(Chart.class, id);
 		if(chart == null){
-			chart = new Chart(id, data);
+			chart = new Chart(id, data, null);
 		} else {
 			chart.setData(data);
 		}
@@ -63,7 +73,7 @@ public class ChartService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getCharts() {
 		@SuppressWarnings("unchecked")
-		List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL).getResultList();
+		List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL).setParameter("globalID", null).getResultList();
 		StringBuilder retList = new StringBuilder("[");
 		for (int i = 0; i < list.size(); i++) {
 			if (i > 0) {

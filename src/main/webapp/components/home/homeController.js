@@ -14,6 +14,7 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	})
 	
 	$scope.showChart = function() {
+		
 		$location.path("/chart");
 	}
 	

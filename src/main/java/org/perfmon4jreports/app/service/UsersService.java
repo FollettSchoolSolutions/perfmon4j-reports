@@ -7,7 +7,7 @@ import java.util.Base64;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.perfmon4jreports.app.sso.Principal;
+import org.perfmon4jreports.app.sso.PrincipalContext;
 import org.perfmon4jreports.app.sso.SSODomain;
 import org.perfmon4jreports.app.sso.github.Users;
 
@@ -24,7 +25,8 @@ import org.perfmon4jreports.app.sso.github.Users;
 public class UsersService {
 	@PersistenceContext
 	private EntityManager em;
-
+	@Inject
+	private PrincipalContext principalContext;
 public UsersService(){};
 
 @Transactional
@@ -34,9 +36,11 @@ public void Login(HttpServletRequest req){
 	//Get current session info
 	HttpSession session = req.getSession(true);
 	 //Get principals based off of current session
-	Principal currentPrincipal = Principal.getPrincipal(session);
-
+	Principal currentPrincipal = Principal.getPrincipal(principalContext);
+	principalContext.setPrincipal(currentPrincipal);
 		if (session != null) {
+			//Set session context
+		
 		//Query database to see if the globalID exists
 			
 			Query q = em.createNamedQuery(Users.QUERY_FIND_USER);
@@ -81,18 +85,6 @@ public void Login(HttpServletRequest req){
 			}
 		}
 		}
-		
 		}
-
-		private String SerializetoString(SSODomain objDomain) throws IOException{
-		
-			
-		        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		        ObjectOutputStream oos = new ObjectOutputStream( baos );
-		        oos.writeObject( objDomain );
-		        oos.close();
-		        return Base64.getEncoder().encodeToString(baos.toByteArray()); 
-		}
-		
 	}
 

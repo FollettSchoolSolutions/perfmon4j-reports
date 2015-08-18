@@ -37,6 +37,7 @@
   <script src="components/chart/seriesModel.js"></script>
   <script src="components/home/SSOLogin.js"></script>
   <script src="services/userService.js"></script>
+  <script src="components/home/home.html"></script>
   <!-- Data Sources -->
   <script src="services/dataSourceService.js"></script>
   <script src="services/chartService.js"></script>
@@ -50,7 +51,6 @@
 	        <h1>
 		        <img src="images/perfmon4jFULL.png" alt="perfmon4j reports logo" style="height: 56px">
 	        </h1>
-	       <!--   <div><ng-md-icon icon="home" size="48"></ng-md-icon><br>home</div> -->
 	        <div ng-hide="showHomeButton()">
 		        <a title="Homepage">
 		        	<ng-md-icon title="Homepage" class="home-icon-light" icon="home" size="35" ng-click="goHome();clearChartName()"></ng-md-icon>
@@ -63,12 +63,6 @@
 	    
 	    <md-content ng-view></md-content>	
 	    
-	    <!--  
-	    <md-content ng-switch on="showView">
-		    <div home-view ng-switch-when="home"></div>
-	        <div chart-view ng-switch-when="chart"></div>
-	    </md-content>	  
-	    -->   
 	    
 	</div>
 	</body>
