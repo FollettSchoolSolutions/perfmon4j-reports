@@ -42,11 +42,12 @@ public class ChartService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void saveOrUpdateChart(@PathParam("id") String id, String data) {	
 	
-		System.out.println("GlobalID while Saving Chart: " + principalContext.getPrincipal().getGlobalID());
+		int userID = (int) em.createNamedQuery(Users.QUERY_FIND_USERID).setParameter("globalID", principalContext.getPrincipal().getGlobalID()).getSingleResult();
+		System.out.println("UserID while saving chart " + userID);
 		
 		Chart chart = em.find(Chart.class, id);
 		if(chart == null){
-			chart = new Chart(id, data, null);
+			chart = new Chart(id, data, userID);
 		} else {
 			chart.setData(data);
 		}
@@ -72,18 +73,27 @@ public class ChartService {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getCharts() {
-		@SuppressWarnings("unchecked")
-		List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL).setParameter("globalID", null).getResultList();
-		StringBuilder retList = new StringBuilder("[");
-		for (int i = 0; i < list.size(); i++) {
-			if (i > 0) {
-				retList.append(",");
-			}
-			retList.append(list.get(i).getData());
+		
+		if (principalContext.getPrincipal() ==null){
+			return "[]";
 		}
-		retList.append("]");
-		return retList.toString();
-	}
+		else {
+				
+				int userID = (int) em.createNamedQuery(Users.QUERY_FIND_USERID).setParameter("globalID", principalContext.getPrincipal().getGlobalID()).getSingleResult();
+				
+				@SuppressWarnings("unchecked")
+				List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL).setParameter("userID", userID).getResultList();
+				StringBuilder retList = new StringBuilder("[");
+				for (int i = 0; i < list.size(); i++) {
+					if (i > 0) {
+						retList.append(",");
+					}
+					retList.append(list.get(i).getData());
+				}
+				retList.append("]");
+				return retList.toString();
+				}
+		}
 
 	// Delete
 	@DELETE

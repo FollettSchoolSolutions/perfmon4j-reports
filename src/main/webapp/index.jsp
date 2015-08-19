@@ -54,14 +54,14 @@
 	        <h1>
 		        <img src="images/perfmon4jFULL.png" alt="perfmon4j reports logo" style="height: 56px">
 	        </h1>
-	        <div ng-hide="showHomeButton()">
+	        <div ng-hide="showHomeButton()" style="position: absolute; right: 180px; top: 17px">
 		        <a title="Homepage">
 		        	<ng-md-icon title="Homepage" class="home-icon-light" icon="home" size="35" ng-click="goHome();clearChartName()"></ng-md-icon>
 		        </a>
 	        </div>
 	         
-	    <button ng-click="LoginWithGitHub()" ng-hide="loggedIn(<%=Principal.logged%>)">Login with GitHub</button>
-	    <button ng-click="logout()" ng-show="loggedIn(<%=Principal.logged%>)">Logout</button>
+	    <md-button ng-click="LoginWithGitHub()" ng-hide="loggedIn(<%=Principal.logged%>)">Login with GitHub</md-button>
+	    <md-button ng-click="logout()" ng-show="loggedIn(<%=Principal.logged%>)">Logout</md-button>
 	      </div>
 	    </md-toolbar>
 	    

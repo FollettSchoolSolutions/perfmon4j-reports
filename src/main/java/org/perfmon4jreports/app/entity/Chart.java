@@ -2,7 +2,6 @@ package org.perfmon4jreports.app.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -10,12 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
@@ -25,7 +22,7 @@ import org.perfmon4jreports.app.sso.github.Users;
 
 
 @NamedQueries({
-	@NamedQuery(name=Chart.QUERY_FIND_ALL, query="SELECT c FROM Chart c where c.globalID LIKE :globalID OR c.globalID IS NULL")
+	@NamedQuery(name=Chart.QUERY_FIND_ALL, query="SELECT c FROM Chart c where c.userID LIKE :userID OR c.userID is NULL")
 })
 
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -41,22 +38,21 @@ public class Chart {
 	private String id;
 	
 	
-	@Column(nullable = true, unique= false, name = "globalID")
-	private String globalID;
+	@Column(nullable = true, unique= false, name = "userID")
+	private int userID;
 	
 	
 	@Lob
 	@Column(nullable = false, columnDefinition="LONGTEXT")
-	// TODO make a clob column
 	private String data;
 	
 	public Chart() {
 	}
 	
-	public Chart(String id, String data, String globalID) {
+	public Chart(String id, String data, int userID) {
 		setId(id);
 		setData(data);
-		setGlobalID(globalID);
+		setUserID(userID);
 	}
 	
 	public void updateChart(Chart c){
@@ -79,12 +75,12 @@ public class Chart {
 		this.data = data;
 	}
 
-	public String getGlobalID() {
-		return globalID;
+	public int getUserID() {
+		return userID;
 	}
 
-	public void setGlobalID(String globalID) {
-		this.globalID = globalID;
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 	
 }
