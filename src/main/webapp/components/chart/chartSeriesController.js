@@ -28,7 +28,7 @@ app.controller('chartSeriesControl', function ($scope, $routeParams, chartServic
 				window.alert("Cannot connect to database / systems are null");
 			}
 			
-		}, 5000);	
+		}, 5000);
 		var systemsPromise = dataSourceService.getSystems($scope.chosenDatasource, $scope.chosenDatabase, chartService.timeStart, 
 				chartService.timeEnd);
 		systemsPromise.then(function(result){
@@ -41,7 +41,6 @@ app.controller('chartSeriesControl', function ($scope, $routeParams, chartServic
 				$scope.systemsLoaded = true;
 				$scope.loadCategories();
 			} else {
-				clearSystems();
 				clearCategory();
 				clearField();
 				clearAggregationMethod();
