@@ -17,7 +17,7 @@
  * 	McHenry, IL 60050
  * 
 */
-
+//git is weird
 package org.perfmon4jreports.app.sso;
 
 import javax.servlet.http.HttpSession;
@@ -30,6 +30,8 @@ public class Principal {
 	private final String globalID;
 	private final String emailAddress;
 	private final Group[] groups;
+	public static boolean logged =false;
+	public static String names;
 	
 	public Principal(SSODomain domain, String userName, String name, String localID, String emailAddress, Group[] groups) {
 		this.domain = domain;
@@ -38,7 +40,15 @@ public class Principal {
 		this.globalID = domain.buildGlobalID(localID);
 		this.emailAddress = emailAddress;
 		this.groups = groups == null ? new Group[]{} : groups;
-	}
+		this.logged = true;
+		
+		if(name == null)
+		this.names = userName;
+		else
+		this.names = name;
+		
+		}
+	
 
 	public String getEmailAddress() {
 		return emailAddress;
@@ -63,25 +73,30 @@ public class Principal {
 	public String getName() {
 		return name;
 	}
-
-	public static void addPrincipal(HttpSession session, Principal principal) {
-		if (session == null) {
-			throw new RuntimeException("Session cannot be null");
-		}
-		session.setAttribute(PRINCIPAL_SESSION_KEY, principal);
+	
+	public boolean getLogged(){
+		return logged;
 	}
 
-	public static Principal getPrincipal(HttpSession session) {
-		if (session != null) {
-			return (Principal)session.getAttribute(PRINCIPAL_SESSION_KEY);
-		} else {
-			return null;
-		}
+	
+
+	public static void addPrincipal(PrincipalContext principalContext, Principal principal) {
+		principalContext.setPrincipal(principal);
 	}
 
-	public static void removePrincipal(HttpSession session) {
-		if (session != null) {
-			session.removeAttribute(PRINCIPAL_SESSION_KEY);
-		}
+	public static Principal getPrincipal(PrincipalContext principalContext) {
+		return principalContext.getPrincipal();
+	}
+
+	public static void removePrincipal() {
+		 logged = false;
+	}
+
+	public String getNames() {
+		return names;
+	}
+
+	public void setNames(String names) {
+		this.names = names;
 	}
 }

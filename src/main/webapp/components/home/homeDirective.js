@@ -1,5 +1,5 @@
 app.directive('homeView', function() {
   return {
-    templateUrl: 'components/home/home.html'
+    templateUrl: 'components/home/home.jsp'
   };
 });

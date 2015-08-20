@@ -2,18 +2,20 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	$scope.pageTitle = "This is the home page";
 	$scope.charts = [];
 	
+	
 	var chartFetchPromise = chartService.getCharts();
 	chartFetchPromise.then(function(result){
 		if (result.status != 200) {
-			throw new Error("Failed to load charts");
+			throw new Error("Failed to load charts : " + result.status);
 		}
 		
 		$scope.charts = result.data;
 	}).catch(function onError(err) {
-		window.alert("Failed to load charts");
+		window.alert("Failed to load charts " + err.message );
 	})
 	
 	$scope.showChart = function() {
+		
 		$location.path("/chart");
 	}
 	
