@@ -19,8 +19,10 @@ app.controller('chartSeriesControl', function ($scope, $routeParams, chartServic
 	if(chartService.viewOnly == false){
 		if($routeParams.mode == 'edit'){
 			$scope.editInit = true;
+			$scope.series.editInit = true;
 		} else {
 			$scope.editInit = false;
+			$scope.series.editInit = false;
 		}
 		
 		setTimeout(function(){
@@ -199,6 +201,7 @@ app.controller('chartSeriesControl', function ($scope, $routeParams, chartServic
 			}
 			if($scope.systemsLoaded && $scope.categoryLoaded && $scope.fieldLoaded && $scope.aggregationMethodLoaded){
 				$scope.editInit = false;
+				$scope.series.editInit = false;
 			}
 		}
 

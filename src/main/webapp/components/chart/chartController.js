@@ -55,6 +55,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 				chartPromise.then(function(result){
 					$scope.chartToEdit = result.data;
 					$scope.chart.chosenDatasource = $scope.lookupDataSource(result.data.chosenDatasource);
+					$scope.loadDatabases();
 					
 					$scope.chart.chartName = result.data.chartName;
 					$scope.chart.timeStart = result.data.timeStart;
@@ -100,50 +101,17 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	}
 	
 	
-	// watchers
-//	$scope.$watch('chart.chosenDatasource', function(newValue, oldValue) {
-//		if (!isNullOrUndefined(newValue) && (isNullOrUndefined(oldValue) || (oldValue.host != newValue.host))) {
-//			if (!isNullOrUndefined($scope.chart.series)) {
-//				if($scope.chart.series.length == 1){
-//					$scope.chart.series.pop();
-//				}
-//			}
-//			$scope.loadDatabases();			
-//		}
-//	});
-//	
-//	$scope.$watch('chart.chosenDatabase', function(newValue, oldValue) {
-//		if (!isNullOrUndefined(newValue) && (isNullOrUndefined(oldValue) || (oldValue.id != newValue.id))) {
-//			chartService.chosenDatabase = $scope.chart.chosenDatabase;
-//			$scope.initSeries();
-//		}
-//	});
-//	
-//	$scope.$watch('chart.timeStart', function(newValue, oldValue) {
-//		if (!isNullOrUndefined(newValue)) {
-//			chartService.timeStart = $scope.chart.timeStart;			
-//		}
-//	})
-//
-//	$scope.$watch('chart.timeEnd', function(newValue, oldValue) {
-//		if (!isNullOrUndefined(newValue)) {
-//			chartService.timeEnd = $scope.chart.timeEnd;
-//		}
-//	})	
-//
-//	$scope.$watch('chart.chartName', function(newValue, oldValue) {
-//		if (!isNullOrUndefined(newValue)) {
-//			chartService.chartName = $scope.chart.chartName;
-//		}
-//	})		
 	
 	function isNullOrUndefined(obj){
 		return (obj == null || typeof obj == 'undefined');
 	}
 	
 	$scope.loadDatabases = function(){
-		if(!isNullOrUndefined($scope.chart.series) && $scope.chart.series.length == 1){
-			$scope.chart.series.pop();
+		if(!isNullOrUndefined($scope.chart.series)){
+			if($scope.chart.series.length == 1 && $scope.chart.series[0].editInit == false){
+				$scope.chartToEdit = null;
+				clearSeries();
+			}
 		}
 		var date = new Date();
 		clearDatabase();
@@ -158,6 +126,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 			if (isNullOrUndefined($scope.chart.chosenDatabase)) {
 				if (!isNullOrUndefined($scope.chartToEdit)) {
 					$scope.chart.chosenDatabase = chartService.chosenDatabase = $scope.lookupDatabase($scope.chartToEdit.chosenDatabase);
+					$scope.initSeries();
 				}
 			}
 			
@@ -424,6 +393,10 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 			}
 		} else {		
 			clearSeries();
+			if($scope.chart.chosenDatabase != null && $scope.chartToEdit == null){
+				$scope.chart.series = [{active: true, name: 'Series 1', secondaryAxis: false}];
+				seriesCounter = 1;
+			}
 		}
 		
 		chartService.chosenDatabase = $scope.chart.chosenDatabase;
