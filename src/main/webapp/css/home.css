@@ -87,6 +87,7 @@ a:hover, a:active {
 	min-width: 650px;
 }
 
+
 .chartMenu {
 	border: 1px solid black;
 	float: left;
@@ -96,18 +97,27 @@ a:hover, a:active {
 	margin-bottom: 30px;
 	min-width: 650px; 
 }
+.datasourceMenu {
+	border: 1px solid black;
+	float: left;
+	width: 40%;
+	margin-top: 20px;
+	margin-left: 7%;
+	margin-bottom: 30px;
+	min-width: 650px; 
+}
 
 .innerChartMenu {
 	max-height: 650px;
 	overflow: auto;
 }
 
-.datasourceMenu {
-	border: 1px solid black;
-	width: 40%;
-	margin-top: 20px;
-	margin-left: 52%;
+.innerDataSourceMenu {
+	max-height: 650px;
+	overflow: auto;
 }
+
+
 
 #createButton {
 	float: right;
@@ -120,6 +130,11 @@ a:hover, a:active {
 }
 
 #dashboardMenu {
+	min-height: 35px;
+	height: 35px;
+}
+
+#datasourceMenu {
 	min-height: 35px;
 	height: 35px;
 }

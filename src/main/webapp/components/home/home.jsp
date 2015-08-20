@@ -51,7 +51,37 @@
   			<a title="Create New Dashboard">
 				<md-button title="Create New Dashboard" id="createButton" class="md-raised md-primary" ng-disabled="true"> Create </md-button>
 			</a>
-  			</div>
+  		</div>
 		</div>
+		<div class ="datasourceMenu">
+		<md-toolbar id="datasourceMenu">
+    		<div class="md-toolbar-tools">
+      			<h2>
+        			<span>My Datasources</span>
+      			</h2>
+    		</div>
+    		<div>
+  			<a title="Create New Datasource">
+				<md-button title="Create New Datasource" id="createButton" class="md-raised md-primary" ng-disabled="true"> Create </md-button>
+			</a>
+  		</div>
+  		</md-toolbar>
+  		<div class="innerDataSourceMenu">
+			<table style="width: 100%">
+				<tr ng-repeat="ds in DataSource"> 
+					<td> 
+						<div class="right">
+							<a title="Duplicate DataSource" class="chartrowIconAnchor">
+								<ng-md-icon title="Duplicate DataSource" class="duplicate-icon-dark" icon="content_copy" size="25" ng-click="copyDataSource(dataSource.id)"></ng-md-icon>
+							</a>
+							<a title="Delete DataSource" class="chartrowIconAnchor">
+								<ng-md-icon title="Delete DataSource" class="delete-icon-dark" icon="delete" size="25" ng-click="deleteDataSource(dataSource.id)"></ng-md-icon>
+							</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	 </div>
 	</div>
 </div>
