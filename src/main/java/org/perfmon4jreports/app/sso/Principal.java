@@ -31,6 +31,7 @@ public class Principal {
 	private final String emailAddress;
 	private final Group[] groups;
 	public static boolean logged =false;
+	public static String names;
 	
 	public Principal(SSODomain domain, String userName, String name, String localID, String emailAddress, Group[] groups) {
 		this.domain = domain;
@@ -40,7 +41,14 @@ public class Principal {
 		this.emailAddress = emailAddress;
 		this.groups = groups == null ? new Group[]{} : groups;
 		this.logged = true;
-	}
+		
+		if(name == null)
+		this.names = userName;
+		else
+		this.names = name;
+		
+		}
+	
 
 	public String getEmailAddress() {
 		return emailAddress;
@@ -82,5 +90,13 @@ public class Principal {
 
 	public static void removePrincipal() {
 		 logged = false;
+	}
+
+	public String getNames() {
+		return names;
+	}
+
+	public void setNames(String names) {
+		this.names = names;
 	}
 }

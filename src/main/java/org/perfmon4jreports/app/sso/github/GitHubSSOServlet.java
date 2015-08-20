@@ -203,7 +203,7 @@ class GitHubSSOServlet extends HttpServlet {
 			parameters.put("client_secret", config.getGitHubClientSecret());
 			parameters.put("code", code);
 			parameters.put("state",state);
-			parameters.put("redirect_uri", config.getRootClientPath() + "/callback/sso");
+			parameters.put("redirect_uri", config.getRootClientPath() + "/callback/sso"); 
 			GitHubAccessToken token = invokeGitHubAPI(client, trackingID, config.getGitHubOauthAPIPath() + "/access_token", parameters, GitHubAccessToken.class);
 			
 			// Now use our access token to retrieve the logged in GitHub user.
@@ -263,7 +263,7 @@ class GitHubSSOServlet extends HttpServlet {
 		return value;
 	}
 	
-	private String getSessionState(HttpServletRequest request) {
+	private String getSessionState(HttpServletRequest request) throws InterruptedException {
 		String result = null;
 		HttpSession session = request.getSession();
 		if (session != null) {

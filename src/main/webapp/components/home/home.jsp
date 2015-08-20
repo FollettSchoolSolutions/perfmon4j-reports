@@ -3,6 +3,9 @@
     pageEncoding="UTF-8"%>
 <div ng-show=loggedIn(<%=Principal.logged%>)>
     <div>
+    	<div>
+    		<span style="float: right"> Logged in as: <%=Principal.names%></span>
+    	</div>
 		<div class="chartMenu">
 	
  		<md-toolbar id="chartMenu">
