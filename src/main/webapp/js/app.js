@@ -7,7 +7,7 @@ app.config(function($routeProvider, $mdThemingProvider) {
 	  .accentPalette('blue-grey');
 	
 	$routeProvider.when('/home', {
-		templateUrl : 'components/home/home.html',
+		templateUrl : 'components/home/home.jsp',
 		controller : 'homeControl'
 	}).when('/chart', {
 		templateUrl : 'components/chart/chart.html',

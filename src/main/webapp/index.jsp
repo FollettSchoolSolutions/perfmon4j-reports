@@ -1,3 +1,6 @@
+<%@page import="org.perfmon4jreports.app.sso.Principal"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en" ng-app="perfmonReportsApp">
 <head>
@@ -35,7 +38,9 @@
   <script src="components/chart/chartSeriesDirective.js"></script>
   <script src="components/chart/chartSeriesController.js"></script>
   <script src="components/chart/seriesModel.js"></script>
-  
+  <script src="components/home/SSOLogin.js"></script>
+  <script src="services/userService.js"></script>
+  <script src="components/home/home.jsp"></script>
   <!-- Data Sources -->
   <script src="services/dataSourceService.js"></script>
   <script src="services/chartService.js"></script>
@@ -49,24 +54,19 @@
 	        <h1>
 		        <img src="images/perfmon4jFULL.png" alt="perfmon4j reports logo" style="height: 56px">
 	        </h1>
-	       <!--   <div><ng-md-icon icon="home" size="48"></ng-md-icon><br>home</div> -->
-	        <div ng-hide="showHomeButton()">
+	        <div ng-hide="showHomeButton()" style="position: absolute; right: 180px; top: 17px">
 		        <a title="Homepage">
 		        	<ng-md-icon title="Homepage" class="home-icon-light" icon="home" size="35" ng-click="goHome();clearChartName()"></ng-md-icon>
 		        </a>
 	        </div>
 	         
+	    <md-button ng-click="LoginWithGitHub()" ng-hide="loggedIn(<%=Principal.logged%>)">Login with GitHub</md-button>
+	    <md-button ng-click="logout()" ng-show="loggedIn(<%=Principal.logged%>)">Logout</md-button>
 	      </div>
 	    </md-toolbar>
 	    
 	    <md-content ng-view></md-content>	
 	    
-	    <!--  
-	    <md-content ng-switch on="showView">
-		    <div home-view ng-switch-when="home"></div>
-	        <div chart-view ng-switch-when="chart"></div>
-	    </md-content>	  
-	    -->   
 	    
 	</div>
 	</body>

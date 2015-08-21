@@ -294,7 +294,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 		})
 	};
 	
-	$scope.saveOrUpdateChart = function(){
+	$scope.saveOrUpdateChart = function($http){
 		chartService.successfullySaved = null;
 		chartService.isChartLoading = true;
 		
