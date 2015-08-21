@@ -20,6 +20,9 @@
 				<tr ng-repeat="chart in charts"> 
 					<td> 
 						<div class="right">
+							<a title="Edit Chart" class="chartrowIconAnchor">
+								<ng-md-icon title="Edit Chart" class="edit-icon-dark" icon="mode_edit" size="25" ng-click="editChart(chart.id);openSideNav()"></ng-md-icon>
+							</a>
 							<a title="Duplicate Chart" class="chartrowIconAnchor">
 								<ng-md-icon title="Duplicate Chart" class="duplicate-icon-dark" icon="content_copy" size="25" ng-click="copyChart(chart.id)"></ng-md-icon>
 							</a>

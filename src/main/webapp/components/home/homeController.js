@@ -22,6 +22,10 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	$scope.openSideNav = function() {
 		chartService.isToggled = true;
 	}
+	 
+	$scope.editChart = function(id) {
+		$location.path("/chart/edit/" + id);
+	}
 	
 	$scope.deleteChart = function(id) {
 		var deletePromise = chartService.deleteChart(id);
