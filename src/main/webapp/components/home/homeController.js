@@ -1,6 +1,8 @@
-app.controller('homeControl', function ($scope, $location, dataSourceService, chartService){
+app.controller('homeControl', function ($scope, $location, dataSourceService, chartService, $mdDialog){
 	$scope.pageTitle = "This is the home page";
 	$scope.charts = [];
+	$scope.name = "";
+	$scope.URL = "";
 	
 	
 	var chartFetchPromise = chartService.getCharts();
@@ -43,4 +45,31 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 			$location.path("/");
 		});
 	}
+	
+	$scope.showDataSources = function(ev) {
+	    $mdDialog.show({
+	      controller: DataSourceController,
+	      templateUrl: 'components/datasource/datasource.html',
+	      parent: angular.element(document.body),
+	      targetEvent: ev,
+	    });
+	}
 });
+
+	function DataSourceController($scope, $mdDialog, dataSourceService) {
+	 //$scope.name = dataSourceService.name;
+	 //$scope.URL = dataSourceService.URL;
+
+	  
+	  $scope.saveDatasource = function() {
+	  dataSourceService.name = $scope.name;
+	  dataSourceService.URL = $scope.URL;
+	  dataSourceService.saveDataSource();
+  }
+	  
+	
+	  $scope.answer = function(answer) {
+	   $mdDialog.hide(answer);
+	 };
+	 
+	};

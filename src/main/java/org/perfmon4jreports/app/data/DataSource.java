@@ -31,11 +31,7 @@ public class DataSource {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable=false, unique=true)
-	private int id;
-
-	@Column(nullable = true, name = "Fields")
-	private String Fields;
-	
+	private int id;	
 
 	@Column(nullable = false, name = "Name")
 	private String Name;
@@ -53,14 +49,6 @@ public class DataSource {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getFields() {
-		return Fields;
-	}
-
-	public void setFields(String fields) {
-		Fields = fields;
 	}
 
 	public String getName() {

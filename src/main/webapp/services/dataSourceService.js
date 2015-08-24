@@ -1,8 +1,17 @@
 app.factory('dataSourceService', function($http){
 
 	var urlPath = "/perfmon4j/rest/datasource";
+	var name = "Test32";
+	var URL  = "1.1.1.1";
 
 	var factory = {};
+	
+	
+	factory.saveDataSource = function(){
+				return $http.put("rest/datasources/" + name, URL).then(function(result) {
+				return result;
+			});
+		}
 
 	factory.getDataSources = function() {
 		return $http.get("rest/datasources").then(function(result) {

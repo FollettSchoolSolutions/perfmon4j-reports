@@ -62,7 +62,7 @@
     		</div>
     		<div>
   			<a title="Create New Datasource">
-				<md-button title="Create New Datasource" id="createButton" class="md-raised md-primary" ng-disabled="true"> Create </md-button>
+				<md-button title="Create New Datasource" id="createButton" class="md-raised md-primary" ng-click="showDataSources($env)" ng-disabled="false"> Create </md-button>
 			</a>
   		</div>
   		</md-toolbar>
