@@ -2,23 +2,12 @@ package org.perfmon4jreports.app.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.perfmon4jreports.app.sso.github.Users;
 
 
 @NamedQueries({
@@ -39,7 +28,7 @@ public class Chart {
 	
 	
 	@Column(nullable = true, unique= false, name = "userID")
-	private int userID;
+	private Integer userID;
 	
 	
 	@Lob
@@ -49,7 +38,7 @@ public class Chart {
 	public Chart() {
 	}
 	
-	public Chart(String id, String data, int userID) {
+	public Chart(String id, String data, Integer userID) {
 		setId(id);
 		setData(data);
 		setUserID(userID);
@@ -75,11 +64,11 @@ public class Chart {
 		this.data = data;
 	}
 
-	public int getUserID() {
+	public Integer getUserID() {
 		return userID;
 	}
 
-	public void setUserID(int userID) {
+	public void setUserID(Integer userID) {
 		this.userID = userID;
 	}
 	
