@@ -64,7 +64,7 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	  $scope.saveDatasource = function() {
 	  dataSourceService.name = $scope.name;
 	  dataSourceService.URL = $scope.URL;
-	  dataSourceService.saveDataSource();
+	  dataSourceControl.saveDataSource();
   }
 	  
 	

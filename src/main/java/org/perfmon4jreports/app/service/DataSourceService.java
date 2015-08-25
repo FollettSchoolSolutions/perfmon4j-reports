@@ -1,21 +1,25 @@
 package org.perfmon4jreports.app.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.websocket.server.PathParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -46,9 +50,6 @@ public class DataSourceService {
 			d.setUserID(userID);
 			em.persist(d);
 			
-			Query q1 = em.createNamedQuery(DataSource.QUERY_FIND_ALL);
-			List test = q1.getResultList();		
-			System.out.println("This is the test" + test.get(0));
 			}	
 	
 	@GET
@@ -70,13 +71,13 @@ public class DataSourceService {
 		return vo;
 	}
 
-	@PUT
-	@Path("/{id}")
-	@Produces(MediaType.APPLICATION_JSON)	
-	@Consumes(MediaType.APPLICATION_JSON)	
-	public DataSourceVo updateDataSource(@PathParam("id") Long id, DataSourceVo data) {
+	//@PUT
+	//@Path("/{id}")
+	//@Produces(MediaType.APPLICATION_JSON)	
+	//@Consumes(MediaType.APPLICATION_JSON)	
+	//public DataSourceVo updateDataSource(@PathParam("id") Long id, DataSourceVo data) {
 		// TODO perform database ops here
-		return data;
-	}
+	//	return data;
+	//}
 	
 }

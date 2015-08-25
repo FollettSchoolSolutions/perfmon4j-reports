@@ -40,7 +40,7 @@ public class DataSource {
 	@Column(nullable = false, name = "URL", length=255)
 	private String URL;
 	
-	@Column(nullable = false, unique=true, name = "UserID")
+	@Column(nullable = false, unique=false, name = "UserID")
 	private int UserID;
 
 	public int getId() {

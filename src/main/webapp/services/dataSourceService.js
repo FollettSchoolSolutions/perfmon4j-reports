@@ -7,10 +7,10 @@ app.factory('dataSourceService', function($http){
 	var factory = {};
 	
 	
-	factory.saveDataSource = function(){
-				return $http.put("rest/datasources/" + name, URL).then(function(result) {
-				return result;
-			});
+	factory.saveDataSource = function(dataSource){
+				return $http.put("rest/datasources/" + dataSource.name, dataSource.URL).then(function(result) {
+					return result;
+				});
 		}
 
 	factory.getDataSources = function() {
