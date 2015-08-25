@@ -2,8 +2,8 @@ app.controller('dataSourceControl', function($scope, dataSourceService){
 	
 	$scope.dataSource=
 	{
-		name : "Test",
-		URL : "127.0.0.1"
+		name : "DANIEL",
+		URL : "172.16.16.64"
 	};
 	
 	$scope.saveDataSource = function($http){

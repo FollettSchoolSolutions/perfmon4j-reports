@@ -3,8 +3,20 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	$scope.charts = [];
 	$scope.name = "";
 	$scope.URL = "";
+	$scope.DataSource= "";
 	
 	
+	var dataSourceFetchPromise = dataSourceService.getDataSources();
+	dataSourceFetchPromise.then(function(result){
+		if (result.status != 200) {
+			throw new Error("Failed to load Stuff : " + result.status);
+		}
+		$scope.DataSource = result.data;
+	}).catch(function onError(err) {
+		window.alert("Failed to load Stuff " + err.message );
+	})
+		
+		
 	var chartFetchPromise = chartService.getCharts();
 	chartFetchPromise.then(function(result){
 		if (result.status != 200) {

@@ -78,6 +78,7 @@
 								<ng-md-icon title="Delete DataSource" class="delete-icon-dark" icon="delete" size="25" ng-click="deleteDataSource(dataSource.id)"></ng-md-icon>
 							</a>
 						</div>
+						<a class="chartrowLinkAnchor">{{ ds.name }}</a>
 					</td>
 				</tr>
 			</table>

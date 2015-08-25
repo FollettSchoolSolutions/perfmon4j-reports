@@ -24,6 +24,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.perfmon4jreports.app.sso.PrincipalContext;
+import org.perfmon4jreports.app.sso.github.Users;
 import org.perfmon4jreports.app.data.DataSource;
 import org.perfmon4jreports.app.data.DataSourceVo;
 
@@ -53,15 +54,35 @@ public class DataSourceService {
 			}	
 	
 	@GET
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)	
-	public List<DataSourceVo> getDataSources() {
-		// TODO This would be limited to data sources visible within my github
-		// groups
-
-		return Arrays.asList(new DataSourceVo[] { new DataSourceVo(
-				"Test on MDAPP", "172.16.16.64"), new DataSourceVo(
-				"Another MDAPP", "172.16.16.64")});
+	public List<DataSource> getDataSources() {
+		if (principalContext.getPrincipal() ==null){
+			List test = null;
+			return test;
+		}
+		else {
+			int userID = (int) em.createNamedQuery("Users.findUserID").setParameter("globalID", principalContext.getPrincipal().getGlobalID()).getSingleResult();
+			
+			@SuppressWarnings("unchecked")
+			List<DataSource> list= em.createNamedQuery(DataSource.QUERY_FIND_DataSources).setParameter("userID", userID).getResultList();
+			
+			StringBuilder retList = new StringBuilder("[");
+			for (int i = 0; i < list.size(); i++) {
+				if (i >= 0) {
+					retList.append(list.get(i).getName());
+					retList.append(",");
+					retList.append(list.get(i).getURL());
+				}
+				
+			}
+			return list;
+			}
 	}
+		//return Arrays.asList(new DataSourceVo[] { new DataSourceVo(
+		//		"Test on MDAPP", "172.16.16.64"), new DataSourceVo(
+			//	"Another MDAPP", "172.16.16.64")});
+	
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)	
