@@ -39,6 +39,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatcher;
 import org.mockito.Mockito;
+import org.perfmon4jreports.app.service.UsersService;
 import org.perfmon4jreports.app.sso.Group;
 import org.perfmon4jreports.app.sso.Principal;
 import org.perfmon4jreports.app.sso.SSOConfig;
@@ -88,7 +89,7 @@ public class GitHubSSOServletTest extends Assert {
 		
 		restoreConfig = GitHubSSOServlet.setSSOConfig(testConfig);
 		
-		servlet = Mockito.spy(new GitHubSSOServlet());
+		servlet = Mockito.spy(new GitHubSSOServlet(new MockUsersService()));
 		request = Mockito.mock(HttpServletRequest.class);
 		response = Mockito.mock(HttpServletResponse.class);
 		session = Mockito.mock(HttpSession.class);
@@ -344,4 +345,21 @@ public class GitHubSSOServletTest extends Assert {
 			return parameters.getUrl().contains(urlContains);
 		}
 	}
+	
+	private static final class MockUsersService extends UsersService {
+
+		@Override
+		public void login(HttpSession session, Principal principal) {
+			session.setAttribute(Principal.PRINCIPAL_SESSION_KEY, principal);
+		}
+
+		@Override
+		public void logout(HttpSession session) {
+			if (session != null) {
+				session.removeAttribute(Principal.PRINCIPAL_SESSION_KEY);
+			}
+		}
+		
+	}
+	
 }

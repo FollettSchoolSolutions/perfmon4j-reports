@@ -45,7 +45,6 @@
   <script src="services/dataSourceService.js"></script>
   <script src="services/chartService.js"></script>
   
-  
 </head>
 	<body>
 	<div ng-controller="appControl">
@@ -60,14 +59,18 @@
 		        </a>
 	        </div>
 	         
-	    <md-button ng-click="LoginWithGitHub()" ng-hide="loggedIn(<%=Principal.logged%>)">Login with GitHub</md-button>
-	    <md-button ng-click="logout()" ng-show="loggedIn(<%=Principal.logged%>)">Logout</md-button>
+	 	<%if (!Principal.isLoggedIn(session))  { %>        
+		    <md-button href="callback/sso?launch=true" >Login with GitHub</md-button>
+	 	<% } else { 
+	 		String userName = Principal.getPrincipal(session).getName();
+	 	%>
+	    	<md-button href="callback/sso?logout=true">Logout (<%=userName%>)</md-button>
+	 	<% } %>
+	         
 	      </div>
 	    </md-toolbar>
 	    
 	    <md-content ng-view></md-content>	
-	    
-	    
 	</div>
 	</body>
 </html>

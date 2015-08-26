@@ -31,7 +31,6 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -52,23 +51,20 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.perfmon4jreports.app.service.UsersService;
 import org.perfmon4jreports.app.sso.Group;
 import org.perfmon4jreports.app.sso.Principal;
-import org.perfmon4jreports.app.sso.PrincipalContext;
 import org.perfmon4jreports.app.sso.SSOConfig;
-import org.perfmon4jreports.app.sso.github.Users;
 import org.perfmon4jreports.app.sso.SSODomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 					//authentication
-@WebServlet(value="callback/sso")
+@WebServlet(value="/callback/sso")
 class GitHubSSOServlet extends HttpServlet {
 	private static final Logger logger = LoggerFactory.getLogger(GitHubSSOServlet.class);
 	static final String SESSION_STATE_KEY = GitHubSSOServlet.class.getName() + "SESSION_STATE_KEY";
 	private static final long serialVersionUID = 1L;
 	private static SSOConfig config = new SSOConfig();
-	@Inject
-	private PrincipalContext principalContext;
+	
 	@EJB
-	private UsersService users;
+	private UsersService usersService;
 	
 	private final SecureRandom random = new SecureRandom();
 	private AtomicLong requestID = new AtomicLong(System.currentTimeMillis());  // Create a trackingID that is unique, and easy to grep in the log.
@@ -94,6 +90,15 @@ class GitHubSSOServlet extends HttpServlet {
         super();
     }
 
+    /**
+     * Package level for unit testing only
+     */
+    GitHubSSOServlet(UsersService usersService) {
+        super();
+        this.usersService = usersService;
+    }
+    
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("launch") != null) {
 			UriBuilder uriBuilder = UriBuilder.fromUri(config.getGitHubOauthAPIPath() + "/authorize")
@@ -109,7 +114,7 @@ class GitHubSSOServlet extends HttpServlet {
 			// Looks like a gitHubResponse...
 			handleSingleSignonResponse(request, response);
 		} else if(request.getParameter("logout") != null){ 
-			users.Logout();
+			usersService.logout(request.getSession());
 			response.sendRedirect("/reports");
 		}else {
 			throw new ServletException("Unknown request - expected parameters do not exist");
@@ -226,15 +231,14 @@ class GitHubSSOServlet extends HttpServlet {
 
 			// Since we have succeeded we can now attach our Principal to the HttpSession and forward back to the RETURN PATH 
 			Principal principal = new Principal(SSODomain.GITHUB, currentUser.getLogin(), currentUser.getName(), currentUser.getId(), emailAddress, groups.toArray(new Group[]{}));
-			Principal.addPrincipal(principalContext, principal);
+			usersService.login(request.getSession(true), principal);
+
 			// Finally return the user to the login page.
 			response.sendRedirect(SSOConfig.LOGIN_RETURN_PATH);
-			//Send info to Login
-			users.Login(request);
 		} catch (Exception ex) {
 			// If something failed, return a generic error message to the user
 			// Since this message contains the tracking ID the detailed exception will be visible in the log.
-			Principal.removePrincipal();
+			usersService.logout(request.getSession());;
 			String message = "Error procesing login request: " + trackingID;
 			logger.error(message, ex);
 
