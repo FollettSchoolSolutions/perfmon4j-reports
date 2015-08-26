@@ -2,22 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%
-	Principal principal = Principal.getPrincipal(request.getSession(true));
-	final boolean loggedIn = principal != null;
-%>    
-    
-    
-<%if (!loggedIn) { %>
+<%if (!Principal.isLoggedIn(request.getSession())) { %>
 	<div/> <!-- Empty div for body -->
 <% } else {  %>
 	<div>
 	    <div>
-<!--  	    
-	    	<div>
-	    		<span style="float: right"> Logged in as: <%=principal.getName()%></span>
-	    	</div>
--->	    	
 			<div class="chartMenu">
 		
 	 		<md-toolbar id="chartMenu">
