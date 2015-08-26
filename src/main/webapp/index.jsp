@@ -61,8 +61,10 @@
 	         
 	 	<%if (!Principal.isLoggedIn(session))  { %>        
 		    <md-button href="callback/sso?launch=true" >Login with GitHub</md-button>
-	 	<% } else { %>
-	    	<md-button href="callback/sso?logout=true">Logout</md-button>
+	 	<% } else { 
+	 		String userName = Principal.getPrincipal(session).getName();
+	 	%>
+	    	<md-button href="callback/sso?logout=true">Logout (<%=userName%>)</md-button>
 	 	<% } %>
 	         
 	      </div>

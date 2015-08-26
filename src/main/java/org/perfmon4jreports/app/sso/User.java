@@ -1,4 +1,4 @@
-package org.perfmon4jreports.app.sso.github;
+package org.perfmon4jreports.app.sso;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,23 +7,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @NamedQueries({
-		@NamedQuery(name = Users.QUERY_FIND_ALL, query = "Select l from Users l"),
-		@NamedQuery(name = Users.QUERY_FIND_USER, query = "Select l from Users l WHERE l.globalID like :globalID"),
-		@NamedQuery(name = Users.QUERY_FIND_USERID, query = "SELECT u.userID from Users u where u.globalID like :globalID")
+		@NamedQuery(name = User.QUERY_FIND_ALL, query = "Select l from User l"),
+		@NamedQuery(name = User.QUERY_FIND_USER, query = "Select l from User l WHERE l.globalID like :globalID"),
 // @NamedQuery(name=Users.QUERY_INSERT_USER,
 // query="INSERT INTO Users (Name, userName, domain, gobalID, email) VALUES( :name, :userName, :domain, :globalID, :email")
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-public class Users {
+@Table(name="Users")
+public class User {
 
-	public static final String QUERY_FIND_ALL = "Users.findAll";
-	public static final String QUERY_FIND_USER = "Users.findUser";
-	public static final String QUERY_FIND_USERID = "Users.findUserID";
+	public static final String QUERY_FIND_ALL = "User.findAll";
+	public static final String QUERY_FIND_USER = "User.findUser";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,7 +45,7 @@ public class Users {
 	@Column(nullable = false, name = "email")
 	private String email;
 
-	public Users() {
+	public User() {
 
 	}
 

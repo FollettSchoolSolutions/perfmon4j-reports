@@ -13,9 +13,11 @@
 <% } else {  %>
 	<div>
 	    <div>
+<!--  	    
 	    	<div>
 	    		<span style="float: right"> Logged in as: <%=principal.getName()%></span>
 	    	</div>
+-->	    	
 			<div class="chartMenu">
 		
 	 		<md-toolbar id="chartMenu">

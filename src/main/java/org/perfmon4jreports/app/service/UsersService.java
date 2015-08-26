@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.perfmon4jreports.app.sso.Principal;
-import org.perfmon4jreports.app.sso.github.Users;
+import org.perfmon4jreports.app.sso.User;
 
 @Stateless
 public class UsersService {
@@ -22,18 +22,18 @@ public class UsersService {
 	@Transactional
 	public void login(HttpSession session, Principal principal) {
 		// Check to see if we already have a User record for this Principal.
-		Query q = em.createNamedQuery(Users.QUERY_FIND_USER);
+		Query q = em.createNamedQuery(User.QUERY_FIND_USER);
 		q.setParameter("globalID", principal.getGlobalID());
-		Users user = null;
+		User user = null;
 
 		try {
-			user = (Users) q.getSingleResult();
+			user = (User) q.getSingleResult();
 		} catch (NoResultException ne) {
 			// Ignore... Must create a new user.
 		}
 
 		if (user == null) {
-			user = new Users();
+			user = new User();
 			user.setName(principal.getName());
 			user.setUserName(principal.getUserName());
 			user.setDomain(principal.getDomain().getName());

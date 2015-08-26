@@ -22,8 +22,6 @@ package org.perfmon4jreports.app.sso;
 
 import javax.servlet.http.HttpSession;
 
-import org.perfmon4jreports.app.sso.github.Users;
-
 public class Principal {
 	public static final String PRINCIPAL_SESSION_KEY = Principal.class.getName() + ".SESSION_KEY";
 	private final SSODomain domain;
@@ -32,7 +30,7 @@ public class Principal {
 	private final String globalID;
 	private final String emailAddress;
 	private final Group[] groups;
-	private Users localUser;
+	private User localUser;
 	
 	public Principal(SSODomain domain, String userName, String name, String localID, String emailAddress, Group[] groups) {
 		this.domain = domain;
@@ -68,7 +66,7 @@ public class Principal {
 		return name;
 	}
 	
-	public static void addPrincipal(HttpSession session, Principal principal, Users user) {
+	public static void addPrincipal(HttpSession session, Principal principal, User user) {
 		principal.setLocalUser(user);
 		session.setAttribute(PRINCIPAL_SESSION_KEY, principal);
 	}
@@ -87,11 +85,11 @@ public class Principal {
 		return getPrincipal(session) != null;
 	}
 	
-	private void setLocalUser(Users user) {
+	private void setLocalUser(User user) {
 		this.localUser = user;
 	}
 	
-	public Users getLocalUser() {
+	public User getLocalUser() {
 		return localUser;
 	}
 }
