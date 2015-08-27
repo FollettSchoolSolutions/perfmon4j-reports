@@ -20,7 +20,7 @@ app.factory('dataSourceService', function($http){
 	}
 
 	factory.getDatabases = function(datasource) {
-		var url = "http://" + datasource.host + urlPath + "/databases";
+		var url = "http://" + datasource.url+ urlPath + "/databases";
 
 		return $http.get(url).then(function(result) {
 			return result;
@@ -28,7 +28,7 @@ app.factory('dataSourceService', function($http){
 	}
 
 	factory.getSystems = function(datasource, database, timeStart, timeEnd) {
-		var url = "http://" + datasource.host + urlPath + "/databases/"
+		var url = "http://" + datasource.url + urlPath + "/databases/"
 				+ database.id + "/systems?timeStart=" + timeStart + "&timeEnd="
 				+ timeEnd;
 		
@@ -39,7 +39,7 @@ app.factory('dataSourceService', function($http){
 	}
 	
 	factory.getCategories = function(datasource, database, system, timeStart, timeEnd){
-		var url = "http://" + datasource.host + urlPath + "/databases/"
+		var url = "http://" + datasource.url + urlPath + "/databases/"
 		+ database.id + "/categories?systemID=" + system + "&timeStart=" + timeStart + "&timeEnd="
 		+ timeEnd;	
 		return $http.get(url).then(function(result) {
@@ -63,12 +63,17 @@ app.factory('dataSourceService', function($http){
 	}
 
 	factory.getFields = function(datasource, database, category){
-		var url = "http://" + datasource.host + urlPath + "/databases/"
+		var url = "http://" + datasource.url + urlPath + "/databases/"
 		+ database.id + "/categories/templates/" + category.templateName;
 		return $http.get(url).success(function(result){
 			return result;
 		})
 	}
 
+	factory.deleteDataSource = function(id){
+        return $http['delete']("rest/datasources/" + id).then(function(result) {
+                return result;
+        });
+	}
 	return factory;
 });

@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -29,9 +30,10 @@ public class DataSource {
 	public DataSource() {}
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "dataSourceID", initialValue = 1, allocationSize = 100)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dataSourceID")   
 	@Column(nullable=false, unique=true)
-	private int id;	
+	private Integer id;	
 
 	@Column(nullable = false, name = "Name")
 	private String Name;

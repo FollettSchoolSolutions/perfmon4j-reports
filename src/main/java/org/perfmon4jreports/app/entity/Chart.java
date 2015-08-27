@@ -31,25 +31,26 @@ public class Chart {
 	
 	public static final String QUERY_FIND_ALL = "Chart.findAll";
 	
-   // @SequenceGenerator(name = "chartIDGenerator", initialValue = 1, allocationSize = 100)
-   // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chartIDGenerator")
     @Column(unique = true, nullable = false, name = "CHART_ID")
     @Id
 	private String id;
 	
 	
 	@Column(nullable = true, unique= false, name = "userID")
-	private int userID;
+	private Integer userID;
 	
 	
 	@Lob
 	@Column(nullable = false, columnDefinition="LONGTEXT")
 	private String data;
 	
+//	@Column(unique = true, nullable = false, name = "dataSourceID")
+//	private Integer dataSourceID;
+	
 	public Chart() {
 	}
 	
-	public Chart(String id, String data, int userID) {
+	public Chart(String id, String data, Integer userID) {
 		setId(id);
 		setData(data);
 		setUserID(userID);
@@ -79,8 +80,16 @@ public class Chart {
 		return userID;
 	}
 
-	public void setUserID(int userID) {
+	public void setUserID(Integer userID) {
 		this.userID = userID;
 	}
+
+	//public Integer getDataSourceID() {
+//		return dataSourceID;
+//	}
+
+//	public void setDataSourceID(Integer dataSourceID) {
+//		this.dataSourceID = dataSourceID;
+//	}
 	
 }

@@ -62,7 +62,7 @@
     		</div>
     		<div>
   			<a title="Create New Datasource">
-				<md-button title="Create New Datasource" id="createButton" class="md-raised md-primary" ng-click="showDataSources($env)" ng-disabled="false"> Create </md-button>
+				<md-button title="Create New Datasource" id="createButton" class="md-raised md-primary" ng-controller="dataSourceControl" ng-click="showDataSources($env)" ng-disabled="false"> Create </md-button>
 			</a>
   		</div>
   		</md-toolbar>
@@ -72,10 +72,10 @@
 					<td> 
 						<div class="right">
 							<a title="Duplicate DataSource" class="chartrowIconAnchor">
-								<ng-md-icon title="Duplicate DataSource" class="duplicate-icon-dark" icon="content_copy" size="25" ng-click="copyDataSource(dataSource.id)"></ng-md-icon>
+								<ng-md-icon title="Duplicate DataSource" class="duplicate-icon-dark" icon="content_copy" size="25"  ng-click="copyDataSource(ds.id)"></ng-md-icon>
 							</a>
 							<a title="Delete DataSource" class="chartrowIconAnchor">
-								<ng-md-icon title="Delete DataSource" class="delete-icon-dark" icon="delete" size="25" ng-click="deleteDataSource(dataSource.id)"></ng-md-icon>
+								<ng-md-icon title="Delete DataSource" class="delete-icon-dark" icon="delete" size="25" ng-click="deleteDataSource(ds.id)"></ng-md-icon>
 							</a>
 						</div>
 						<a class="chartrowLinkAnchor">{{ ds.name }}</a>

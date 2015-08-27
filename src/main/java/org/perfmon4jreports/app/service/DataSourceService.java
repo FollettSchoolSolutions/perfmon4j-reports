@@ -27,6 +27,7 @@ import org.perfmon4jreports.app.sso.PrincipalContext;
 import org.perfmon4jreports.app.sso.github.Users;
 import org.perfmon4jreports.app.data.DataSource;
 import org.perfmon4jreports.app.data.DataSourceVo;
+import org.perfmon4jreports.app.entity.Chart;
 
 @Stateless
 @Path("/datasources")
@@ -83,6 +84,21 @@ public class DataSourceService {
 		//		"Test on MDAPP", "172.16.16.64"), new DataSourceVo(
 			//	"Another MDAPP", "172.16.16.64")});
 	
+	
+	// Delete
+	@DELETE
+	@Path("/{id}")
+	public boolean deleteDataSource(@PathParam("id") Integer id) {
+		DataSource data = em.find(DataSource.class, id);
+		if (data == null) {
+			return false;
+		}
+		else {
+			em.remove(data);
+		}
+	return true;
+		
+	}
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)	

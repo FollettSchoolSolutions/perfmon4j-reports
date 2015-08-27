@@ -62,7 +62,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	// watchers
 	$scope.$watch('chart.chosenDatasource', function(newValue, oldValue) {
 		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-			if((newValue.host != oldValue.host)){
+			if((newValue.url != oldValue.url)){
 				if($scope.chart.series.length == 1){
 					$scope.chart.series.pop();
 				}
@@ -209,7 +209,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 		$scope.seriesUrl = $scope.cleanSeriesUrl();
 		listSeriesAliases();
 
-		var urlPromise = dataSourceService.getURL($scope.chart.chosenDatasource.host, $scope.chart.chosenDatabase.id, 
+		var urlPromise = dataSourceService.getURL($scope.chart.chosenDatasource.url, $scope.chart.chosenDatabase.id, 
 				$scope.chart.timeStart, $scope.chart.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
 		
 		var relative = isRelativeTimeRange();

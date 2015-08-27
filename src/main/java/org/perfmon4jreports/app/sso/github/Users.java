@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.perfmon4jreports.app.entity.Chart;
@@ -27,9 +28,10 @@ public class Users {
 	public static final String QUERY_FIND_USERID = "Users.findUserID";
 	
 	 @Id
-	 @GeneratedValue(strategy = GenerationType.AUTO)
+	 @SequenceGenerator(name = "userID", initialValue = 1, allocationSize = 100)
+	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userID")   
 	 @Column(nullable=false, unique=true)
-	private int userID;
+	private Integer userID;
 
 	@Column(nullable = true, name = "Name")
 	private String Name;
@@ -58,7 +60,7 @@ public long getUserID() {
 	return userID;
 }
 
-public void setUserID(int userID) {
+public void setUserID(Integer userID) {
 	this.userID = userID;
 }
 

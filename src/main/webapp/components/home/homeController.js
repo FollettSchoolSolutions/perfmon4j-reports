@@ -58,6 +58,17 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		});
 	}
 	
+	$scope.deleteDataSource = function(id) {
+		var deletePromise = dataSourceService.deleteDataSource(id);
+		deletePromise.then(function(result){
+			var successful = result.data;
+			if (!successful){
+				alert("Deleting chart with id: " + id + " was NOT successful.");
+			}
+			$location.path("/");
+		});
+	}
+	
 	$scope.showDataSources = function(ev) {
 	    $mdDialog.show({
 	      controller: DataSourceController,
@@ -69,15 +80,9 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 });
 
 	function DataSourceController($scope, $mdDialog, dataSourceService) {
-	 //$scope.name = dataSourceService.name;
-	 //$scope.URL = dataSourceService.URL;
-
+		$scope.name = name
+		$scope.url = URL;
 	  
-	  $scope.saveDatasource = function() {
-	  dataSourceService.name = $scope.name;
-	  dataSourceService.URL = $scope.URL;
-	  dataSourceControl.saveDataSource();
-  }
 	  
 	
 	  $scope.answer = function(answer) {
