@@ -35,7 +35,7 @@ public void Login(HttpServletRequest req){
 
 	//Get current session info
 	HttpSession session = req.getSession(true);
-	 //Get principals based off of current session
+	//PrincpalContext is being removed. We need to get globalID from HTTPSession
 	Principal currentPrincipal = Principal.getPrincipal(principalContext);
 	principalContext.setPrincipal(currentPrincipal);
 		if (session != null) {
@@ -88,6 +88,7 @@ public void Login(HttpServletRequest req){
 		}
 
 	public void Logout() {
+		//PrincpalContext is being removed. We need to removePrinicipal from HttpSession
 		principalContext.getPrincipal().removePrincipal();
 	
 	}

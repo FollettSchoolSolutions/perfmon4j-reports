@@ -60,11 +60,7 @@
         			<span>My Datasources</span>
       			</h2>
     		</div>
-    		<div>
-  			<a title="Create New Datasource">
-				<md-button title="Create New Datasource" id="createButton" class="md-raised md-primary" ng-controller="dataSourceControl" ng-click="showDataSources($env)" ng-disabled="false"> Create </md-button>
-			</a>
-  		</div>
+
   		</md-toolbar>
   		<!--Stuff to do with Data Sources:
   		1.  We need to use the new edit icon.  For now, the duplicate icon is being used as edit for DataSources.  There is no functionality in place for duplicating a data source
@@ -88,6 +84,9 @@
 				</tr>
 			</table>
 		</div>
+		  	<a title="Create New Datasource">
+				<md-button title="Create New Datasource" id="createButton" class="md-raised md-primary" ng-controller="dataSourceControl" ng-click="showDataSources($env)" ng-disabled="false"> Create </md-button>
+			</a>
 	 </div>
 	</div>
 </div>

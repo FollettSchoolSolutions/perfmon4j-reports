@@ -44,16 +44,17 @@ public class Chart {
 	@Column(nullable = false, columnDefinition="LONGTEXT")
 	private String data;
 	
-//	@Column(unique = true, nullable = false, name = "dataSourceID")
-//	private Integer dataSourceID;
+	@Column(unique = true, nullable = true, name = "dataSourceID")
+	private Integer dataSourceID;
 	
 	public Chart() {
 	}
 	
-	public Chart(String id, String data, Integer userID) {
+	public Chart(String id, String data, Integer userID, Integer dsid) {
 		setId(id);
 		setData(data);
 		setUserID(userID);
+		setDataSourceID(dsid);
 	}
 	
 	public void updateChart(Chart c){
@@ -84,12 +85,12 @@ public class Chart {
 		this.userID = userID;
 	}
 
-	//public Integer getDataSourceID() {
-//		return dataSourceID;
-//	}
+	public Integer getDataSourceID() {
+		return dataSourceID;
+	}
 
-//	public void setDataSourceID(Integer dataSourceID) {
-//		this.dataSourceID = dataSourceID;
-//	}
+	public void setDataSourceID(Integer dataSourceID) {
+		this.dataSourceID = dataSourceID;
+	}
 	
 }

@@ -28,7 +28,7 @@ app.controller('dataSourceControl', function($scope, dataSourceService){
 		$scope.dataSource.URL= $scope.URL;
 		
 		var savaDataSourcePromise = dataSourceService.saveDataSource($scope.dataSource);
-		
+		location.reload();
 	}
 	
 	$scope.editDataSource = function()

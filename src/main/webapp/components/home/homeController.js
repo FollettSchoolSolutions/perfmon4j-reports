@@ -9,11 +9,11 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	var dataSourceFetchPromise = dataSourceService.getDataSources();
 	dataSourceFetchPromise.then(function(result){
 		if (result.status != 200) {
-			throw new Error("Failed to load Stuff : " + result.status);
+			throw new Error("Failed to load DataSource : " + result.status);
 		}
 		$scope.DataSource = result.data;
 	}).catch(function onError(err) {
-		window.alert("Failed to load Stuff " + err.message );
+		window.alert("Failed to load DataSource " + err.message );
 	})
 		
 		
@@ -58,17 +58,18 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		});
 	}
 	
+	//Ideally, we would want to show the names of the charts refrencing the datasource, but I'm not sure how to do that
 	$scope.deleteDataSource = function(id) {
 		var deletePromise = dataSourceService.deleteDataSource(id);
 		deletePromise.then(function(result){
 			var successful = result.data;
 			if (!successful){
-				alert("Deleting chart with id: " + id + " was NOT successful.");
+				alert("This DataSource is being referenced by a chart. DataSource Id: " + id);
 			}
 			$location.path("/");
 		});
 	}
-	
+	//Building the popup for datasource
 	$scope.showDataSources = function(ev) {
 	    $mdDialog.show({
 	      controller: DataSourceController,
@@ -78,6 +79,7 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	    });
 	}
 	
+	//Building the popup for edit datasource. We pass it id, name, url and store them into local variables
 	$scope.editDataSource = function(mn, id, name, url) {
 	    $mdDialog.show({
 	      controller: editDataSource,
@@ -92,7 +94,7 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	    });
 	}
 });
-
+	//Pop up box where you input data source  info.
 	function DataSourceController($scope, $mdDialog, dataSourceService) {
 		$scope.name = name
 		$scope.url = URL;
@@ -100,15 +102,20 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	  
 	
 	  $scope.answer = function(answer) {
+	   
 	   $mdDialog.hide(answer);
+	   
 	 };
 	};
 	
+	//Pop up box where DataSource info is already populated for editing.
 	function editDataSource($scope, $mdDialog, dataSourceService, editID, editname, editurl){
 		$scope.name = editname;
 		$scope.URL = editurl;
 		$scope.id = editID;
 		  $scope.answer = function(answer) {
-			   $mdDialog.hide(answer);
+			  
+			  $mdDialog.hide(answer);
+			   location.reload();
 			 };
 	};
