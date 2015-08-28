@@ -66,13 +66,18 @@
 			</a>
   		</div>
   		</md-toolbar>
+  		<!--Stuff to do with Data Sources:
+  		1.  We need to use the new edit icon.  For now, the duplicate icon is being used as edit for DataSources.  There is no functionality in place for duplicating a data source
+  		2.  We are terrible at css and positioning buttons on the homepage.  The "Create" button needs to be below the container that holds the datasources.
+  		3.  I think we should add an alert to confirm deletion before we delete a chart/datasource/dashboard, just because losing a resource by accidentally clicking delete is annoying-->
   		<div class="innerDataSourceMenu">
 			<table style="width: 100%">
 				<tr ng-repeat="ds in DataSource"> 
 					<td> 
+					
 						<div class="right">
 							<a title="Duplicate DataSource" class="chartrowIconAnchor">
-								<ng-md-icon title="Duplicate DataSource" class="duplicate-icon-dark" icon="content_copy" size="25"  ng-click="copyDataSource(ds.id)"></ng-md-icon>
+								<ng-md-icon title="Edit DataSource" class="duplicate-icon-dark" icon="content_copy" size="25"  ng-click="editDataSource($mnv, ds.id, ds.name, ds.url)"></ng-md-icon>
 							</a>
 							<a title="Delete DataSource" class="chartrowIconAnchor">
 								<ng-md-icon title="Delete DataSource" class="delete-icon-dark" icon="delete" size="25" ng-click="deleteDataSource(ds.id)"></ng-md-icon>

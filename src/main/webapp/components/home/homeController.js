@@ -77,6 +77,20 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	      targetEvent: ev,
 	    });
 	}
+	
+	$scope.editDataSource = function(mn, id, name, url) {
+	    $mdDialog.show({
+	      controller: editDataSource,
+	      templateUrl: 'components/datasource/editDataSource.html',
+	      parent: angular.element(document.body),
+	      targetEvent: mn,
+	      locals: {
+	    	  editID: id,
+	    	  editname: name,
+	    	  editurl: url
+	      }
+	    });
+	}
 });
 
 	function DataSourceController($scope, $mdDialog, dataSourceService) {
@@ -88,5 +102,13 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	  $scope.answer = function(answer) {
 	   $mdDialog.hide(answer);
 	 };
-	 
+	};
+	
+	function editDataSource($scope, $mdDialog, dataSourceService, editID, editname, editurl){
+		$scope.name = editname;
+		$scope.URL = editurl;
+		$scope.id = editID;
+		  $scope.answer = function(answer) {
+			   $mdDialog.hide(answer);
+			 };
 	};

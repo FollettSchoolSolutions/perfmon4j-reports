@@ -75,5 +75,11 @@ app.factory('dataSourceService', function($http){
                 return result;
         });
 	}
+	
+	factory.editDataSource = function(dataSource){
+		return $http.put("rest/datasources/" + dataSource.id +"/" + dataSource.editName, dataSource.URL).then(function(result) {
+			return result;
+		});
+	}
 	return factory;
 });

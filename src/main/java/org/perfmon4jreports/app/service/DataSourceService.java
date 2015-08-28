@@ -51,7 +51,6 @@ public class DataSourceService {
 			d.setURL(URL);
 			d.setUserID(userID);
 			em.persist(d);
-			
 			}	
 	
 	@GET
@@ -99,22 +98,17 @@ public class DataSourceService {
 	return true;
 		
 	}
-	
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)	
-	@Consumes(MediaType.APPLICATION_JSON)	
-	public DataSourceVo createDataSource(DataSourceVo vo) {
-		// TODO perform database ops here
-		return vo;
-	}
 
-	//@PUT
-	//@Path("/{id}")
-	//@Produces(MediaType.APPLICATION_JSON)	
-	//@Consumes(MediaType.APPLICATION_JSON)	
-	//public DataSourceVo updateDataSource(@PathParam("id") Long id, DataSourceVo data) {
-		// TODO perform database ops here
-	//	return data;
-	//}
+	@PUT
+	@Path("/{id}/{editName}")
+	@Consumes(MediaType.APPLICATION_JSON)	
+	@Produces(MediaType.APPLICATION_JSON)	
+	public void editDataSource(@PathParam("id") Integer id, @PathParam("editName") String editName, String url) {
+		DataSource data = em.find(DataSource.class, id);
+		data.setId(id);
+		data.setName(editName);
+		data.setURL(url);
+		em.merge(data);
+	}
 	
 }
