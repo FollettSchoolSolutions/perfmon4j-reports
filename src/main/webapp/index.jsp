@@ -52,13 +52,8 @@
 		<md-toolbar class="md-primary">
 	      <div layout="row" layout-align="space-between center" class="md-toolbar-tools">
 	        <h1>
-		        <img src="images/perfmon4jFULL.png" alt="perfmon4j reports logo" style="height: 56px">
+		        <a title="Homepage" href="#home"><img src="images/perfmon4jFULL.png" alt="perfmon4j reports logo" style="height: 56px"></a>
 	        </h1>
-	        <div ng-hide="showHomeButton()" style="position: absolute; right: 180px; top: 17px">
-		        <a title="Homepage">
-		        	<ng-md-icon title="Homepage" class="home-icon-light" icon="home" size="35" ng-click="goHome();clearChartName()"></ng-md-icon>
-		        </a>
-	        </div>
 	         
 	 	<%if (!Principal.isLoggedIn(session))  { %>        
 		    <md-button href="callback/sso?launch=true" >Login with GitHub</md-button>
