@@ -15,6 +15,9 @@ app.config(function($routeProvider, $mdThemingProvider) {
 	}).when('/chart/:id', {
 		templateUrl : 'components/chart/chart.html',
 		controller : 'chartControl'
+	}).when('/chart/:mode/:id', {
+		templateUrl : 'components/chart/chart.html',
+		controller : 'chartControl'
 	}).otherwise({
 		redirectTo : '/home'
 	});

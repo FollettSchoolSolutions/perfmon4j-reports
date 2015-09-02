@@ -51,6 +51,12 @@ a:hover, a:active {
 .home-icon-light:hover {
 	fill: #E0E0E0;
 }
+.edit-icon-dark {
+	fill: #616161;
+}
+.edit-icon-dark:hover {
+	fill: #000000;
+}
 .duplicate-icon-dark {
 	fill: #616161;
 }

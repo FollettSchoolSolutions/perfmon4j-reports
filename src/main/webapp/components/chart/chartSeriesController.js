@@ -1,90 +1,145 @@
-app.controller('chartSeriesControl', function ($scope, chartService, dataSourceService){
+app.controller('chartSeriesControl', function ($scope, $routeParams, chartService, dataSourceService){
 	$scope.chosenDatabase = chartService.chosenDatabase;
 	$scope.chosenDatasource = chartService.chosenDatasource;
 	$scope.timeStart = chartService.timeStart;
 	$scope.timeEnd = chartService.timeEnd;
-	$scope.seriesName = "";
-	$scope.chosenSystems = [];
-	$scope.chosenCategory = "";
-	$scope.chosenField = "";
-	$scope.chosenAggregationMethod = "";
-	$scope.chosenSeries = new Series();
 	$scope.active = true;
 	$scope.systems = [];
 	$scope.categories = [];
 	$scope.fields = [];
 	$scope.aggregationMethods = [];
-	clearSystems();
-	clearCategory();
-	clearField();
-	clearAggregationMethod();
+	
+	$scope.editInit = false;
+	$scope.systemsLoaded = false;
+	$scope.categoryLoaded = false;
+	$scope.fieldLoaded = false;
+	$scope.aggregationMethodLoaded = false;
 	
 	
 	if(chartService.viewOnly == false){
+		if($routeParams.mode == 'edit'){
+			$scope.editInit = true;
+			$scope.series.editInit = true;
+		} else {
+			$scope.editInit = false;
+			$scope.series.editInit = false;
+		}
+		
 		setTimeout(function(){
 			if (isEmptyOrNull($scope.systems)){
 				window.alert("Cannot connect to database / systems are null");
 			}
-		
-		}, 5000);	
-		var databasePromise = dataSourceService.getSystems($scope.chosenDatasource, $scope.chosenDatabase, chartService.timeStart, 
+			
+		}, 5000);
+		var systemsPromise = dataSourceService.getSystems($scope.chosenDatasource, $scope.chosenDatabase, chartService.timeStart, 
 				chartService.timeEnd);
-		databasePromise.then(function(result){
+		systemsPromise.then(function(result){
 			$scope.systems = result.data;
 			
-		})
+			if($routeParams.mode == 'edit'){
+				var newSeries;
+//				$scope.series = $scope.loadEditData(angular.copy($scope.series), newSeries);
+				$scope.series.systems = $scope.lookupSystems($scope.series.systems);
+				$scope.systemsLoaded = true;
+				$scope.loadCategories();
+			} else {
+				clearCategory();
+				clearField();
+				clearAggregationMethod();
+			}
+			
+		});
 		
 	}
 	
-	$scope.$watchCollection('series.systems', function(newArr, oldArr) {
-		if(!isNullOrUndefined(newArr)){
-			$scope.loadCategories();
-		}
-	});
-	
-	$scope.$watch('series.category', function(newValue, oldValue) {
-		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-			if((newValue.name != oldValue.name)){
-				$scope.loadFields();
+	$scope.lookupSystems = function(systems){
+		var fixedSystems = [];
+		
+		for(var i=0; i < systems.length; i++){
+			for(var j=0; j < $scope.systems.length; j++){
+				if($scope.systems[j].id == systems[i].id){
+					fixedSystems.push($scope.systems[j]);
+				}
 			}
-		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-			$scope.loadFields();
 		}
-	});
+		return fixedSystems;
+	}
 	
-	$scope.$watch('series.field', function(newValue, oldValue) {
-		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-			if((newValue.name != oldValue.name)){
-				$scope.loadAggregations();
+	$scope.lookupCategory = function(category){
+		for(var i=0; i < $scope.categories.length; i++){
+			if($scope.categories[i].name == category.name){
+				return $scope.categories[i];
 			}
-		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-			$scope.loadAggregations();
 		}
-	});
+	}
 	
-	$scope.$watch('series.aggregationMethod', function(newValue, oldValue) {
-		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-			if((newValue != oldValue)){
-				$scope.saveAggregation();
+	$scope.lookupField = function(field){
+		for(var i=0; i < $scope.fields.length; i++){
+			if($scope.fields[i].name == field.name){
+				return $scope.fields[i];
 			}
-		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-			$scope.saveAggregation();
 		}
-	});
+	}
+	
+//	$scope.$watchCollection('series.systems', function(newArr, oldArr) {
+//		if(!isNullOrUndefined(newArr)){
+//			$scope.loadCategories();
+//		}
+//	});
+//	
+//	$scope.$watch('series.category', function(newValue, oldValue) {
+//		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+//			if(!$routeParams.mode == 'edit'){
+//				if(newValue.name != oldValue.name){
+//					$scope.loadFields();
+//				}
+//			} else {
+//				$scope.loadFields();
+//			}
+//		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+//			$scope.loadFields();
+//		}
+//	});
+//	
+//	$scope.$watch('series.field', function(newValue, oldValue) {
+//		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+//			if(!$routeParams.mode == 'edit'){
+//				if((newValue.name != oldValue.name)){
+//					$scope.loadAggregations();
+//				}
+//			} else {
+//				$scope.loadAggregations();
+//			}
+//		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+//			$scope.loadAggregations();
+//		}
+//	});
+//	
+//	$scope.$watch('series.aggregationMethod', function(newValue, oldValue) {
+//		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+//			if((newValue != oldValue)){
+//				$scope.saveAggregation();
+//			}
+//		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
+//			$scope.saveAggregation();
+//		}
+//	});
 	
 	function isNullOrUndefined(obj){
 		return (obj == null || typeof obj == 'undefined');
 	}
 		
 	$scope.loadCategories = function(){
-		clearCategory();
-		clearField();
-		clearAggregationMethod();
+		if($scope.editInit == false){
+			clearCategory();
+			clearField();
+			clearAggregationMethod();
+		}
 		chartService.chosenSystems = $scope.series.systems;
 		var systemString = createSystemString();
-		var databasePromise = dataSourceService.getCategories($scope.chosenDatasource, $scope.chosenDatabase, 
+		var categoryPromise = dataSourceService.getCategories($scope.chosenDatasource, $scope.chosenDatabase, 
 				systemString, $scope.timeStart, $scope.timeEnd);
-		databasePromise.then(function(result){
+		categoryPromise.then(function(result){
 			$scope.categories = result.data.sort(function(a,b){
 				if( a.name < b.name){
 					return -1;
@@ -94,65 +149,73 @@ app.controller('chartSeriesControl', function ($scope, chartService, dataSourceS
 					return 1;
 				}
 			})
-
+			if($routeParams.mode == 'edit'){
+				$scope.series.category = $scope.lookupCategory($scope.series.category);
+				if($scope.systemsLoaded){
+					$scope.categoryLoaded = true;
+				}
+				$scope.loadFields();
+			}
 			chartService.categories = $scope.categories;
 		})
 	};
 	
 	$scope.loadFields = function(){
-		clearField();
-		clearAggregationMethod();
+		if($scope.editInit == false){
+			clearField();
+			clearAggregationMethod();
+		}
 		chartService.chosenCategory = $scope.series.category;
-		var databasePromise = dataSourceService.getFields($scope.chosenDatasource, $scope.chosenDatabase, $scope.series.category);
-		databasePromise.then(function(result){
+		var fieldPromise = dataSourceService.getFields($scope.chosenDatasource, $scope.chosenDatabase, $scope.series.category);
+		fieldPromise.then(function(result){
 			$scope.fields = result.data[0].fields;
 			chartService.fields = $scope.fields;
+			if($routeParams.mode == 'edit'){
+				$scope.series.field = $scope.lookupField($scope.series.field);
+				if($scope.systemsLoaded && $scope.categoryLoaded){
+					$scope.fieldLoaded = true;
+				}
+				$scope.loadAggregations();
+			}
 		})
 	};
 	
 	$scope.loadAggregations = function(){
-		clearAggregationMethod();
+		if($scope.editInit == false && !(typeof $scope.field == 'undefined')){
+			clearAggregationMethod();
+		}
 		chartService.chosenField = $scope.series.field;
-		$scope.chosenAggregationMethod = $scope.series.aggregationMethod = $scope.series.field.defaultAggregationMethod;
 		$scope.aggregationMethods = $scope.series.field.aggregationMethods;
+		
+		if(!$routeParams.mode == 'edit'){
+			chartService.chosenAggregationMethod = $scope.series.aggregationMethod = $scope.series.field.defaultAggregationMethod;
+		} else {
+			if($scope.editInit == false){
+				chartService.chosenAggregationMethod = $scope.series.aggregationMethod = $scope.series.field.defaultAggregationMethod;
+			} else {
+				chartService.chosenAggregationMethod = $scope.series.aggregationMethod;
+			}
+			
+			if($scope.systemsLoaded && $scope.categoryLoaded && $scope.fieldLoaded){
+				$scope.aggregationMethodLoaded = true;
+			}
+			if($scope.systemsLoaded && $scope.categoryLoaded && $scope.fieldLoaded && $scope.aggregationMethodLoaded){
+				$scope.editInit = false;
+				$scope.series.editInit = false;
+			}
+		}
 
 		chartService.aggregationMethods = $scope.aggregationMethods;
-		chartService.chosenAggregationMethod = $scope.chosenAggregationMethod;
 	}
-	
-	$scope.renderDisabled = function(){
-		return (isEmptyOrNull($scope.chosenDatasource) || isEmptyOrNull($scope.chosenDatabase) 
-				|| isEmptyOrNull($scope.chosenSystems) || isEmptyOrNull($scope.chosenCategory) 
-				|| isEmptyOrNull($scope.chosenField) || isEmptyOrNull($scope.seriesName) 
-				|| isEmptyOrNull($scope.chartName) || isEmptyOrNull($scope.timeStart)
-				|| isEmptyOrNull($scope.timeEnd))
-	};
 	
 	$scope.isLoading = function(chosenOne, options){
 		return !isEmptyOrNull(chosenOne) && isEmptyOrNull(options);
 	}
 	
-	$scope.saveSeriesName = function() {
-		chartService.seriesName = $scope.seriesName;
-	}
-	
 	$scope.saveAggregation = function() {
-		chartService.chosenAggregationMethod = $scope.chosenAggregationMethod;
+		chartService.chosenAggregationMethod = $scope.series.aggregationMethod;
 	}
 	
-
-	$scope.toggleActive = function() {
-		$scope.active = !$scope.active;
-		if ($scope.active) {
-			$scope.chosenSeries.name = $scope.seriesName;
-			$scope.chosenSeries.systems = $scope.chosenSystems;
-			$scope.chosenSeries.category = $scope.chosenCategory;
-			$scope.chosenSeries.field = $scope.chosenField;
-			$scope.chosenSeries.aggregationMethod = $scope.chosenAggregationMethod;
-			chartService.chosenSeries = $scope.chosenSeries;
-		}
-	}
-
 	$scope.seriesHeader = function() {
 		if (isEmptyOrNull($scope.series.name)) {
 			return "Series";

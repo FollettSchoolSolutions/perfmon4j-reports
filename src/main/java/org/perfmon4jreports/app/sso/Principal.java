@@ -30,24 +30,16 @@ public class Principal {
 	private final String globalID;
 	private final String emailAddress;
 	private final Group[] groups;
-	public static boolean logged =false;
-	public static String names;
+	private User localUser;
 	
 	public Principal(SSODomain domain, String userName, String name, String localID, String emailAddress, Group[] groups) {
 		this.domain = domain;
 		this.userName = userName;
-		this.name = name;
+		this.name = name != null ? name : userName;
 		this.globalID = domain.buildGlobalID(localID);
 		this.emailAddress = emailAddress;
 		this.groups = groups == null ? new Group[]{} : groups;
-		this.logged = true;
-		
-		if(name == null)
-		this.names = userName;
-		else
-		this.names = name;
-		
-		}
+	}
 	
 
 	public String getEmailAddress() {
@@ -74,29 +66,30 @@ public class Principal {
 		return name;
 	}
 	
-	public boolean getLogged(){
-		return logged;
+	public static void addPrincipal(HttpSession session, Principal principal, User user) {
+		principal.setLocalUser(user);
+		session.setAttribute(PRINCIPAL_SESSION_KEY, principal);
 	}
 
+	public static Principal getPrincipal(HttpSession session) {
+		return session == null ? null : (Principal)session.getAttribute(PRINCIPAL_SESSION_KEY);
+	}
+
+	public static void removePrincipal(HttpSession session) {
+		if (session != null) {
+			session.removeAttribute(PRINCIPAL_SESSION_KEY);
+		}
+	}
 	
-
-	public static void addPrincipal(PrincipalContext principalContext, Principal principal) {
-		principalContext.setPrincipal(principal);
+	public static boolean isLoggedIn(HttpSession session) {
+		return getPrincipal(session) != null;
 	}
-
-	public static Principal getPrincipal(PrincipalContext principalContext) {
-		return principalContext.getPrincipal();
+	
+	private void setLocalUser(User user) {
+		this.localUser = user;
 	}
-
-	public static void removePrincipal() {
-		 logged = false;
-	}
-
-	public String getNames() {
-		return names;
-	}
-
-	public void setNames(String names) {
-		this.names = names;
+	
+	public User getLocalUser() {
+		return localUser;
 	}
 }

@@ -1,33 +1,24 @@
 package org.perfmon4jreports.app.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.perfmon4jreports.app.sso.PrincipalContext;
-import org.perfmon4jreports.app.sso.github.Users;
 import org.perfmon4jreports.app.data.DataSource;
-import org.perfmon4jreports.app.data.DataSourceVo;
-import org.perfmon4jreports.app.entity.Chart;
+import org.perfmon4jreports.app.sso.Principal;
 
 @Stateless
 @Path("/datasources")
@@ -37,8 +28,7 @@ public class DataSourceService {
 		private EntityManager em;
 		//Inject HTTPSession instead of PrincpalContext.  Refer to ChartService.java
 		@Inject
-		private PrincipalContext principalContext;
-		
+		HttpSession session;		
 		
 	//Save or Update
 	@PUT
@@ -47,12 +37,16 @@ public class DataSourceService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void saveDataSource(@PathParam("name") String name, String URL) {
 	//We need to get globalID from the current HTTP session instead of from PrincipalContext.
-	int userID = (int) em.createNamedQuery("Users.findUserID").setParameter("globalID", principalContext.getPrincipal().getGlobalID()).getSingleResult();
-	DataSource d = new DataSource();
-	d.setName(name);
-	d.setURL(URL);
-	d.setUserID(userID);
-	em.persist(d);
+		Principal p = Principal.getPrincipal(session);
+		if (p != null) {
+			Integer userID = p.getLocalUser().getUserID();
+			
+			DataSource d = new DataSource();
+			d.setName(name);
+			d.setURL(URL);
+			d.setUserID(userID);
+			em.persist(d);
+		}
 	}	
 	
 	//Get DataSources for the homepage
@@ -60,23 +54,17 @@ public class DataSourceService {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)	
 	public List<DataSource> getDataSources() {
+		List<DataSource> result = new ArrayList<>();
+		
 		// Change to HTTPSession.getPrincipal
-		if (principalContext.getPrincipal() ==null){
-			//return an empty list for initial visit to page to bypass alert.
-			List<DataSource> test= em.createNamedQuery(DataSource.QUERY_FIND_DataSources).setParameter("userID", 0).getResultList();
-
-			return test;
-		}
-		else {
-			//We need to get globalID from the current HTTP session instead of from PrincipalContext.
-			int userID = (int) em.createNamedQuery("Users.findUserID").setParameter("globalID", principalContext.getPrincipal().getGlobalID()).getSingleResult();
-			
+		Principal p = Principal.getPrincipal(session);
+		if (p != null) {
 			@SuppressWarnings("unchecked")
-			List<DataSource> list= em.createNamedQuery(DataSource.QUERY_FIND_DataSources).setParameter("userID", userID).getResultList();
-			
-
-			return list;
-			}
+			Integer userID = p.getLocalUser().getUserID();
+			result = em.createNamedQuery(DataSource.QUERY_FIND_DataSources).setParameter("userID", userID).getResultList();
+		}
+	
+		return result;
 	}
 		//These are here for reference.  Specifically, the IP address of the only working datasource.
 		//return Arrays.asList(new DataSourceVo[] { new DataSourceVo(
