@@ -33,7 +33,7 @@ public class Chart {
 	@Column(nullable = false, columnDefinition="LONGTEXT")
 	private String data;
 	
-	@Column(unique = true, nullable = true, name = "dataSourceID")
+	@Column(unique = false, nullable = true, name = "dataSourceID")
 	private Integer dataSourceID;
 	
 	public Chart() {
