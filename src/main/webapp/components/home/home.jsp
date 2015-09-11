@@ -77,8 +77,8 @@
 					<td> 
 					
 						<div class="right">
-							<a title="Duplicate DataSource" class="chartrowIconAnchor">
-								<ng-md-icon title="Edit DataSource" class="duplicate-icon-dark" icon="content_copy" size="25"  ng-click="editDataSource($mnv, ds.id, ds.name, ds.url)"></ng-md-icon>
+							<a title="Edit DataSource" class="chartrowIconAnchor">
+								<ng-md-icon title="Edit DataSource" class="edit-icon-dark" icon="mode_edit" size="25"  ng-click="editDataSource($mnv, ds.id, ds.name, ds.url)"></ng-md-icon>
 							</a>
 							<a title="Delete DataSource" class="chartrowIconAnchor">
 								<ng-md-icon title="Delete DataSource" class="delete-icon-dark" icon="delete" size="25" ng-click="deleteDataSource(ds.id)"></ng-md-icon>

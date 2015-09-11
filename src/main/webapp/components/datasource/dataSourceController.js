@@ -38,6 +38,7 @@ app.controller('dataSourceControl', function($scope, dataSourceService){
 		$scope.editDataSource.id = $scope.id;
 		
 		var editDataSourcePromise = dataSourceService.editDataSource($scope.editDataSource);
+		location.reload();
 		
 	}
 	
