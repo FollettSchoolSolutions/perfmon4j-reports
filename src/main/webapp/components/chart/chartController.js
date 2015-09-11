@@ -74,23 +74,18 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 		}
 	})		
 	
-	// watchers
-	$scope.$watch('chart.chosenDatasource', function(newValue, oldValue) {
-		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-			if((newValue.url != oldValue.url)){
-				if($scope.chart.series.length == 1){
-					$scope.chart.series.pop();
-				}
-				$scope.loadDatabases();
-			}
-		} else {
-			if($scope.chart.series.length == 1){
-				$scope.chart.series.pop();
+	$scope.lookupDataSource = function(ds) {
+		var matchingDs = null;
+		
+		for (var i = 0; i < $scope.datasources.length; i++) {
+			var datasource = $scope.datasources[i];
+			if (datasource.url == ds.url) {
+				matchingDs = datasource;
 			}
 		}
 		
 		return matchingDs;
-	})
+	}
 	
 	$scope.lookupDatabase = function(db) {
 		var matchingDb = null;
