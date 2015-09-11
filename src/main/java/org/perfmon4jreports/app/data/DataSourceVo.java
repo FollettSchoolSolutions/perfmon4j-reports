@@ -1,5 +1,6 @@
 package org.perfmon4jreports.app.data;
 
+//We are pretty sure we don't use this anymore? But we didn't want to delete it just in case.
 public class DataSourceVo {
 	private String name;
     private String host;

@@ -81,50 +81,6 @@ app.controller('chartSeriesControl', function ($scope, $routeParams, chartServic
 		}
 	}
 	
-//	$scope.$watchCollection('series.systems', function(newArr, oldArr) {
-//		if(!isNullOrUndefined(newArr)){
-//			$scope.loadCategories();
-//		}
-//	});
-//	
-//	$scope.$watch('series.category', function(newValue, oldValue) {
-//		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-//			if(!$routeParams.mode == 'edit'){
-//				if(newValue.name != oldValue.name){
-//					$scope.loadFields();
-//				}
-//			} else {
-//				$scope.loadFields();
-//			}
-//		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-//			$scope.loadFields();
-//		}
-//	});
-//	
-//	$scope.$watch('series.field', function(newValue, oldValue) {
-//		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-//			if(!$routeParams.mode == 'edit'){
-//				if((newValue.name != oldValue.name)){
-//					$scope.loadAggregations();
-//				}
-//			} else {
-//				$scope.loadAggregations();
-//			}
-//		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-//			$scope.loadAggregations();
-//		}
-//	});
-//	
-//	$scope.$watch('series.aggregationMethod', function(newValue, oldValue) {
-//		if(!isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-//			if((newValue != oldValue)){
-//				$scope.saveAggregation();
-//			}
-//		} else if(isNullOrUndefined(oldValue) && !isNullOrUndefined(newValue)){
-//			$scope.saveAggregation();
-//		}
-//	});
-	
 	function isNullOrUndefined(obj){
 		return (obj == null || typeof obj == 'undefined');
 	}

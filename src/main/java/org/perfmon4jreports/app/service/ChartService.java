@@ -32,17 +32,23 @@ public class ChartService {
 	
 	// Save or Update
 	@PUT
-	@Path("/{id}")
+	@Path("/{id}/{dsID}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void saveOrUpdateChart(@PathParam("id") String id, String data) {	
 	
+	public void saveOrUpdateChart(@PathParam("id") String id, @PathParam("dsID") Integer dsID, String data) {	
+		//String data has chosendatasource id attached to it.  We need to parse out the chosen data source id and put it in it's own column.  
+		//Then we can make sure that we can't delete a datasource that is attached to a chart
+		String [] tokens = data.split(":",4);
+		String dir1 = tokens[2];
+		
+		//PrincpalContext is being removed. We need to get globalID from HTTPSession
 		Integer userID = Principal.getPrincipal(session).getLocalUser().getUserID();
 		System.out.println("UserID while saving chart " + userID);
 		
 		Chart chart = em.find(Chart.class, id);
 		if(chart == null){
-			chart = new Chart(id, data, userID);
+			chart = new Chart(id, data, userID, dsID);
 		} else {
 			chart.setData(data);
 		}
@@ -68,7 +74,6 @@ public class ChartService {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getCharts() {
-		
 		if (!Principal.isLoggedIn(session)){
 			return "[]";
 		}

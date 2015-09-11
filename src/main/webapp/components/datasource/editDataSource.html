@@ -1,0 +1,28 @@
+<md-dialog aria-label="Datasource">
+  <form>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Edit Datasource:</h2>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div layout="row">
+       <label class="advancedLabel">Name:</label>
+    </div>
+    <input class="advancedText" type="text" id="name" name="name" ng-model="name">
+    <div layout="row">
+     <label class="advancedLabel">URL</label>
+    </div>
+    <input class="advancedText" type="text" id="URL" name="URL" ng-model="URL">
+  </md-dialog-content>
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button ng-controller="dataSourceControl" ng-click="editDataSource()" class="md-primary md-raised">
+     Update
+    </md-button>
+        <md-button ng-click="answer('Cancel')" class="md-primary md-raised">
+     Cancel
+    </md-button>
+  </div>
+  </form>
+</md-dialog>

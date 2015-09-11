@@ -44,6 +44,7 @@
   <!-- Data Sources -->
   <script src="services/dataSourceService.js"></script>
   <script src="services/chartService.js"></script>
+  <script src="components/datasource/dataSourceController.js"></script>
   
 </head>
 	<body>

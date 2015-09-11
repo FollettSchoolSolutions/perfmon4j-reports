@@ -79,7 +79,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 		
 		for (var i = 0; i < $scope.datasources.length; i++) {
 			var datasource = $scope.datasources[i];
-			if (datasource.host == ds.host) {
+			if (datasource.url == ds.url) {
 				matchingDs = datasource;
 			}
 		}
@@ -223,7 +223,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 		$scope.seriesUrl = $scope.cleanSeriesUrl();
 		listSeriesAliases();
 
-		var urlPromise = dataSourceService.getURL($scope.chart.chosenDatasource.host, $scope.chart.chosenDatabase.id, 
+		var urlPromise = dataSourceService.getURL($scope.chart.chosenDatasource.url, $scope.chart.chosenDatabase.id, 
 				$scope.chart.timeStart, $scope.chart.timeEnd, $scope.seriesUrl, $scope.seriesAliases);
 		
 		var relative = isRelativeTimeRange();
