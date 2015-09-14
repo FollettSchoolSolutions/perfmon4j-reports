@@ -234,7 +234,7 @@ class GitHubSSOServlet extends HttpServlet {
 			usersService.login(request.getSession(true), principal);
 
 			// Finally return the user to the login page.
-			response.sendRedirect(SSOConfig.LOGIN_RETURN_PATH);
+			response.sendRedirect(config.getRootClientPath());
 		} catch (Exception ex) {
 			// If something failed, return a generic error message to the user
 			// Since this message contains the tracking ID the detailed exception will be visible in the log.
@@ -243,7 +243,7 @@ class GitHubSSOServlet extends HttpServlet {
 			logger.error(message, ex);
 
 			// Finally return the user to the login page.
-			String returnURL = UriBuilder.fromUri(SSOConfig.LOGIN_RETURN_PATH)
+			String returnURL = UriBuilder.fromUri(config.getRootClientPath())
 				.queryParam(SSOConfig.LOGIN_ERROR_QUERY_PARAM, message)
 				.build().toString();
 			
