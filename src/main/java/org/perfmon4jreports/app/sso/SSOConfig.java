@@ -37,12 +37,12 @@ public class SSOConfig {
 	private String gitHubAPIPath;
 	private boolean gitHubEasySSLMode = false; 
 	
-	public static final String LOGIN_RETURN_PATH = "../../reports/";//relative path 
+//	public static final String LOGIN_RETURN_PATH = "../../reports/";//relative path 
 	//public static final String LOGIN_RETURN_PATH = "../../login.jsp";
 	public static final String LOGIN_ERROR_QUERY_PARAM = "loginError";
 
 	public SSOConfig() {
-		rootClientPath = getProperty(ROOT_CLIENT_PATH_KEY, "http://test.perfmon4j.org:8080/reports");//relative path 
+		rootClientPath = getProperty(ROOT_CLIENT_PATH_KEY, "http://test.perfmon4j.org:8080/reports"); //relative path 
 		gitHubClientID = getProperty(GITHUB_CLIENT_ID_KEY);
 		gitHubClientSecret = getProperty(GITHUB_CLIENT_SECRET_KEY);
 		gitHubOauthAPIPath = getProperty(GITHUB_OAUTH_API_PATH_KEY, "https://github.com/login/oauth");
