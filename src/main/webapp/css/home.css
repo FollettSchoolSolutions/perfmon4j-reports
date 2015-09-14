@@ -1,3 +1,14 @@
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: normal;
+}
+
+.clearfix:after {
+	clear: both;
+}   
+
 .title {
 	margin-left: 32px;
 }
@@ -17,9 +28,124 @@ md-select {
 }
 
 table, th, td {
-    border: 1px solid black;
     border-collapse: collapse;
 }
 th, td {
     padding: 5px;
 }
+tr:nth-child(even) {
+	background: #E0E0E0
+}
+tr:nth-child(odd) {
+	background: #FFFFFF
+}
+a {
+    color: #616161;
+}
+a:hover, a:active {
+    color: #000000; 
+}
+.home-icon-light {
+	fill: #FFFFFF;
+}
+.home-icon-light:hover {
+	fill: #E0E0E0;
+}
+.edit-icon-dark {
+	fill: #616161;
+}
+.edit-icon-dark:hover {
+	fill: #000000;
+}
+.duplicate-icon-dark {
+	fill: #616161;
+}
+.duplicate-icon-dark:hover {
+	fill: #000000;
+}
+.delete-icon-dark {
+	fill: #616161;
+}
+.delete-icon-dark:hover {
+	fill: #000000;
+}
+.chartrowIconAnchor {
+	display: inline-block;
+	padding: 5px 5px 2px;
+}
+.chartrowLinkAnchor {
+	line-height: 32px;
+	padding: 0px 11px 0px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.right {
+	float: right;
+}
+
+.dashboardMenu {
+	border: 1px solid black;
+	width: 40%;
+	margin-top: 20px;
+	float: left;
+	margin-left: 7%;
+	min-width: 650px;
+}
+
+
+.chartMenu {
+	border: 1px solid black;
+	float: left;
+	width: 40%;
+	margin-left: 7%;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	min-width: 650px; 
+}
+.datasourceMenu {
+	border: 1px solid black;
+	float: left;
+	width: 40%;
+	margin-top: 20px;
+	margin-left: 7%;
+	margin-bottom: 30px;
+	min-width: 650px; 
+}
+
+.innerChartMenu {
+	max-height: 650px;
+	overflow: auto;
+}
+
+.innerDataSourceMenu {
+	max-height: 650px;
+	overflow: auto;
+}
+
+
+
+#createButton {
+	float: right;
+	height: 35px;
+}
+
+#chartMenu {
+	min-height: 35px;
+	height: 35px;
+}
+
+#dashboardMenu {
+	min-height: 35px;
+	height: 35px;
+}
+
+#datasourceMenu {
+	min-height: 35px;
+	height: 35px;
+}
+
+html, body {
+	font-size: 100%;
+}
+

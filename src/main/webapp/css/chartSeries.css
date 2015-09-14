@@ -1,0 +1,121 @@
+.header {
+	background-color: #606363;
+	height: 40px;
+	width: 100%;
+}
+
+.headerText {
+	color: #FFFFFF;
+	width: 95%;
+	vertical-align: middle;
+}
+
+.seriesName {
+	vertical-align: 8px;
+}
+
+.seriesRow {
+	width: 100%;
+}
+
+.delete-icon-light {
+	float: right;
+	margin-top: 4px; 
+	margin-right: -5px;
+	fill: white;
+	padding-top: 2px;
+	padding-left: 2px;
+	padding-bottom: 2px;
+	padding-right: 2px;
+}  
+
+.clear {
+	font-weight: normal;
+	color: #0000FF;
+	margin-left: 205px;
+	margin-top: 9px;
+}
+
+.seriesForm {
+	margin-left: 20px;
+	margin-bottom: 35px;
+	border: 1px solid;
+	width: 245px;
+}
+
+#checkbox {
+	margin-left: 10px;
+}
+
+.heading {
+	margin-left: 10px;
+	width: 95%;
+}
+
+.seriesInput {
+	margin-left: 10px;
+	width: 90%;
+	margin-bottom: 15px;
+}
+
+.seriesMenu {
+	margin-left: 0px;
+	width: 95%;
+}
+
+.systemSelect {
+	margin-left: 0px;
+	height: 200px;
+ 	width: 95%; 
+}
+
+.bottomRow {
+	background-color: #bfbfbf;
+	height: 30px;
+	width: 100%;
+}
+
+.loading {
+	margin-top: 20px;
+	height: 35px;
+}
+
+.arrow-icon {
+	fill: white;
+}
+
+.secondaryAxisLabel {
+	padding-top: 12px;
+}
+
+.secondaryAxis {
+	margin-left: -9px;
+	margin-top: -5px;
+	margin-bottom: 9px;
+}
+
+.systemsExplanationLabel {
+	font-size: .8rem;
+	margin-left: 10px;
+}
+
+.errorText {
+	color:red;
+	font-size:.6rem;
+	margin-bottom: 15px;
+	margin-left: 10px;
+}
+
+.arrow-icon:hover {
+	cursor: pointer;
+	fill: #E0E0E0;
+}
+
+.delete-icon-light:hover {
+	cursor: pointer;
+	fill: #E0E0E0;
+}
+
+a:hover {
+	text-decoration: underline;
+}

@@ -1,0 +1,191 @@
+#sidenav {
+	font-size: .9rem;
+}
+
+#addSeries {
+	margin-left: 20px;
+	width: 245px;
+}
+
+.chartInput {
+	width: 250px;
+	margin-bottom: 15px;
+}
+
+.start {
+	width: 40%;
+	margin-right: 15px;
+	margin-bottom: 10px;
+}
+
+.from {
+	width: 120px;	
+}
+
+.end {
+	float: right;
+	margin-bottom: 10px;
+}
+
+.to {
+	width: 120px;
+}
+
+.input {
+	width: 100px;
+}
+
+.chartSelect {
+	width: 85%;
+}
+
+.seriesNameError {
+	font-size:.7rem; 
+	color:#FF0000;
+	margin-left: 20px;
+}
+
+.saveConfirmation {
+	text-align: center;
+	font-size: 1.2rem;
+	font-weight: bold;
+	color: green;
+}
+
+.saveFailure {
+	text-align: center;
+	font-size: 1.2rem;
+	font-weight: bold;
+	color: red;
+}
+
+.required {
+	font-size: .7rem;
+	font-weight: bold;
+	color: #FF0000;
+}
+
+#renderChart {
+	margin-left: 20px;
+	width: 110px;
+	margin-right: 13px;
+}
+
+#clear {
+	margin-left: 155px;
+	width: 110px;
+}
+
+#advanced {
+	margin-left: 20px;
+	width: 245px;
+	margin-bottom: 35px;
+}
+
+.tabText:hover {
+	text-decoration: none;
+}
+
+#save {
+	width: 110px;
+}
+
+.chartName {
+	text-align: center;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+#sidenavHeader {
+	background: #606363;
+	height: 40px;
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 15px;
+	padding-left: 10px;
+	padding-top: 9px; 
+	margin-bottom: 35px;
+}
+
+.headerText {
+	font-color: #FFFFFF;
+	font-size: 1.2rem;
+}
+
+.chart-view {
+	width: 100%;
+	overflow: hidden;
+}
+
+.centered {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-25%, -50%);
+}
+
+.md-button {
+	min-height: 35px;
+}
+
+.inputHeading {
+	margin-left: 20px;
+}
+
+select {
+	margin-left: 20px;
+	border: 0;
+	border-radius: 3px;
+	background: transparent;
+	height: 35px;
+	border: 1px solid #bfbfbf;
+}
+
+option {
+	padding-bottom: 15px;
+	overflow: hidden;
+	max-width: 250px;
+}
+
+input {
+	height: 35px;
+	margin-left: 20px;
+}
+
+.c3 svg {
+	min-width: 1024px;
+	width: 100%;
+}
+
+.md-button {
+	text-transform: none;
+}
+
+.chartDiv {
+	margin-left: 25px;
+	width: 100%;
+}
+
+.btn {
+  position: fixed;
+  margin-top: 10px;
+  color: #ffffff;
+  font-size: 1.1rem;
+  background: #606363;
+  box-shadow: 0px 1px 3px #666666;
+  width: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 10px;
+  padding-right: 25px;
+  text-decoration: none;
+  word-break: break-all;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.btn:hover {
+  background: #E0E0E0;
+  text-decoration: none;
+  cursor:pointer;
+}
