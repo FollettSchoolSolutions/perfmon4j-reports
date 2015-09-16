@@ -22,8 +22,12 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		if (result.status != 200) {
 			throw new Error("Failed to load charts : " + result.status);
 		}
+		var charts = result.data;
+		charts.sort(function(a, b) { 
+		    return a.chartName.localeCompare(b.chartName);
+		});
 		
-		$scope.charts = result.data;
+		$scope.charts = charts;
 	}).catch(function onError(err) {
 		window.alert("Failed to load charts " + err.message );
 	})
