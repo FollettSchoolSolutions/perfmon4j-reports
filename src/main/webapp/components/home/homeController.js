@@ -1,19 +1,20 @@
 app.controller('homeControl', function ($scope, $location, dataSourceService, chartService, $mdDialog){
 	$scope.pageTitle = "This is the home page";
+	$scope.publicCharts = [];
 	$scope.charts = [];
 	$scope.name = "";
 	$scope.URL = "";
-	$scope.DataSource= "";
+	$scope.datasources= "";
 	
 	
 	var dataSourceFetchPromise = dataSourceService.getDataSources();
 	dataSourceFetchPromise.then(function(result){
 		if (result.status != 200) {
-			throw new Error("Failed to load DataSource : " + result.status);
+			throw new Error("Failed to load datasources : " + result.status);
 		}
-		$scope.DataSource = result.data;
+		$scope.datasources = result.data;
 	}).catch(function onError(err) {
-		window.alert("Failed to load DataSource " + err.message );
+		window.alert("Failed to load datasources " + err.message );
 	})
 		
 		
