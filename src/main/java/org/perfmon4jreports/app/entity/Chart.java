@@ -24,6 +24,8 @@ public class Chart {
     @Id
 	private String id;
 	
+    @Column(nullable = false, unique= false, name = "isPublic")
+	private boolean isPublic;
 	
 	@Column(nullable = true, unique= false, name = "userID")
 	private Integer userID;
