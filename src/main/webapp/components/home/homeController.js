@@ -16,7 +16,21 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	}).catch(function onError(err) {
 		window.alert("Failed to load datasources " + err.message );
 	})
+	
+	var publicChartFetchPromise = chartService.getPublicCharts();
+	publicChartFetchPromise.then(function(result){
+		if (result.status != 200) {
+			throw new Error("Failed to load public charts : " + result.status);
+		}
+		var publicCharts = result.data;
+		publicCharts.sort(function(a, b) { 
+		    return a.chartName.localeCompare(b.chartName);
+		});
 		
+		$scope.publicCharts = publicCharts;
+	}).catch(function onError(err) {
+		window.alert("Failed to load public charts " + err.message );
+	})
 		
 	var chartFetchPromise = chartService.getCharts();
 	chartFetchPromise.then(function(result){

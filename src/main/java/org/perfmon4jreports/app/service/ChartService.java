@@ -68,6 +68,24 @@ public class ChartService {
 		}
 		return chart.getData();
 	}
+	
+	// Retrieve public
+	@GET
+	@Path("/public")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getPublicCharts() {
+		@SuppressWarnings("unchecked")
+		List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL_PUBLIC).getResultList();
+		StringBuilder retList = new StringBuilder("[");
+		for (int i = 0; i < list.size(); i++) {
+			if (i > 0) {
+				retList.append(",");
+			}
+			retList.append(list.get(i).getData());
+		}
+		retList.append("]");
+		return retList.toString();
+	}
 
 	// Retrieve
 	@GET
@@ -78,22 +96,21 @@ public class ChartService {
 			return "[]";
 		}
 		else {
-				
-				Integer userID = Principal.getPrincipal(session).getLocalUser().getUserID();
-				
-				@SuppressWarnings("unchecked")
-				List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL).setParameter("userID", userID).getResultList();
-				StringBuilder retList = new StringBuilder("[");
-				for (int i = 0; i < list.size(); i++) {
-					if (i > 0) {
-						retList.append(",");
-					}
-					retList.append(list.get(i).getData());
+			Integer userID = Principal.getPrincipal(session).getLocalUser().getUserID();
+			
+			@SuppressWarnings("unchecked")
+			List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL).setParameter("userID", userID).getResultList();
+			StringBuilder retList = new StringBuilder("[");
+			for (int i = 0; i < list.size(); i++) {
+				if (i > 0) {
+					retList.append(",");
 				}
-				retList.append("]");
-				return retList.toString();
-				}
+				retList.append(list.get(i).getData());
+			}
+			retList.append("]");
+			return retList.toString();
 		}
+	}
 
 	// Delete
 	@DELETE

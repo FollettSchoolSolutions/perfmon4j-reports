@@ -89,6 +89,12 @@ a:hover, a:active {
 	font-weight: bold;
 	text-decoration: none;
 }
+.datasourceRowText {
+	line-height: 32px;
+	padding: 0px 11px 0px;
+	font-weight: bold;
+	text-decoration: none;
+}
 .centeredLabelText {
 	line-height: 40px;
 	padding: 0px 11px 0px;

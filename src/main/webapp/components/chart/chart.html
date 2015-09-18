@@ -25,8 +25,8 @@
 		      		</div>
 	      		</div>
 	      		<div layout="row">
-		      		<input type="checkbox" name="isPublic" ng-model="chart.isPublic"/>
-		      		<label class="centeredLabelText" for="isPublic"> Public?</label> 
+		      		<input type="checkbox" name="publiclyVisible" ng-model="chart.publiclyVisible"/>
+		      		<label class="centeredLabelText" for="publiclyVisible"> Public?</label> 
 	      		</div>
 	      		<a title="Advanced Options"><md-button title="Advanced Options" id="advanced" class="md-raised md-primary" ng-click="showAdvanced($event)">Advanced Options</md-button></a>
 				<div class="form" ng-repeat="item in chart.series" >

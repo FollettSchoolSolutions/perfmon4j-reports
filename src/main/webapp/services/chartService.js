@@ -55,6 +55,11 @@ app.factory('chartService', function($http){
 	    return id;
 	}
 	
+	factory.getPublicCharts = function(){
+		return $http.get("rest/charts/public").then(function(result) {
+			return result;
+		});
+	}
 	
 	factory.getCharts = function(){
 		return $http.get("rest/charts").then(function(result) {
