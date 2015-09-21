@@ -39,7 +39,7 @@ app.factory('chartService', function($http){
 			chart.id = factory.makeid();
 		//The chart object being passed in has a chart.chosenDataSource.id field. We want to put this id into it's own column in the database
 		}
-		return $http.put("rest/charts/" + chart.id+"/"+ chart.chosenDatasource.id, chart).then(function(result) {
+		return $http.put("rest/charts/" + chart.id +"/" + chart.chosenDatasource.id + "/" + chart.publiclyVisible, chart).then(function(result) {
 			return result;
 		});
 	}
@@ -55,6 +55,11 @@ app.factory('chartService', function($http){
 	    return id;
 	}
 	
+	factory.getPublicCharts = function(){
+		return $http.get("rest/charts/public").then(function(result) {
+			return result;
+		});
+	}
 	
 	factory.getCharts = function(){
 		return $http.get("rest/charts").then(function(result) {

@@ -3,7 +3,30 @@
     pageEncoding="UTF-8"%>
     
 <%if (!Principal.isLoggedIn(request.getSession())) { %>
-	<div/> <!-- Empty div for body -->
+	<div class="publicChartMenu"> 
+	 		<md-toolbar id="publicChartMenu">
+	    		<div class="md-toolbar-tools">
+	      			<h2>
+	        			<span>Public Charts</span>
+	      			</h2>
+	    		</div>
+	  		</md-toolbar>
+	  		<div class="innerPublicChartMenu">
+				<table style="width: 100%">
+					<tr ng-repeat="publicChart in publicCharts"> 
+						<td> 
+							<a class="chartrowLinkAnchor" href="#/chart/{{publicChart.id}}">{{ publicChart.chartName }}</a>
+						</td>
+					</tr>
+					<tr ng-show="publicCharts.length == 0">
+						<td class="emptyListPlaceholder">
+							<span class="emptyListPlaceholderText">None</span>
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+		</div>
 <% } else {  %>
 	<div>
 	    <div>
@@ -34,6 +57,9 @@
 							<a class="chartrowLinkAnchor" href="#/chart/{{chart.id}}">{{ chart.chartName }}</a>
 						</td>
 					</tr>
+					<tr ng-show="charts.length == 0">
+						<td class="emptyListPlaceholder"><span class="emptyListPlaceholderText">None</span></td>
+					</tr>
 				</table>
 			</div>
 	  		<md-content>
@@ -43,6 +69,7 @@
 	  		</md-content>
 		</div>
 		
+		<!--  THIS CAN BE UNCOMMENTED WHEN WE ACTUALLY ADD DASHBOARDS
 		<div class="dashboardMenu">
 	 		<md-toolbar id="dashboardMenu">
 	    		<div class="md-toolbar-tools">
@@ -58,6 +85,8 @@
 	  			</div>
 			</div>
 		</div>
+		-->
+		
 		<div class ="datasourceMenu">
 		<md-toolbar id="datasourceMenu">
     		<div class="md-toolbar-tools">
@@ -67,13 +96,9 @@
     		</div>
 
   		</md-toolbar>
-  		<!--Stuff to do with Data Sources:
-  		1.  We need to use the new edit icon.  For now, the duplicate icon is being used as edit for DataSources.  There is no functionality in place for duplicating a data source
-  		2.  We are terrible at css and positioning buttons on the homepage.  The "Create" button needs to be below the container that holds the datasources.
-  		3.  I think we should add an alert to confirm deletion before we delete a chart/datasource/dashboard, just because losing a resource by accidentally clicking delete is annoying-->
   		<div class="innerDataSourceMenu">
 			<table style="width: 100%">
-				<tr ng-repeat="ds in DataSource"> 
+				<tr ng-repeat="ds in datasources"> 
 					<td> 
 					
 						<div class="right">
@@ -84,8 +109,11 @@
 								<ng-md-icon title="Delete DataSource" class="delete-icon-dark" icon="delete" size="25" ng-click="deleteDataSource(ds.id)"></ng-md-icon>
 							</a>
 						</div>
-						<a class="chartrowLinkAnchor">{{ ds.name }}</a>
+						<a class="datasourceRowText">{{ ds.name }}</a>
 					</td>
+				</tr>
+				<tr ng-show="datasources.length == 0">
+					<td class="emptyListPlaceholder"><span class="emptyListPlaceholderText">None</span></td>
 				</tr>
 			</table>
 		</div>
@@ -93,5 +121,29 @@
 				<md-button title="Create New Datasource" id="createButton" class="md-raised md-primary" ng-controller="dataSourceControl" ng-click="showDataSources($env)" ng-disabled="false"> Create </md-button>
 			</a>
 	 </div>
+	 <div class="publicChartMenu"> 
+	 		<md-toolbar id="publicChartMenu">
+	    		<div class="md-toolbar-tools">
+	      			<h2>
+	        			<span>Public Charts</span>
+	      			</h2>
+	    		</div>
+	  		</md-toolbar>
+	  		<div class="innerPublicChartMenu">
+				<table style="width: 100%">
+					<tr ng-repeat="publicChart in publicCharts"> 
+						<td> 
+							<a class="chartrowLinkAnchor" href="#/chart/{{publicChart.id}}">{{ publicChart.chartName }}</a>
+						</td>
+					</tr>
+					<tr ng-show="publicCharts.length == 0">
+						<td class="emptyListPlaceholder">
+							<span class="emptyListPlaceholderText">None</span>
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+		</div>
 	</div>
 <% } %>	

@@ -11,7 +11,8 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 
 @NamedQueries({
-	@NamedQuery(name=Chart.QUERY_FIND_ALL, query="SELECT c FROM Chart c where c.userID LIKE :userID OR c.userID is NULL")
+	@NamedQuery(name=Chart.QUERY_FIND_ALL, query="SELECT c FROM Chart c where c.userID LIKE :userID OR c.userID is NULL"),
+	@NamedQuery(name=Chart.QUERY_FIND_ALL_PUBLIC, query="SELECT c FROM Chart c where c.publiclyVisible = TRUE") // WORKS WITHOUT WHERE CLAUSE
 })
 
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -19,15 +20,17 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 public class Chart {
 	
 	public static final String QUERY_FIND_ALL = "Chart.findAll";
+	public static final String QUERY_FIND_ALL_PUBLIC = "Chart.findAllPublic";
 	
     @Column(unique = true, nullable = false, name = "CHART_ID")
     @Id
 	private String id;
 	
+    @Column(nullable = false, unique= false, name = "publiclyVisible")
+	private boolean publiclyVisible;
 	
 	@Column(nullable = true, unique= false, name = "userID")
 	private Integer userID;
-	
 	
 	@Lob
 	@Column(nullable = false, columnDefinition="LONGTEXT")
@@ -39,11 +42,12 @@ public class Chart {
 	public Chart() {
 	}
 	
-	public Chart(String id, String data, Integer userID, Integer dsid) {
+	public Chart(String id, String data, Integer userID, Integer dsid, boolean publiclyVisible) {
 		setId(id);
 		setData(data);
 		setUserID(userID);
 		setDataSourceID(dsid);
+		setPubliclyVisible(publiclyVisible);
 	}
 	
 	public void updateChart(Chart c){
@@ -80,6 +84,14 @@ public class Chart {
 
 	public void setDataSourceID(Integer dataSourceID) {
 		this.dataSourceID = dataSourceID;
+	}
+
+	public boolean isPubliclyVisible() {
+		return publiclyVisible;
+	}
+
+	public void setPubliclyVisible(boolean publiclyVisible) {
+		this.publiclyVisible = publiclyVisible;
 	}
 	
 }

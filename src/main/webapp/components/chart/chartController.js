@@ -19,6 +19,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDate() +"T"+ date.getHours() +":"+ date.getMinutes(),
 			timeStart : "now-4H",
 			timeEnd : "now",
+			publiclyVisible : false,
 			id : "0",
 			primaryAxisName : "",
 			secondaryAxisName : "",
