@@ -3,7 +3,30 @@
     pageEncoding="UTF-8"%>
     
 <%if (!Principal.isLoggedIn(request.getSession())) { %>
-	<div/> <!-- Empty div for body -->
+	<div class="publicChartMenu"> 
+	 		<md-toolbar id="publicChartMenu">
+	    		<div class="md-toolbar-tools">
+	      			<h2>
+	        			<span>Public Charts</span>
+	      			</h2>
+	    		</div>
+	  		</md-toolbar>
+	  		<div class="innerPublicChartMenu">
+				<table style="width: 100%">
+					<tr ng-repeat="publicChart in publicCharts"> 
+						<td> 
+							<a class="chartrowLinkAnchor" href="#/chart/{{publicChart.id}}">{{ publicChart.chartName }}</a>
+						</td>
+					</tr>
+					<tr ng-show="publicCharts.length == 0">
+						<td class="emptyListPlaceholder">
+							<span class="emptyListPlaceholderText">None</span>
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+		</div>
 <% } else {  %>
 	<div>
 	    <div>
