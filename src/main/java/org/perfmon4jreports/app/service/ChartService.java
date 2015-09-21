@@ -32,11 +32,11 @@ public class ChartService {
 	
 	// Save or Update
 	@PUT
-	@Path("/{id}/{dsID}")
+	@Path("/{id}/{dsID}/{publiclyVisible}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	
-	public void saveOrUpdateChart(@PathParam("id") String id, @PathParam("dsID") Integer dsID, String data) {	
+	public void saveOrUpdateChart(@PathParam("id") String id, @PathParam("dsID") Integer dsID, @PathParam("publiclyVisible") boolean publiclyVisible, String data) {	
 		//String data has chosendatasource id attached to it.  We need to parse out the chosen data source id and put it in it's own column.  
 		//Then we can make sure that we can't delete a datasource that is attached to a chart
 		String [] tokens = data.split(":",4);
@@ -48,9 +48,10 @@ public class ChartService {
 		
 		Chart chart = em.find(Chart.class, id);
 		if(chart == null){
-			chart = new Chart(id, data, userID, dsID);
+			chart = new Chart(id, data, userID, dsID, publiclyVisible);
 		} else {
 			chart.setData(data);
+			chart.setPubliclyVisible(publiclyVisible);
 		}
 		em.persist(chart);
 	}

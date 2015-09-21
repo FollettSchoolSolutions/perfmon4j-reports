@@ -12,7 +12,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @NamedQueries({
 	@NamedQuery(name=Chart.QUERY_FIND_ALL, query="SELECT c FROM Chart c where c.userID LIKE :userID OR c.userID is NULL"),
-	@NamedQuery(name=Chart.QUERY_FIND_ALL_PUBLIC, query="SELECT c FROM Chart c where c.publiclyVisible = true")
+	@NamedQuery(name=Chart.QUERY_FIND_ALL_PUBLIC, query="SELECT c FROM Chart c where c.publiclyVisible = TRUE") // WORKS WITHOUT WHERE CLAUSE
 })
 
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -42,11 +42,12 @@ public class Chart {
 	public Chart() {
 	}
 	
-	public Chart(String id, String data, Integer userID, Integer dsid) {
+	public Chart(String id, String data, Integer userID, Integer dsid, boolean publiclyVisible) {
 		setId(id);
 		setData(data);
 		setUserID(userID);
 		setDataSourceID(dsid);
+		setPubliclyVisible(publiclyVisible);
 	}
 	
 	public void updateChart(Chart c){
