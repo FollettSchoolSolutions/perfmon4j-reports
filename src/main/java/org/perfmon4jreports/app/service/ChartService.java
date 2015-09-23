@@ -17,8 +17,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.json.JSONObject;
 import org.perfmon4jreports.app.entity.Chart;
 import org.perfmon4jreports.app.sso.Principal;
+import org.perfmon4jreports.app.sso.User;
 //check login status
 
 @Stateless
@@ -82,7 +84,12 @@ public class ChartService {
 			if (i > 0) {
 				retList.append(",");
 			}
-			retList.append(list.get(i).getData());
+			JSONObject chartJSON = new JSONObject(list.get(i).getData());
+			JSONObject datasourceJSON = (JSONObject)chartJSON.get("chosenDatasource");
+			int userID = datasourceJSON.getInt("userID");
+			List<User> results = em.createNamedQuery(User.QUERY_FIND_USER_BY_USERID).setParameter("userID", userID).getResultList();
+			chartJSON.put("userFullName",results.get(0).getName());
+			retList.append(chartJSON.toString());
 		}
 		retList.append("]");
 		return retList.toString();
