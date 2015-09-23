@@ -115,7 +115,7 @@ class GitHubSSOServlet extends HttpServlet {
 			handleSingleSignonResponse(request, response);
 		} else if(request.getParameter("logout") != null){ 
 			usersService.logout(request.getSession());
-			response.sendRedirect("/reports");
+			response.sendRedirect(config.getRootClientPath());
 		}else {
 			throw new ServletException("Unknown request - expected parameters do not exist");
 		}
