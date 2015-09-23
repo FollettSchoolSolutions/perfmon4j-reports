@@ -23,7 +23,7 @@ app.controller('dataSourceControl', function($scope, dataSourceService){
 	//};
 	
 	$scope.saveDataSource = function(){
-		
+		// TODO fix http adding thing
 		$scope.dataSource.name= $scope.name;
 		$scope.dataSource.URL= $scope.URL;
 		
