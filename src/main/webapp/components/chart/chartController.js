@@ -61,6 +61,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 					$scope.chart.chartName = result.data.chartName;
 					$scope.chart.timeStart = result.data.timeStart;
 					$scope.chart.timeEnd = result.data.timeEnd;
+					$scope.chart.publiclyVisible = result.data.publiclyVisible;
 					$scope.chart.id = chartService.id = result.data.id;
 					$scope.chart.primaryAxisName = chartService.primaryAxisName = result.data.primaryAxisName;
 					$scope.chart.secondaryAxisName = chartService.secondaryAxisName = result.data.secondaryAxisName;
@@ -80,7 +81,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 		
 		for (var i = 0; i < $scope.datasources.length; i++) {
 			var datasource = $scope.datasources[i];
-			if (datasource.url == ds.url) {
+			if (datasource.id == ds.id) {
 				matchingDs = datasource;
 			}
 		}
