@@ -15,7 +15,7 @@
 				<table style="width: 100%">
 					<tr ng-repeat="publicChart in publicCharts"> 
 						<td> 
-							<a class="chartrowLinkAnchor" href="#/chart/{{publicChart.id}}">{{ publicChart.chartName }}</a>
+							<a class="chartrowLinkAnchor" href="#/chart/{{publicChart.id}}">{{ publicChart.chartName + " [" + publicChart.userFullName + "]" }}</a>
 						</td>
 					</tr>
 					<tr ng-show="publicCharts.length == 0">
@@ -133,7 +133,7 @@
 				<table style="width: 100%">
 					<tr ng-repeat="publicChart in publicCharts"> 
 						<td> 
-							<a class="chartrowLinkAnchor" href="#/chart/{{publicChart.id}}">{{ publicChart.chartName }}</a>
+							<a class="chartrowLinkAnchor" href="#/chart/{{publicChart.id}}">{{ publicChart.chartName + " [" + publicChart.userFullName + "]" }}</a>
 						</td>
 					</tr>
 					<tr ng-show="publicCharts.length == 0">

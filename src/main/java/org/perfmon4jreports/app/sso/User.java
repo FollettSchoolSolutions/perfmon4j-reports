@@ -14,8 +14,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @NamedQueries({
 		@NamedQuery(name = User.QUERY_FIND_ALL, query = "Select l from User l"),
 		@NamedQuery(name = User.QUERY_FIND_USER, query = "Select l from User l WHERE l.globalID like :globalID"),
-// @NamedQuery(name=Users.QUERY_INSERT_USER,
-// query="INSERT INTO Users (Name, userName, domain, gobalID, email) VALUES( :name, :userName, :domain, :globalID, :email")
+		@NamedQuery(name = User.QUERY_FIND_USER_BY_USERID, query = "Select l from User l WHERE l.userID like :userID")
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
@@ -24,6 +23,7 @@ public class User {
 
 	public static final String QUERY_FIND_ALL = "User.findAll";
 	public static final String QUERY_FIND_USER = "User.findUser";
+	public static final String QUERY_FIND_USER_BY_USERID = "User.findUserByUserID";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
