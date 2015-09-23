@@ -55,6 +55,24 @@ app.factory('chartService', function($http){
 	    return id;
 	}
 	
+	factory.copyChart = function(id){
+		var date = new Date();
+		//(date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes();
+		return $http.get("rest/charts/" + id).then(function(result) {
+            var copy = angular.copy(result.data);
+            var regex = /\sCOPY\[\d+\]/;
+            
+            copy.chartName = copy.chartName.replace(regex, "");
+            
+            copy.chartName = copy.chartName + " COPY[" + date.getTime() + "]";
+//            copy.chartName = copy.chartName + " COPY at " + (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes();
+            copy.id = factory.makeid();
+            return $http.put("rest/charts/" + copy.id +"/" + copy.chosenDatasource.id + "/" + copy.publiclyVisible, copy).then(function(result) {
+    			return result;
+    		});
+		});
+	}
+	
 	factory.getPublicCharts = function(){
 		return $http.get("rest/charts/public").then(function(result) {
 			return result;
@@ -81,25 +99,5 @@ app.factory('chartService', function($http){
         });
 	}
 	
-	factory.copyChart = function(id){
-		var date = new Date();
-		//(date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes();
-		return $http.get("rest/charts/" + id).then(function(result) {
-            var copy = angular.copy(result.data);
-            var regex = /\sCOPY\[\d+\]/;
-            
-            copy.chartName = copy.chartName.replace(regex, "");
-            
-            copy.chartName = copy.chartName + " COPY[" + date.getTime() + "]";
-//            copy.chartName = copy.chartName + " COPY at " + (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDay() +"T"+ date.getHours() +":"+ date.getMinutes();
-            copy.id = factory.makeid();
-            return $http.put("rest/charts/" + copy.id, copy).then(function(result) {
-    			return result;
-    		});
-		});
-	}
-	
-
-
 	return factory;
 });
