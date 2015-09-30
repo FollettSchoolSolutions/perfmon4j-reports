@@ -1,7 +1,10 @@
 language: java
 
 after_success:
-	#!/bin/bash
-	set -ev
-	echo "${TRAVIS_PULL_REQUEST}" 
-#	echo "${TRAVIS_BRANCH}"
+  if [ "$TRAVIS_BRANCH" == "develop" ] && 
+      [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    echo "This will deploy!"
+  else
+    echo "This will not deploy!"
+  fi
+
