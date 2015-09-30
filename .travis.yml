@@ -1,10 +1,6 @@
 language: java
 
 after_success:
-  if [ "$TRAVIS_BRANCH" == "develop" ] && 
-      [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-    echo "This will deploy!"
-  else
-    echo "This will not deploy!"
-  fi
+- test $TRAVIS_BRANCH = develop \
+  && echo "THIS IS DEVELOP BRANCH"
 
