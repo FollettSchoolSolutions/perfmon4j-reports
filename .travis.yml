@@ -1,6 +1,10 @@
 language: java
 
 after_success: 
-  ls
-  bash autodeploy.sh
+  ls -l
+
+
+
+#  ls
+#  bash autodeploy.sh
 
