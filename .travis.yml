@@ -1,1 +1,19 @@
 language: java
+
+after_success: 
+  #!/bin/bash
+  echo "branch is $TRAVIS_BRANCH";
+  echo "pull request ? $TRAVIS_PULL_REQUEST";
+
+  if ([ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_PULL_REQUEST" == false ]); then
+    echo "THIS IS OK";
+  else
+    echo "THIS IS NOT OK";
+  fi;
+
+
+
+
+#  ls
+#  bash autodeploy.sh
+
