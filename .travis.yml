@@ -1,5 +1,7 @@
 language: java
 
 after_success:
-	echo "${TRAVIS_PULL_REQUEST}" 
-#	echo "${TRAVIS_BRANCH}"
+	#!/bin/bash
+	set -ev
+		echo "${TRAVIS_PULL_REQUEST}" 
+#		echo "${TRAVIS_BRANCH}"
