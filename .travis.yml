@@ -1,7 +1,10 @@
 language: java
 
 after_success: 
-  test ([ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]) && echo "Yes, that's true." || echo "No, that's false."
+  if ["foo" == "foo"] then
+    echo "yo"
+  fi
+#  test ([ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]) && echo "Yes, that's true." || echo "No, that's false."
 
 
 
