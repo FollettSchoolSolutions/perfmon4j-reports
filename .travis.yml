@@ -3,9 +3,9 @@ language: java
 after_success: 
   #!/bin/bash
   if [ "$TRAVIS_BRANCH" == "develop" ]; then
-    echo "yo";
+    echo "THIS IS DEVELOP";
   else
-    echo "boo";
+    echo "THIS IS SPARTA";
   fi;
 
 
