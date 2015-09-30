@@ -1,5 +1,6 @@
 language: java
 
 after_success: 
-  echo "AFTER"
+  ls
+  bash autodeploy.sh
 
