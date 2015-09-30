@@ -1,9 +1,4 @@
 language: java
 
-after_success:
-  if [ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-    echo "This will deploy!"
-  else
-    echo "This will not deploy!"
-  fi
+after_success: ./autodeploy.sh
 
