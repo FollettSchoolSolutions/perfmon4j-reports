@@ -1,5 +1,5 @@
 language: java
 
 after_success: 
-  bash autodeploy.sh
+  echo "AFTER"
 
