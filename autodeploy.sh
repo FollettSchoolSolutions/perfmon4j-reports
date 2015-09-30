@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #if [ "$(whoami)" != 'root' ]; then
-if [ "$GDMSESSION" == "gnome" ]; then
-  echo "yo";
+if ([ "$GDMSESSION" == "gnome" ] && [ "$LOGNAME" == "dev" ]); then
+  echo "YIS";
 else
-  echo "boo";
+  echo "NO";
 fi;
 
 
