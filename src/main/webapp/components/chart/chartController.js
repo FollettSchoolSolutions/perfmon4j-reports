@@ -36,6 +36,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	$scope.activeSeries = 0;
 	var active = chartService.active;
 	
+	
 	var datasourcePromise = dataSourceService.getDataSources();
 	datasourcePromise.then(function(result){
 		$scope.datasources = result.data;

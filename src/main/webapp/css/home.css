@@ -183,7 +183,18 @@ a:hover, a:active {
 	height: 35px;
 }
 
+.not-scrollable {
+    overflow-y: hidden;
+}
+
+body {
+  height:100%
+}
+
+[ng-app] {
+  height:100%
+}
+
 html, body {
 	font-size: 100%;
 }
-
