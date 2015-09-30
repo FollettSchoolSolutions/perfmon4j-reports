@@ -1,6 +1,7 @@
 language: java
 
 after_success: 
+  #!/bin/bash
   if ["foo" == "foo"] then
     echo "yo"
   fi
