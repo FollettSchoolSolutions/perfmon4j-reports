@@ -1,4 +1,5 @@
 language: java
 
-after_success: .autodeploy.sh
+after_success: 
+  bash autodeploy.sh
 
