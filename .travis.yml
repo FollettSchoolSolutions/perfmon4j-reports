@@ -14,5 +14,5 @@ after_success:
     git push --force ssh://55f6e9550c1e668a840000cb@reportsqat-perfmon4j.rhcloud.com/~/git/reportsqat.git/ travispushing:master;
   else
     echo "THIS IS NOT OK";
-  fi;
+  fi; 
 
