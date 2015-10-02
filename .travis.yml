@@ -1,19 +1,18 @@
 language: java
 
+env:
+  GIT_SSH=$TRAVIS_BUILD_DIR/.travis/ssh.sh;
+
 after_success: 
   #!/bin/bash
   echo "branch is $TRAVIS_BRANCH";
   echo "pull request ? $TRAVIS_PULL_REQUEST";
 
-  if ([ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_PULL_REQUEST" == false ]); then
+  if ([ "$TRAVIS_BRANCH" == "travispushing" ] && [ "$TRAVIS_PULL_REQUEST" == false ]); then
     echo "THIS IS OK";
+    chmod 600 .travis/id_rsa;
+    git pull ssh://55f6e9550c1e668a840000cb@reportsqat-perfmon4j.rhcloud.com/~/git/reportsqat.git/;
   else
     echo "THIS IS NOT OK";
   fi;
-
-
-
-
-#  ls
-#  bash autodeploy.sh
 
