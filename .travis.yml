@@ -14,3 +14,8 @@ after_success:
     git push --force ssh://55f6e9550c1e668a840000cb@reportsqat-perfmon4j.rhcloud.com/~/git/reportsqat.git/ develop:master;
   fi; 
 
+  if ([ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == false ]); then
+    chmod 600 .travis/id_rsa;
+    git push --force ssh://55c128567628e1506a0000ba@reports-perfmon4j.rhcloud.com/~/git/reports.git/ master:master;
+  fi; 
+
