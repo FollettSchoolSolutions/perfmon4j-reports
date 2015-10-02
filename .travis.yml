@@ -11,6 +11,6 @@ after_success:
 
   if ([ "$TRAVIS_BRANCH" == "develop" ] && [ "$TRAVIS_PULL_REQUEST" == false ]); then
     chmod 600 .travis/id_rsa;
-    git push --force ssh://55f6e9550c1e668a840000cb@reportsqat-perfmon4j.rhcloud.com/~/git/reportsqat.git/ travispushing:master;
+    git push --force ssh://55f6e9550c1e668a840000cb@reportsqat-perfmon4j.rhcloud.com/~/git/reportsqat.git/ develop:master;
   fi; 
 
