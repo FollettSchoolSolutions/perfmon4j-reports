@@ -26,7 +26,7 @@
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
 	    
 	  <!-- Application components -->
-	  <script src="js/app.js"></script>
+	  <script src="app.js"></script>
 	  <script src="components/appController.js"></script>
 	  
 	  <script src="components/home/homeDirective.js"></script>
