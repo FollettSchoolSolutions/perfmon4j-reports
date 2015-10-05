@@ -106,7 +106,11 @@
 								<ng-md-icon title="Edit DataSource" class="edit-icon-dark" icon="mode_edit" size="25"  ng-click="editDataSource($mnv, ds.id, ds.name, ds.url)"></ng-md-icon>
 							</a>
 							<a title="Delete DataSource" class="chartrowIconAnchor">
-								<ng-md-icon title="Delete DataSource" class="delete-icon-dark" icon="delete" size="25" ng-click="showConfirmDelete($event)"></ng-md-icon>
+							<!-- 
+								<ng-md-icon title="Delete DataSource" class="delete-icon-dark" icon="delete" size="25" ng-click="showConfirmDelete($event)"></ng-md-icon> -->
+								<md-button class="md-icon-button" ng-click="showConfirmDelete($event)">
+									<ng-md-icon class="delete-icon-dark" icon="delete" size="25"></ng-md-icon>
+								</md-button>
 							</a>
 						</div>
 						<a class="datasourceRowText">{{ ds.name }}</a>

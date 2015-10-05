@@ -69,6 +69,13 @@ a:hover, a:active {
 .delete-icon-dark:hover {
 	fill: #000000;
 }
+
+.md-button.md-icon-button {
+	padding: 0px 0px 0px 0px;
+	height: 25px;
+	width: 25px;
+}
+
 .chartrowIconAnchor {
 	display: inline-block;
 	padding: 5px 5px 2px;
