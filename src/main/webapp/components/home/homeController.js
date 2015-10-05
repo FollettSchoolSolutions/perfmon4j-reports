@@ -81,16 +81,35 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		});
 	}
 	
+	$scope.showConfirmDelete = function(ev) {
+	    // Appending dialog to document.body to cover sidenav in docs app
+	    var confirm = $mdDialog.confirm()
+	      .title('Would you like to delete your debt?')
+	      .content('All of the banks have agreed to forgive you your debts.')
+	      .ariaLabel('Lucky day')
+	      .ok('Please do it!')
+	      .cancel('Sounds like a scam')
+	      .targetEvent(ev);
+
+	    $mdDialog.show(confirm).then(function() {
+	      alert("OK!");
+	      $scope.alert = 'You decided to get rid of your debt.';
+	    }, function() {
+	      alert("Cancel!");
+	      $scope.alert = 'You decided to keep your debt.';
+	    });
+	  };
+	
 	//Ideally, we would want to show the names of the charts refrencing the datasource, but I'm not sure how to do that
 	$scope.deleteDataSource = function(id) {
-		var deletePromise = dataSourceService.deleteDataSource(id);
-		deletePromise.then(function(result){
-			var successful = result.data;
-			if (!successful){
-				alert("This DataSource is being referenced by a chart. DataSource Id: " + id);
-			}
-			$location.path("/");
-		});
+	    var deletePromise = dataSourceService.deleteDataSource(id);
+	    deletePromise.then(function(result){
+	    	var successful = result.data;
+	    	if (!successful){
+	    		alert("This DataSource is being referenced by a chart. DataSource Id: " + id);
+	    	}
+	    	$location.path("/");
+	    });
 	}
 	//Building the popup for datasource
 	$scope.showDataSources = function(ev) {

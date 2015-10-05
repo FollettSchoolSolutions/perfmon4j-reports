@@ -17,10 +17,12 @@
 	  <title>Perfmon4J Reports</title>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-messages.min.js"></script>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
 	  <script src="https://cdn.rawgit.com/angular/bower-material/v0.9.7/angular-material.js"></script>
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.4.0/angular-material-icons.min.js"></script>
+	  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js"></script>
 	  
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
@@ -34,7 +36,6 @@
 	  <script src="components/chart/chartRenderController.js"></script>
 	  <script src="components/chart/chartDirective.js"></script>
 	  <script src="components/chart/chartController.js"></script>
-	  <script src="components/chart/chartRenderDirective.js"></script>
 	  <script src="components/chart/sideNavController.js"></script>
 	  <script src="components/chart/chartSeriesDirective.js"></script>
 	  <script src="components/chart/chartSeriesController.js"></script>
