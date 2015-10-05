@@ -7,22 +7,23 @@
 	  <meta charset="utf-8">
 	  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-	  <link rel="stylesheet" href="material/angular-material/angular-material.css">
-	  <link rel="stylesheet" href="c3/c3.css"> 
+	  <link rel="stylesheet" href="https://cdn.rawgit.com/angular/bower-material/v0.9.7/angular-material.css">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css"> 
 	  <link rel="stylesheet" href="css/home.css">
 	  <link rel="stylesheet" href="css/chart.css">
 	  <link rel="stylesheet" href="css/chartSeries.css">
 	  <link rel="stylesheet" href="css/advancedOptionsDialog.css">
 	  
 	  <title>Perfmon4J Reports</title>
-	  <script src="js/angular.min.js"></script>
-	  <script src="js/angular-route.min.js"></script>
-	  <script src="c3/d3.min.js"></script>
-	  <script src="c3/c3.min.js"></script>
-	  <script src="material/angular-aria/angular-aria.js"></script>
-	  <script src="material/angular-animate/angular-animate.js"></script>
-	  <script src="material/angular-material/angular-material.js"></script>
-	  <script src="material/angular-material-icons/angular-material-icons.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+	  <script src="https://cdn.rawgit.com/angular/bower-material/v0.9.7/angular-material.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.4.0/angular-material-icons.min.js"></script>
+	  
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
 	    
 	  <!-- Application components -->
 	  <script src="js/app.js"></script>
