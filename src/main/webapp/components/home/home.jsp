@@ -15,7 +15,8 @@
 				<table style="width: 100%">
 					<tr ng-repeat="publicChart in publicCharts"> 
 						<td> 
-							<a class="chartrowLinkAnchor" href="#/chart/{{publicChart.id}}">{{ publicChart.chartName + " [" + publicChart.userFullName + "]" }}</a>
+							<!-- MESS WITH ALTERNATE ANCHOR TAG FOR DISABLED -->
+							<a title="TESTING" ng-if="publicChart.isAccessible == true" class="chartrowLinkAnchor" href="#/chart/{{publicChart.id}}">{{ publicChart.chartName + " [" + publicChart.userFullName + "]" }}</a>
 						</td>
 					</tr>
 					<tr ng-show="publicCharts.length == 0">
