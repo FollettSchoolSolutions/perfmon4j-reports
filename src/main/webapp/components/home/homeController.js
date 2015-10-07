@@ -85,23 +85,34 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	}
 	
 	$scope.deleteChart = function(id) {
-		var deletePromise = chartService.deleteChart(id);
-		deletePromise.then(function(result){
-			var successful = result.data;
-			if (!successful){
-				$mdDialog.show(
-			      $mdDialog.alert()
-			        .parent(angular.element(document.querySelector('#popupContainer')))
-			        .clickOutsideToClose(true)
-			        .title('Delete Chart Error')
-			        .content('Deleting chart with id: ' + id + ' was NOT successful.')
-			        .ariaLabel('Delete chart failure')
-			        .ok('OK')
-			    );
-			} else {
-				$location.path("/");
-			}
-		});
+		var confirm = $mdDialog.confirm()
+	      .title('Delete?')
+	      .content('Are you sure you want to delete this chart?')
+	      .ariaLabel('Chart deletion confirmation')
+	      .ok('OK')
+	      .cancel('Cancel');
+
+	    $mdDialog.show(confirm).then(function() { // user clicks OK
+	    	var deletePromise = chartService.deleteChart(id);
+			deletePromise.then(function(result){
+				var successful = result.data;
+				if (!successful){
+					$mdDialog.show(
+				      $mdDialog.alert()
+				        .parent(angular.element(document.querySelector('#popupContainer')))
+				        .clickOutsideToClose(true)
+				        .title('Delete Chart Error')
+				        .content('Deleting chart with id: ' + id + ' was NOT successful.')
+				        .ariaLabel('Delete chart failure')
+				        .ok('OK')
+				    );
+				} else {
+					$location.path("/");
+				}
+			});
+	    }, function() { // user clicks Cancel
+	      // do nothing
+	    });
 	}
 	
 	$scope.copyChart = function(id){
@@ -123,41 +134,34 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		});
 	}
 	
-	$scope.showConfirmDelete = function(ev) {
-	    // Appending dialog to document.body to cover sidenav in docs app
-	    var confirm = $mdDialog.confirm()
-	      .title('Would you like to delete your debt?')
-	      .content('All of the banks have agreed to forgive you your debts.')
-	      .ariaLabel('Lucky day')
-	      .ok('Please do it!')
-	      .cancel('Sounds like a scam')
-	      .targetEvent(ev);
-
-	    $mdDialog.show(confirm).then(function() {
-	      $scope.alert = 'You decided to get rid of your debt.';
-	    }, function() {
-	      $scope.alert = 'You decided to keep your debt.';
-	    });
-	  };
-	
-	//Ideally, we would want to show the names of the charts refrencing the datasource, but I'm not sure how to do that
 	$scope.deleteDataSource = function(id) {
-	    var deletePromise = dataSourceService.deleteDataSource(id);
-	    deletePromise.then(function(result){
-	    	var successful = result.data;
-	    	if (!successful){
-	    		$mdDialog.show(
-			      $mdDialog.alert()
-			        .parent(angular.element(document.querySelector('#popupContainer')))
-			        .clickOutsideToClose(true)
-			        .title('Cannot Delete')
-			        .content('This DataSource is being referenced by a chart. DataSource id: ' + id)
-			        .ariaLabel('Cannot delete datasource')
-			        .ok('OK')
-			    );
-	    	} else {
-	    		$location.path("/");
-	    	}
+		var confirm = $mdDialog.confirm()
+	      .title('Delete?')
+	      .content('Are you sure you want to delete this datasource?')
+	      .ariaLabel('Datasource deletion confirmation')
+	      .ok('OK')
+	      .cancel('Cancel');
+
+	    $mdDialog.show(confirm).then(function() { // user clicks OK
+	    	var deletePromise = dataSourceService.deleteDataSource(id);
+		    deletePromise.then(function(result){
+		    	var successful = result.data;
+		    	if (!successful){
+		    		$mdDialog.show(
+				      $mdDialog.alert()
+				        .parent(angular.element(document.querySelector('#popupContainer')))
+				        .clickOutsideToClose(true)
+				        .title('Cannot Delete')
+				        .content('This DataSource is being referenced by a chart. DataSource id: ' + id)
+				        .ariaLabel('Cannot delete datasource')
+				        .ok('OK')
+				    );
+		    	} else {
+		    		$location.path("/");
+		    	}
+		    });
+	    }, function() { // user clicks Cancel
+	      // do nothing
 	    });
 	}
 	//Building the popup for datasource
