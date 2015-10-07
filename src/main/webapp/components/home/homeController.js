@@ -14,7 +14,15 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		}
 		$scope.datasources = result.data;
 	}).catch(function onError(err) {
-		window.alert("Failed to load datasources " + err.message );
+		$mdDialog.show(
+	      $mdDialog.alert()
+	        .parent(angular.element(document.querySelector('#popupContainer')))
+	        .clickOutsideToClose(true)
+	        .title('Error')
+	        .content('Failed to load datasources ' + err.message)
+	        .ariaLabel('Database load failure')
+	        .ok('OK')
+	    );
 	})
 	
 	var publicChartFetchPromise = chartService.getPublicCharts();
@@ -29,7 +37,15 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		
 		$scope.publicCharts = publicCharts;
 	}).catch(function onError(err) {
-		window.alert("Failed to load public charts " + err.message );
+		$mdDialog.show(
+	      $mdDialog.alert()
+	        .parent(angular.element(document.querySelector('#popupContainer')))
+	        .clickOutsideToClose(true)
+	        .title('Error')
+	        .content('Failed to load public charts ' + err.message)
+	        .ariaLabel('Public charts load failure')
+	        .ok('OK')
+	    );
 	})
 		
 	var chartFetchPromise = chartService.getCharts();
@@ -44,7 +60,15 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		
 		$scope.charts = charts;
 	}).catch(function onError(err) {
-		window.alert("Failed to load charts " + err.message );
+		$mdDialog.show(
+	      $mdDialog.alert()
+	        .parent(angular.element(document.querySelector('#popupContainer')))
+	        .clickOutsideToClose(true)
+	        .title('Error')
+	        .content('Failed to load charts ' + err.message)
+	        .ariaLabel('Charts load failure')
+	        .ok('OK')
+	    );
 	})
 	
 	$scope.showChart = function() {
@@ -65,9 +89,18 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		deletePromise.then(function(result){
 			var successful = result.data;
 			if (!successful){
-				alert("Deleting chart with id: " + id + " was NOT successful.");
+				$mdDialog.show(
+			      $mdDialog.alert()
+			        .parent(angular.element(document.querySelector('#popupContainer')))
+			        .clickOutsideToClose(true)
+			        .title('Delete Chart Error')
+			        .content('Deleting chart with id: ' + id + ' was NOT successful.')
+			        .ariaLabel('Delete chart failure')
+			        .ok('OK')
+			    );
+			} else {
+				$location.path("/");
 			}
-			$location.path("/");
 		});
 	}
 	
@@ -75,9 +108,18 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		var copyPromise = chartService.copyChart(id);
 		copyPromise.then(function(result){
 			if(result.status != 204){
-				alert("Copying chart with id: " + id + " was NOT successful.");
+				$mdDialog.show(
+			      $mdDialog.alert()
+			        .parent(angular.element(document.querySelector('#popupContainer')))
+			        .clickOutsideToClose(true)
+			        .title('Duplicate Chart Error')
+			        .content('Duplicating chart with id: ' + id + ' was NOT successful.')
+			        .ariaLabel('Duplicate chart failure')
+			        .ok('OK')
+			    );
+			} else {
+				$location.path("/");
 			}
-			$location.path("/");
 		});
 	}
 	
@@ -92,10 +134,8 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	      .targetEvent(ev);
 
 	    $mdDialog.show(confirm).then(function() {
-	      alert("OK!");
 	      $scope.alert = 'You decided to get rid of your debt.';
 	    }, function() {
-	      alert("Cancel!");
 	      $scope.alert = 'You decided to keep your debt.';
 	    });
 	  };
@@ -106,9 +146,18 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	    deletePromise.then(function(result){
 	    	var successful = result.data;
 	    	if (!successful){
-	    		alert("This DataSource is being referenced by a chart. DataSource Id: " + id);
+	    		$mdDialog.show(
+			      $mdDialog.alert()
+			        .parent(angular.element(document.querySelector('#popupContainer')))
+			        .clickOutsideToClose(true)
+			        .title('Cannot Delete')
+			        .content('This DataSource is being referenced by a chart. DataSource id: ' + id)
+			        .ariaLabel('Cannot delete datasource')
+			        .ok('OK')
+			    );
+	    	} else {
+	    		$location.path("/");
 	    	}
-	    	$location.path("/");
 	    });
 	}
 	//Building the popup for datasource
