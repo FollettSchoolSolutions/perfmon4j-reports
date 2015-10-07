@@ -216,7 +216,15 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	$scope.showChart = function() {
 		setTimeout(function(){
 			if (chartService.isChartLoading===true){
-				window.alert("The chart failed to render.  Connection to database may have been lost.");
+				$mdDialog.show(
+			      $mdDialog.alert()
+			        .parent(angular.element(document.querySelector('#popupContainer')))
+			        .clickOutsideToClose(true)
+			        .title('Chart Render Failure')
+			        .content('The chart failed to render. Connection to database may have been lost.')
+			        .ariaLabel('Chart Render Failure')
+			        .ok('OK')
+			    );
 			}
 		
 		}, 60000);
@@ -321,7 +329,15 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 			}
 			chartService.isChartLoading = false;
 		}).catch(function onError(err) {
-			window.alert("Failed to save chart");
+			$mdDialog.show(
+		      $mdDialog.alert()
+		        .parent(angular.element(document.querySelector('#popupContainer')))
+		        .clickOutsideToClose(true)
+		        .title('Chart Save Failure')
+		        .content('The chart failed to save.')
+		        .ariaLabel('Chart Save Failure')
+		        .ok('OK')
+		    );
 			chartService.isChartLoading = false;
 		})
 	
