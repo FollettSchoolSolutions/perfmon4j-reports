@@ -1,4 +1,4 @@
-var app = angular.module("perfmonReportsApp", ['ngRoute','ngMaterial','ngMdIcons']);
+var app = angular.module("perfmonReportsApp", ['ngRoute','ngMaterial']);
 app.config(function($routeProvider, $mdThemingProvider) {
 	$mdThemingProvider.theme('default')
 	  .primaryPalette('grey', {

@@ -44,14 +44,14 @@
 					<tr ng-repeat="chart in charts"> 
 						<td> 
 							<div class="right">
-								<a title="Edit Chart" class="chartrowIconAnchor">
-									<ng-md-icon title="Edit Chart" class="edit-icon-dark" icon="mode_edit" size="25" ng-click="editChart(chart.id);openSideNav()"></ng-md-icon>
+								<a title="Edit Chart" class="chartrowIconAnchor" ng-click="editChart(chart.id);openSideNav()">
+									<i class="material-icons">mode edit</i>
 								</a>
-								<a title="Duplicate Chart" class="chartrowIconAnchor">
-									<ng-md-icon title="Duplicate Chart" class="duplicate-icon-dark" icon="content_copy" size="25" ng-click="copyChart(chart.id)"></ng-md-icon>
+								<a title="Duplicate Chart" class="chartrowIconAnchor" ng-click="copyChart(chart.id)">
+									<i class="material-icons">content_copy</i>
 								</a>
-								<a title="Delete Chart" class="chartrowIconAnchor">
-									<ng-md-icon title="Delete Chart" class="delete-icon-dark" icon="delete" size="25" ng-click="deleteChart(chart.id)"></ng-md-icon>
+								<a title="Delete Chart" class="chartrowIconAnchor" ng-click="deleteChart(chart.id)">
+									<i class="material-icons">delete</i>
 								</a>
 							</div>
 							<a class="chartrowLinkAnchor" href="#/chart/{{chart.id}}">{{ chart.chartName }}</a>
@@ -102,15 +102,11 @@
 					<td> 
 					
 						<div class="right">
-							<a title="Edit DataSource" class="chartrowIconAnchor">
-								<ng-md-icon title="Edit DataSource" class="edit-icon-dark" icon="mode_edit" size="25"  ng-click="editDataSource($mnv, ds.id, ds.name, ds.url)"></ng-md-icon>
+							<a title="Edit DataSource" class="md-icon-button chartrowIconAnchor" ng-click="editDataSource($mnv, ds.id, ds.name, ds.url)">
+								<i class="material-icons">mode edit</i>
 							</a>
-							<a title="Delete DataSource" class="chartrowIconAnchor">
-							<!-- 
-								<ng-md-icon title="Delete DataSource" class="delete-icon-dark" icon="delete" size="25" ng-click="showConfirmDelete($event)"></ng-md-icon> -->
-								<md-button class="md-icon-button" ng-click="showConfirmDelete($event)">
-									<ng-md-icon class="delete-icon-dark" icon="delete" size="25"></ng-md-icon>
-								</md-button>
+							<a title="Delete DataSource" class="chartrowIconAnchor" ng-click="deleteDataSource(ds.id)">
+								<i class="material-icons">delete</i>
 							</a>
 						</div>
 						<a class="datasourceRowText">{{ ds.name }}</a>

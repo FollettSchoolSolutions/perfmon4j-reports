@@ -9,6 +9,7 @@
 	  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 	  <link rel="stylesheet" href="https://cdn.rawgit.com/angular/bower-material/v0.9.7/angular-material.css">
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css"> 
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	  <link rel="stylesheet" href="css/home.css">
 	  <link rel="stylesheet" href="css/chart.css">
 	  <link rel="stylesheet" href="css/chartSeries.css">
@@ -21,7 +22,6 @@
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
 	  <script src="https://cdn.rawgit.com/angular/bower-material/v0.9.7/angular-material.js"></script>
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.4.0/angular-material-icons.min.js"></script>
 	  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js"></script>
 	  
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>

@@ -45,36 +45,6 @@ a {
 a:hover, a:active {
     color: #000000; 
 }
-.home-icon-light {
-	fill: #FFFFFF;
-}
-.home-icon-light:hover {
-	fill: #E0E0E0;
-}
-.edit-icon-dark {
-	fill: #616161;
-}
-.edit-icon-dark:hover {
-	fill: #000000;
-}
-.duplicate-icon-dark {
-	fill: #616161;
-}
-.duplicate-icon-dark:hover {
-	fill: #000000;
-}
-.delete-icon-dark {
-	fill: #616161;
-}
-.delete-icon-dark:hover {
-	fill: #000000;
-}
-
-.md-button.md-icon-button {
-	padding: 0px 0px 0px 0px;
-	height: 25px;
-	width: 25px;
-}
 
 .chartrowIconAnchor {
 	display: inline-block;
