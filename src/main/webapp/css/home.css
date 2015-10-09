@@ -50,11 +50,30 @@ a:hover, a:active {
 	display: inline-block;
 	padding: 5px 5px 2px;
 }
+.chartrowIconAnchorDisabled {
+	display: inline-block;
+	padding: 5px 5px 2px;
+	color: #999999;
+}
+.chartrowIconAnchorDisabled:hover, .chartrowIconAnchorDisabled:active {
+	color: #999999;
+}
 .chartrowLinkAnchor {
 	line-height: 32px;
 	padding: 0px 11px 0px;
 	font-weight: bold;
 	text-decoration: none;
+}
+.chartrowLinkAnchorDisabled {
+	line-height: 32px;
+	padding: 0px 11px 0px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #999999;
+}
+.chartrowLinkAnchorDisabled:hover, .chartrowLinkAnchorDisabled:active {
+	text-decoration: none;
+	color: #999999;
 }
 .emptyListPlaceholder {
 	padding: 5px;
