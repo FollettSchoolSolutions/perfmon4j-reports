@@ -22,6 +22,10 @@ app.controller('dataSourceControl', function($scope, dataSourceService){
 	//	URL : "172.16.16.64"
 	//};
 	
+	$scope.urlInfoPopup = function(){
+		
+	}
+	
 	$scope.saveDataSource = function(){
 		// TODO fix http adding thing
 		$scope.dataSource.name= $scope.name;

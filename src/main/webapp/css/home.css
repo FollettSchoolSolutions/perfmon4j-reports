@@ -183,6 +183,11 @@ a:hover, a:active {
     overflow-y: hidden;
 }
 
+.md-dialog-content .md-subheader {
+  background-color: #616161;
+  margin: 0; 
+}
+
 body {
   height:100%
 }
