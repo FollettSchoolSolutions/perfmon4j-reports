@@ -113,7 +113,7 @@
 					<td> 
 					
 						<div class="right">
-							<a title="Edit DataSource" class="md-icon-button chartrowIconAnchor" ng-click="editDataSource($mnv, ds.id, ds.name, ds.url)">
+							<a title="Edit DataSource" class="chartrowIconAnchor" ng-click="editDataSource($mnv, ds.id, ds.name, ds.url)">
 								<i class="material-icons">mode edit</i>
 							</a>
 							<a title="Delete DataSource" class="chartrowIconAnchor" ng-click="deleteDataSource(ds.id)">

@@ -183,9 +183,15 @@ a:hover, a:active {
     overflow-y: hidden;
 }
 
-.md-dialog-content .md-subheader {
+.md-subheader .md-subheader-inner {
   background-color: #616161;
+  color: #ffffff;
   margin: 0; 
+}
+
+.infoIconAnchor {
+	display: inline-block;
+	padding: 2px 2px 26px;
 }
 
 body {
