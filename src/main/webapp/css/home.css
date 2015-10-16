@@ -183,6 +183,21 @@ a:hover, a:active {
     overflow-y: hidden;
 }
 
+.md-subheader .md-subheader-inner {
+  background-color: #616161;
+  color: #ffffff;
+  margin: 0; 
+}
+
+.infoIconSpan {
+	height: 28px;
+}
+.infoIconAnchor {
+	width: 24px;
+	height: 24px;
+	margin: 28px 2px 2px;
+}
+
 body {
   height:100%
 }
