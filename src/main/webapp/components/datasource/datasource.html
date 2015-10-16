@@ -1,7 +1,7 @@
 <md-dialog aria-label="Datasource">
 <form>
 	<md-dialog-content class="sticky-container"> 
-		<md-subheader class="md-sticky-no-effect">Edit Datasource</md-subheader>
+		<md-subheader class="md-sticky-no-effect">Add Datasource</md-subheader>
 		
 		<md-content layout-padding layout="row">
 			<md-input-container> 
@@ -12,9 +12,12 @@
 				<label>URL</label>
 				<input ng-model="URL" type="text"> 
 			</md-input-container> 
-			<a title="URL Syntax" class="infoIconAnchor" ng-click=""> <!-- GET STUPID ICON LINED UP WITH INPUT BOX -->
-				<i class="material-icons">info</i>
-			</a>
+			<span class="infoIconSpan" layout="column">
+				<span flex></span>
+				<a title="URL Syntax" href="https://github.com/FollettSchoolSolutions/perfmon4j-reports/wiki/Datasource-URL-Syntax" target="_blank" class="infoIconAnchor"> 
+					<i class="material-icons">info</i>
+				</a>
+			</span>
 		</md-content>
 	</md-dialog-content>
 	
