@@ -13,10 +13,10 @@ app.factory('dataSourceService', function($http){
 
 	factory.getDataSources = function() {
 		return $http.get("rest/datasources").then(function(result) {
-			return result;
+			return result; 
 		});
 	}
-
+	
 	factory.getDatabases = function(datasource) {
 		if(datasource.url.indexOf("http") < 0){
 			datasource.url = "http://" + datasource.url;

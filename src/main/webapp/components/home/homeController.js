@@ -25,6 +25,14 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	    );
 	})
 	
+	$scope.validateConnection = function(currChart) {
+		var connectionCheck = dataSourceService.getDatabases(currChart.chosenDatasource);
+		
+		connectionCheck.then(function(resultCheck){
+			currChart.isAvailable = (resultCheck.status == 200);			
+		});		
+	}
+	
 	var publicChartFetchPromise = chartService.getPublicCharts();
 	publicChartFetchPromise.then(function(result){
 		if (result.status != 200) {
@@ -36,6 +44,13 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		});
 		
 		$scope.publicCharts = publicCharts;
+		for (var i = 0; i < publicCharts.length; i++) {
+			var currChart = publicCharts[i];
+			currChart.isAvailable = false;			
+
+			$scope.validateConnection(currChart);
+		}
+		
 	}).catch(function onError(err) {
 		$mdDialog.show(
 	      $mdDialog.alert()
@@ -46,7 +61,7 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	        .ariaLabel('Public charts load failure')
 	        .ok('OK')
 	    );
-	})
+	})		
 		
 	var chartFetchPromise = chartService.getCharts();
 	chartFetchPromise.then(function(result){
@@ -59,6 +74,13 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		});
 		
 		$scope.charts = charts;
+		for (var i = 0; i < charts.length; i++) {
+			var currChart = charts[i];
+			currChart.isAvailable = false;			
+
+			$scope.validateConnection(currChart);
+		}
+		
 	}).catch(function onError(err) {
 		$mdDialog.show(
 	      $mdDialog.alert()
