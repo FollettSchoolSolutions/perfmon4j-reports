@@ -94,16 +94,9 @@ public class ChartService {
 			if (i > 0) {
 				retList.append(",");
 			}
-			JSONObject chartJSON = new JSONObject(list.get(i).getData());
+			JSONObject chartJSON = new JSONObject(list.get(i).getData()); 
 			JSONObject datasourceJSON = (JSONObject)chartJSON.get("chosenDatasource");
 			int userID = datasourceJSON.getInt("userID");
-			String url = datasourceJSON.getString("url");
-			String chartName = chartJSON.getString("chartName");
-			if(hostAvailabilityCheck(url, chartName) == true){
-				chartJSON.put("isAvailable", true);
-			} else {
-				chartJSON.put("isAvailable", false);
-			}
 			
 			List<User> results = em.createNamedQuery(User.QUERY_FIND_USER_BY_USERID).setParameter("userID", userID).getResultList();
 			chartJSON.put("userFullName",results.get(0).getName());
@@ -131,15 +124,7 @@ public class ChartService {
 				if (i > 0) {
 					retList.append(",");
 				}
-				JSONObject chartJSON = new JSONObject(list.get(i).getData());
-				JSONObject datasourceJSON = (JSONObject)chartJSON.get("chosenDatasource");
-				String url = datasourceJSON.getString("url");
-				String chartName = chartJSON.getString("chartName");
-				if(hostAvailabilityCheck(url, chartName) == true){
-					chartJSON.put("isAvailable", true);
-				} else {
-					chartJSON.put("isAvailable", false);
-				}
+				JSONObject chartJSON = new JSONObject(list.get(i).getData()); // leaving this here in case we need to insert a field later
 				retList.append(chartJSON.toString());
 			}
 			retList.append("]");
@@ -162,16 +147,4 @@ public class ChartService {
 		
 	}
 	
-	public boolean hostAvailabilityCheck(String address, String chartName) { 
-		return true;
-//		try {
-//			URL host = new URL(address);
-//			URLConnection urlc = host.openConnection();
-//			urlc.connect();
-//			return true;
-//		} catch (IOException e) {
-//			logger.info("Datasource host \"" + address + "\" is NOT accessible for chart \"" + chartName + "\"...");
-//			return false;
-//		}
-	}
 }
