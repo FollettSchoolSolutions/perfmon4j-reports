@@ -163,14 +163,15 @@ public class ChartService {
 	}
 	
 	public boolean hostAvailabilityCheck(String address, String chartName) { 
-		try {
-			URL host = new URL(address);
-			URLConnection urlc = host.openConnection();
-			urlc.connect();
-			return true;
-		} catch (IOException e) {
-			logger.info("Datasource host \"" + address + "\" is NOT accessible for chart \"" + chartName + "\"...");
-			return false;
-		}
+		return true;
+//		try {
+//			URL host = new URL(address);
+//			URLConnection urlc = host.openConnection();
+//			urlc.connect();
+//			return true;
+//		} catch (IOException e) {
+//			logger.info("Datasource host \"" + address + "\" is NOT accessible for chart \"" + chartName + "\"...");
+//			return false;
+//		}
 	}
 }
