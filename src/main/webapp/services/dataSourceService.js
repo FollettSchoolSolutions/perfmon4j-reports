@@ -13,18 +13,7 @@ app.factory('dataSourceService', function($http){
 
 	factory.getDataSources = function() {
 		return $http.get("rest/datasources").then(function(result) {
-			return result;
-		});
-	}
-	
-	factory.validateDatasource = function(datasource) { // HEREEEEEEEEEEEEEE
-		if(datasource.url.indexOf("http") < 0){
-			datasource.url = "http://" + datasource.url;
-		}
-		var url = datasource.url+ urlPath + "/databases";
-
-		return $http.get(url).then(function(result) {
-			return result;
+			return result; 
 		});
 	}
 	
