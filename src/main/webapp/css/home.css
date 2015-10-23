@@ -209,3 +209,10 @@ body {
 html, body {
 	font-size: 100%;
 }
+
+.successful {
+	color: green;
+}
+.notSuccessful {
+	color: red;
+}
