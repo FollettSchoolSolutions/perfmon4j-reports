@@ -21,9 +21,16 @@
 		</md-content>
 	</md-dialog-content>
 	
-	<div class="md-actions" layout="row">
+	<div ng-controller="dataSourceControl" class="md-actions" layout="row">
 		<span flex></span>
-		<md-button ng-controller="dataSourceControl" ng-click="editDataSource()" class="md-primary md-raised"> Update </md-button>
+		<div ng-show="successfulConnection != null && successfulConnection">
+			<p class="successful"> Succeeded </p>
+		</div>
+		<div ng-show="successfulConnection != null && (!successfulConnection)">
+			<p class="notSuccessful"> Failed </p>
+		</div>
+		<md-button ng-disabled="!fieldsArePoplated()" ng-click="testConnection()" class="md-primary md-raised"> Test Connection </md-button>
+		<md-button ng-disabled="!fieldsArePoplated()" ng-click="editDataSource()" class="md-primary md-raised"> Update </md-button>
 		<md-button ng-click="answer('Cancel')" class="md-primary md-raised"> Cancel </md-button>
 	</div>
 </form>
