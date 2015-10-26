@@ -189,3 +189,14 @@ input {
   text-decoration: none;
   cursor:pointer;
 }
+
+.infoIconSpanChartDate {
+	height: 17px;
+	width: 30px;
+}
+.infoIconAnchorChartDate {
+	width: 24px;
+	height: 24px;
+	margin: 24px 2px 2px;
+	padding: 0px 10px 0px;
+}
