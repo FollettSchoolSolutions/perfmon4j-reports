@@ -32,10 +32,10 @@ public class DataSourceService {
 		
 	//Save or Update
 	@PUT
-	@Path("/{name}")
+	@Path("/{name}/{publiclyVisible}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void saveDataSource(@PathParam("name") String name, String URL) {
+	public void saveDataSource(@PathParam("name") String name, String URL, @PathParam("publiclyVisible") boolean publiclyVisible) {
 	//We need to get globalID from the current HTTP session instead of from PrincipalContext.
 		Principal p = Principal.getPrincipal(session);
 		if (p != null) {
@@ -44,6 +44,7 @@ public class DataSourceService {
 			DataSource d = new DataSource();
 			d.setName(name);
 			d.setURL(URL);
+			d.setPubliclyVisible(publiclyVisible);
 			d.setUserID(userID);
 			em.persist(d);
 		}
@@ -93,15 +94,16 @@ public class DataSourceService {
 	}
 	//Edit
 	@PUT
-	@Path("/{id}/{editName}")
+	@Path("/{id}/{editName}/{publiclyVisible}")
 	@Consumes(MediaType.APPLICATION_JSON)	
 	@Produces(MediaType.APPLICATION_JSON)	
-	public void editDataSource(@PathParam("id") Integer id, @PathParam("editName") String editName, String url) {
+	public void editDataSource(@PathParam("id") Integer id, @PathParam("editName") String editName, String url, @PathParam("publiclyVisible") boolean publiclyVisible) {
 		//Find the DataSource in the database
 		DataSource data = em.find(DataSource.class, id);
 		data.setId(id);
 		data.setName(editName);
 		data.setURL(url);
+		data.setPubliclyVisible(publiclyVisible);
 		em.merge(data);
 	}
 	

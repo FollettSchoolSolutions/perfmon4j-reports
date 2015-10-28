@@ -111,16 +111,15 @@
 			<table style="width: 100%">
 				<tr ng-repeat="ds in datasources"> 
 					<td> 
-					
 						<div class="right">
-							<a title="Edit DataSource" class="chartrowIconAnchor" ng-click="editDataSource($mnv, ds.id, ds.name, ds.url)">
+							<a title="Edit DataSource" class="chartrowIconAnchor" ng-click="editDataSource($mnv, ds.id, ds.name, ds.url, ds.publiclyVisible)">
 								<i class="material-icons">mode edit</i>
 							</a>
 							<a title="Delete DataSource" class="chartrowIconAnchor" ng-click="deleteDataSource(ds.id)">
 								<i class="material-icons">delete</i>
 							</a>
 						</div>
-						<a class="datasourceRowText">{{ ds.name }}</a>
+						<a class="datasourceRowText">{{ getDataSourceName(ds) }}</a>
 					</td>
 				</tr>
 				<tr ng-show="datasources.length == 0">

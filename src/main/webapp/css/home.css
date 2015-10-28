@@ -9,6 +9,10 @@
 	clear: both;
 }   
 
+.datasourceInputField {
+	padding: 2px 2px 5px;
+}
+
 .title {
 	margin-left: 32px;
 }

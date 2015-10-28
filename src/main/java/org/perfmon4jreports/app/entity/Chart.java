@@ -12,7 +12,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @NamedQueries({
 	@NamedQuery(name=Chart.QUERY_FIND_ALL, query="SELECT c FROM Chart c where c.userID LIKE :userID OR c.userID is NULL"),
-	@NamedQuery(name=Chart.QUERY_FIND_ALL_PUBLIC, query="SELECT c FROM Chart c where c.publiclyVisible = TRUE") // WORKS WITHOUT WHERE CLAUSE
+	@NamedQuery(name=Chart.QUERY_FIND_ALL_PUBLIC, query="SELECT c FROM Chart c where c.publiclyVisible = TRUE")
 })
 
 @JsonIgnoreProperties(ignoreUnknown=true)
