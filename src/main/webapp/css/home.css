@@ -91,6 +91,10 @@ a:hover, a:active {
 	font-weight: bold;
 	text-decoration: none;
 }
+.datasourceRowText:hover, .datasourceRowText:active {
+	text-decoration: none;
+	color: #616161;
+}
 .centeredLabelText {
 	line-height: 40px;
 	padding: 0px 11px 0px;

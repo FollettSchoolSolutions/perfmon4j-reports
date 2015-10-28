@@ -14,7 +14,7 @@
 
 .start {
 	width: 40%;
-	margin-right: 15px;
+	margin-right: 10px;
 	margin-bottom: 10px;
 }
 
@@ -33,6 +33,14 @@
 
 .input {
 	width: 100px;
+}
+.infoIconSpanChartDate {
+	height: 17px;
+}
+.infoIconAnchorChartDate {
+	width: 24px;
+	height: 24px;
+	margin: 22px 2px 2px;
 }
 
 .chartSelect {
