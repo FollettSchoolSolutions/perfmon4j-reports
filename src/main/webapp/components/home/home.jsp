@@ -111,7 +111,7 @@
 			<table style="width: 100%">
 				<tr ng-repeat="ds in datasources"> 
 					<td> 
-						<div class="right">
+						<div ng-if="ds.editable == true" class="right">
 							<a title="Edit DataSource" class="chartrowIconAnchor" ng-click="editDataSource($mnv, ds.id, ds.name, ds.url, ds.publiclyVisible)">
 								<i class="material-icons">mode edit</i>
 							</a>

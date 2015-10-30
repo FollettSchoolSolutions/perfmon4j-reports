@@ -15,7 +15,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @NamedQueries({
 	@NamedQuery(name=DataSource.QUERY_FIND_ALL, query="Select l from DataSource l"),
-	@NamedQuery(name=DataSource.QUERY_FIND_DataSources, query ="Select l from DataSource l WHERE l.UserID like :userID"), // TODO select all by userID, then all other public ones
+	@NamedQuery(name=DataSource.QUERY_FIND_DataSources, query ="Select l from DataSource l WHERE l.UserID like :userID OR l.publiclyVisible = TRUE"), // TODO select all by userID, then all other public ones
 	@NamedQuery(name=DataSource.QUERY_FIND_CHARTS, query="Select l.dataSourceID from Chart l WHERE l.dataSourceID like :dsID")
 })	
 

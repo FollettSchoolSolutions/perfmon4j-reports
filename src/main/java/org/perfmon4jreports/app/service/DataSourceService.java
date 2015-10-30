@@ -17,8 +17,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.json.JSONObject;
 import org.perfmon4jreports.app.data.DataSource;
+import org.perfmon4jreports.app.entity.Chart;
 import org.perfmon4jreports.app.sso.Principal;
+import org.perfmon4jreports.app.sso.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Stateless
 @Path("/datasources")
@@ -26,7 +31,9 @@ public class DataSourceService {
 	
 		@PersistenceContext
 		private EntityManager em;
-		//Inject HTTPSession instead of PrincpalContext.  Refer to ChartService.java
+		
+		private static final  Logger logger = LoggerFactory.getLogger(ChartService.class);
+		
 		@Inject
 		HttpSession session;		
 		
@@ -47,6 +54,8 @@ public class DataSourceService {
 			d.setPubliclyVisible(publiclyVisible);
 			d.setUserID(userID);
 			em.persist(d);
+		} else {
+			logger.warn("Principal is null! Datasource not persisted!");
 		}
 	}	
 	
@@ -54,18 +63,31 @@ public class DataSourceService {
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)	
-	public List<DataSource> getDataSources() {
-		List<DataSource> result = new ArrayList<>();
+	public String getDataSources() {
 		
 		// Change to HTTPSession.getPrincipal
 		Principal p = Principal.getPrincipal(session);
 		if (p != null) {
 			@SuppressWarnings("unchecked")
 			Integer userID = p.getLocalUser().getUserID();
-			result = em.createNamedQuery(DataSource.QUERY_FIND_DataSources).setParameter("userID", userID).getResultList();
+			List<DataSource> list = em.createNamedQuery(DataSource.QUERY_FIND_DataSources).setParameter("userID", userID).getResultList();
+			
+			StringBuilder retList = new StringBuilder("[");
+			for (int i = 0; i < list.size(); i++) {
+				if (i > 0) {
+					retList.append(",");
+				}
+				JSONObject datasourceJSON = new JSONObject(list.get(i)); 
+				boolean edit = (datasourceJSON.getInt("userID") == userID);
+				datasourceJSON.put("editable",edit);
+				retList.append(datasourceJSON.toString());
+			}
+			retList.append("]");
+			return retList.toString();
+		} else {
+			logger.error("Error fetching datasources");
+			return "[]";
 		}
-	
-		return result;
 	}
 		//These are here for reference.  Specifically, the IP address of the only working datasource.
 		//return Arrays.asList(new DataSourceVo[] { new DataSourceVo(
