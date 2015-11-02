@@ -99,6 +99,18 @@ a:hover, a:active {
 	text-decoration: none;
 	color: #616161;
 }
+.datasourceRowIconAnchor {
+	display: inline-block;
+	padding: 5px 5px 2px;
+}
+.datasourceRowIconAnchorDisabled {
+	display: inline-block;
+	padding: 5px 5px 2px;
+	color: #999999;
+}
+.datasourceRowIconAnchorDisabled:hover, .datasourceRowIconAnchorDisabled:active {
+	color: #999999;
+}
 .centeredLabelText {
 	line-height: 40px;
 	padding: 0px 11px 0px;
