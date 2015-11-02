@@ -112,10 +112,15 @@
 				<tr ng-repeat="ds in datasources"> 
 					<td> 
 						<div ng-if="ds.editable == true" class="right">
-							<a title="Edit DataSource" class="chartrowIconAnchor" ng-click="editDataSource($mnv, ds.id, ds.name, ds.url, ds.publiclyVisible)">
+							<a title="Edit DataSource" class="datasourceRowIconAnchor" ng-click="editDataSource($mnv, ds.id, ds.name, ds.url, ds.publiclyVisible)">
 								<i class="material-icons">mode edit</i>
 							</a>
-							<a title="Delete DataSource" class="chartrowIconAnchor" ng-click="deleteDataSource(ds.id)">
+							<!-- delete is enabled -->
+							<a ng-if="ds.used == false" title="Delete DataSource" class="datasourceRowIconAnchor" ng-click="deleteDataSource(ds.id)">
+								<i class="material-icons">delete</i>
+							</a>
+							<!-- delete is disabled -->
+							<a ng-if="ds.used == true" title="Datasource in use" class="datasourceRowIconAnchorDisabled">
 								<i class="material-icons">delete</i>
 							</a>
 						</div>

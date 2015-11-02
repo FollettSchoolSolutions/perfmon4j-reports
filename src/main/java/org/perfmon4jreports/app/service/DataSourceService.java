@@ -83,6 +83,15 @@ public class DataSourceService {
 				datasourceJSON.put("url",url);
 				boolean edit = (datasourceJSON.getInt("userID") == userID);
 				datasourceJSON.put("editable",edit);
+				
+				int dataSourceID = datasourceJSON.getInt("id");
+				List<Chart> chartList = em.createNamedQuery(Chart.QUERY_FIND_ALL_BY_DS).setParameter("dataSourceID", dataSourceID).getResultList();
+				if(chartList.size() > 0){
+					datasourceJSON.put("used",true);
+				} else {
+					datasourceJSON.put("used",false);
+				}
+				
 				retList.append(datasourceJSON.toString());
 			}
 			retList.append("]");
