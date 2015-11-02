@@ -33,7 +33,7 @@ public class DataSource {
 	
 	@Id
 	@SequenceGenerator(name = "dataSourceID", initialValue = 1, allocationSize = 100)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dataSourceID")   
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dataSourceID")
 	@Column(nullable=false, unique=true)
 	private Integer id;	
 
@@ -41,8 +41,8 @@ public class DataSource {
 	private String Name;
 	
 	
-	@Column(nullable = false, name = "URL", length=255)
-	private String URL;
+	@Column(nullable = false, name = "url", length=255)
+	private String url;
 	
 	@Column(nullable = false, unique=false, name = "UserID")
 	private int UserID;
@@ -67,11 +67,11 @@ public class DataSource {
 	}
 
 	public String getURL() {
-		return URL;
+		return url;
 	}
 
 	public void setURL(String uRL) {
-		URL = uRL;
+		url = uRL;
 	}
 
 	public int getUserID() {

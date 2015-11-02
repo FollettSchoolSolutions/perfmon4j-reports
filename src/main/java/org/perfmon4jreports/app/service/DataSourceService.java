@@ -78,6 +78,9 @@ public class DataSourceService {
 					retList.append(",");
 				}
 				JSONObject datasourceJSON = new JSONObject(list.get(i)); 
+				String url = datasourceJSON.getString("URL"); // front end requires "url" instead of "URL"
+				datasourceJSON.remove("URL");
+				datasourceJSON.put("url",url);
 				boolean edit = (datasourceJSON.getInt("userID") == userID);
 				datasourceJSON.put("editable",edit);
 				retList.append(datasourceJSON.toString());
