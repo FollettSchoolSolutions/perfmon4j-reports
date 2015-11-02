@@ -156,6 +156,14 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		});
 	}
 	
+	$scope.getDataSourceName = function(ds){
+		if(ds.publiclyVisible == true){
+			return (ds.name + " (public)");
+		} else {
+			return ds.name;
+		}
+	}
+	
 	$scope.deleteDataSource = function(id) {
 		var confirm = $mdDialog.confirm()
 	      .title('Delete?')
@@ -197,7 +205,7 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	}
 	
 	//Building the popup for edit datasource. We pass it id, name, url and store them into local variables
-	$scope.editDataSource = function(mn, id, name, url) {
+	$scope.editDataSource = function(mn, id, name, url, publiclyVisible) {
 	    $mdDialog.show({
 	      controller: editDataSource,
 	      templateUrl: 'components/datasource/editDataSource.html',
@@ -206,7 +214,8 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	      locals: {
 	    	  editID: id,
 	    	  editname: name,
-	    	  editurl: url
+	    	  editurl: url,
+	    	  editpubflag: publiclyVisible
 	      }
 	    });
 	}
@@ -215,24 +224,19 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	function DataSourceController($scope, $mdDialog, dataSourceService) {
 		$scope.name = name
 		$scope.url = URL;
-	  
-	  
 	
-	  $scope.answer = function(answer) {
-	   
-	   $mdDialog.hide(answer);
-	   
-	 };
+		$scope.answer = function(answer) {
+		   $mdDialog.hide(answer);
+		};
 	};
 	
 	//Pop up box where DataSource info is already populated for editing.
-	function editDataSource($scope, $mdDialog, dataSourceService, editID, editname, editurl){
+	function editDataSource($scope, $mdDialog, dataSourceService, editID, editname, editurl, editpubflag){
 		$scope.name = editname;
 		$scope.URL = editurl;
+		$scope.publiclyVisible = editpubflag;
 		$scope.id = editID;
-		  $scope.answer = function(answer) {
-			  
-			  $mdDialog.hide(answer);
-			   location.reload();
-			 };
+		$scope.answer = function(answer) {
+			$mdDialog.hide(answer);
+		};
 	};

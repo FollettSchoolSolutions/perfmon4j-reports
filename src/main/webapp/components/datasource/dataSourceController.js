@@ -52,6 +52,7 @@ app.controller('dataSourceControl', function($scope, dataSourceService){
 		// TODO fix http adding thing
 		$scope.dataSource.name= $scope.name;
 		$scope.dataSource.URL= $scope.URL;
+		$scope.dataSource.publiclyVisible= $scope.publiclyVisible;
 		
 		var saveDataSourcePromise = dataSourceService.saveDataSource($scope.dataSource);
 		saveDataSourcePromise.then(function(result){
@@ -64,6 +65,7 @@ app.controller('dataSourceControl', function($scope, dataSourceService){
 		$scope.editDataSource.editName = $scope.name;
 		$scope.editDataSource.URL = $scope.URL;
 		$scope.editDataSource.id = $scope.id;
+		$scope.editDataSource.publiclyVisible= $scope.publiclyVisible;
 		
 		var editDataSourcePromise = dataSourceService.editDataSource($scope.editDataSource);
 		editDataSourcePromise.then(function(result){
