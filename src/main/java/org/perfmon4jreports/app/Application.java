@@ -19,11 +19,11 @@ public class Application extends javax.ws.rs.core.Application {
     // -----------------------------------------------------------------------------------------------------------------------
     @PostConstruct
     public void startup() {
-        logger.info("Starting perfom4j reporting services");
+        logger.info("Starting perfmon4j reporting services");
     }
     
     @PreDestroy
     public void shutdown() {
-        logger.info("Stopping perfom4j reporting services");        
+        logger.info("Stopping perfmon4j reporting services");        
     }
 }

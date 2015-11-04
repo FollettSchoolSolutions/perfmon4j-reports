@@ -575,8 +575,33 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	function clearSeries(){
 		$scope.chart.series = [];
 	}
+	
+	$scope.isViewOnly = function (){
+		return chartService.viewOnly;
+	}
+	
+	$scope.viewParameterInfo = function($event) {
+       var parentEl = angular.element(document.body);
+       $mdDialog.show({
+         parent: parentEl,
+         targetEvent: $event,
+         templateUrl:'components/chart/chartViewParameterInfo.html',
+         locals: {
+           chart: $scope.chart
+         },
+         controller: viewParameterInfoController
+      });
+    }
 
 });
+
+function viewParameterInfoController(scope, $mdDialog, chart) {
+    scope.chart = chart;
+    
+    scope.closeDialog = function() {
+      $mdDialog.hide();
+    };
+}
 
 function DialogController($scope, $mdDialog, chartService) {
 	  $scope.secondaryAxisName = chartService.secondaryAxisName;

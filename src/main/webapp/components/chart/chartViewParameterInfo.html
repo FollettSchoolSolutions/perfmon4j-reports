@@ -1,0 +1,16 @@
+<md-dialog aria-label="Chart info">
+	<md-dialog-content class="sticky-container"> 
+		<md-subheader class="md-sticky-no-effect">Chart Info</md-subheader>
+		
+		<md-content>
+			<div ng-repeat="(key, value) in chart">
+				{{ key + ": " + value }} </br>
+			</div>
+			<!--  
+			{{ chart.chartName }}-->
+			<div>
+				<md-button ng-click="closeDialog()" class="md-raised md-primary right"> Close </md-button>
+			</div>
+		</md-content>
+	</md-dialog-content>
+</md-dialog>

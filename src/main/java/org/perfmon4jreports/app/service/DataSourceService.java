@@ -97,7 +97,7 @@ public class DataSourceService {
 			retList.append("]");
 			return retList.toString();
 		} else {
-			logger.error("Error fetching datasources");
+			logger.info("User is not logged in, cannot fetch datasources");
 			return "[]";
 		}
 	}
