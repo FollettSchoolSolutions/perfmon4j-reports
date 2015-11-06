@@ -595,8 +595,8 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 
 });
 
-function viewParameterInfoController(scope, $mdDialog, chart) {
-    scope.chart = chart;
+function viewParameterInfoController(scope, $mdDialog, $sce, chart) {
+    scope.tableDiv = JsonHuman.format(chart).innerHTML;
     
     scope.closeDialog = function() {
       $mdDialog.hide();

@@ -10,6 +10,7 @@
 	  <link rel="stylesheet" href="https://cdn.rawgit.com/angular/bower-material/v0.9.7/angular-material.css">
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css"> 
 	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	  <link rel="stylesheet" href="lib/json.human.css">
 	  <link rel="stylesheet" href="css/home.css">
 	  <link rel="stylesheet" href="css/chart.css">
 	  <link rel="stylesheet" href="css/chartSeries.css">
@@ -17,6 +18,7 @@
 	  
 	  <title>Perfmon4J Reports</title>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-sanitize.js"></script>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-messages.min.js"></script>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
@@ -26,6 +28,7 @@
 	  
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
+	  <script src="lib/json.human.js"></script>
 	    
 	  <!-- Application components -->
 	  <script src="app.js"></script>
