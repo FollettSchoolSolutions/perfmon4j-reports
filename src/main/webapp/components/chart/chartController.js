@@ -596,7 +596,33 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 });
 
 function viewParameterInfoController(scope, $mdDialog, $sce, chart) {
-    scope.tableDiv = JsonHuman.format(chart).innerHTML;
+	var chartObj = {
+			title : chart.chartName,
+			ispublic : chart.publiclyVisible,
+			datasource : chart.chosenDatasource.name,
+			database : chart.chosenDatabase.name,
+			starttime : chart.timeStart,
+			endtime : chart.timeEnd,
+			series : []
+	}
+	
+	for(var i = 0; i < chart.series.length; i++){
+		var currSeries = chart.series[i];
+		var seriesObj = {
+				systems : []
+		}
+		
+		seriesObj.title = currSeries.name;
+		for(var j = 0; j < currSeries.systems.length; j++){
+			seriesObj.systems.push(currSeries.systems[j].name);
+		}
+		seriesObj.category = currSeries.category.name;
+		seriesObj.field = currSeries.field.name;
+		seriesObj.aggregation = currSeries.aggregationMethod;
+		chartObj.series.push(seriesObj);
+	}
+	var tmp = angular.toJson(chartObj);
+    scope.tableDiv = JsonHuman.format(chartObj).innerHTML;
     
     scope.closeDialog = function() {
       $mdDialog.hide();

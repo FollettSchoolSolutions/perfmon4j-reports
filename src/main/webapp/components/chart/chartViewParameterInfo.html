@@ -1,12 +1,14 @@
 <md-dialog aria-label="Chart info">
-	<md-dialog-content class="sticky-container"> 
-		<md-subheader class="md-sticky-no-effect">Chart Info</md-subheader>
-		
-		<md-content>
-			<div ng-bind-html="tableDiv"></div>
-			<div>
-				<md-button ng-click="closeDialog()" class="md-raised md-primary right"> Close </md-button>
-			</div>
+	<md-subheader class="md-sticky-no-effect">Chart Info</md-subheader>
+	
+	<md-dialog-content class="sticky-container">
+		<md-content class="chartInfoDialogContent">
+			<table ng-bind-html="tableDiv" class="jh-type-object jh-root "></table>
 		</md-content>
 	</md-dialog-content>
+	
+	<div class="md-actions" layout="row">
+		<span flex></span>
+		<md-button ng-click="closeDialog()" class="md-raised md-primary right"> Close </md-button>
+	</div>
 </md-dialog>
