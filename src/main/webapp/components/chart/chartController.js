@@ -599,12 +599,14 @@ function viewParameterInfoController(scope, $mdDialog, $sce, chart) {
 	var chartObj = {
 			title : chart.chartName,
 			ispublic : chart.publiclyVisible,
-			datasource : chart.chosenDatasource.name,
+			datasource : {},
 			database : chart.chosenDatabase.name,
 			starttime : chart.timeStart,
 			endtime : chart.timeEnd,
 			series : []
 	}
+	chartObj.datasource.name =  chart.chosenDatasource.name;
+	chartObj.datasource.url =  chart.chosenDatasource.url;
 	
 	for(var i = 0; i < chart.series.length; i++){
 		var currSeries = chart.series[i];
