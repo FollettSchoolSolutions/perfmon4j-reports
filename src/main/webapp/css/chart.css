@@ -197,3 +197,12 @@ input {
   text-decoration: none;
   cursor:pointer;
 }
+
+.chartInfoDialogContent {
+	margin: 0px 10px 0px 0px;
+	overflow: visible;
+}
+
+.fssSubheader {
+	margin: 0px;
+}

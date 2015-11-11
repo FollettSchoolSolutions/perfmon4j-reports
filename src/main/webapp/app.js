@@ -1,4 +1,4 @@
-var app = angular.module("perfmonReportsApp", ['ngRoute','ngMaterial']);
+var app = angular.module("perfmonReportsApp", ['ngRoute','ngMaterial','ngSanitize']);
 app.config(function($routeProvider, $mdThemingProvider) {
 	$mdThemingProvider.theme('default')
 	  .primaryPalette('grey', {

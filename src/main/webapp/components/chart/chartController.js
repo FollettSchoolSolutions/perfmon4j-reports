@@ -575,8 +575,61 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	function clearSeries(){
 		$scope.chart.series = [];
 	}
+	
+	$scope.isViewOnly = function (){
+		return chartService.viewOnly;
+	}
+	
+	$scope.viewParameterInfo = function($event) {
+       var parentEl = angular.element(document.body);
+       $mdDialog.show({
+         parent: parentEl,
+         targetEvent: $event,
+         templateUrl:'components/chart/chartViewParameterInfo.html',
+         locals: {
+           chart: $scope.chart
+         },
+         controller: viewParameterInfoController
+      });
+    }
 
 });
+
+function viewParameterInfoController(scope, $mdDialog, $sce, chart) {
+	var chartObj = {
+			title : chart.chartName,
+			ispublic : chart.publiclyVisible,
+			datasource : {},
+			database : chart.chosenDatabase.name,
+			starttime : chart.timeStart,
+			endtime : chart.timeEnd,
+			series : []
+	}
+	chartObj.datasource.name =  chart.chosenDatasource.name;
+	chartObj.datasource.url =  chart.chosenDatasource.url;
+	
+	for(var i = 0; i < chart.series.length; i++){
+		var currSeries = chart.series[i];
+		var seriesObj = {
+				systems : []
+		}
+		
+		seriesObj.title = currSeries.name;
+		for(var j = 0; j < currSeries.systems.length; j++){
+			seriesObj.systems.push(currSeries.systems[j].name);
+		}
+		seriesObj.category = currSeries.category.name;
+		seriesObj.field = currSeries.field.name;
+		seriesObj.aggregation = currSeries.aggregationMethod;
+		chartObj.series.push(seriesObj);
+	}
+	var tmp = angular.toJson(chartObj);
+    scope.tableDiv = JsonHuman.format(chartObj).innerHTML;
+    
+    scope.closeDialog = function() {
+      $mdDialog.hide();
+    };
+}
 
 function DialogController($scope, $mdDialog, chartService) {
 	  $scope.secondaryAxisName = chartService.secondaryAxisName;

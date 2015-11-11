@@ -50,6 +50,9 @@
        	</div>
     </md-sidenav>	    
     <md-content class="md-accl chart-view not-scrollable" flex="flex">
+    	<div ng-if="isViewOnly()">
+      		<md-button ng-click="viewParameterInfo($event)" class="md-raised md-primary"> INFO </md-button>
+      	</div>
  		<div layout="row">
 	 		<a class="tabText" title="Toggle Menu Bar">
 	 			<div layout="column" ng-show="showToggleButton()" ng-click="toggleSideNav()" id="openConfig" class="btn">{{sideNavToggle()}}</div>
