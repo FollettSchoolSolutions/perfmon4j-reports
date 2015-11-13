@@ -59,6 +59,7 @@
 	 		</a>
      		<div layout="column" ng-controller="chartRenderControl" class="chartDiv"> 
      			<img src="images/loadingSaving.gif" ng-show="isChartLoading()" class="centered">
+     			
      			<div ng-show="isShowable()">
      				<div ng-show="isSuccessfullySaved() != null && isSuccessfullySaved()">
 						<p class="saveConfirmation"> {{ getSaveConfirmationLabel() }} </p>
@@ -68,6 +69,23 @@
 					</div><br/>
 					<p class="chartName"> {{name()}} </p>
 					<div id="chart"></div>
+					
+					<div class="viewTimeDiv" layout="row" layout-align="center center">
+			      		<div>
+			      			<label for="startTime">From:</label>
+			      			<input class="from viewTimeParamInput" name="startTime" type="text" id="startTime" ng-model="chart.timeStart"/>
+			      		</div>
+			      		<div>
+			      			<label for="endTime">To:</label>
+			      			<input class="to viewTimeParamInput" type="text" name="endTime" id="endTime" ng-model="chart.timeEnd"/>
+			      		</div>
+			      		<span class="" layout="column">
+							<a title="Date Range Syntax" href="https://github.com/FollettSchoolSolutions/perfmon4j-reports/wiki/Date-Range-Parameter-Syntax" target="_blank" class="viewTimeSyntaxIcon"> 
+								<i class="material-icons">info</i>
+							</a>
+						</span>
+						<md-button title="Render" id="renderChart" ng-disabled="" ng-click="showChart()" class="md-raised md-primary">Render</md-button>
+		      		</div>
 				</div>
 			</div>
 		</div>
