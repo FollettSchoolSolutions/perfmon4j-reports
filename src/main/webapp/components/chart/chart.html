@@ -84,7 +84,8 @@
 								<i class="material-icons">info</i>
 							</a>
 						</span>
-						<md-button title="Render" id="renderChart" ng-disabled="" ng-click="showChart()" class="md-raised md-primary">Render</md-button>
+						<md-button title="Render" id="renderChart" ng-disabled="!timeParamsPopulated()" ng-click="showChart()" class="md-raised md-primary">Render</md-button>
+						<!-- MAKE ng-disabled DO THINGS -->
 		      		</div>
 				</div>
 			</div>
