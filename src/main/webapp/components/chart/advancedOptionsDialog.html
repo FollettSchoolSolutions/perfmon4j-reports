@@ -1,25 +1,26 @@
 <md-dialog aria-label="Advanced Options">
-  <form>
-  <md-toolbar>
-    <div class="md-toolbar-tools">
-      <h2>Advanced Options</h2>
-    </div>
-  </md-toolbar>
-  <md-dialog-content>
-    <div layout="row">
-      	<label class="advancedLabel">Primary Y-axis Custom Name</label>
-    </div>
-    <input class="advancedText" type="text" ng-model="primaryAxisName" ng-blur="savePrimaryName()">
-    <div layout="row">
-    	<label class="advancedLabel">Secondary Y-axis Custom Name</label>
-    </div>
-    <input class="advancedText" type="text" ng-model="secondaryAxisName" ng-blur="saveSecondaryName()">
-  </md-dialog-content>
-  <div class="md-actions" layout="row">
-    <span flex></span>
-    <md-button ng-click="answer('Close')" class="md-primary md-raised">
-     Close
-    </md-button>
-  </div>
-  </form>
+<form>
+	<md-dialog-content class="sticky-container">
+		<md-subheader class="md-sticky-no-effect">Custom Labels</md-subheader>
+	
+		<md-content>
+			<div layout-padding layout="column">
+				<md-input-container class="materialInputField">
+					<label class="advancedLabel">Primary Y-Axis Label</label>
+					<input class="advancedText" type="text" ng-model="primaryAxisName" ng-blur="savePrimaryName()">
+				</md-input-container> 
+				
+				<md-input-container class="materialInputField">
+					<label class="advancedLabel">Secondary Y-Axis Label</label>
+					<input class="advancedText" type="text" ng-model="secondaryAxisName" ng-blur="saveSecondaryName()"> 
+				</md-input-container> 
+			</div>
+		</md-content>
+	</md-dialog-content>
+	
+	<div class="md-actions" layout="row">
+		<span flex></span>
+		<md-button ng-click="answer('Close')" class="md-primary md-raised"> Close </md-button>
+	</div>
+</form>
 </md-dialog>

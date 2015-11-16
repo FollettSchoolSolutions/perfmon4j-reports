@@ -34,7 +34,7 @@
 	      		<input type="checkbox" name="publiclyVisible" ng-model="chart.publiclyVisible"/>
 	      		<label class="centeredLabelText" for="publiclyVisible"> Public?</label> 
       		</div>
-      		<a title="Advanced Options"><md-button title="Advanced Options" id="advanced" class="md-raised md-primary" ng-click="showAdvanced($event)">Advanced Options</md-button></a>
+      		<a title="Advanced Options"><md-button title="Advanced Options" id="advanced" class="md-raised md-primary" ng-click="showAdvanced($event)">Custom Labels</md-button></a>
 			<div class="form" ng-repeat="item in chart.series" >
 				<chart-series all-series="chart.series" series="item" ng-click="setActiveSeries($index)"></chart-series>
 		  	</div>
@@ -70,7 +70,7 @@
 					<p class="chartName"> {{name()}} </p>
 					<div id="chart"></div>
 					
-					<div class="viewTimeDiv" layout="row" layout-align="center center">
+					<div ng-if="enableTimeAdjustmentControls()" class="viewTimeDiv" layout="row" layout-align="center center">
 			      		<div>
 			      			<label for="startTime">From:</label>
 			      			<input class="from viewTimeParamInput" name="startTime" type="text" id="startTime" ng-model="chart.timeStart"/>
