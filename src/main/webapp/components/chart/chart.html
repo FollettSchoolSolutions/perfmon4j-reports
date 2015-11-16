@@ -34,7 +34,7 @@
 	      		<input type="checkbox" name="publiclyVisible" ng-model="chart.publiclyVisible"/>
 	      		<label class="centeredLabelText" for="publiclyVisible"> Public?</label> 
       		</div>
-      		<a title="Advanced Options"><md-button title="Advanced Options" id="advanced" class="md-raised md-primary" ng-click="showAdvanced($event)">Advanced Options</md-button></a>
+      		<a title="Advanced Options"><md-button title="Advanced Options" id="advanced" class="md-raised md-primary" ng-click="showAdvanced($event)">Custom Labels</md-button></a>
 			<div class="form" ng-repeat="item in chart.series" >
 				<chart-series all-series="chart.series" series="item" ng-click="setActiveSeries($index)"></chart-series>
 		  	</div>
