@@ -491,6 +491,14 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	    });
 	  }
 	
+	$scope.timeParamsPopulated = function(){
+		if(($scope.chart.timeStart == null || $scope.chart.timeStart == "") || ($scope.chart.timeEnd == null || $scope.chart.timeEnd == "")){
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	function isRelativeTimeRange() {
 		if ($scope.chart.timeStart.indexOf("now") > -1 || $scope.chart.timeEnd.indexOf("now") > -1) {
 			return true;
