@@ -499,6 +499,11 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 		}
 	}
 	
+	$scope.enableTimeAdjustmentControls = function(){
+		return (chartService.viewOnly);
+	}
+	
+	
 	function isRelativeTimeRange() {
 		if ($scope.chart.timeStart.indexOf("now") > -1 || $scope.chart.timeEnd.indexOf("now") > -1) {
 			return true;
