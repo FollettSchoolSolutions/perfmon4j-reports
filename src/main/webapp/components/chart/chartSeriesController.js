@@ -15,14 +15,14 @@ app.controller('chartSeriesControl', function ($scope, $routeParams, chartServic
 	$scope.fieldLoaded = false;
 	$scope.aggregationMethodLoaded = false;
 	
-	
+	this.id = new Date().getTime();
 	if(chartService.viewOnly == false){
 		if($routeParams.mode == 'edit'){
 			$scope.editInit = true;
 			$scope.series.editInit = true;
 		} else {
 			$scope.editInit = false;
-			$scope.series.editInit = false;
+			$scope.series.editInit = false; //TODO
 		}
 		
 		setTimeout(function(){
@@ -46,7 +46,6 @@ app.controller('chartSeriesControl', function ($scope, $routeParams, chartServic
 			
 			if($routeParams.mode == 'edit'){
 				var newSeries;
-//				$scope.series = $scope.loadEditData(angular.copy($scope.series), newSeries);
 				$scope.series.systems = $scope.lookupSystems($scope.series.systems);
 				$scope.systemsLoaded = true;
 				$scope.loadCategories();
@@ -57,6 +56,7 @@ app.controller('chartSeriesControl', function ($scope, $routeParams, chartServic
 			}
 			
 		});
+		
 		
 	}
 	

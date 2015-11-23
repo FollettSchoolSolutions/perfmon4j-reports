@@ -29,7 +29,7 @@ app.factory('dataSourceService', function($http){
 				+ database.id + "/systems?timeStart=" + timeStart + "&timeEnd="
 				+ timeEnd;
 		
-		return $http.get(url).then(function(result) {
+		return $http.get(url).then(function(result) { //TODO remove then
 			return result;
 		});
 		
