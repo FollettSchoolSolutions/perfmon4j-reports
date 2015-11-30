@@ -15,19 +15,27 @@ app.controller('chartSeriesControl', function ($scope, $routeParams, chartServic
 	$scope.fieldLoaded = false;
 	$scope.aggregationMethodLoaded = false;
 	
-	
+	this.id = new Date().getTime();
 	if(chartService.viewOnly == false){
 		if($routeParams.mode == 'edit'){
 			$scope.editInit = true;
 			$scope.series.editInit = true;
 		} else {
 			$scope.editInit = false;
-			$scope.series.editInit = false;
+			$scope.series.editInit = false; //TODO
 		}
 		
 		setTimeout(function(){
 			if (isEmptyOrNull($scope.systems)){
-				window.alert("Cannot connect to database / systems are null");
+				$mdDialog.show(
+			      $mdDialog.alert()
+			        .parent(angular.element(document.querySelector('#popupContainer')))
+			        .clickOutsideToClose(true)
+			        .title('Error')
+			        .content('Cannot connect to database / systems are null.')
+			        .ariaLabel('Database connection issue or systems are null')
+			        .ok('OK')
+			    );
 			}
 			
 		}, 5000);
@@ -38,7 +46,6 @@ app.controller('chartSeriesControl', function ($scope, $routeParams, chartServic
 			
 			if($routeParams.mode == 'edit'){
 				var newSeries;
-//				$scope.series = $scope.loadEditData(angular.copy($scope.series), newSeries);
 				$scope.series.systems = $scope.lookupSystems($scope.series.systems);
 				$scope.systemsLoaded = true;
 				$scope.loadCategories();
@@ -49,6 +56,7 @@ app.controller('chartSeriesControl', function ($scope, $routeParams, chartServic
 			}
 			
 		});
+		
 		
 	}
 	

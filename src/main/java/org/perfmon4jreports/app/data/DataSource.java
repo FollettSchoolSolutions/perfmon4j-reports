@@ -15,7 +15,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @NamedQueries({
 	@NamedQuery(name=DataSource.QUERY_FIND_ALL, query="Select l from DataSource l"),
-	@NamedQuery(name=DataSource.QUERY_FIND_DataSources, query ="Select l from DataSource l WHERE l.UserID like :userID"),
+	@NamedQuery(name=DataSource.QUERY_FIND_DataSources, query ="Select l from DataSource l WHERE l.UserID like :userID OR l.publiclyVisible = TRUE"), // TODO select all by userID, then all other public ones
 	@NamedQuery(name=DataSource.QUERY_FIND_CHARTS, query="Select l.dataSourceID from Chart l WHERE l.dataSourceID like :dsID")
 })	
 
@@ -33,7 +33,7 @@ public class DataSource {
 	
 	@Id
 	@SequenceGenerator(name = "dataSourceID", initialValue = 1, allocationSize = 100)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dataSourceID")   
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dataSourceID")
 	@Column(nullable=false, unique=true)
 	private Integer id;	
 
@@ -41,11 +41,14 @@ public class DataSource {
 	private String Name;
 	
 	
-	@Column(nullable = false, name = "URL", length=255)
-	private String URL;
+	@Column(nullable = false, name = "url", length=255)
+	private String url;
 	
 	@Column(nullable = false, unique=false, name = "UserID")
 	private int UserID;
+	
+	@Column(nullable = false, unique= false, name = "publiclyVisible")
+	private boolean publiclyVisible;
 
 	public int getId() {
 		return id;
@@ -64,11 +67,11 @@ public class DataSource {
 	}
 
 	public String getURL() {
-		return URL;
+		return url;
 	}
 
 	public void setURL(String uRL) {
-		URL = uRL;
+		url = uRL;
 	}
 
 	public int getUserID() {
@@ -77,5 +80,13 @@ public class DataSource {
 
 	public void setUserID(int userID) {
 		UserID = userID;
+	}
+
+	public boolean isPubliclyVisible() {
+		return publiclyVisible;
+	}
+
+	public void setPubliclyVisible(boolean publiclyVisible) {
+		this.publiclyVisible = publiclyVisible;
 	}
 }

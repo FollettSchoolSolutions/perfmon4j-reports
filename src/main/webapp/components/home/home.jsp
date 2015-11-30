@@ -15,7 +15,8 @@
 				<table style="width: 100%">
 					<tr ng-repeat="publicChart in publicCharts"> 
 						<td> 
-							<a class="chartrowLinkAnchor" href="#/chart/{{publicChart.id}}">{{ publicChart.chartName + " [" + publicChart.userFullName + "]" }}</a>
+							<a title="Datasource not available" ng-if="publicChart.isAvailable == false" class="chartrowLinkAnchorDisabled">{{ publicChart.chartName + " [" + publicChart.userFullName + "]" }}</a>
+							<a ng-if="publicChart.isAvailable == true" class="chartrowLinkAnchor" href="#/chart/{{publicChart.id}}">{{ publicChart.chartName + " [" + publicChart.userFullName + "]" }}</a>
 						</td>
 					</tr>
 					<tr ng-show="publicCharts.length == 0">
@@ -44,17 +45,27 @@
 					<tr ng-repeat="chart in charts"> 
 						<td> 
 							<div class="right">
-								<a title="Edit Chart" class="chartrowIconAnchor">
-									<ng-md-icon title="Edit Chart" class="edit-icon-dark" icon="mode_edit" size="25" ng-click="editChart(chart.id);openSideNav()"></ng-md-icon>
+								<!-- disabled icon buttons for greyed out -->
+								<a ng-if="chart.isAvailable == false" class="chartrowIconAnchorDisabled">
+									<i class="material-icons">mode edit</i>
 								</a>
-								<a title="Duplicate Chart" class="chartrowIconAnchor">
-									<ng-md-icon title="Duplicate Chart" class="duplicate-icon-dark" icon="content_copy" size="25" ng-click="copyChart(chart.id)"></ng-md-icon>
+								<a ng-if="chart.isAvailable == false" class="chartrowIconAnchorDisabled">
+									<i class="material-icons">content_copy</i>
 								</a>
-								<a title="Delete Chart" class="chartrowIconAnchor">
-									<ng-md-icon title="Delete Chart" class="delete-icon-dark" icon="delete" size="25" ng-click="deleteChart(chart.id)"></ng-md-icon>
+								
+								<!-- regular icon buttons -->
+								<a title="Edit Chart" ng-if="chart.isAvailable == true" class="chartrowIconAnchor" ng-click="editChart(chart.id);openSideNav()">
+									<i class="material-icons">mode edit</i>
+								</a>
+								<a title="Duplicate Chart" ng-if="chart.isAvailable == true" class="chartrowIconAnchor" ng-click="copyChart(chart.id)">
+									<i class="material-icons">content_copy</i>
+								</a>
+								<a title="Delete Chart" class="chartrowIconAnchor" ng-click="deleteChart(chart.id)">
+									<i class="material-icons">delete</i>
 								</a>
 							</div>
-							<a class="chartrowLinkAnchor" href="#/chart/{{chart.id}}">{{ chart.chartName }}</a>
+							<a title="Datasource not available" ng-if="chart.isAvailable == false" class="chartrowLinkAnchorDisabled">{{ chart.chartName }}</a>
+							<a ng-if="chart.isAvailable == true" class="chartrowLinkAnchor" href="#/chart/{{chart.id}}">{{ chart.chartName }}</a>
 						</td>
 					</tr>
 					<tr ng-show="charts.length == 0">
@@ -100,16 +111,20 @@
 			<table style="width: 100%">
 				<tr ng-repeat="ds in datasources"> 
 					<td> 
-					
-						<div class="right">
-							<a title="Edit DataSource" class="chartrowIconAnchor">
-								<ng-md-icon title="Edit DataSource" class="edit-icon-dark" icon="mode_edit" size="25"  ng-click="editDataSource($mnv, ds.id, ds.name, ds.url)"></ng-md-icon>
+						<div ng-if="ds.editable == true" class="right">
+							<a title="Edit DataSource" class="datasourceRowIconAnchor" ng-click="editDataSource($mnv, ds.id, ds.name, ds.url, ds.publiclyVisible)">
+								<i class="material-icons">mode edit</i>
 							</a>
-							<a title="Delete DataSource" class="chartrowIconAnchor">
-								<ng-md-icon title="Delete DataSource" class="delete-icon-dark" icon="delete" size="25" ng-click="deleteDataSource(ds.id)"></ng-md-icon>
+							<!-- delete is enabled -->
+							<a ng-if="ds.used == false" title="Delete DataSource" class="datasourceRowIconAnchor" ng-click="deleteDataSource(ds.id)">
+								<i class="material-icons">delete</i>
+							</a>
+							<!-- delete is disabled -->
+							<a ng-if="ds.used == true" title="Datasource in use" class="datasourceRowIconAnchorDisabled">
+								<i class="material-icons">delete</i>
 							</a>
 						</div>
-						<a class="datasourceRowText">{{ ds.name }}</a>
+						<a class="datasourceRowText">{{ getDataSourceName(ds) }}</a>
 					</td>
 				</tr>
 				<tr ng-show="datasources.length == 0">
@@ -133,7 +148,8 @@
 				<table style="width: 100%">
 					<tr ng-repeat="publicChart in publicCharts"> 
 						<td> 
-							<a class="chartrowLinkAnchor" href="#/chart/{{publicChart.id}}">{{ publicChart.chartName + " [" + publicChart.userFullName + "]" }}</a>
+							<a title="Datasource not available" ng-if="publicChart.isAvailable == false" class="chartrowLinkAnchorDisabled">{{ publicChart.chartName + " [" + publicChart.userFullName + "]" }}</a>
+							<a ng-if="publicChart.isAvailable == true" class="chartrowLinkAnchor" href="#/chart/{{publicChart.id}}">{{ publicChart.chartName + " [" + publicChart.userFullName + "]" }}</a>
 						</td>
 					</tr>
 					<tr ng-show="publicCharts.length == 0">

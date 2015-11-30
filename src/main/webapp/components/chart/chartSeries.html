@@ -2,10 +2,11 @@
 	<form class="insideForm" ng-controller="chartSeriesControl">
 		<div  class="header" layout="row">
 			<span class="headerText">
-				<a title="Open"><ng-md-icon class="arrow-icon" icon="keyboard_arrow_right" size="35" ng-hide="series.active"></ng-md-icon></a>
-				<a title="Close"><ng-md-icon class="arrow-icon" icon="keyboard_arrow_down" size="35" ng-show="series.active"></ng-md-icon></a>
+				<a title="Open" ng-hide="series.active"><i class="material-icons md-36 arrow-icon">keyboard_arrow_right</i></a>
+				<a title="Close" ng-show="series.active"><i class="material-icons md-36 arrow-icon">keyboard_arrow_down</i></a>
 				<label class="seriesName">{{seriesHeader()}}</label>
-				<a class="" title="Delete" size=""><ng-md-icon class="delete-icon-light" ng-click="deleteSeries()" ng-show="canDelete()" icon="delete" size="25"></ng-md-icon></a>
+				
+				<a title="Delete" ng-show="canDelete()" ng-click="deleteSeries()"><i class="material-icons md-24 delete-icon-light">delete</i></a>
 			</span>
 		</div>
 	

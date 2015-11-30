@@ -3,20 +3,13 @@ app.factory('dataSourceService', function($http){
 	var urlPath = "/perfmon4j/rest/datasource";
 
 	var factory = {};
-	
-	
-	factory.saveDataSource = function(dataSource){
-				return $http.put("rest/datasources/" + dataSource.name, dataSource.URL).then(function(result) {
-					return result;
-				});
-		}
 
 	factory.getDataSources = function() {
 		return $http.get("rest/datasources").then(function(result) {
-			return result;
+			return result; 
 		});
 	}
-
+	
 	factory.getDatabases = function(datasource) {
 		if(datasource.url.indexOf("http") < 0){
 			datasource.url = "http://" + datasource.url;
@@ -36,7 +29,7 @@ app.factory('dataSourceService', function($http){
 				+ database.id + "/systems?timeStart=" + timeStart + "&timeEnd="
 				+ timeEnd;
 		
-		return $http.get(url).then(function(result) {
+		return $http.get(url).then(function(result) { //TODO remove then
 			return result;
 		});
 		
@@ -82,6 +75,12 @@ app.factory('dataSourceService', function($http){
 			return result;
 		})
 	}
+	
+	factory.saveDataSource = function(dataSource){
+		return $http.put("rest/datasources/" + dataSource.name + "/" + dataSource.publiclyVisible, dataSource.URL).then(function(result) {
+			return result;
+		});
+	}
 
 	factory.deleteDataSource = function(id){
         return $http['delete']("rest/datasources/" + id).then(function(result) {
@@ -90,7 +89,7 @@ app.factory('dataSourceService', function($http){
 	}
 	
 	factory.editDataSource = function(dataSource){
-		return $http.put("rest/datasources/" + dataSource.id +"/" + dataSource.editName, dataSource.URL).then(function(result) {
+		return $http.put("rest/datasources/" + dataSource.id + "/" + dataSource.editName + "/" + dataSource.publiclyVisible, dataSource.URL).then(function(result) {
 			return result;
 		});
 	}

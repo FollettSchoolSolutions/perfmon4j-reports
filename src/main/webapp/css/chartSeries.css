@@ -22,12 +22,26 @@
 	float: right;
 	margin-top: 4px; 
 	margin-right: -5px;
-	fill: white;
+	color: white;
 	padding-top: 2px;
 	padding-left: 2px;
 	padding-bottom: 2px;
 	padding-right: 2px;
 }  
+
+.arrow-icon {
+	color: white;
+}
+
+.arrow-icon:hover {
+	cursor: pointer;
+	color: #E0E0E0;
+}
+
+.delete-icon-light:hover {
+	cursor: pointer;
+	color: #E0E0E0;
+}
 
 .clear {
 	font-weight: normal;
@@ -80,10 +94,6 @@
 	height: 35px;
 }
 
-.arrow-icon {
-	fill: white;
-}
-
 .secondaryAxisLabel {
 	padding-top: 12px;
 }
@@ -104,16 +114,6 @@
 	font-size:.6rem;
 	margin-bottom: 15px;
 	margin-left: 10px;
-}
-
-.arrow-icon:hover {
-	cursor: pointer;
-	fill: #E0E0E0;
-}
-
-.delete-icon-light:hover {
-	cursor: pointer;
-	fill: #E0E0E0;
 }
 
 a:hover {

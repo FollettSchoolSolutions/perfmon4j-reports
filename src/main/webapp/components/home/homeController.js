@@ -14,8 +14,24 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		}
 		$scope.datasources = result.data;
 	}).catch(function onError(err) {
-		window.alert("Failed to load datasources " + err.message );
+		$mdDialog.show(
+	      $mdDialog.alert()
+	        .parent(angular.element(document.querySelector('#popupContainer')))
+	        .clickOutsideToClose(true)
+	        .title('Error')
+	        .content('Failed to load datasources ' + err.message)
+	        .ariaLabel('Database load failure')
+	        .ok('OK')
+	    );
 	})
+	
+	$scope.validateConnection = function(currChart) {
+		var connectionCheck = dataSourceService.getDatabases(currChart.chosenDatasource);
+		
+		connectionCheck.then(function(resultCheck){
+			currChart.isAvailable = (resultCheck.status == 200);			
+		});		
+	}
 	
 	var publicChartFetchPromise = chartService.getPublicCharts();
 	publicChartFetchPromise.then(function(result){
@@ -28,9 +44,24 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		});
 		
 		$scope.publicCharts = publicCharts;
+		for (var i = 0; i < publicCharts.length; i++) {
+			var currChart = publicCharts[i];
+			currChart.isAvailable = false;			
+
+			$scope.validateConnection(currChart);
+		}
+		
 	}).catch(function onError(err) {
-		window.alert("Failed to load public charts " + err.message );
-	})
+		$mdDialog.show(
+	      $mdDialog.alert()
+	        .parent(angular.element(document.querySelector('#popupContainer')))
+	        .clickOutsideToClose(true)
+	        .title('Error')
+	        .content('Failed to load public charts ' + err.message)
+	        .ariaLabel('Public charts load failure')
+	        .ok('OK')
+	    );
+	})		
 		
 	var chartFetchPromise = chartService.getCharts();
 	chartFetchPromise.then(function(result){
@@ -43,8 +74,23 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 		});
 		
 		$scope.charts = charts;
+		for (var i = 0; i < charts.length; i++) {
+			var currChart = charts[i];
+			currChart.isAvailable = false;			
+
+			$scope.validateConnection(currChart);
+		}
+		
 	}).catch(function onError(err) {
-		window.alert("Failed to load charts " + err.message );
+		$mdDialog.show(
+	      $mdDialog.alert()
+	        .parent(angular.element(document.querySelector('#popupContainer')))
+	        .clickOutsideToClose(true)
+	        .title('Error')
+	        .content('Failed to load charts ' + err.message)
+	        .ariaLabel('Charts load failure')
+	        .ok('OK')
+	    );
 	})
 	
 	$scope.showChart = function() {
@@ -61,36 +107,92 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	}
 	
 	$scope.deleteChart = function(id) {
-		var deletePromise = chartService.deleteChart(id);
-		deletePromise.then(function(result){
-			var successful = result.data;
-			if (!successful){
-				alert("Deleting chart with id: " + id + " was NOT successful.");
-			}
-			$location.path("/");
-		});
+		var confirm = $mdDialog.confirm()
+	      .title('Delete?')
+	      .content('Are you sure you want to delete this chart?')
+	      .ariaLabel('Chart deletion confirmation')
+	      .ok('OK')
+	      .cancel('Cancel');
+
+	    $mdDialog.show(confirm).then(function() { // user clicks OK
+	    	var deletePromise = chartService.deleteChart(id);
+			deletePromise.then(function(result){
+				var successful = result.data;
+				if (!successful){
+					$mdDialog.show(
+				      $mdDialog.alert()
+				        .parent(angular.element(document.querySelector('#popupContainer')))
+				        .clickOutsideToClose(true)
+				        .title('Delete Chart Error')
+				        .content('Deleting chart with id: ' + id + ' was NOT successful.')
+				        .ariaLabel('Delete chart failure')
+				        .ok('OK')
+				    );
+				} else {
+					$location.path("/");
+				}
+			});
+	    }, function() { // user clicks Cancel
+	      // do nothing
+	    });
 	}
 	
 	$scope.copyChart = function(id){
 		var copyPromise = chartService.copyChart(id);
 		copyPromise.then(function(result){
 			if(result.status != 204){
-				alert("Copying chart with id: " + id + " was NOT successful.");
+				$mdDialog.show(
+			      $mdDialog.alert()
+			        .parent(angular.element(document.querySelector('#popupContainer')))
+			        .clickOutsideToClose(true)
+			        .title('Duplicate Chart Error')
+			        .content('Duplicating chart with id: ' + id + ' was NOT successful.')
+			        .ariaLabel('Duplicate chart failure')
+			        .ok('OK')
+			    );
+			} else {
+				$location.path("/");
 			}
-			$location.path("/");
 		});
 	}
 	
-	//Ideally, we would want to show the names of the charts refrencing the datasource, but I'm not sure how to do that
+	$scope.getDataSourceName = function(ds){
+		if(ds.publiclyVisible == true){
+			return (ds.name + " (public)");
+		} else {
+			return ds.name;
+		}
+	}
+	
 	$scope.deleteDataSource = function(id) {
-		var deletePromise = dataSourceService.deleteDataSource(id);
-		deletePromise.then(function(result){
-			var successful = result.data;
-			if (!successful){
-				alert("This DataSource is being referenced by a chart. DataSource Id: " + id);
-			}
-			$location.path("/");
-		});
+		var confirm = $mdDialog.confirm()
+	      .title('Delete?')
+	      .content('Are you sure you want to delete this datasource?')
+	      .ariaLabel('Datasource deletion confirmation')
+	      .ok('OK')
+	      .cancel('Cancel');
+
+	    $mdDialog.show(confirm).then(function() { // user clicks OK
+	    	var deletePromise = dataSourceService.deleteDataSource(id);
+		    deletePromise.then(function(result){
+		    	var successful = result.data;
+		    	if (!successful){
+		    		$mdDialog.show(
+				      $mdDialog.alert()
+				        .parent(angular.element(document.querySelector('#popupContainer')))
+				        .clickOutsideToClose(true)
+				        .title('Cannot Delete')
+				        .content('This DataSource is being referenced by a chart. DataSource id: ' + id)
+				        .ariaLabel('Cannot delete datasource')
+				        .ok('OK')
+				    );
+		    	} else {
+		    		$location.path("/");
+		    	}
+		    });
+	    }, function() { // user clicks Cancel
+	      // do nothing
+	    });
 	}
 	//Building the popup for datasource
 	$scope.showDataSources = function(ev) {
@@ -103,7 +205,7 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	}
 	
 	//Building the popup for edit datasource. We pass it id, name, url and store them into local variables
-	$scope.editDataSource = function(mn, id, name, url) {
+	$scope.editDataSource = function(mn, id, name, url, publiclyVisible) {
 	    $mdDialog.show({
 	      controller: editDataSource,
 	      templateUrl: 'components/datasource/editDataSource.html',
@@ -112,7 +214,8 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	      locals: {
 	    	  editID: id,
 	    	  editname: name,
-	    	  editurl: url
+	    	  editurl: url,
+	    	  editpubflag: publiclyVisible
 	      }
 	    });
 	}
@@ -121,24 +224,19 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	function DataSourceController($scope, $mdDialog, dataSourceService) {
 		$scope.name = name
 		$scope.url = URL;
-	  
-	  
 	
-	  $scope.answer = function(answer) {
-	   
-	   $mdDialog.hide(answer);
-	   
-	 };
+		$scope.answer = function(answer) {
+		   $mdDialog.hide(answer);
+		};
 	};
 	
 	//Pop up box where DataSource info is already populated for editing.
-	function editDataSource($scope, $mdDialog, dataSourceService, editID, editname, editurl){
+	function editDataSource($scope, $mdDialog, dataSourceService, editID, editname, editurl, editpubflag){
 		$scope.name = editname;
 		$scope.URL = editurl;
+		$scope.publiclyVisible = editpubflag;
 		$scope.id = editID;
-		  $scope.answer = function(answer) {
-			  
-			  $mdDialog.hide(answer);
-			   location.reload();
-			 };
+		$scope.answer = function(answer) {
+			$mdDialog.hide(answer);
+		};
 	};

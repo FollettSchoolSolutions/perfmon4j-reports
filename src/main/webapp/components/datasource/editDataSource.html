@@ -1,28 +1,44 @@
 <md-dialog aria-label="Datasource">
-  <form>
-  <md-toolbar>
-    <div class="md-toolbar-tools">
-      <h2>Edit Datasource:</h2>
-    </div>
-  </md-toolbar>
-  <md-dialog-content>
-    <div layout="row">
-       <label class="advancedLabel">Name:</label>
-    </div>
-    <input class="advancedText" type="text" id="name" name="name" ng-model="name">
-    <div layout="row">
-     <label class="advancedLabel">URL</label>
-    </div>
-    <input class="advancedText" type="text" id="URL" name="URL" ng-model="URL">
-  </md-dialog-content>
-  <div class="md-actions" layout="row">
-    <span flex></span>
-    <md-button ng-controller="dataSourceControl" ng-click="editDataSource()" class="md-primary md-raised">
-     Update
-    </md-button>
-        <md-button ng-click="answer('Cancel')" class="md-primary md-raised">
-     Cancel
-    </md-button>
-  </div>
-  </form>
+<form>
+	<md-dialog-content class="sticky-container"> 
+		<md-subheader class="md-sticky-no-effect">Edit Datasource</md-subheader>
+		
+		<md-content>
+			<div layout-padding layout="row">
+				<md-input-container class="materialInputField"> 
+					<label>Name</label>
+					<input ng-model="name" type="text"> 
+				</md-input-container> 
+				<md-input-container class="materialInputField"> 
+					<label>URL</label>
+					<input ng-model="URL" type="text"> 
+				</md-input-container> 
+				<span class="infoIconSpan" layout="column">
+					<span flex></span>
+					<a title="URL Syntax" href="https://github.com/FollettSchoolSolutions/perfmon4j-reports/wiki/Datasource-URL-Syntax" target="_blank" class="infoIconAnchor"> 
+						<i class="material-icons">info</i>
+					</a>
+				</span>
+			</div>
+			<div class="right">
+		    	<md-checkbox md-no-ink="" ng-model="publiclyVisible" class="md-primary">
+		          Public?
+		    	</md-checkbox>
+			</div>
+		</md-content>
+	</md-dialog-content>
+	
+	<div ng-controller="dataSourceControl" class="md-actions" layout="row">
+		<span flex></span>
+		<div ng-show="successfulConnection != null && successfulConnection">
+			<p class="successful"> Succeeded </p>
+		</div>
+		<div ng-show="successfulConnection != null && (!successfulConnection)">
+			<p class="notSuccessful"> Failed </p>
+		</div>
+		<md-button ng-disabled="!fieldsArePoplated()" ng-click="testConnection()" class="md-primary md-raised"> Test Connection </md-button>
+		<md-button ng-disabled="!fieldsArePoplated()" ng-click="editDataSource()" class="md-primary md-raised"> Update </md-button>
+		<md-button ng-click="answer('Cancel')" class="md-primary md-raised"> Cancel </md-button>
+	</div>
+</form>
 </md-dialog>

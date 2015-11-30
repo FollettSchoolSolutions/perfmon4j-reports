@@ -17,8 +17,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.json.JSONObject;
 import org.perfmon4jreports.app.data.DataSource;
+import org.perfmon4jreports.app.entity.Chart;
 import org.perfmon4jreports.app.sso.Principal;
+import org.perfmon4jreports.app.sso.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Stateless
 @Path("/datasources")
@@ -26,16 +31,18 @@ public class DataSourceService {
 	
 		@PersistenceContext
 		private EntityManager em;
-		//Inject HTTPSession instead of PrincpalContext.  Refer to ChartService.java
+		
+		private static final  Logger logger = LoggerFactory.getLogger(ChartService.class);
+		
 		@Inject
 		HttpSession session;		
 		
 	//Save or Update
 	@PUT
-	@Path("/{name}")
+	@Path("/{name}/{publiclyVisible}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void saveDataSource(@PathParam("name") String name, String URL) {
+	public void saveDataSource(@PathParam("name") String name, String URL, @PathParam("publiclyVisible") boolean publiclyVisible) {
 	//We need to get globalID from the current HTTP session instead of from PrincipalContext.
 		Principal p = Principal.getPrincipal(session);
 		if (p != null) {
@@ -44,8 +51,11 @@ public class DataSourceService {
 			DataSource d = new DataSource();
 			d.setName(name);
 			d.setURL(URL);
+			d.setPubliclyVisible(publiclyVisible);
 			d.setUserID(userID);
 			em.persist(d);
+		} else {
+			logger.warn("Principal is null! Datasource not persisted!");
 		}
 	}	
 	
@@ -53,18 +63,43 @@ public class DataSourceService {
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)	
-	public List<DataSource> getDataSources() {
-		List<DataSource> result = new ArrayList<>();
+	public String getDataSources() {
 		
 		// Change to HTTPSession.getPrincipal
 		Principal p = Principal.getPrincipal(session);
 		if (p != null) {
 			@SuppressWarnings("unchecked")
 			Integer userID = p.getLocalUser().getUserID();
-			result = em.createNamedQuery(DataSource.QUERY_FIND_DataSources).setParameter("userID", userID).getResultList();
+			List<DataSource> list = em.createNamedQuery(DataSource.QUERY_FIND_DataSources).setParameter("userID", userID).getResultList();
+			
+			StringBuilder retList = new StringBuilder("[");
+			for (int i = 0; i < list.size(); i++) {
+				if (i > 0) {
+					retList.append(",");
+				}
+				JSONObject datasourceJSON = new JSONObject(list.get(i)); 
+				String url = datasourceJSON.getString("URL"); // front end requires "url" instead of "URL"
+				datasourceJSON.remove("URL");
+				datasourceJSON.put("url",url);
+				boolean edit = (datasourceJSON.getInt("userID") == userID);
+				datasourceJSON.put("editable",edit);
+				
+				int dataSourceID = datasourceJSON.getInt("id");
+				List<Chart> chartList = em.createNamedQuery(Chart.QUERY_FIND_ALL_BY_DS).setParameter("dataSourceID", dataSourceID).getResultList();
+				if(chartList.size() > 0){
+					datasourceJSON.put("used",true);
+				} else {
+					datasourceJSON.put("used",false);
+				}
+				
+				retList.append(datasourceJSON.toString());
+			}
+			retList.append("]");
+			return retList.toString();
+		} else {
+			logger.info("User is not logged in, cannot fetch datasources");
+			return "[]";
 		}
-	
-		return result;
 	}
 		//These are here for reference.  Specifically, the IP address of the only working datasource.
 		//return Arrays.asList(new DataSourceVo[] { new DataSourceVo(
@@ -93,15 +128,16 @@ public class DataSourceService {
 	}
 	//Edit
 	@PUT
-	@Path("/{id}/{editName}")
+	@Path("/{id}/{editName}/{publiclyVisible}")
 	@Consumes(MediaType.APPLICATION_JSON)	
 	@Produces(MediaType.APPLICATION_JSON)	
-	public void editDataSource(@PathParam("id") Integer id, @PathParam("editName") String editName, String url) {
+	public void editDataSource(@PathParam("id") Integer id, @PathParam("editName") String editName, String url, @PathParam("publiclyVisible") boolean publiclyVisible) {
 		//Find the DataSource in the database
 		DataSource data = em.find(DataSource.class, id);
 		data.setId(id);
 		data.setName(editName);
 		data.setURL(url);
+		data.setPubliclyVisible(publiclyVisible);
 		em.merge(data);
 	}
 	

@@ -216,7 +216,15 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	$scope.showChart = function() {
 		setTimeout(function(){
 			if (chartService.isChartLoading===true){
-				window.alert("The chart failed to render.  Connection to database may have been lost.");
+				$mdDialog.show(
+			      $mdDialog.alert()
+			        .parent(angular.element(document.querySelector('#popupContainer')))
+			        .clickOutsideToClose(true)
+			        .title('Chart Render Failure')
+			        .content('The chart failed to render. Connection to database may have been lost.')
+			        .ariaLabel('Chart Render Failure')
+			        .ok('OK')
+			    );
 			}
 		
 		}, 60000);
@@ -321,7 +329,15 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 			}
 			chartService.isChartLoading = false;
 		}).catch(function onError(err) {
-			window.alert("Failed to save chart");
+			$mdDialog.show(
+		      $mdDialog.alert()
+		        .parent(angular.element(document.querySelector('#popupContainer')))
+		        .clickOutsideToClose(true)
+		        .title('Chart Save Failure')
+		        .content('The chart failed to save.')
+		        .ariaLabel('Chart Save Failure')
+		        .ok('OK')
+		    );
 			chartService.isChartLoading = false;
 		})
 	
@@ -475,6 +491,19 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	    });
 	  }
 	
+	$scope.timeParamsPopulated = function(){
+		if(($scope.chart.timeStart == null || $scope.chart.timeStart == "") || ($scope.chart.timeEnd == null || $scope.chart.timeEnd == "")){
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	$scope.enableTimeAdjustmentControls = function(){
+		return (chartService.viewOnly);
+	}
+	
+	
 	function isRelativeTimeRange() {
 		if ($scope.chart.timeStart.indexOf("now") > -1 || $scope.chart.timeEnd.indexOf("now") > -1) {
 			return true;
@@ -559,8 +588,61 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	function clearSeries(){
 		$scope.chart.series = [];
 	}
+	
+	$scope.isViewOnly = function (){
+		return chartService.viewOnly;
+	}
+	
+	$scope.viewParameterInfo = function($event) {
+       var parentEl = angular.element(document.body);
+       $mdDialog.show({
+         parent: parentEl,
+         targetEvent: $event,
+         templateUrl:'components/chart/chartViewParameterInfo.html',
+         locals: {
+           chart: $scope.chart
+         },
+         controller: viewParameterInfoController
+      });
+    }
 
 });
+
+function viewParameterInfoController(scope, $mdDialog, $sce, chart) {
+	var chartObj = {
+			title : chart.chartName,
+			ispublic : chart.publiclyVisible,
+			datasource : {},
+			database : chart.chosenDatabase.name,
+			starttime : chart.timeStart,
+			endtime : chart.timeEnd,
+			series : []
+	}
+	chartObj.datasource.name =  chart.chosenDatasource.name;
+	chartObj.datasource.url =  chart.chosenDatasource.url;
+	
+	for(var i = 0; i < chart.series.length; i++){
+		var currSeries = chart.series[i];
+		var seriesObj = {
+				systems : []
+		}
+		
+		seriesObj.title = currSeries.name;
+		for(var j = 0; j < currSeries.systems.length; j++){
+			seriesObj.systems.push(currSeries.systems[j].name);
+		}
+		seriesObj.category = currSeries.category.name;
+		seriesObj.field = currSeries.field.name;
+		seriesObj.aggregation = currSeries.aggregationMethod;
+		chartObj.series.push(seriesObj);
+	}
+	var tmp = angular.toJson(chartObj);
+    scope.tableDiv = JsonHuman.format(chartObj).innerHTML;
+    
+    scope.closeDialog = function() {
+      $mdDialog.hide();
+    };
+}
 
 function DialogController($scope, $mdDialog, chartService) {
 	  $scope.secondaryAxisName = chartService.secondaryAxisName;

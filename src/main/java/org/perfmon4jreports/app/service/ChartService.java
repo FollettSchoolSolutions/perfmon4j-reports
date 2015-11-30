@@ -1,5 +1,10 @@
 package org.perfmon4jreports.app.service;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.Socket;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -18,16 +23,21 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.json.JSONObject;
+import org.perfmon4jreports.app.Application;
 import org.perfmon4jreports.app.entity.Chart;
 import org.perfmon4jreports.app.sso.Principal;
 import org.perfmon4jreports.app.sso.User;
 //check login status
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Stateless
 @Path("/charts")
 public class ChartService {
 	@PersistenceContext
 	private EntityManager em;
+	
+	private static final  Logger logger = LoggerFactory.getLogger(ChartService.class);
 	
 	@Inject
 	HttpSession session;
@@ -84,9 +94,9 @@ public class ChartService {
 			if (i > 0) {
 				retList.append(",");
 			}
-			JSONObject chartJSON = new JSONObject(list.get(i).getData());
-			JSONObject datasourceJSON = (JSONObject)chartJSON.get("chosenDatasource");
-			int userID = datasourceJSON.getInt("userID");
+			JSONObject chartJSON = new JSONObject(list.get(i).getData()); 
+			int userID = list.get(i).getUserID();
+			
 			List<User> results = em.createNamedQuery(User.QUERY_FIND_USER_BY_USERID).setParameter("userID", userID).getResultList();
 			chartJSON.put("userFullName",results.get(0).getName());
 			retList.append(chartJSON.toString());
@@ -113,7 +123,8 @@ public class ChartService {
 				if (i > 0) {
 					retList.append(",");
 				}
-				retList.append(list.get(i).getData());
+				JSONObject chartJSON = new JSONObject(list.get(i).getData()); // leaving this here in case we need to insert a field later
+				retList.append(chartJSON.toString());
 			}
 			retList.append("]");
 			return retList.toString();
@@ -134,4 +145,5 @@ public class ChartService {
 	return true;
 		
 	}
+	
 }

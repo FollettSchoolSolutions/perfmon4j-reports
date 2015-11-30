@@ -1,3 +1,8 @@
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
 .clearfix:before,
 .clearfix:after {
   display: table;
@@ -8,6 +13,10 @@
 .clearfix:after {
 	clear: both;
 }   
+
+.materialInputField {
+	padding: 2px 2px 5px;
+}
 
 .title {
 	margin-left: 32px;
@@ -45,39 +54,35 @@ a {
 a:hover, a:active {
     color: #000000; 
 }
-.home-icon-light {
-	fill: #FFFFFF;
-}
-.home-icon-light:hover {
-	fill: #E0E0E0;
-}
-.edit-icon-dark {
-	fill: #616161;
-}
-.edit-icon-dark:hover {
-	fill: #000000;
-}
-.duplicate-icon-dark {
-	fill: #616161;
-}
-.duplicate-icon-dark:hover {
-	fill: #000000;
-}
-.delete-icon-dark {
-	fill: #616161;
-}
-.delete-icon-dark:hover {
-	fill: #000000;
-}
+
 .chartrowIconAnchor {
 	display: inline-block;
 	padding: 5px 5px 2px;
+}
+.chartrowIconAnchorDisabled {
+	display: inline-block;
+	padding: 5px 5px 2px;
+	color: #999999;
+}
+.chartrowIconAnchorDisabled:hover, .chartrowIconAnchorDisabled:active {
+	color: #999999;
 }
 .chartrowLinkAnchor {
 	line-height: 32px;
 	padding: 0px 11px 0px;
 	font-weight: bold;
 	text-decoration: none;
+}
+.chartrowLinkAnchorDisabled {
+	line-height: 32px;
+	padding: 0px 11px 0px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #999999;
+}
+.chartrowLinkAnchorDisabled:hover, .chartrowLinkAnchorDisabled:active {
+	text-decoration: none;
+	color: #999999;
 }
 .emptyListPlaceholder {
 	padding: 5px;
@@ -94,6 +99,22 @@ a:hover, a:active {
 	padding: 0px 11px 0px;
 	font-weight: bold;
 	text-decoration: none;
+}
+.datasourceRowText:hover, .datasourceRowText:active {
+	text-decoration: none;
+	color: #616161;
+}
+.datasourceRowIconAnchor {
+	display: inline-block;
+	padding: 5px 5px 2px;
+}
+.datasourceRowIconAnchorDisabled {
+	display: inline-block;
+	padding: 5px 5px 2px;
+	color: #999999;
+}
+.datasourceRowIconAnchorDisabled:hover, .datasourceRowIconAnchorDisabled:active {
+	color: #999999;
 }
 .centeredLabelText {
 	line-height: 40px;
@@ -187,6 +208,21 @@ a:hover, a:active {
     overflow-y: hidden;
 }
 
+.md-subheader .md-subheader-inner {
+  background-color: #616161;
+  color: #ffffff;
+  margin: 0; 
+}
+
+.infoIconSpan {
+	height: 28px;
+}
+.infoIconAnchor {
+	width: 24px;
+	height: 24px;
+	margin: 28px 2px 2px;
+}
+
 body {
   height:100%
 }
@@ -197,4 +233,11 @@ body {
 
 html, body {
 	font-size: 100%;
+}
+
+.successful {
+	color: green;
+}
+.notSuccessful {
+	color: red;
 }
