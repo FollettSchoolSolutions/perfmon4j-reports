@@ -31,7 +31,7 @@ public class UsersService {
 		} catch (NoResultException ne) {
 			// Ignore... Must create a new user.
 		}
-
+		
 		if (user == null) {
 			user = new User();
 			user.setName(principal.getName());

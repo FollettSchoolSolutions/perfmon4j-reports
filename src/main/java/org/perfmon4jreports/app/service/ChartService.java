@@ -95,8 +95,7 @@ public class ChartService {
 				retList.append(",");
 			}
 			JSONObject chartJSON = new JSONObject(list.get(i).getData()); 
-			JSONObject datasourceJSON = (JSONObject)chartJSON.get("chosenDatasource");
-			int userID = datasourceJSON.getInt("userID");
+			int userID = list.get(i).getUserID();
 			
 			List<User> results = em.createNamedQuery(User.QUERY_FIND_USER_BY_USERID).setParameter("userID", userID).getResultList();
 			chartJSON.put("userFullName",results.get(0).getName());
