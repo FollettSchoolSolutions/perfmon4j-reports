@@ -87,22 +87,43 @@ public class ChartService {
 	@Path("/public")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getPublicCharts() {
-		@SuppressWarnings("unchecked")
-		List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL_PUBLIC).getResultList();
-		StringBuilder retList = new StringBuilder("[");
-		for (int i = 0; i < list.size(); i++) {
-			if (i > 0) {
-				retList.append(",");
+		if (!Principal.isLoggedIn(session)){
+			@SuppressWarnings("unchecked")
+			List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL_PUBLIC).getResultList();
+			StringBuilder retList = new StringBuilder("[");
+			for (int i = 0; i < list.size(); i++) {
+				if (i > 0) {
+					retList.append(",");
+				}
+				JSONObject chartJSON = new JSONObject(list.get(i).getData()); 
+				int userID = list.get(i).getUserID();
+				
+				List<User> results = em.createNamedQuery(User.QUERY_FIND_USER_BY_USERID).setParameter("userID", userID).getResultList();
+				chartJSON.put("userFullName",results.get(0).getName());
+				retList.append(chartJSON.toString());
 			}
-			JSONObject chartJSON = new JSONObject(list.get(i).getData()); 
-			int userID = list.get(i).getUserID();
+			retList.append("]");
+			return retList.toString();
+		} else {
+			Integer loggedInUser = Principal.getPrincipal(session).getLocalUser().getUserID();
 			
-			List<User> results = em.createNamedQuery(User.QUERY_FIND_USER_BY_USERID).setParameter("userID", userID).getResultList();
-			chartJSON.put("userFullName",results.get(0).getName());
-			retList.append(chartJSON.toString());
+			@SuppressWarnings("unchecked")
+			List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL_PUBLIC_NOT_OWNED).setParameter("userID", loggedInUser).getResultList();
+			StringBuilder retList = new StringBuilder("[");
+			for (int i = 0; i < list.size(); i++) {
+				if (i > 0) {
+					retList.append(",");
+				}
+				JSONObject chartJSON = new JSONObject(list.get(i).getData()); 
+				int userID = list.get(i).getUserID();
+				
+				List<User> results = em.createNamedQuery(User.QUERY_FIND_USER_BY_USERID).setParameter("userID", userID).getResultList();
+				chartJSON.put("userFullName",results.get(0).getName());
+				retList.append(chartJSON.toString());
+			}
+			retList.append("]");
+			return retList.toString();
 		}
-		retList.append("]");
-		return retList.toString();
 	}
 
 	// Retrieve
