@@ -13,7 +13,8 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @NamedQueries({
 	@NamedQuery(name=Chart.QUERY_FIND_ALL, query="SELECT c FROM Chart c where c.userID LIKE :userID OR c.userID is NULL"),
 	@NamedQuery(name=Chart.QUERY_FIND_ALL_BY_DS, query="SELECT c FROM Chart c where c.dataSourceID LIKE :dataSourceID"),
-	@NamedQuery(name=Chart.QUERY_FIND_ALL_PUBLIC, query="SELECT c FROM Chart c where c.publiclyVisible = TRUE")
+	@NamedQuery(name=Chart.QUERY_FIND_ALL_PUBLIC, query="SELECT c FROM Chart c where c.publiclyVisible = TRUE"),
+	@NamedQuery(name=Chart.QUERY_FIND_ALL_PUBLIC_NOT_OWNED, query="SELECT c FROM Chart c where c.publiclyVisible = TRUE and c.userID NOT LIKE :userID")
 })
 
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -23,6 +24,7 @@ public class Chart {
 	public static final String QUERY_FIND_ALL = "Chart.findAll";
 	public static final String QUERY_FIND_ALL_BY_DS = "Chart.findAllByDS";
 	public static final String QUERY_FIND_ALL_PUBLIC = "Chart.findAllPublic";
+	public static final String QUERY_FIND_ALL_PUBLIC_NOT_OWNED = "Chart.findAllPublicNotOwned";
 	
     @Column(unique = true, nullable = false, name = "CHART_ID")
     @Id
