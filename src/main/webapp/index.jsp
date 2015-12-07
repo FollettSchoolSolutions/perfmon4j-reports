@@ -56,17 +56,15 @@
 		<div ng-controller="appControl" layout-fill layout="column">
 			<md-toolbar class="md-primary">
 		      <div layout="row" layout-align="space-between center" class="md-toolbar-tools">
-		        <h1>
-			        <a title="Homepage" href="#home"><img src="images/perfmon4jFULL.png" alt="perfmon4j reports logo" style="height: 56px"></a>
-		        </h1>
-		         
-		 	<%if (!Principal.isLoggedIn(session))  { %>        
-			    <md-button href="callback/sso?launch=true" >Login with GitHub</md-button>
-		 	<% } else { 
-		 		String userName = Principal.getPrincipal(session).getName();
-		 	%>
-		    	<md-button href="callback/sso?logout=true">Logout (<%=userName%>)</md-button>
-		 	<% } %>
+			      <a title="Homepage" href="#home"><img src="images/perfmon4jFULL.png" alt="perfmon4j reports logo"></a>
+			         
+			 	<%if (!Principal.isLoggedIn(session))  { %>        
+				    <md-button href="callback/sso?launch=true" >Login with GitHub</md-button>
+			 	<% } else { 
+			 		String userName = Principal.getPrincipal(session).getName();
+			 	%>
+			    	<md-button href="callback/sso?logout=true">Logout (<%=userName%>)</md-button>
+			 	<% } %>
 		         
 		      </div>
 		    </md-toolbar>

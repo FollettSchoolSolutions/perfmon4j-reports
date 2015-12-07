@@ -136,15 +136,12 @@ a:hover, a:active {
 }
 
 
-.chartMenu {
+.listContainer {
 	border: 1px solid black;
-	float: left;
-	width: 40%;
-	margin-left: 7%;
-	margin-top: 20px;
-	margin-bottom: 30px;
-	min-width: 650px; 
+	margin-top: 30px;
+	margin-bottom: 30px; 
 }
+/*
 .publicChartMenu {
 	border: 1px solid black;
 	float: left;
@@ -163,7 +160,7 @@ a:hover, a:active {
 	margin-bottom: 30px;
 	min-width: 650px; 
 }
-
+*/
 .innerChartMenu {
 	max-height: 650px;
 	overflow: auto;
@@ -240,4 +237,16 @@ html, body {
 }
 .notSuccessful {
 	color: red;
+}
+
+.responsiveRow {
+	width: 100%;
+	padding: 0px 15px;
+}
+.responsiveCol {
+	margin: 0px 15px;
+}
+
+.indentRight {
+	text-align: right;
 }
