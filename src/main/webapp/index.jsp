@@ -52,22 +52,52 @@
 	  <script src="components/datasource/dataSourceController.js"></script>
 	  
 	</head>
-	<body layout="row">
-		<div ng-controller="appControl" layout-fill layout="column">
+	<body>
+	<!-- <body layout="row"> -->
+		<div ng-controller="appControl" layout-fill>
 			<md-toolbar class="md-primary">
+					
+					<%if (!Principal.isLoggedIn(session))  { %> 
+					<div class="loginContainer">
+						<a title="Login" href="callback/sso?launch=true" class="login">
+							<span>Login with GitHub</span>
+							<i></i>
+						</a>
+					</div>
+					<% } else { 
+						String userName = Principal.getPrincipal(session).getName();
+					%>
+					<div class="loginContainer">
+						<a title="Logout" href="callback/sso?logout=true" class="logout">
+							<span>Logout (<%=userName%>)</span>
+							<i></i>
+						</a>
+					</div>
+					<% } %>
+					
+						<a title="Homepage" href="#home" class="logo" flex><img src="images/perfmon4jFULL.png" alt="perfmon4j reports logo"></a>
+					
+				
+			</md-toolbar>
+	
+	
+	
+	
+		<!-- <div ng-controller="appControl" layout-fill layout="column"> -->
+			<%-- <md-toolbar class="md-primary">
 		      <div layout="row" layout-align="space-between center" class="md-toolbar-tools">
 			      <a title="Homepage" href="#home"><img src="images/perfmon4jFULL.png" alt="perfmon4j reports logo"></a>
 			         
 			 	<%if (!Principal.isLoggedIn(session))  { %>        
-				    <md-button href="callback/sso?launch=true" >Login with GitHub</md-button>
+				    <a title="Login" href="callback/sso?launch=true" >Login with GitHub</a>
 			 	<% } else { 
 			 		String userName = Principal.getPrincipal(session).getName();
 			 	%>
-			    	<md-button href="callback/sso?logout=true">Logout (<%=userName%>)</md-button>
+			    	<a title="Logout" href="callback/sso?logout=true">Logout (<%=userName%>)</a>
 			 	<% } %>
 		         
 		      </div>
-		    </md-toolbar>
+		    </md-toolbar> --%>
 		    
 		    <md-content ng-view layout="row"></md-content>
 		</div>

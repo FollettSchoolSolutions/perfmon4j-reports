@@ -12,7 +12,21 @@
 
 .clearfix:after {
 	clear: both;
-}   
+}
+
+img {
+	max-width: 100%;
+	height: auto;	
+}
+
+a {
+    color: #616161;
+    text-decoration: none;
+}
+
+a:hover {
+	cursor: pointer;
+}
 
 .materialInputField {
 	padding: 2px 2px 5px;
@@ -25,7 +39,7 @@
 	padding:24px 15px;
     display: flex;
 }
-md-select {
+/* md-select {
 	padding:0;
 	padding-left: 15px;
     display: flex;
@@ -34,9 +48,9 @@ md-select {
 	min-height: 19px;
 	padding: 0;
 	line-height: 1;
-}
+} */
 
-table, th, td {
+/* table, th, td {
     border-collapse: collapse;
 }
 th, td {
@@ -47,19 +61,32 @@ tr:nth-child(even) {
 }
 tr:nth-child(odd) {
 	background: #FFFFFF
-}
-a {
-    color: #616161;
-}
-a:hover, a:active {
-    color: #000000; 
-}
+} */
 
-.chartrowIconAnchor {
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* a:hover, a:active {
+    color: #000000;
+    cursor: pointer;
+} */
+
+
+/* .chartrowIconAnchor {
 	display: inline-block;
 	padding: 5px 5px 2px;
-}
-.chartrowIconAnchorDisabled {
+} */
+/* .chartrowIconAnchorDisabled {
 	display: inline-block;
 	padding: 5px 5px 2px;
 	color: #999999;
@@ -115,100 +142,186 @@ a:hover, a:active {
 }
 .datasourceRowIconAnchorDisabled:hover, .datasourceRowIconAnchorDisabled:active {
 	color: #999999;
-}
-.centeredLabelText {
+} */
+/* .centeredLabelText {
 	line-height: 40px;
 	padding: 0px 11px 0px;
 	text-decoration: none;
-}
+} */
 
 .right {
 	float: right;
 }
 
-.dashboardMenu {
+/* .dashboardMenu {
 	border: 1px solid black;
 	width: 40%;
 	margin-top: 20px;
 	float: left;
 	margin-left: 7%;
 	min-width: 650px;
+} */
+
+md-toolbar {
+	min-height: 0;
+	font-size: 100%;
+	padding: 5px 15px 0;
 }
 
+
+
+/* .md-toolbar-tools > div {
+	display: block;
+	width: 100%;
+} */
+
+.logo {
+	display: block;
+	width: 100%;
+}
+
+/* .logo {
+	display: inline-block;
+	background: url(../images/perfmon4jFULL.png) no-repeat;
+	border: 0;
+	width: 289px;
+	height: 51px;
+} */
+
+.loginContainer {
+	position: absolute;
+	top: 5px;
+	right: 20px;
+}
+
+a.login, a.logout {
+	display: inline-block;
+}
+
+a.login i, a.logout i {
+	background: url(../images/login-icons.png) no-repeat;
+	height: 24px;
+	width: 24px;
+	display: inline-block;
+}
+
+.loginContainer a.login i {
+	background-position: 0 0;
+}
+
+.loginContainer a.login i, .loginContainer a.login span,
+.loginContainer a.logout i, .loginContainer a.logout span {
+	vertical-align: middle;
+}
+
+.loginContainer a.login:hover i {
+	background-position: -24px 0;
+}
+
+.loginContainer a.logout i {
+	background-position: 0 -24px;
+}
+
+.loginContainer a.logout:hover i {
+	background-position: -24px -24px;
+}
+
+.loginContainer a span {
+	color: #ccc;
+	font-size: .8rem;
+}
+
+.loginContainer a:hover span {
+	color: #fff;
+}
 
 .listContainer {
 	border: 1px solid black;
-	margin-top: 30px;
-	margin-bottom: 30px; 
-}
-/*
-.publicChartMenu {
-	border: 1px solid black;
-	float: left;
-	width: 40%;
-	margin-left: 7%;
-	margin-top: 20px;
-	margin-bottom: 30px;
-	min-width: 650px; 
-}
-.datasourceMenu {
-	border: 1px solid black;
-	float: left;
-	width: 40%;
-	margin-top: 20px;
-	margin-left: 7%;
-	margin-bottom: 30px;
-	min-width: 650px; 
-}
-*/
-.innerChartMenu {
-	max-height: 650px;
-	overflow: auto;
+	margin: 0 0 20px; 
 }
 
-.innerPublicChartMenu {
-	max-height: 650px;
-	overflow: auto;
+.listContainer ul {
+	padding: 0;
+	margin: 0; 
 }
 
-.innerDataSourceMenu {
-	max-height: 650px;
-	overflow: auto;
+.listContainer ul li {
+	padding: 0;
+	list-style: none;
+	position: relative;
 }
 
-#createButton {
-	float: right;
-	height: 35px;
+.listContainer ul li:nth-child(even) {
+	background: #f0f0f0
 }
 
-#chartMenu {
-	min-height: 35px;
-	height: 35px;
+.listContainer ul li > a, .emptyListPlaceholder {
+	padding: 10px 118px 10px 12px;
+	list-style: none;
+	display: block;
+	font-weight: bold;
+}
+.listContainer ul li a:hover {
+	text-decoration: none;
+	background-color: #eee;
 }
 
-#publicChartMenu {
-	min-height: 35px;
-	height: 35px;
+.chartControls {
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 
-#dashboardMenu {
-	min-height: 35px;
-	height: 35px;
+.listContainer ul li a.chartrowIconAnchor {
+	width: 35px;
+	height: 31px;
+	display: inline-block;
+	text-align: center;
+	padding-top: 8px;
 }
 
-#datasourceMenu {
-	min-height: 35px;
-	height: 35px;
-}
+
+
+
+
+
+
+
+/* .listContainer ul li .right a {
+	display: inline-block;
+} */
 
 .not-scrollable {
     overflow-y: hidden;
 }
-
+.md-subheader {
+	margin: 0;
+	font-size: 20px;
+}
 .md-subheader .md-subheader-inner {
   background-color: #616161;
   color: #ffffff;
   margin: 0; 
+  padding: 10px 0px 10px 12px;
+}
+
+
+
+/* .md-button.md-default-theme.md-primary.md-raised:not([disabled]) {
+	font-weight: 700;
+}
+
+.md-button.md-default-theme.md-primary.md-raised:not([disabled]):hover {
+	background-color: #777;
+	border: 1px solid #616161;
+	line-height: 34px;
+} */
+
+a.md-button.md-default-theme.md-primary.md-raised:hover:not([disabled]), 
+a.md-button.md-default-theme.md-primary.md-fab:hover:not([disabled]), 
+.md-button.md-default-theme.md-primary.md-raised:hover:not([disabled]), 
+.md-button.md-default-theme.md-primary.md-fab:hover:not([disabled]) {
+    background-color: #888;
 }
 
 .infoIconSpan {
@@ -241,12 +354,41 @@ html, body {
 
 .responsiveRow {
 	width: 100%;
-	padding: 0px 15px;
 }
 .responsiveCol {
-	margin: 0px 15px;
+	padding: 0px 15px;
 }
 
 .indentRight {
 	text-align: right;
 }
+.container {
+	padding: 20px 5px 0;
+	width: 100%;
+}
+
+/* md-toolbar.md-default-theme.test {
+	min-height: 35px;
+	line-height: 35px;
+	height: auto;
+	padding: 0 10px;
+} */
+
+
+
+@media (max-width: 768px) {
+	md-content a:focus, md-content option:focus {
+		background-color: #f1faff;
+	}
+	.loginContainer a:focus {
+		background-color: #666;
+	}
+	.loginContainer {
+		position: static;
+		text-align: right;
+		padding: 5px 0 0 0;
+		margin-bottom: 5px;
+	}
+}
+
+

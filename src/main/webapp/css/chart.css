@@ -1,5 +1,9 @@
 #sidenav {
-	font-size: .9rem;
+	/* font-size: .9rem; */
+	background-color: #eee;
+	padding-top: 20px;
+	overflow-x: hidden;
+	
 }
 
 #addSeries {
@@ -7,33 +11,20 @@
 	width: 245px;
 }
 
-.chartInput {
+/* .chartInput {
 	width: 250px;
 	margin-bottom: 15px;
-}
+} */
 
-.start {
-	width: 40%;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
 
-.from {
-	width: 120px;	
-}
 
-.end {
-	float: right;
-	margin-bottom: 10px;
-}
 
-.to {
-	width: 120px;
-}
 
-.input {
+
+
+/* .input {
 	width: 100px;
-}
+} */
 .infoIconSpanChartDate {
 	height: 17px;
 }
@@ -104,7 +95,7 @@
 	font-weight: bold;
 }
 
-#sidenavHeader {
+/* #sidenavHeader {
 	background: #606363;
 	height: 40px;
 	width: 90%;
@@ -113,12 +104,12 @@
 	padding-left: 10px;
 	padding-top: 9px; 
 	margin-bottom: 35px;
-}
+} 
 
 .headerText {
 	font-color: #FFFFFF;
 	font-size: 1.2rem;
-}
+}*/
 
 .chart-view {
 	width: 100%;
@@ -132,21 +123,25 @@
 	transform: translate(-25%, -50%);
 }
 
-.md-button {
+/* .md-button {
 	min-height: 35px;
-}
+} */
 
-.inputHeading {
+/* .inputHeading {
 	margin-left: 20px;
+} */
+
+select, input {
+	border: 1px solid #bfbfbf;
+	background-color: #fff;
 }
 
 select {
-	margin-left: 20px;
-	border: 0;
+	/* margin-left: 20px; */
+	width: 100%;
 	border-radius: 3px;
-	background: transparent;
 	height: 35px;
-	border: 1px solid #bfbfbf;
+	line-height: 35px;
 }
 
 option {
@@ -154,49 +149,101 @@ option {
 	overflow: hidden;
 	max-width: 250px;
 }
-
-input {
-	height: 35px;
-	margin-left: 20px;
+label {
+	display: block;
+	font-weight: 700;
+	font-size: 1rem;
+	margin-bottom: 5px;
 }
+
+input, select {
+	height: 35px;
+	line-height: 35px;
+	width: 100%;
+	padding: 0 6px;
+	font-size: .9rem;
+	/* margin-left: 20px; */
+}
+
+#sidenav .formRow:first-child {
+	margin-bottom: 10px;
+	padding: 0 5px;
+}
+
+.formRow {
+	position: relative;
+	margin-bottom: 20px;
+	padding: 0 15px;
+}
+
+input[type="checkbox"] {
+	width: 15px;
+	height: 15px;
+}
+
+.dateRow {
+	padding-right: 40px;
+	    margin-bottom: 5px;
+}
+
+.dateContainer {
+	width: 49%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.dateRow a {
+	position: absolute;
+    right: 10px;
+    top: 29px;
+    margin: 0;
+}
+
+md-checkbox {
+	margin: 0;
+}
+
+/* md-checkbox.md-default-theme.md-checked .md-icon {
+    background-color: #616161;
+} */
 
 .c3 svg {
 	min-width: 1024px;
 	width: 100%;
 }
 
-.md-button {
+/* .md-button {
 	text-transform: none;
-}
+} */
 
 .chartDiv {
 	margin-left: 25px;
 	width: 100%;
 }
 
-.btn {
-  position: fixed;
-  margin-top: 10px;
-  color: #ffffff;
-  font-size: 1.1rem;
-  background: #606363;
-  box-shadow: 0px 1px 3px #666666;
-  width: 20px;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  padding-left: 10px;
-  padding-right: 25px;
-  text-decoration: none;
-  word-break: break-all;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+.sideButton .md-primary {
+	position: fixed;
+	margin-top: 10px;
+	word-break: break-all;
+	border-radius: 0 10px 10px 0;
+	font-size: 1rem;
+	letter-spacing: normal;
+	line-height: 30px;
+	min-width: 10px;
+	padding: 10px 25px 10px 10px;
+	white-space: normal;
+	width: 20px;
 }
 
-.btn:hover {
+.sideButton .md-primary span {
+	word-space: normal;
+}
+
+/* .btn:hover {
   background: #E0E0E0;
   text-decoration: none;
   cursor:pointer;
-}
+} */
 
 .chartInfoDialogContent {
 	margin: 0px 10px 0px 0px;
