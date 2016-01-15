@@ -16,7 +16,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	$scope.chart = {
 			chosenDatasource : null,
 			chosenDatabase : null,
-			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDate() +"T"+ date.getHours() +":"+ date.getMinutes(),
+			chartName : ""/*"Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDate() +"T"+ date.getHours() +":"+ date.getMinutes()*/,
 			timeStart : "now-4H",
 			timeEnd : "now",
 			publiclyVisible : false,
@@ -395,7 +395,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 			$scope.chart.series[i].active = false;
 		}
 
-		var newSeriesName = 'Series ' + (seriesCounter);
+		var newSeriesName = ""/*'Series ' + (seriesCounter)*/;
 		var newSeries = {active: true, name: newSeriesName, secondaryAxis: false};
 		$scope.chart.series.push(newSeries);
 	}

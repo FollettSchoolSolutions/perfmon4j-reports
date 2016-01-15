@@ -1,4 +1,4 @@
-.header {
+/* .header {
 	background-color: #606363;
 	height: 40px;
 	width: 100%;
@@ -8,17 +8,17 @@
 	color: #FFFFFF;
 	width: 95%;
 	vertical-align: middle;
-}
+} */
 
 .seriesName {
 	vertical-align: 8px;
 }
 
-.seriesRow {
+/* .seriesRow {
 	width: 100%;
-}
+} */
 
-.delete-icon-light {
+/* .delete-icon-light {
 	float: right;
 	margin-top: 4px; 
 	margin-right: -5px;
@@ -27,7 +27,7 @@
 	padding-left: 2px;
 	padding-bottom: 2px;
 	padding-right: 2px;
-}  
+} */  
 
 .arrow-icon {
 	color: white;
@@ -43,30 +43,51 @@
 	color: #E0E0E0;
 }
 
-.clear {
+/* .clear {
 	font-weight: normal;
 	color: #0000FF;
 	margin-left: 205px;
 	margin-top: 9px;
-}
+} */
 
-.seriesForm {
-	margin-left: 20px;
-	margin-bottom: 35px;
+.formContainer {
 	border: 1px solid;
-	width: 245px;
+	margin-bottom: 15px;
+	background-color: #fff;
 }
 
-#checkbox {
+.formContainer .formInnerContainer {
+	padding: 10px;
+}
+
+
+
+/* .accordionHeader a {
+	display: inline-block;
+    height: 35px;
+    left: -11px;
+    position: absolute;
+    top: -6px;
+}
+
+.accordionHeader a {
+	display: inline-block;
+    height: 35px;
+    left: -11px;
+    position: absolute;
+    top: -6px;
+} */
+
+/* #checkbox {
 	margin-left: 10px;
-}
+} */
 
-.heading {
+/* .heading {
 	margin-left: 10px;
 	width: 95%;
-}
+} */
 
-.seriesInput {
+/* .seriesInput {
 	margin-left: 10px;
 	width: 90%;
 	margin-bottom: 15px;
@@ -75,18 +96,28 @@
 .seriesMenu {
 	margin-left: 0px;
 	width: 95%;
-}
+} */
 
-.systemSelect {
-	margin-left: 0px;
-	height: 200px;
- 	width: 95%; 
-}
+
 
 .bottomRow {
-	background-color: #bfbfbf;
-	height: 30px;
-	width: 100%;
+	background-color: #f0f0f0;
+	border-top: 1px solid #ddd;
+	padding: 5px 10px;
+	text-align: right;
+}
+
+.bottomRow a {
+	line-height: 35px;
+	height: 35px;
+	color: #616161;
+	font-size: .9rem;
+	padding: 0 10px;
+	display: inline-block;
+}
+
+.bottomRow a:hover {
+	color: #333;
 }
 
 .loading {
@@ -94,26 +125,50 @@
 	height: 35px;
 }
 
-.secondaryAxisLabel {
+/* .secondaryAxisLabel {
 	padding-top: 12px;
-}
+} */
 
-.secondaryAxis {
+/* .secondaryAxis {
 	margin-left: -9px;
 	margin-top: -5px;
 	margin-bottom: 9px;
-}
+} */
 
-.systemsExplanationLabel {
+/* .systemsExplanationLabel {
 	font-size: .8rem;
 	margin-left: 10px;
+} */
+
+.seriesRow select{
+	margin-bottom: 5px;
+	margin-top: 30px;
+	width: 100%;
+}
+
+.systemsExplanationLabel  {
+  background-color: #ebf7fd;
+  border: 1px solid #3a87ad;
+  margin-bottom: 15px;
+  padding: 2px;
+}
+
+.systemsExplanationLabel i {
+	float: left;
+	color: #3a87ad;
+}
+
+.systemsExplanationLabel div {
+	font-size: 0.8rem;
+    font-weight: 700;
+    margin-left: 28px;
+    padding-top: 4px;
 }
 
 .errorText {
-	color:red;
-	font-size:.6rem;
-	margin-bottom: 15px;
-	margin-left: 10px;
+	color: red;
+    font-size: 1rem;
+    margin-bottom: 15px;
 }
 
 /* a:hover {

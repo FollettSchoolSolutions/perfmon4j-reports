@@ -1,6 +1,7 @@
-<div class="seriesForm"> 
-	<form class="insideForm" ng-controller="chartSeriesControl">
-		<div  class="header" layout="row">
+
+
+<form class="insideForm" ng-controller="chartSeriesControl">
+		<!-- <div  class="header" layout="row">
 			<span class="headerText">
 				<a title="Open" ng-hide="series.active"><i class="material-icons md-36 arrow-icon">keyboard_arrow_right</i></a>
 				<a title="Close" ng-show="series.active"><i class="material-icons md-36 arrow-icon">keyboard_arrow_down</i></a>
@@ -8,65 +9,88 @@
 				
 				<a title="Delete" ng-show="canDelete()" ng-click="deleteSeries()"><i class="material-icons md-24 delete-icon-light">delete</i></a>
 			</span>
+		</div> -->
+	<div class="formContainer">
+		<div id="chartMenu" class="panelHeaders accordionHeader">
+			<a title="Open" ng-hide="series.active" class="openClose clearfix">
+				<i class="material-icons md-36 arrow-icon">keyboard_arrow_right</i>
+				<div>{{seriesHeader()}}</div>
+			</a>
+			<a title="Close" ng-show="series.active" class="openClose clearfix">
+				<i class="material-icons md-36 arrow-icon">keyboard_arrow_down</i>
+				<div>{{seriesHeader()}}</div>
+			</a>
+        	<a title="Delete" ng-show="canDelete()" ng-click="deleteSeries()" class="deleteIcon"><i class="material-icons md-24 delete-icon-light">delete</i></a>
+  		</div>
+		<div class="formInnerContainer"> 
+			<div ng-show="series.active">
+				<md-input-container>
+					<label class="">Series Name <span class="required">*</span></label>
+					<input type="text" class="seriesInput" id="seriesName"  ng-model="series.name" value="" name="seriesName"/>
+					<div class="errorText" ng-show="!validateSeriesName()">
+						Invalid series name. Can't include _, #, or &.
+					</div>
+				 </md-input-container>
+			
+				<md-input-container>
+					<div class="seriesRow">
+						<label class="">Data Systems <span class="required">*</span></label>
+						<select multiple class="systemSelect" id="systems" ng-options="system as system.name for system in systems" ng-model="series.systems" ng-change="loadCategories()" required>
+							<option value="">Select a system</option>
+						</select>
+						<div class="systemsExplanationLabel clearfix">
+				   			<i class="material-icons">info_outline</i>
+				   			<div>Multiple systems can be selected</div>
+				   		</div>
+						<img class="loading" src="images/smallLoadingSaving.gif" ng-show="isLoading(chosenDatabase, systems)">	
+					</div>
+				</md-input-container>
+				
+				<md-input-container>
+					<div class="seriesRow">
+						<label class="">Data Category <span class="required">*</span></label>
+							<md-select class="seriesMenu" id="category"  ng-model="series.category" ng-change="loadFields()">
+								<md-option ng-value="category" ng-repeat="category in categories">{{category.name}}</md-option>
+							</md-select>
+						
+						<img class="loading" src="images/smallLoadingSaving.gif" ng-show="isLoading(series.systems, categories)">
+					</div>
+				</md-input-container>
+				
+				<md-input-container>
+					<div class="seriesRow">
+						<label class="">Data Category Field <span class="required">*</span></label>
+							<md-select class="seriesMenu" id="field" ng-options="field as field.name for field in fields" ng-model="series.field" ng-change="loadAggregations()">
+							</md-select>
+						
+						<img class="loading" src="images/smallLoadingSaving.gif" ng-show="isLoading(series.category, fields)">
+					</div>
+				</md-input-container>
+				
+				<md-input-container>
+					<div class="seriesRow">
+						<label class="">Aggregation Type</label>
+						
+						<md-select class="seriesMenu" id="aggregationType"  ng-model="series.aggregationMethod" ng-change="saveAggregation()">
+							<md-option ng-value="aggregationType" ng-repeat="aggregationMethod in aggregationMethods">{{aggregationType.name}}</md-option>
+						</md-select>
+						
+						<img class="loading" src="images/smallLoadingSaving.gif" ng-show="isLoading(series.field, aggregationMethods)">
+					</div>
+				</md-input-container>
+				
+				<md-input-container>
+					<md-checkbox md-no-ink="" ng-model="series.secondaryAxis" class="md-primary">
+						Use Secondary Axis
+					</md-checkbox>
+				</md-input-container>
+			</div>
+			
 		</div>
-	
-		<div ng-show="series.active">
-			<br/>
-			<label class="heading">Series Name <span class="required">*</span>
-				<br/>
-				<input type="text" class="seriesInput" id="seriesName" placeholder="Name of series" ng-model="series.name" value="" name="seriesName"/></label>
-				<span class="errorText" ng-show="!validateSeriesName()">
-					Invalid series name. Can't include _, #, or &.
-				</span>
-				<br/>
-			<div layout="row" class="seriesRow">
-		   		<label class="heading">Data Systems <span class="required">*</span> 
-					<br/>
-					<select multiple class="systemSelect" id="systems" ng-options="system as system.name for system in systems" ng-model="series.systems" ng-change="loadCategories()" required>
-						<option value="">Select a system</option>
-					</select> 
-				</label>		
-				<img class="loading" src="images/smallLoadingSaving.gif" ng-show="isLoading(chosenDatabase, systems)">	
+		<div class="bottomRow">
+				<a title="Clear Series" ng-click="clear()">Clear</a>
 			</div>
-			<label class="systemsExplanationLabel">Multiple systems can be selected</label>
-			<br/>
-			<br/>
-			<div layout="row" class="seriesRow">
-				<label class="heading">Data Category <span class="required">*</span>
-					<br/>
-					<select class="seriesMenu" id="category" ng-options="category as category.name for category in categories" ng-model="series.category" ng-change="loadFields()">
-						<option value="">Select a category</option>
-					</select>
-				</label>
-				<img class="loading" src="images/smallLoadingSaving.gif" ng-show="isLoading(series.systems, categories)">
-			</div> 
-			<br/>
-			<div layout="row" class="seriesRow">
-				<label class="heading">Data Category Field <span class="required">*</span>
-					<br/>
-					<select class="seriesMenu" id="field" ng-options="field as field.name for field in fields" ng-model="series.field" ng-change="loadAggregations()">
-						<option value="">Select a field</option>
-					</select>
-				</label>
-				<img class="loading" src="images/smallLoadingSaving.gif" ng-show="isLoading(series.category, fields)">
-			</div>
-			<br/>
-			<div layout="row" class="seriesRow">
-				<label class="heading">Aggregation Type
-					<br/>
-					<select class="seriesMenu" id="aggregationType" ng-options="aggregationMethod as aggregationMethod for aggregationMethod in aggregationMethods" ng-model="series.aggregationMethod" ng-change="saveAggregation()">
-						<option value="">Select a type</option>
-					</select>
-				</label>
-				<img class="loading" src="images/smallLoadingSaving.gif" ng-show="isLoading(series.field, aggregationMethods)">
-			</div>
-			<br/>
-			<div layout="row" class="secondaryAxis">
-				<input type="checkbox" ng-model="series.secondaryAxis"/> <label class="secondaryAxisLabel" ng-click="toggleSecondaryAxis()"> Use Secondary Axis </label>
-			</div> 
-			<div layout="row" class="bottomRow">
-				<a title="Clear Series" class="clear" ng-click="clear()">Clear</a>
-			</div>
-		</div>
-	</form>
-</div>
+	</div>
+</form>
+
+

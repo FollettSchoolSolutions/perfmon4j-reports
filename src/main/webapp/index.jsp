@@ -52,9 +52,9 @@
 	  <script src="components/datasource/dataSourceController.js"></script>
 	  
 	</head>
-	<body>
-	<!-- <body layout="row"> -->
-		<div ng-controller="appControl" layout-fill>
+
+	<body layout="row">
+		<div ng-controller="appControl" layout-fill layout="column">
 			<md-toolbar class="md-primary">
 					
 					<%if (!Principal.isLoggedIn(session))  { %> 

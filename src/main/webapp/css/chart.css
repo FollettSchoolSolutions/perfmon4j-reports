@@ -1,37 +1,82 @@
 #sidenav {
-	/* font-size: .9rem; */
 	background-color: #eee;
-	padding-top: 20px;
 	overflow-x: hidden;
-	
+	padding: 20px 15px 0;
 }
 
-#addSeries {
-	margin-left: 20px;
-	width: 245px;
+.panelHeaders {
+	background-color: #616161;
+	font-size: 1.2rem;
+    color: #ffffff;
+    margin: 0;
+    padding: 10px 0 10px 12px;
 }
 
-/* .chartInput {
-	width: 250px;
-	margin-bottom: 15px;
+.panelHeaders.accordionHeader {
+	background-color: #616161;
+	font-size: 1.2rem;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.panelHeaders.accordionHeader a {
+	display: block;
+    padding: 10px 35px 10px 2px;
+    color: #fff;
+}
+
+.panelHeaders.accordionHeader a.openClose i {
+	float: left;
+}
+
+.panelHeaders.accordionHeader a.deleteIcon {
+	display: inline-block;
+    padding: 5px 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 4px;
+    width: 35px;
+}
+
+.panelHeaders.accordionHeader a div {
+	margin-left; 25px;
+}
+
+/* md-select {
+    padding: 24px 2px 0px;
 } */
 
+.md-select-label {
+	width: 100%;
+}
 
+md-select.md-default-theme .md-select-label.md-placeholder {
+    color: rgba(0,0,0,0.8);
+    font-size: .8rem;
+}
 
+md-input-container.md-input-focused label:not(.md-no-float), 
+md-input-container.md-input-has-value label:not(.md-no-float) {
+	transform: translate3d(0px, 10px, 0px) scale(1);
+}
 
+md-input-focued label {
+	color: rgb(0, 0, 0, .26);
+}
 
-
-
-/* .input {
-	width: 100px;
-} */
 .infoIconSpanChartDate {
 	height: 17px;
 }
-.infoIconAnchorChartDate {
+a.infoIconAnchorChartDate {
 	width: 24px;
 	height: 24px;
-	margin: 22px 2px 2px;
+}
+
+a.infoIconAnchorChartDate:hover {
+	color: #333;
 }
 
 .chartSelect {
@@ -64,56 +109,15 @@
 	color: #FF0000;
 }
 
-#renderChart {
-	margin-left: 20px;
-	width: 110px;
-	margin-right: 13px;
-}
-
-#clear {
-	margin-left: 155px;
-	width: 110px;
-}
-
-#advanced {
-	margin-left: 20px;
-	width: 245px;
-	margin-bottom: 35px;
-}
-
-.tabText:hover {
-	text-decoration: none;
-}
-
-#save {
-	width: 110px;
-}
-
 .chartName {
 	text-align: center;
 	font-size: 1.2rem;
 	font-weight: bold;
 }
 
-/* #sidenavHeader {
-	background: #606363;
-	height: 40px;
-	width: 90%;
-	margin-left: 5%;
-	margin-top: 15px;
-	padding-left: 10px;
-	padding-top: 9px; 
-	margin-bottom: 35px;
-} 
-
-.headerText {
-	font-color: #FFFFFF;
-	font-size: 1.2rem;
-}*/
-
 .chart-view {
 	width: 100%;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 
 .centered {
@@ -123,32 +127,43 @@
 	transform: translate(-25%, -50%);
 }
 
-/* .md-button {
-	min-height: 35px;
-} */
-
-/* .inputHeading {
-	margin-left: 20px;
-} */
-
-select, input {
+/* select, input {
 	border: 1px solid #bfbfbf;
 	background-color: #fff;
-}
+	color: #333;
+} */
 
-select {
-	/* margin-left: 20px; */
+/* select {
+	margin-left: 20px;
 	width: 100%;
 	border-radius: 3px;
 	height: 35px;
 	line-height: 35px;
+	padding: 0 6px 0 4px;
+	outline: 0;
+} */
+
+.md-sidenav-left md-input-container {
+	padding: 0;
 }
 
-option {
-	padding-bottom: 15px;
+.msgBlock {
+	position: absolute;
+	top: -39px;
+    left: 22px;
+}
+
+.systemSelect {
+	height: 200px;
+}
+
+.systemSelect option {
+	padding-bottom: 5px;
+	padding-top: 5px;
 	overflow: hidden;
 	max-width: 250px;
 }
+
 label {
 	display: block;
 	font-weight: 700;
@@ -156,69 +171,48 @@ label {
 	margin-bottom: 5px;
 }
 
-input, select {
+/* input, select {
 	height: 35px;
 	line-height: 35px;
 	width: 100%;
 	padding: 0 6px;
 	font-size: .9rem;
-	/* margin-left: 20px; */
-}
-
-#sidenav .formRow:first-child {
-	margin-bottom: 10px;
-	padding: 0 5px;
-}
+} */
 
 .formRow {
 	position: relative;
-	margin-bottom: 20px;
-	padding: 0 15px;
-}
-
-input[type="checkbox"] {
-	width: 15px;
-	height: 15px;
-}
+} 
 
 .dateRow {
-	padding-right: 40px;
-	    margin-bottom: 5px;
+	position: relative;
+	margin-bottom: 20px;
 }
 
 .dateContainer {
-	width: 49%;
+	width: 43%;
 	display: inline-block;
 	vertical-align: top;
 }
 
 .dateRow a {
 	position: absolute;
-    right: 10px;
+    right: 3px;
     top: 29px;
     margin: 0;
 }
-
-md-checkbox {
-	margin: 0;
-}
-
-/* md-checkbox.md-default-theme.md-checked .md-icon {
-    background-color: #616161;
-} */
 
 .c3 svg {
 	min-width: 1024px;
 	width: 100%;
 }
 
-/* .md-button {
-	text-transform: none;
-} */
-
 .chartDiv {
-	margin-left: 25px;
 	width: 100%;
+	padding-left: 25px;
+}
+
+.chartDiv > div {
+	padding: 0 20px;
 }
 
 .sideButton .md-primary {
@@ -239,11 +233,21 @@ md-checkbox {
 	word-space: normal;
 }
 
-/* .btn:hover {
-  background: #E0E0E0;
-  text-decoration: none;
-  cursor:pointer;
-} */
+.customChartBtn {
+	margin: 5px 0 15px;
+}
+
+.saveBtn, .secondaryBtn {
+	margin: 5px 0 15px 10px;
+}
+
+.secondaryBtn {
+	margin-left: 0;
+}
+
+a.md-button.md-default-theme.md-raised:hover:not([disabled]), .md-button.md-default-theme.md-raised:hover:not([disabled]) {
+    background-color: #eee;
+}
 
 .chartInfoDialogContent {
 	margin: 0px 10px 0px 0px;
@@ -254,13 +258,19 @@ md-checkbox {
 	margin: 0px;
 }
 
-.viewTimeDiv {
+/* .viewTimeDiv {
 	padding: 24px 0px 0px;
 }
 .viewTimeParamInput {
 	height: 20px;
 	margin: 0px 10px 0px;
+} */
+a.viewTimeSyntaxIcon {
+	position: absolute;
+	bottom: 25px;
+	right: 0;
 }
-.viewTimeSyntaxIcon {
-	margin: 2px 0px 0px;
+
+a.viewTimeSyntaxIcon:hover i{
+	color: #333;
 }
