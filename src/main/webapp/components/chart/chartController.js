@@ -406,14 +406,14 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 				$scope.chart.series = $scope.chartToEdit.series;				
 			} else {
 				if($scope.chart.chosenDatabase != null){
-					$scope.chart.series = [{active: true, name: 'Series 1', secondaryAxis: false}];
+					$scope.chart.series = [{active: true, name: '', secondaryAxis: false}];
 					seriesCounter++;
 				}
 			}
 		} else {		
 			clearSeries();
 			if($scope.chart.chosenDatabase != null && $scope.chartToEdit == null){
-				$scope.chart.series = [{active: true, name: 'Series 1', secondaryAxis: false}];
+				$scope.chart.series = [{active: true, name: '', secondaryAxis: false}];
 				seriesCounter = 1;
 			}
 		}
