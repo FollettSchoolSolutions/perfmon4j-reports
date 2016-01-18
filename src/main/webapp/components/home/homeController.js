@@ -107,34 +107,49 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	}
 	
 	$scope.deleteChart = function(id) {
-		var confirm = $mdDialog.confirm()
-	      .title('Delete?')
-	      .content('Are you sure you want to delete this chart?')
-	      .ariaLabel('Chart deletion confirmation')
-	      .ok('OK')
-	      .cancel('Cancel');
-
-	    $mdDialog.show(confirm).then(function() { // user clicks OK
-	    	var deletePromise = chartService.deleteChart(id);
-			deletePromise.then(function(result){
-				var successful = result.data;
-				if (!successful){
-					$mdDialog.show(
-				      $mdDialog.alert()
-				        .parent(angular.element(document.querySelector('#popupContainer')))
-				        .clickOutsideToClose(true)
-				        .title('Delete Chart Error')
-				        .content('Deleting chart with id: ' + id + ' was NOT successful.')
-				        .ariaLabel('Delete chart failure')
-				        .ok('OK')
-				    );
-				} else {
-					$location.path("/");
-				}
-			});
-	    }, function() { // user clicks Cancel
-	      // do nothing
-	    });
+		var confirm = $mdDialog.confirm({
+			locals: {
+				title: "Delete?",
+		    	content: "Are you sure you want to delete this chart?"
+		    },
+			controller: confirmationDialogController,
+			templateUrl: 'components/home/confirmationDiagTemplate.html',
+			parent: angular.element(document.body),
+		    ariaLabel: 'Chart deletion confirmation'
+		});
+		
+	    $mdDialog.show(confirm).then(function(answer) { // user clicks OK
+		    	if(answer == "OK"){
+		    		var deletePromise = chartService.deleteChart(id);
+		    		deletePromise.then(function(result){
+		    			var successful = result.data;
+		    			if (!successful){
+		    				$mdDialog.show(
+		    						$mdDialog.alert()
+		    						.parent(angular.element(document.querySelector('#popupContainer')))
+		    						.clickOutsideToClose(true)
+		    						.title('Delete Chart Error')
+		    						.content('Deleting chart with id: ' + id + ' was NOT successful.')
+		    						.ariaLabel('Delete chart failure')
+		    						.ok('OK')
+		    				);
+		    			} else {
+		    				$location.path("/");
+		    			}
+		    		});
+		    	}
+		    }, function() { // user clicks Cancel
+		      // do nothing
+		    });
+		
+	}
+	function confirmationDialogController($scope, $mdDialog, chartService, title, content) {
+		$scope.title = title;
+		$scope.content = content;
+		
+		$scope.answer = function(answer) {
+		  $mdDialog.hide(answer);
+		};
 	}
 	
 	$scope.copyChart = function(id){
