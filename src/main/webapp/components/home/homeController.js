@@ -180,34 +180,41 @@ app.controller('homeControl', function ($scope, $location, dataSourceService, ch
 	}
 	
 	$scope.deleteDataSource = function(id) {
-		var confirm = $mdDialog.confirm()
-	      .title('Delete?')
-	      .content('Are you sure you want to delete this datasource?')
-	      .ariaLabel('Datasource deletion confirmation')
-	      .ok('OK')
-	      .cancel('Cancel');
-
-	    $mdDialog.show(confirm).then(function() { // user clicks OK
-	    	var deletePromise = dataSourceService.deleteDataSource(id);
-		    deletePromise.then(function(result){
-		    	var successful = result.data;
-		    	if (!successful){
-		    		$mdDialog.show(
-				      $mdDialog.alert()
-				        .parent(angular.element(document.querySelector('#popupContainer')))
-				        .clickOutsideToClose(true)
-				        .title('Cannot Delete')
-				        .content('This DataSource is being referenced by a chart. DataSource id: ' + id)
-				        .ariaLabel('Cannot delete datasource')
-				        .ok('OK')
-				    );
-		    	} else {
-		    		$location.path("/");
-		    	}
-		    });
+		var confirm = $mdDialog.confirm({
+			locals: {
+				title: "Delete?",
+		    	content: "Are you sure you want to delete this datasource?"
+		    },
+			controller: confirmationDialogController,
+			templateUrl: 'components/home/confirmationDiagTemplate.html',
+			parent: angular.element(document.body),
+		    ariaLabel: 'Datasource deletion confirmation'
+		});
+		
+	    $mdDialog.show(confirm).then(function(answer) { // user clicks OK
+	    	if(answer == "OK"){
+	    		var deletePromise = dataSourceService.deleteDataSource(id);
+			    deletePromise.then(function(result){
+			    	var successful = result.data;
+			    	if (!successful){
+			    		$mdDialog.show(
+					      $mdDialog.alert()
+					        .parent(angular.element(document.querySelector('#popupContainer')))
+					        .clickOutsideToClose(true)
+					        .title('Cannot Delete')
+					        .content('This DataSource is being referenced by a chart. DataSource id: ' + id)
+					        .ariaLabel('Cannot delete datasource')
+					        .ok('OK')
+					    );
+			    	} else {
+			    		$location.path("/");
+			    	}
+			    });
+	    	}
 	    }, function() { // user clicks Cancel
 	      // do nothing
 	    });
+
 	}
 	//Building the popup for datasource
 	$scope.showDataSources = function(ev) {
