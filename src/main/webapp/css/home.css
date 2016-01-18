@@ -58,6 +58,10 @@ md-toolbar {
 	padding: 5px 15px 0;
 }
 
+md-option {
+	height: 35px;
+}
+
 .logo {
 	display: block;
 	width: 100%;
