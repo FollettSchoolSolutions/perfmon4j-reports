@@ -49,7 +49,7 @@
 				<md-input-container>
 					<div class="seriesRow">
 						<label class="">Data Category <span class="required">*</span></label>
-							<md-select class="seriesMenu" id="category"  ng-model="series.category" ng-change="loadFields()">
+							<md-select class="seriesMenu" id="category"  ng-model="series.category" ng-change="loadFields()" placeholder="Select a category">
 								<md-option ng-value="category" ng-repeat="category in categories">{{category.name}}</md-option>
 							</md-select>
 						
@@ -60,7 +60,7 @@
 				<md-input-container>
 					<div class="seriesRow">
 						<label class="">Data Category Field <span class="required">*</span></label>
-							<md-select class="seriesMenu" id="field"  ng-model="series.field" ng-change="loadAggregations()">
+							<md-select class="seriesMenu" id="field"  ng-model="series.field" ng-change="loadAggregations()" placeholder="Select a field">
 								<md-option ng-value="field" ng-repeat="field in fields">{{field.name}}</md-option>
 							</md-select>
 						
@@ -72,8 +72,8 @@
 					<div class="seriesRow">
 						<label class="">Aggregation Type</label>
 						
-						<md-select class="seriesMenu" id="aggregationMethod" ng-model="series.aggregationMethod" ng-change="saveAggregation()">
-							<md-option ng-value="aggregationMethod" ng-repeat="aggregationMethod in aggregationMethods">{{aggregationMethod.name}}</md-option>
+						<md-select class="seriesMenu" id="aggregationMethod" ng-model="series.aggregationMethod" ng-change="saveAggregation()" placeholder="Select an aggregation">
+							<md-option ng-value="aggregationMethod" ng-repeat="aggregationMethod in aggregationMethods">{{aggregationMethod}}</md-option>
 						</md-select>
 						
 						<img class="loading" src="images/smallLoadingSaving.gif" ng-show="isLoading(series.field, aggregationMethods)">
