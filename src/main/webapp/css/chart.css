@@ -216,7 +216,7 @@ label {
 }
 
 .sideButton .md-primary {
-	position: absolute;
+	position: fixed;
 	margin: 10px 0px 0px 0px;
 	word-break: break-all;
 	border-radius: 0 10px 10px 0;
