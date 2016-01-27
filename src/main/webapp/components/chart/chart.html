@@ -59,51 +59,18 @@
 	  		</div>
 	    </div>  	
 		    
-		    <md-button title="Advanced Options" id="advanced" class="md-raised md-primary customChartBtn" ng-click="showAdvanced($event)">Custom Labels</md-button>
-			<div class="form" ng-repeat="item in chart.series" >
-				<chart-series all-series="chart.series" series="item" ng-click="setActiveSeries($index)"></chart-series>
-		  	</div>
-		  	<div class="seriesNameError" ng-show="invalidSeriesNames()">Cannot have matching series names.</div>
-		  	<md-button title="Add Series" id="addSeries" class="md-raised md-primary customChartBtn" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button>
-	
-	  		<md-button title="Render" id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary customChartBtn">Render</md-button>
-	  		<div class="textRight">
-		  		<md-button title="Clear" id="clear" ng-click="clearAllFields()" class="md-raised secondaryBtn">Clear</md-button>
-		       	<md-button title="Save or Update" id="save" ng-disabled="saveDisabled()" class="md-raised md-primary saveBtn" ng-click="saveOrUpdateChart()"> {{ saveOrUpdateChartLabel }} </md-button>
-	       	</div>
+	    <md-button title="Advanced Options" id="advanced" class="md-raised md-primary customChartBtn" ng-click="showAdvanced($event)">Custom Labels</md-button>
+		<div class="form" ng-repeat="item in chart.series" >
+			<chart-series all-series="chart.series" series="item" ng-click="setActiveSeries($index)"></chart-series>
+	  	</div>
+	  	<div class="seriesNameError" ng-show="invalidSeriesNames()">Cannot have matching series names.</div>
+	  	<md-button title="Add Series" id="addSeries" class="md-raised md-primary customChartBtn" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button>
 
-    	
-    		
-     	
-      	
-		<!-- <div>	
-			
-      		<div layout="row">
-	      		
-	      		<span class="infoIconSpanChartDate" layout="column">
-					<span flex="flex"></span>
-					<a title="Date Range Syntax" href="https://github.com/FollettSchoolSolutions/perfmon4j-reports/wiki/Date-Range-Parameter-Syntax" target="_blank" class="infoIconAnchorChartDate"> 
-						<i class="material-icons">info</i>
-					</a>
-				</span>
-      		</div>
-      		<div layout="row">
-	      		
-      		</div>
-      		<a title="Advanced Options"><md-button title="Advanced Options" id="advanced" class="md-raised md-primary" ng-click="showAdvanced($event)">Custom Labels</md-button></a>
-			<div class="form" ng-repeat="item in chart.series" >
-				<chart-series all-series="chart.series" series="item" ng-click="setActiveSeries($index)"></chart-series>
-		  	</div>
-		  	<span class="seriesNameError" ng-show="invalidSeriesNames()">Cannot have matching series names.</span>
-		  	<div class="addSeriesRow" layout="row">
-		  		<a title="Add Series"><md-button title="Add Series" id="addSeries" class="md-raised md-primary" ng-disabled="renderDisabled()" ng-click="addSeries()">Add Another Series</md-button></a>
-		  	</div>
-
-	  		<a title="Render"><md-button title="Render" id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary">Render</md-button></a>
-        	<a title="Save"><md-button title="Save or Update" id="save" ng-disabled="saveDisabled()" class="md-raised md-primary" ng-click="saveOrUpdateChart()"> {{ saveOrUpdateChartLabel }} </md-button></a>
-        	<a title="Clear"><md-button title="Clear" id="clear" ng-click="clearAllFields()" class="md-raised">Clear</md-button></a>
-        	
-       	</div> -->
+  		<md-button title="Render" id="renderChart" ng-disabled="renderDisabled()" ng-click="showChart()" class="md-raised md-primary customChartBtn">Render</md-button>
+  		<div class="textRight">
+	  		<md-button title="Clear" id="clear" ng-click="clearAllFields()" class="md-raised secondaryBtn">Clear</md-button>
+	       	<md-button title="Save or Update" id="save" ng-disabled="saveDisabled()" class="md-raised md-primary saveBtn" ng-click="saveOrUpdateChart()"> {{ saveOrUpdateChartLabel }} </md-button>
+       	</div>
     </md-sidenav>	    
     <md-content class="md-accl chart-view not-scrollable" flex="flex">
     	<div ng-if="isViewOnly()">
