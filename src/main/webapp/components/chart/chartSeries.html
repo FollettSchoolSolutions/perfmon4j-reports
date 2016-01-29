@@ -25,7 +25,7 @@
 		<div class="formInnerContainer"> 
 			<div ng-show="series.active">
 				<md-input-container>
-					<label class="">Series Name <span class="required">*</span></label>
+					<label class="inputHeading">Series Name <span class="required">*</span></label>
 					<input type="text" class="seriesInput" id="seriesName"  ng-model="series.name" value="" name="seriesName"/>
 					<div class="errorText" ng-show="!validateSeriesName()">
 						Invalid series name. Can't include _, #, or &.

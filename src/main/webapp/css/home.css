@@ -240,10 +240,10 @@ md-checkbox .md-label span {
 md-checkbox:hover .md-label span {
     color: #333;
 }
-md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
+/* md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
 md-input-container.md-default-theme label {
 	color: #616161;
-}
+} */
 
 a.md-button.md-default-theme.md-primary.md-raised:hover:not([disabled]), 
 a.md-button.md-default-theme.md-primary.md-fab:hover:not([disabled]), 
