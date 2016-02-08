@@ -38,10 +38,10 @@
 	  				<li ng-repeat="chart in charts" class="clearfix">
 	  					<div class="chartControls">
 							<!-- disabled icon buttons for greyed out -->
-							<a ng-if="chart.isAvailable == false" class="chartrowIconAnchorDisabled">
+							<a ng-if="chart.isAvailable == false" class="disabledIcon">
 								<i class="material-icons">mode_edit</i>
 							</a>
-							<a ng-if="chart.isAvailable == false" class="chartrowIconAnchorDisabled">
+							<a ng-if="chart.isAvailable == false" class="disabledIcon">
 								<i class="material-icons">content_copy</i>
 							</a>
 							

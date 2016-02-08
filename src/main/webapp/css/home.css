@@ -138,12 +138,15 @@ a.login i, a.logout i {
 	color: #333;
 }
 
-a.disabledLink {
+.listContainer ul li a.disabledLink,
+.listContainer ul li a.disabledLink:hover {
 	color: #616161;
 	opacity: .7;
+	cursor: default;
 }
 
-.listContainer ul li a.disabledLink:hover {
+.listContainer ul li a.disabledIcon,
+.listContainer ul li a.disabledIcon:hover {
 	color: #616161;
 	opacity: .7;
 	cursor: default;
