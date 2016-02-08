@@ -138,6 +138,17 @@ a.login i, a.logout i {
 	color: #333;
 }
 
+a.disabledLink {
+	color: #616161;
+	opacity: .7;
+}
+
+.listContainer ul li a.disabledLink:hover {
+	color: #616161;
+	opacity: .7;
+	cursor: default;
+}
+
 .publicList li, .chartList li, .datasourceList {
 	list-style: none;
 	position: relative;
