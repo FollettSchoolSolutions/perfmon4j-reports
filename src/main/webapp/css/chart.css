@@ -1,46 +1,107 @@
 #sidenav {
-	font-size: .9rem;
+	background-color: #eee;
+	border-right: 1px solid #ccc;
+	overflow-x: hidden;
+	padding: 20px 15px 0;
 }
 
-#addSeries {
-	margin-left: 20px;
-	width: 245px;
+.panelHeaders {
+	background-color: #616161;
+	font-size: 1.2rem;
+    color: #ffffff;
+    margin: 0;
+    padding: 10px 0 10px 12px;
 }
 
-.chartInput {
-	width: 250px;
-	margin-bottom: 15px;
+.panelHeaders.accordionHeader {
+	background-color: #616161;
+	font-size: 1.2rem;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    position: relative;
 }
 
-.start {
-	width: 40%;
-	margin-right: 10px;
-	margin-bottom: 10px;
+.panelHeaders.accordionHeader a {
+	display: block;
+    padding: 10px 35px 10px 2px;
+    color: #fff;
 }
 
-.from {
-	width: 120px;	
+.panelHeaders.accordionHeader a.openClose i {
+	float: left;
 }
 
-.end {
-	float: right;
-	margin-bottom: 10px;
+.panelHeaders.accordionHeader a.deleteIcon {
+	display: inline-block;
+    padding: 5px 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 4px;
+    width: 35px;
 }
 
-.to {
-	width: 120px;
+.panelHeaders.accordionHeader a div {
+	margin-left; 25px;
 }
 
-.input {
-	width: 100px;
+md-input-container label:not(.md-no-float) {
+	color: #616161;
 }
+
+md-input-container label.inputHeading:not(.md-no-float) {
+	color: #ccc;
+}
+
+
+/*  md-input-container label:not(.md-no-float) {
+	color: #616161;
+} */
+/*
+md-input-container label.inputHeading {
+	color: #ccc;
+} */
+/* md-select {
+    padding: 24px 2px 0px;
+} */
+
+/* md-input-container label.inputHeading:not(.md-no-float) {
+	color: #ccc;
+}
+ */
+md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label {
+	color: #616161;
+}
+
+.md-select-label {
+	width: 100%;
+}
+
+md-select.md-default-theme .md-select-label.md-placeholder {
+    color: rgba(0,0,0,0.8);
+    font-size: .8rem;
+}
+
+md-input-container.md-input-focused label:not(.md-no-float), 
+md-input-container.md-input-has-value label:not(.md-no-float) {
+	transform: translate3d(0px, 10px, 0px) scale(1);
+}
+
+md-input-focued label {
+	color: rgb(0, 0, 0, .26);
+}
+
 .infoIconSpanChartDate {
 	height: 17px;
 }
-.infoIconAnchorChartDate {
+a.infoIconAnchorChartDate {
 	width: 24px;
 	height: 24px;
-	margin: 22px 2px 2px;
+}
+
+a.infoIconAnchorChartDate:hover {
+	color: #333;
 }
 
 .chartSelect {
@@ -73,56 +134,15 @@
 	color: #FF0000;
 }
 
-#renderChart {
-	margin-left: 20px;
-	width: 110px;
-	margin-right: 13px;
-}
-
-#clear {
-	margin-left: 155px;
-	width: 110px;
-}
-
-#advanced {
-	margin-left: 20px;
-	width: 245px;
-	margin-bottom: 35px;
-}
-
-.tabText:hover {
-	text-decoration: none;
-}
-
-#save {
-	width: 110px;
-}
-
 .chartName {
 	text-align: center;
 	font-size: 1.2rem;
 	font-weight: bold;
 }
 
-#sidenavHeader {
-	background: #606363;
-	height: 40px;
-	width: 90%;
-	margin-left: 5%;
-	margin-top: 15px;
-	padding-left: 10px;
-	padding-top: 9px; 
-	margin-bottom: 35px;
-}
-
-.headerText {
-	font-color: #FFFFFF;
-	font-size: 1.2rem;
-}
-
 .chart-view {
 	width: 100%;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 
 .centered {
@@ -132,32 +152,78 @@
 	transform: translate(-25%, -50%);
 }
 
-.md-button {
-	min-height: 35px;
-}
-
-.inputHeading {
-	margin-left: 20px;
-}
-
-select {
-	margin-left: 20px;
-	border: 0;
-	border-radius: 3px;
-	background: transparent;
-	height: 35px;
+/* select, input {
 	border: 1px solid #bfbfbf;
+	background-color: #fff;
+	color: #333;
+} */
+
+/* select {
+	margin-left: 20px;
+	width: 100%;
+	border-radius: 3px;
+	height: 35px;
+	line-height: 35px;
+	padding: 0 6px 0 4px;
+	outline: 0;
+} */
+
+.md-sidenav-left md-input-container {
+	padding: 0;
 }
 
-option {
-	padding-bottom: 15px;
+.msgBlock {
+	position: absolute;
+	top: -39px;
+    left: 22px;
+}
+
+.systemSelect {
+	height: 200px;
+}
+
+.systemSelect option {
+	padding-bottom: 5px;
+	padding-top: 5px;
 	overflow: hidden;
 	max-width: 250px;
 }
 
-input {
+label {
+	display: block;
+	font-weight: 700;
+	font-size: 1rem;
+	margin-bottom: 5px;
+}
+
+/* input, select {
 	height: 35px;
-	margin-left: 20px;
+	line-height: 35px;
+	width: 100%;
+	padding: 0 6px;
+	font-size: .9rem;
+} */
+
+.formRow {
+	position: relative;
+} 
+
+.dateRow {
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.dateContainer {
+	width: 43%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.dateRow a {
+	position: absolute;
+    right: 3px;
+    top: 29px;
+    margin: 0;
 }
 
 .c3 svg {
@@ -165,37 +231,46 @@ input {
 	width: 100%;
 }
 
-.md-button {
-	text-transform: none;
-}
-
 .chartDiv {
-	margin-left: 25px;
 	width: 100%;
 }
 
-.btn {
-  position: fixed;
-  margin-top: 10px;
-  color: #ffffff;
-  font-size: 1.1rem;
-  background: #606363;
-  box-shadow: 0px 1px 3px #666666;
-  width: 20px;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  padding-left: 10px;
-  padding-right: 25px;
-  text-decoration: none;
-  word-break: break-all;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+.chartDiv > div {
+	padding: 0 20px;
 }
 
-.btn:hover {
-  background: #E0E0E0;
-  text-decoration: none;
-  cursor:pointer;
+.sideButton .md-primary {
+	position: fixed;
+	margin: 10px 0px 0px 0px;
+	word-break: break-all;
+	border-radius: 0 10px 10px 0;
+	font-size: 1rem;
+	letter-spacing: normal;
+	line-height: 20px;
+	min-width: 10px;
+	padding: 25px 25px 25px 10px;
+	white-space: normal;
+	width: 20px;
+}
+
+.sideButton .md-primary span {
+	word-space: normal;
+}
+
+.customChartBtn {
+	margin: 5px 0 15px;
+}
+
+.saveBtn, .secondaryBtn {
+	margin: 5px 0 15px 10px;
+}
+
+.secondaryBtn {
+	margin-left: 0;
+}
+
+a.md-button.md-default-theme.md-raised:hover:not([disabled]), .md-button.md-default-theme.md-raised:hover:not([disabled]) {
+    background-color: #eee;
 }
 
 .chartInfoDialogContent {
@@ -207,13 +282,19 @@ input {
 	margin: 0px;
 }
 
-.viewTimeDiv {
+/* .viewTimeDiv {
 	padding: 24px 0px 0px;
 }
 .viewTimeParamInput {
 	height: 20px;
 	margin: 0px 10px 0px;
+} */
+a.viewTimeSyntaxIcon {
+	position: absolute;
+	bottom: 25px;
+	right: 0;
 }
-.viewTimeSyntaxIcon {
-	margin: 2px 0px 0px;
+
+a.viewTimeSyntaxIcon:hover i{
+	color: #333;
 }

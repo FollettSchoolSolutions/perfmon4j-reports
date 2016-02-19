@@ -1,0 +1,12 @@
+<md-dialog aria-label="Confirmation" class="md-default-theme">
+	<md-dialog-content class="md-dialog-content-custom">
+		<h2 class="md-title">{{title}}</h2>
+		<p>{{content}}</p>
+	</md-dialog-content>
+	
+	<div class="md-actions" layout="row">
+		<span flex></span>
+		<md-button ng-click="answer('Cancel')" class="md-raised md-button md-default-theme"> Cancel </md-button>
+		<md-button ng-click="answer('OK')" class="md-primary md-raised"> OK </md-button>
+	</div>
+</md-dialog>

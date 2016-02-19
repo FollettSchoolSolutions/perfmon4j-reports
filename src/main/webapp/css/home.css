@@ -1,6 +1,6 @@
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
+/* .material-icons.md-36 { font-size: 36px; } */
 .material-icons.md-48 { font-size: 48px; }
 
 .clearfix:before,
@@ -10,9 +10,31 @@
   line-height: normal;
 }
 
+* {
+	outline: 0;
+}
+
 .clearfix:after {
 	clear: both;
-}   
+}
+
+img {
+	max-width: 100%;
+	height: auto;	
+}
+
+a {
+    color: #616161;
+    text-decoration: none;
+}
+
+a:hover {
+	cursor: pointer;
+}
+
+.text-right {
+	text-align: right;
+}
 
 .materialInputField {
 	padding: 2px 2px 5px;
@@ -25,193 +47,223 @@
 	padding:24px 15px;
     display: flex;
 }
-md-select {
-	padding:0;
-	padding-left: 15px;
-    display: flex;
-}
-.md-select-label {
-	min-height: 19px;
-	padding: 0;
-	line-height: 1;
-}
-
-table, th, td {
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-}
-tr:nth-child(even) {
-	background: #E0E0E0
-}
-tr:nth-child(odd) {
-	background: #FFFFFF
-}
-a {
-    color: #616161;
-}
-a:hover, a:active {
-    color: #000000; 
-}
-
-.chartrowIconAnchor {
-	display: inline-block;
-	padding: 5px 5px 2px;
-}
-.chartrowIconAnchorDisabled {
-	display: inline-block;
-	padding: 5px 5px 2px;
-	color: #999999;
-}
-.chartrowIconAnchorDisabled:hover, .chartrowIconAnchorDisabled:active {
-	color: #999999;
-}
-.chartrowLinkAnchor {
-	line-height: 32px;
-	padding: 0px 11px 0px;
-	font-weight: bold;
-	text-decoration: none;
-}
-.chartrowLinkAnchorDisabled {
-	line-height: 32px;
-	padding: 0px 11px 0px;
-	font-weight: bold;
-	text-decoration: none;
-	color: #999999;
-}
-.chartrowLinkAnchorDisabled:hover, .chartrowLinkAnchorDisabled:active {
-	text-decoration: none;
-	color: #999999;
-}
-.emptyListPlaceholder {
-	padding: 5px;
-	color: #616161;
-}
-.emptyListPlaceholderText {
-	line-height: 32px;
-	padding: 0px 11px 0px;
-	font-weight: bold;
-	text-decoration: none;
-}
-.datasourceRowText {
-	line-height: 32px;
-	padding: 0px 11px 0px;
-	font-weight: bold;
-	text-decoration: none;
-}
-.datasourceRowText:hover, .datasourceRowText:active {
-	text-decoration: none;
-	color: #616161;
-}
-.datasourceRowIconAnchor {
-	display: inline-block;
-	padding: 5px 5px 2px;
-}
-.datasourceRowIconAnchorDisabled {
-	display: inline-block;
-	padding: 5px 5px 2px;
-	color: #999999;
-}
-.datasourceRowIconAnchorDisabled:hover, .datasourceRowIconAnchorDisabled:active {
-	color: #999999;
-}
-.centeredLabelText {
-	line-height: 40px;
-	padding: 0px 11px 0px;
-	text-decoration: none;
-}
 
 .right {
 	float: right;
 }
 
-.dashboardMenu {
+md-toolbar {
+	min-height: 60px;
+	font-size: 100%;
+	padding: 5px 15px 0;
+}
+
+md-option {
+	height: 35px;
+}
+
+.logo {
+	display: block;
+	width: 100%;
+}
+
+.loginContainer {
+	position: absolute;
+	top: 18px;
+	right: 20px;
+}
+
+a.login, a.logout {
+	display: inline-block;
+}
+
+a.login i, a.logout i {
+	background: url(../images/login-icons.png) no-repeat;
+	height: 24px;
+	width: 24px;
+	display: inline-block;
+}
+
+.loginContainer a.login i {
+	background-position: 0 0;
+}
+
+.loginContainer a.login i, .loginContainer a.login span,
+.loginContainer a.logout i, .loginContainer a.logout span {
+	vertical-align: middle;
+}
+
+.loginContainer a.login:hover i {
+	background-position: -24px 0;
+}
+
+.loginContainer a.logout i {
+	background-position: 0 -24px;
+}
+
+.loginContainer a.logout:hover i {
+	background-position: -24px -24px;
+}
+
+.loginContainer a span {
+	color: #ccc;
+	font-size: .8rem;
+}
+
+.loginContainer a:hover span {
+	color: #fff;
+}
+
+.listContainer {
 	border: 1px solid black;
-	width: 40%;
-	margin-top: 20px;
-	float: left;
-	margin-left: 7%;
-	min-width: 650px;
+	margin: 0 0 20px; 
+}
+
+.listContainer ul {
+	padding: 0;
+	margin: 0; 
+}
+
+.listContainer ul li {
+	padding: 0;
+	list-style: none;
+	position: relative;
+}
+
+.listContainer ul li:nth-child(even) {
+	background: #f5f5f5
+}
+
+.listContainer ul li a:hover {
+	color: #333;
+}
+
+.listContainer ul li a.disabledLink,
+.listContainer ul li a.disabledLink:hover {
+	color: #616161;
+	opacity: .7;
+	cursor: default;
+}
+
+.listContainer ul li a.disabledIcon,
+.listContainer ul li a.disabledIcon:hover {
+	color: #616161;
+	opacity: .7;
+	cursor: default;
+}
+
+.publicList li, .chartList li, .datasourceList {
+	list-style: none;
+	position: relative;
+	font-weight: bold;
+}
+
+.publicList li a, .emptyListPlaceholder {
+	padding: 10px;
+	display: block;
+}
+
+.chartList li a {
+	padding: 10px 127px 10px 10px;
+	display: block;
+}
+
+.chartList li .chartControls, .datasourceList li .chartControls {
+	position: absolute;
+	right: 0;
+	top: 2px;
+	z-index: 2;
+}
+
+.chartList li .chartControls a, .datasourceList li .chartControls a {
+	width: 35px;
+	height: 31px;
+	display: inline-block;
+	text-align: center;
+	padding: 4px 0 0;
+}
+
+.chartList li .chartControls a:hover, 
+.datasourceList li .chartControls a:hover {
+	color: #333;
+}
+
+ul.datasourceList li {
+	padding: 10px;
+	color: #616161;
+}
+
+ul.datasourceList li .datasourceRowText{
+	color: #616161;
+	opacity: .7;
+}
+
+.datasourceList li .chartControls a.datasourceRowIconAnchorDisabled, 
+.datasourceList li .chartControls a.datasourceRowIconAnchorDisabled:hover {
+	color: #333;
+	opacity: .5;
+	cursor: default;
+}
+
+.listContainer .chartFooter {
+	text-align: right;
 }
 
 
-.chartMenu {
-	border: 1px solid black;
-	float: left;
-	width: 40%;
-	margin-left: 7%;
-	margin-top: 20px;
-	margin-bottom: 30px;
-	min-width: 650px; 
+/* Modal Styling */
+/* md-dialog {
+	max-height: 500px;
 }
-.publicChartMenu {
-	border: 1px solid black;
-	float: left;
-	width: 40%;
-	margin-left: 7%;
-	margin-top: 20px;
-	margin-bottom: 30px;
-	min-width: 650px; 
-}
-.datasourceMenu {
-	border: 1px solid black;
-	float: left;
-	width: 40%;
-	margin-top: 20px;
-	margin-left: 7%;
-	margin-bottom: 30px;
-	min-width: 650px; 
+md-dialog md-dialog-content {
+	overflow: visible;
+} */
+md-dialog.md-default-theme.md-content-overflow .md-actions, md-dialog .md-actions, .listContainer .chartFooter {
+	background-color: #f0f0f0;
+	border-top: 1px solid #ddd;
+	position: relative;
 }
 
-.innerChartMenu {
-	max-height: 650px;
-	overflow: auto;
-}
-
-.innerPublicChartMenu {
-	max-height: 650px;
-	overflow: auto;
-}
-
-.innerDataSourceMenu {
-	max-height: 650px;
-	overflow: auto;
-}
-
-#createButton {
-	float: right;
-	height: 35px;
-}
-
-#chartMenu {
-	min-height: 35px;
-	height: 35px;
-}
-
-#publicChartMenu {
-	min-height: 35px;
-	height: 35px;
-}
-
-#dashboardMenu {
-	min-height: 35px;
-	height: 35px;
-}
-
-#datasourceMenu {
-	min-height: 35px;
-	height: 35px;
-}
-
-.not-scrollable {
+/* .not-scrollable {
     overflow-y: hidden;
+} */
+.md-subheader {
+	margin: 0;
+	font-size: 20px;
 }
-
 .md-subheader .md-subheader-inner {
   background-color: #616161;
   color: #ffffff;
   margin: 0; 
+  padding: 10px 12px;
+}
+md-checkbox {
+	margin: 0;
+	height: 35px;
+	line-height: 35px;
+}
+md-checkbox .md-label {
+    font-weight: 700;
+    font-size: .9rem;
+}
+
+md-checkbox .md-label span {
+    margin-left: 5px;
+    color: #616161;
+}
+
+md-checkbox:hover .md-label span {
+    color: #333;
+}
+/* md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
+md-input-container.md-default-theme label {
+	color: #616161;
+} */
+
+a.md-button.md-default-theme.md-primary.md-raised:hover:not([disabled]), 
+a.md-button.md-default-theme.md-primary.md-fab:hover:not([disabled]), 
+.md-button.md-default-theme.md-primary.md-raised:hover:not([disabled]), 
+.md-button.md-default-theme.md-primary.md-fab:hover:not([disabled]) {
+    background-color: #888;
 }
 
 .infoIconSpan {
@@ -220,7 +272,16 @@ a:hover, a:active {
 .infoIconAnchor {
 	width: 24px;
 	height: 24px;
-	margin: 28px 2px 2px;
+	display: inline-block;
+	text-align: center;
+	line-height: 24px;
+	position: absolute;
+	top: 25px;
+	right: -5px;
+}
+
+a.infoIconAnchor:hover i {
+	color: #333;
 }
 
 body {
@@ -241,3 +302,39 @@ html, body {
 .notSuccessful {
 	color: red;
 }
+
+.responsiveRow {
+	width: 100%;
+}
+.responsiveCol {
+	padding: 0px 15px;
+	position: relative;
+}
+
+.textRight {
+	text-align: right;
+}
+.container {
+	padding: 20px 5px 0;
+	width: 100%;
+}
+
+@media (max-width: 768px) {
+	md-content a:focus, md-content option:focus {
+		background-color: #f1faff;
+	}
+	.loginContainer a:focus {
+		background-color: #666;
+	}
+	md-toolbar {
+		min-height: 97px;
+	}
+	.loginContainer {
+		position: static;
+		text-align: right;
+		padding: 5px 0 0 0;
+		margin-bottom: 5px;
+	}
+}
+
+

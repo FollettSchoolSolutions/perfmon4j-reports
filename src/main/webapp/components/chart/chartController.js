@@ -1,4 +1,4 @@
-app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartService, dataSourceService){
+app.controller('chartControl', function ($scope, $routeParams, $mdDialog, $timeout, chartService, dataSourceService){
 	$scope.pageTitle = "build a chart";
 	$scope.saveOrUpdateChartLabel = "Save";
 	$scope.saveConfirmationLabel = "saved";
@@ -16,7 +16,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 	$scope.chart = {
 			chosenDatasource : null,
 			chosenDatabase : null,
-			chartName : "Chart "+ (date.getYear() + 1900 )+"-"+ (date.getMonth()+1) +"-"+ date.getDate() +"T"+ date.getHours() +":"+ date.getMinutes(),
+			chartName : "",
 			timeStart : "now-4H",
 			timeEnd : "now",
 			publiclyVisible : false,
@@ -299,9 +299,10 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 
 			}
 			$scope.showName = true;
-			c3.generate(reportMetadata);
 			chartService.isChartLoading = false;
 			chartService.isShowable = true;
+			var chartObj = c3.generate(reportMetadata);
+			$timeout(chartObj.flush, 100);
 		})
 	};
 	
@@ -395,7 +396,7 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 			$scope.chart.series[i].active = false;
 		}
 
-		var newSeriesName = 'Series ' + (seriesCounter);
+		var newSeriesName = "";
 		var newSeries = {active: true, name: newSeriesName, secondaryAxis: false};
 		$scope.chart.series.push(newSeries);
 	}
@@ -406,14 +407,14 @@ app.controller('chartControl', function ($scope, $routeParams, $mdDialog, chartS
 				$scope.chart.series = $scope.chartToEdit.series;				
 			} else {
 				if($scope.chart.chosenDatabase != null){
-					$scope.chart.series = [{active: true, name: 'Series 1', secondaryAxis: false}];
+					$scope.chart.series = [{active: true, name: '', secondaryAxis: false}];
 					seriesCounter++;
 				}
 			}
 		} else {		
 			clearSeries();
 			if($scope.chart.chosenDatabase != null && $scope.chartToEdit == null){
-				$scope.chart.series = [{active: true, name: 'Series 1', secondaryAxis: false}];
+				$scope.chart.series = [{active: true, name: '', secondaryAxis: false}];
 				seriesCounter = 1;
 			}
 		}
