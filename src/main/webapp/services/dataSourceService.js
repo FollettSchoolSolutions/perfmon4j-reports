@@ -89,7 +89,10 @@ app.factory('dataSourceService', function($http){
 	}
 	
 	factory.editDataSource = function(dataSource){
-		return $http.put("rest/datasources/" + dataSource.id + "/" + dataSource.editName + "/" + dataSource.publiclyVisible, dataSource.URL).then(function(result) {
+		$http.put("rest/datasources/" + dataSource.id + "/" + dataSource.editName + "/" + dataSource.publiclyVisible, dataSource.URL).then(function(result) {
+			return result;
+		});
+		return $http.put("rest/charts/updateAll/" + dataSource.id, dataSource.URL).then(function(result) {
 			return result;
 		});
 	}

@@ -62,10 +62,31 @@ public class ChartService {
 		if(chart == null){
 			chart = new Chart(id, data, userID, dsID, publiclyVisible);
 		} else {
+			// UPDATE DATASOURCE HERE
+			
+			
 			chart.setData(data);
 			chart.setPubliclyVisible(publiclyVisible);
 		}
 		em.persist(chart);
+	}
+	
+	// update all chart datasource info / URLs when changing the datasource they use
+	@PUT
+	@Path("/updateAll/{dsID}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public void updateAllChartDatasourceURL(@PathParam("dsID") Integer dsID, String dsURL){
+		@SuppressWarnings("unchecked")
+		List<Chart> list = em.createNamedQuery(Chart.QUERY_FIND_ALL_BY_DS).setParameter("dataSourceID", dsID).getResultList();
+		
+		for(Chart c : list){
+			JSONObject chartJSON = new JSONObject(c.getData());
+			JSONObject dsJSON = chartJSON.getJSONObject("chosenDatasource");
+			dsJSON.put("url", dsURL);
+			c.setData(chartJSON.toString());
+			em.persist(c);
+		}
 	}
 	
 	
