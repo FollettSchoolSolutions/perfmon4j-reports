@@ -20,6 +20,9 @@
 
 package org.perfmon4jreports.app.sso.github;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 class GitHubAccessToken {
 	private String token_type;
 	private String scope;
